@@ -4,7 +4,7 @@ This is a program that calculates subset sum problem.
 
 ## Usage
 
-First, you need prepare a text file containing set of integers like this
+First, you need to prepare a text file containing a set of integers like this
 ```
 1
 2
