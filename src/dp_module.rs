@@ -54,6 +54,9 @@ pub mod dp {
     }
     
     fn rec(dp: &Vec<Vec<i32>>, a: &Vec<i32>, i: usize, j: usize, route: &mut VecDeque<i32>, answer: &mut Vec<VecDeque<i32>>){
+
+        // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
+        
         if i == 0 {
             if j == 0 {
                 answer.push(route.clone());

@@ -2,7 +2,13 @@
 name = "subset_sum"
 version = "0.1.0"
 edition = "2018"
+authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
+description = "Solves subset sum problem and return a set of decomposed integers." 
+repository = "https://github.com/europeanplaice/subset_sum"
+readme = "readme.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+categories = ["algorithms"]
+keywords = ["dynamic programming"]
 
 [dependencies]
