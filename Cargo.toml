@@ -12,3 +12,10 @@ categories = ["algorithms"]
 keywords = ["dynamic programming"]
 
 [dependencies]
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
