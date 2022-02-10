@@ -1,6 +1,6 @@
 # Subset Sum
 
-This is a program that calculates subset sum problem.
+This is a Rust implementation that calculates subset sum problem. It returns sets of integers that sum up to a target value.
 
 ## Installation
 Binary files are provided on the [Releases](https://github.com/europeanplaice/subset_sum/releases) page. When you download one of these, please add it to your PATH manually.

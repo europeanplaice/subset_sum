@@ -16,7 +16,8 @@ fn main() {
     if a.iter().min().unwrap() >= &0 {
         let b: Vec<u32> = a.iter().map(|x| *x as u32).collect();
         println!("{:?}", dp_module::dp::find_subset_fast_only_positive(&b, args[2].parse::<usize>().unwrap()));
+    } else {
+        let result = dp_module::dp::find_subset(&a, args[2].parse::<usize>().unwrap());
+        println!("{:?}", result);
     }
-    let result = dp_module::dp::find_subset(&a, args[2].parse::<usize>().unwrap());
-    println!("{:?}", result);
 }
