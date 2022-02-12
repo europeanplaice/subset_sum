@@ -51,7 +51,7 @@ pub mod dp {
         answer
     }
     
-    fn rec(dp: &Vec<Vec<i32>>, a: &Vec<u32>, i: usize, j: usize, route: &mut VecDeque<u32>, answer: &mut Vec<VecDeque<u32>>){
+    fn rec(dp: &Vec<Vec<i32>>, a: &Vec<u32>, i: usize, j: usize, route: &mut VecDeque<u32>, answer: &mut Vec<VecDeque<u32>>, a_min: &u32){
 
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
         
@@ -61,14 +61,16 @@ pub mod dp {
             }
             return;
         }
-        if dp[i-1][j] != 0 {
-            rec(dp, a, i-1, j, route, answer);
-        }
-    
-        if j as i32 - a[i-1] as i32 >= 0 && dp[i-1][j-a[i-1] as usize] != 0 {
-            route.push_front(a[i-1]);
-            rec(dp, a, i-1, j-a[i-1] as usize, route, answer);
-            route.pop_front();
+        if j as u32 >= *a_min || j as u32 == 0 {
+            if dp[i-1][j] != 0 {
+                rec(dp, a, i-1, j, route, answer, a_min);
+            }
+        
+            if j as i32 - a[i-1] as i32 >= 0 && dp[i-1][j-a[i-1] as usize] != 0 {
+                route.push_front(a[i-1]);
+                rec(dp, a, i-1, j-a[i-1] as usize, route, answer, a_min);
+                route.pop_front();
+            }
         }
     }
     
@@ -94,13 +96,23 @@ pub mod dp {
     /// output: `[[2, 3, 5], [1, 4, 5], [1, 2, 3, 4]]`
     pub fn find_subset_fast_only_positive(a: &Vec<u32>, n: usize) ->  Vec<VecDeque<u32>>
     {
+        let mut a_min = a.iter().max().unwrap();
+        for i in a{
+            if i > &0 {
+                if a_min > &i {
+                    a_min = &i
+                }
+            }
+        }
         let mut dp: Vec<Vec<i32>> = vec![vec![0; n+1]; a.len()+1];
         dp[0][0] = 1;
         for i in 0..a.len() {
             for j in 0..n+1 {
-                dp[i+1][j] += dp[i][j];
-                if j as u32 + a[i] < n as u32 + 1 {
-                    dp[i+1][j+a[i] as usize] += dp[i][j];
+                if j as u32 >= *a_min || j as u32 == 0 {
+                    dp[i+1][j] += dp[i][j];
+                    if j as u32 + a[i] < n as u32 + 1 {
+                        dp[i+1][j+a[i] as usize] += dp[i][j];
+                    }
                 }
             }   
         }
@@ -108,7 +120,8 @@ pub mod dp {
     
         let mut route: VecDeque<u32> = VecDeque::new();
         let mut answer: Vec<VecDeque<u32>> = Vec::new();
-        rec(&dp, &a, a_length, n, &mut route, &mut answer);
+
+        rec(&dp, &a, a_length, n, &mut route, &mut answer, a_min);
         answer
     }
 }
