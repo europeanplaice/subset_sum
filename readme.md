@@ -25,3 +25,21 @@ The executable's name `subset_sum.exe` would be different from your choice. Chan
 
 In this example, the output is   
 `[[1, 2], [2, -3, 4], [1, -3, 5]]`
+
+## Use in Rust
+
+`Cargo.toml`
+```
+[dependencies]
+subset_sum = "0.4.2"
+```
+
+`main.rs`
+```rust
+use subset_sum::dp::find_subset;
+
+fn main() {
+    let result = find_subset(&vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10);
+    println!("{:?}", result);
+}
+```
