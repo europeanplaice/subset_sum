@@ -28,12 +28,17 @@ pub mod dp {
     
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
     
+        // Find a subset even if an array contains negative values.
         let offset: u32 = (a.iter().min().unwrap().abs() + 1) as u32;
         let mut b: Vec<u32> = Vec::new();
         for i in a{
             b.push((i + offset as i32) as u32);
         }
         let mut answer: Vec<VecDeque<i32>> = Vec::new();
+
+        // We will transform the array into a new array whose elements are all positive.
+        // And check if the transformed sum of the result of the new array is equal to the target value.
+        // If we find the sum is the same as the target, we will return the result.
         for i in 1..a.len(){
             let result = find_subset_fast_only_positive(&b, (n + i * offset as usize) as usize);
             for res in result{
@@ -55,20 +60,28 @@ pub mod dp {
 
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
         
+        // We follow the dp table backward to find combinations of subsets.
+        // We call this function recursively twice and this means the call stack expands like a tree. 
         if i == 0 {
             if j == 0 {
+                // Only if we reach the root of the dp table, we choose the combination as an answer.
                 answer.push(route.clone());
             }
             return;
         }
+
+        // j of the range of 1 to a_min-1 must not be an element of the combination.
+        // For example, if a_min = 10, there is no way to make sum 5.
         if j as u32 >= *a_min || j as u32 == 0 {
             if dp[i-1][j] != 0 {
                 rec(dp, a, i-1, j, route, answer, a_min);
             }
         
             if j as i32 - a[i-1] as i32 >= 0 && dp[i-1][j-a[i-1] as usize] != 0 {
+                // Choose this element as a candidate for an answer.
                 route.push_front(a[i-1]);
                 rec(dp, a, i-1, j-a[i-1] as usize, route, answer, a_min);
+                // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
                 route.pop_front();
             }
         }
@@ -96,6 +109,7 @@ pub mod dp {
     /// output: `[[2, 3, 5], [1, 4, 5], [1, 2, 3, 4]]`
     pub fn find_subset_fast_only_positive(a: &Vec<u32>, n: usize) ->  Vec<VecDeque<u32>>
     {
+        // a_min is the minimum number in an except for zero.
         let mut a_min = a.iter().max().unwrap();
         for i in a{
             if i > &0 {
@@ -104,13 +118,27 @@ pub mod dp {
                 }
             }
         }
+
+        // dp is a table that stores the information of subset sum.
+        // dp[i][j] is the number of ways to make sum j with i element.
+        // We follow from the start of this table.
         let mut dp: Vec<Vec<i32>> = vec![vec![0; n+1]; a.len()+1];
         dp[0][0] = 1;
         for i in 0..a.len() {
             for j in 0..n+1 {
+
+                // j of the range of 1 to a_min-1 must be zero.
+                // For example, if a_min = 10, there is no way to make sum 5.
                 if j as u32 >= *a_min || j as u32 == 0 {
+
+                    // If we don't choose to select an element to sum, 
+                    // the ways to make a sum are the same as with the previous element.
                     dp[i+1][j] += dp[i][j];
+
+                    // Skip if j + the element is larger than the target value.
                     if j as u32 + a[i] < n as u32 + 1 {
+                        // This means we find another way to make sum j with i elements
+                        // when we choose this element as an element to sum.
                         dp[i+1][j+a[i] as usize] += dp[i][j];
                     }
                 }
@@ -138,6 +166,12 @@ mod tests {
         let result = dp::find_subset_fast_only_positive(&vec![1, 2, 3], 3);
         let route1: VecDeque<u32> = VecDeque::from(vec![1, 2]);
         let route2: VecDeque<u32> = VecDeque::from(vec![3]);
+        let answer: Vec<VecDeque<u32>> = vec![route1, route2];
+        assert_eq!(result, answer);
+
+        let result = dp::find_subset_fast_only_positive(&vec![0, 3, 5, 10], 3);
+        let route1: VecDeque<u32> = VecDeque::from(vec![3]);
+        let route2: VecDeque<u32> = VecDeque::from(vec![0, 3]);
         let answer: Vec<VecDeque<u32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
