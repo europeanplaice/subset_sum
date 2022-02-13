@@ -13,9 +13,9 @@ fn criterion_benchmark(c: &mut Criterion) {
         find_subset_fast_only_positive(&a2, 
         21)));
 
-    let d = vec![-3,  10,  56, -33,  65,  -9,   8,  72,  63,  35];
+    let d = vec![10, 20, 30, 40, 50];
     c.bench_function("find_subset_complicated", 
-        |b| b.iter(|| find_subset(&d, 7)));
+        |b| b.iter(|| find_subset(&d, 70)));
 
 }
 

@@ -83,24 +83,49 @@ pub mod dp {
         }
     }
 
-    fn filter_j_idx(n: usize, a_min: &u32) -> Vec<usize>{
+    fn filter_j_idx(n: usize, a:  &Vec<u32>) -> (Vec<usize>, u32){
+        // a_min is the minimum number in an except for zero.
+        let mut a_min = a.iter().max().unwrap();
+        let mut remainder: usize = 0;
+        for i in a{
+            if i > &0 {
+                if a_min > &i {
+                    a_min = &i
+                }
+            }
+
+            if i % 2 == 0 && remainder == 0{
+                remainder = 0;
+            } else {
+                remainder = 1;
+            }
+        }
         let mut j_indexes: Vec<usize> = vec![];
+
+        // j of the range of 1 to a_min-1 must be zero.
+        // For example, if a_min = 10, there is no way to make sum 5.
+        // Also, if j == 8 and target = 10 and a_min=5, we can't reach 10.
+        // If all the numbers are even, j should be even.
         for j in 0..n+1{
-            if (j as u32 >= *a_min && j as u32 <=  n as u32 - *a_min) || j as u32 == 0 || j == n  {
+            if (j as u32 >= *a_min && j as u32 <=  n as u32 - *a_min && j % 2 <= remainder) || j as u32 == 0 || j == n  {
                 j_indexes.push(j)
             }
         }
-        j_indexes
+        (j_indexes, *a_min)
     }
 
     #[test]
     fn test_filter_j_idx(){
-        let result = filter_j_idx(10, &3);
+        let (result, a_min) = filter_j_idx(10, &vec![3, 4, 5, 6, 7 ,8, 9, 10]);
         let answer: Vec<usize> = vec![0, 3, 4, 5, 6, 7, 10];
         assert_eq!(result, answer);
 
-        let result = filter_j_idx(5, &3);
+        let (result, a_min) = filter_j_idx(5, &vec![3, 4, 5]);
         let answer: Vec<usize> = vec![0, 5];
+        assert_eq!(result, answer);
+
+        let (result, a_min) = filter_j_idx(10, &vec![0, 2, 4, 6, 8]);
+        let answer: Vec<usize> = vec![0, 2, 4, 6, 8, 10];
         assert_eq!(result, answer);
     }
     
@@ -126,15 +151,6 @@ pub mod dp {
     /// output: `[[2, 3, 5], [1, 4, 5], [1, 2, 3, 4]]`
     pub fn find_subset_fast_only_positive(a: &Vec<u32>, n: usize) ->  Vec<VecDeque<u32>>
     {
-        // a_min is the minimum number in an except for zero.
-        let mut a_min = a.iter().max().unwrap();
-        for i in a{
-            if i > &0 {
-                if a_min > &i {
-                    a_min = &i
-                }
-            }
-        }
 
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
@@ -142,12 +158,7 @@ pub mod dp {
         let mut dp: Vec<Vec<i32>> = vec![vec![0; n+1]; a.len()+1];
         dp[0][0] = 1;
 
-        // j of the range of 1 to a_min-1 must be zero.
-        // For example, if a_min = 10, there is no way to make sum 5.
-        // Also, if j == 8 and target = 10 and a_min=5, we can't reach 10.
-        let j_indexes = filter_j_idx(n, &a_min);
-        println!("{}", a_min);
-        println!("{:?}", j_indexes);
+        let (j_indexes, a_min) = filter_j_idx(n, a);
         for i in 0..a.len() {
             for j in &j_indexes{
 
@@ -168,7 +179,7 @@ pub mod dp {
         let mut route: VecDeque<u32> = VecDeque::new();
         let mut answer: Vec<VecDeque<u32>> = Vec::new();
 
-        rec(&dp, &a, a_length, n, &mut route, &mut answer, a_min);
+        rec(&dp, &a, a_length, n, &mut route, &mut answer, &a_min);
         answer
     }
 }
