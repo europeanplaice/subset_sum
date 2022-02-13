@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.4.2"
+version = "0.4.3"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and return a set of decomposed integers." 
@@ -10,7 +10,7 @@ license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 categories = ["algorithms"]
-keywords = ["dynamic programming"]
+keywords = ["dynamic_programming", "subset_sum", "accounting"]
 
 [dependencies]
 
