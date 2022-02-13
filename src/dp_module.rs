@@ -70,21 +70,38 @@ pub mod dp {
             return;
         }
 
-        // j of the range of 1 to a_min-1 must not be an element of the combination.
-        // For example, if a_min = 10, there is no way to make sum 5.
-        if j as u32 >= *a_min || j as u32 == 0 {
-            if dp[i-1][j] != 0 {
-                rec(dp, a, i-1, j, route, answer, a_min);
-            }
-        
-            if j as i32 - a[i-1] as i32 >= 0 && dp[i-1][j-a[i-1] as usize] != 0 {
-                // Choose this element as a candidate for an answer.
-                route.push_front(a[i-1]);
-                rec(dp, a, i-1, j-a[i-1] as usize, route, answer, a_min);
-                // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
-                route.pop_front();
+        if dp[i-1][j] != 0 {
+            rec(dp, a, i-1, j, route, answer, a_min);
+        }
+    
+        if j as i32 - a[i-1] as i32 >= 0 && dp[i-1][j-a[i-1] as usize] != 0 {
+            // Choose this element as a candidate for an answer.
+            route.push_front(a[i-1]);
+            rec(dp, a, i-1, j-a[i-1] as usize, route, answer, a_min);
+            // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
+            route.pop_front();
+        }
+    }
+
+    fn filter_j_idx(n: usize, a_min: &u32) -> Vec<usize>{
+        let mut j_indexes: Vec<usize> = vec![];
+        for j in 0..n+1{
+            if (j as u32 >= *a_min && j as u32 <=  n as u32 - *a_min) || j as u32 == 0 || j == n  {
+                j_indexes.push(j)
             }
         }
+        j_indexes
+    }
+
+    #[test]
+    fn test_filter_j_idx(){
+        let result = filter_j_idx(10, &3);
+        let answer: Vec<usize> = vec![0, 3, 4, 5, 6, 7, 10];
+        assert_eq!(result, answer);
+
+        let result = filter_j_idx(5, &3);
+        let answer: Vec<usize> = vec![0, 5];
+        assert_eq!(result, answer);
     }
     
     /// Finds subsets sum of a target value. It can't accept negative values but relatively faster.
@@ -124,23 +141,25 @@ pub mod dp {
         // We follow from the start of this table.
         let mut dp: Vec<Vec<i32>> = vec![vec![0; n+1]; a.len()+1];
         dp[0][0] = 1;
+
+        // j of the range of 1 to a_min-1 must be zero.
+        // For example, if a_min = 10, there is no way to make sum 5.
+        // Also, if j == 8 and target = 10 and a_min=5, we can't reach 10.
+        let j_indexes = filter_j_idx(n, &a_min);
+        println!("{}", a_min);
+        println!("{:?}", j_indexes);
         for i in 0..a.len() {
-            for j in 0..n+1 {
+            for j in &j_indexes{
 
-                // j of the range of 1 to a_min-1 must be zero.
-                // For example, if a_min = 10, there is no way to make sum 5.
-                if j as u32 >= *a_min || j as u32 == 0 {
+                // If we don't choose to select an element to sum, 
+                // the ways to make a sum are the same as with the previous element.
+                dp[i+1][*j] += dp[i][*j];
 
-                    // If we don't choose to select an element to sum, 
-                    // the ways to make a sum are the same as with the previous element.
-                    dp[i+1][j] += dp[i][j];
-
-                    // Skip if j + the element is larger than the target value.
-                    if j as u32 + a[i] < n as u32 + 1 {
-                        // This means we find another way to make sum j with i elements
-                        // when we choose this element as an element to sum.
-                        dp[i+1][j+a[i] as usize] += dp[i][j];
-                    }
+                // Skip if j + the element is larger than the target value.
+                if *j as u32 + a[i] < n as u32 + 1 {
+                    // This means we find another way to make sum j with i elements
+                    // when we choose this element as an element to sum.
+                    dp[i+1][j+a[i] as usize] += dp[i][*j];
                 }
             }   
         }
@@ -159,6 +178,8 @@ pub mod dp {
 mod tests {
     use super::*;
     use std::collections::VecDeque;
+
+
 
     #[test]
     fn test_find_subset_fast_only_positive(){
