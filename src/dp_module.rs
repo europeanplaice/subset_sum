@@ -54,12 +54,15 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1], [-3, 4]]`
-    pub fn find_subset(a: &Vec<i32>, n: usize) -> Vec<VecDeque<i32>>{
+    pub fn find_subset(a: &Vec<i32>, n: i32) -> Vec<VecDeque<i32>>{
+
+        use std::cmp::min;
+        use std::cmp::max;
     
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
     
         // Find a subset even if an array contains negative values.
-        let offset: u32 = (a.iter().min().unwrap().abs() + 1) as u32;
+        let offset: u32 = (max(a.iter().min().unwrap().abs() + 1, min(n, 0).abs() + 1)) as u32;
         let mut b: Vec<u32> = Vec::new();
         for i in a{
             b.push((i + offset as i32) as u32);
@@ -69,8 +72,8 @@ pub mod dp {
         // We will transform the array into a new array whose elements are all positive.
         // And check if the transformed sum of the result of the new array is equal to the target value.
         // If we find the sum is the same as the target, we will return the result.
-        for i in 1..a.len(){
-            let result = find_subset_fast_only_positive(&b, (n + i * offset as usize) as usize);
+        for i in 1..a.len()+1{
+            let result = find_subset_fast_only_positive(&b, (n + i as i32 * offset as i32) as usize);
             for res in result{
                 let mut tempsum: i32 = 0;
                 let mut new_res: VecDeque<i32> = VecDeque::new();
@@ -280,6 +283,30 @@ mod tests {
         let a = vec![73209,95597,84735,40496,83553,95595,-628,201,27597,7904,98445,6241,33002,-776,-711,45552,86746,84248,66278,37475];
         let result = dp::find_subset(&a, 72782);
         let route1: VecDeque<i32> = VecDeque::from(vec![73209, -628, 201]);
+        let answer: Vec<VecDeque<i32>> = vec![route1];
+        assert_eq!(result, answer);
+
+        let a = vec![ -1, 2, 3];
+        let result = dp::find_subset(&a, -1);
+        let route1: VecDeque<i32> = VecDeque::from(vec![-1]);
+        let answer: Vec<VecDeque<i32>> = vec![route1];
+        assert_eq!(result, answer);
+
+        let a = vec![ -10, 5, -2];
+        let result = dp::find_subset(&a, -5);
+        let route1: VecDeque<i32> = VecDeque::from(vec![-10, 5]);
+        let answer: Vec<VecDeque<i32>> = vec![route1];
+        assert_eq!(result, answer);
+
+        let a = vec![-3, -5, -7];
+        let result = dp::find_subset(&a, -15);
+        let route1: VecDeque<i32> = VecDeque::from(vec![-3, -5, -7]);
+        let answer: Vec<VecDeque<i32>> = vec![route1];
+        assert_eq!(result, answer);
+
+        let a = vec![-100, 10, 20];
+        let result = dp::find_subset(&a, -70);
+        let route1: VecDeque<i32> = VecDeque::from(vec![-100, 10, 20]);
         let answer: Vec<VecDeque<i32>> = vec![route1];
         assert_eq!(result, answer);
     }
