@@ -1,4 +1,4 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{criterion_group, criterion_main, Criterion};
 use subset_sum::dp::find_subset;
 use subset_sum::dp::find_subset_fast_only_positive;
 
