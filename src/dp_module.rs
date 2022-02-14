@@ -242,86 +242,107 @@ pub mod dp {
     // }
 
 
-    fn sequence_matcher(a: &mut Vec<i32>, b: &mut Vec<i32>) -> Vec<(VecDeque<i32>, i32)>{
+    fn sequence_matcher(a: &mut Vec<i32>, b: &mut Vec<i32>, 
+            group: &mut Vec<(VecDeque<i32>, i32)>,
+            answer: &mut Vec<Vec<(VecDeque<i32>, i32)>>
+        ){
+        let c = a.extend(b.clone());
+        if a.len() == 0 && b.len() == 0 {
+            answer.push(group.clone());
+            return;
+        } 
 
-        let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
-        let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
+        let set_: Vec<VecDeque<i32>> = find_subset(&b, a[0]);
+        for set in set_ {
+            group.push((set.clone(), a[0]));
+            let i2 = a[0].clone();
+            for el in set.clone(){
+                vec_remove(b, el);
+            }
+            vec_remove(a, a[0]);
 
-        let mut i: i32 = 0;
-        loop{
-            let set_: Vec<VecDeque<i32>> = find_subset(&b, a[i as usize]);
-            for set in set_ {
-                group.push((set.clone(), a[i as usize]));
-                for el in set{
-                    vec_remove(b, el);
-                }
-                vec_remove(a, a[i as usize]);
-                i -= 1;
-                break;
-            }
-            if b.len() == 0 {
-                break;
-            }
-            i += 1;
-            if i as usize == b.len() {
-                break;
-            }
-        }
+            sequence_matcher(a, b, group, answer);
 
-        if a.len() > 0 {
-            let mut i: i32 = 0;
-            loop{
-                let set_: Vec<VecDeque<i32>> = find_subset(&a, b[i as usize]);
-                for set in set_ {
-                    group.push((set.clone(), b[i as usize]));
-                    for el in set{
-                        vec_remove(a, el);
-                    }
-                    vec_remove(b, b[i as usize]);
-                    i -= 1;
-                    break;
-                }
-                if a.len() == 0 {
-                    break;
-                }
-                i += 1;
-                if i as usize == b.len() {
-                    break;
-                }
+            for el in set.clone(){
+                b.push(el);
             }
+            a.push(i2);
         }
-        if a.len() > 0 || b.len() > 0 {
-            return Vec::new()
-        }
-        group
+    }
+
+    fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>>
+    where
+        T: Clone,
+    {
+        assert!(!v.is_empty());
+        (0..v[0].len())
+            .map(|i| v.iter().map(|inner| inner[i].clone()).collect::<Vec<T>>())
+            .collect()
     }
 
     #[test]
     fn test_sequence_matcher(){
         use std::collections::VecDeque;
 
-        let group = sequence_matcher(&mut vec![1, 6], &mut vec![1, 3, 3]);
-        assert_eq!(group, vec![(VecDeque::from(vec![1]), 1), (VecDeque::from(vec![3, 3]), 6)]);
+        let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
+        let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
 
-        let group = sequence_matcher(&mut vec![1, 10, 15], &mut vec![1, 5, 5, 5, 5, 5]);
-        assert_eq!(group, vec![
-            (VecDeque::from(vec![1]), 1), 
-            (VecDeque::from(vec![5, 5]), 10),
-            (VecDeque::from(vec![5, 5, 5]), 15),
-            ]);
+        sequence_matcher(&mut vec![1, 6], &mut vec![1, 3, 3], &mut group, &mut answer);
+        assert_eq!(answer, vec![vec![(VecDeque::from(vec![1]), 1), (VecDeque::from(vec![3, 3]), 6)]]);
 
-        let group = sequence_matcher(&mut vec![1, 1, 2], &mut vec![15, 20]);
-        assert_eq!(group, vec![]);
+        let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
+        let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
 
-        let group = sequence_matcher(&mut vec![1, 2, 3, 4, 5], &mut vec![5, 4]);
-        assert_eq!(group, vec![]);
-
-        let group = sequence_matcher(&mut vec![1, 2, 3, 4, 5], &mut vec![5, 4, 6]);
-        assert_eq!(group, vec![
-            (VecDeque::from(vec![5]), 5),
-            (VecDeque::from(vec![4]), 4), 
-            (VecDeque::from(vec![1, 2, 3]), 6),
+        sequence_matcher(&mut vec![10, 20], &mut vec![-10, 20, 16, 4], &mut group, &mut answer);
+        // let answer = transpose(answer);
+        assert_eq!(answer, vec![
+            vec![
+                (VecDeque::from(vec![-10, 20]), 10),
+                (VecDeque::from(vec![16, 4]), 20), 
+            ],
         ]);
+
+        let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
+        let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
+
+        sequence_matcher(&mut vec![-10, 22, 5, -2], &mut vec![1, 2, 3, 4, 5], &mut group, &mut answer);
+        // let answer = transpose(answer);
+        assert_eq!(answer, vec![
+            vec![
+                (VecDeque::from(vec![-10]), -10),
+                (VecDeque::from(vec![20]), 20), 
+             ],
+            vec![
+                (VecDeque::from(vec![16, 4]), 20),
+                (VecDeque::from(vec![20]), 20), 
+             ],
+        ]);
+
+        // let group = sequence_matcher(&mut vec![1, 10, 15], &mut vec![1, 5, 5, 5, 5, 5]);
+        // assert_eq!(group, vec![
+        //     (VecDeque::from(vec![1]), 1), 
+        //     (VecDeque::from(vec![5, 5]), 10),
+        //     (VecDeque::from(vec![5, 5, 5]), 15),
+        //     ]);
+
+        // let group = sequence_matcher(&mut vec![1, 1, 2], &mut vec![15, 20]);
+        // assert_eq!(group, vec![]);
+
+        // let group = sequence_matcher(&mut vec![1, 2, 3, 4, 5], &mut vec![5, 4]);
+        // assert_eq!(group, vec![]);
+
+        // let group = sequence_matcher(&mut vec![-10, 20, 16, 4], &mut vec![10, 20]);
+        // assert_eq!(group, vec![
+        //     (VecDeque::from(vec![-10, 20]), 10),
+        //     (VecDeque::from(vec![16, 4]), 20), 
+        // ]);
+
+        // let group = sequence_matcher(&mut vec![1, 2, 3, 4, 5], &mut vec![5, 4, 6]);
+        // assert_eq!(group, vec![
+        //     (VecDeque::from(vec![5]), 5),
+        //     (VecDeque::from(vec![4]), 4), 
+        //     (VecDeque::from(vec![1, 2, 3]), 6),
+        // ]);
     }
 }
 
