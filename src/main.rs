@@ -11,7 +11,7 @@ fn main() {
     let lines = io::BufReader::new(file).lines();
     let mut a: Vec<i32> = Vec::new();
     for line in lines{
-        a.push(line.unwrap().parse::<i32>().unwrap());
+        a.push(line.unwrap().trim().parse::<i32>().unwrap());
     }
     if a.iter().min().unwrap() >= &0 {
         let b: Vec<u32> = a.iter().map(|x| *x as u32).collect();
