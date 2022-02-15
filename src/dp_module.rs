@@ -246,11 +246,16 @@ pub mod dp {
             group: &mut Vec<(VecDeque<i32>, i32)>,
             answer: &mut Vec<Vec<(VecDeque<i32>, i32)>>
         ){
-        let c = a.extend(b.clone());
         if a.len() == 0 && b.len() == 0 {
             answer.push(group.clone());
             return;
         } 
+        if a.len() == 0 && b.len() > 0 {
+            return;
+        }
+        if a.len() > 0 && b.len() == 0 {
+            return;
+        }
 
         let set_: Vec<VecDeque<i32>> = find_subset(&b, a[0]);
         for set in set_ {
@@ -262,7 +267,7 @@ pub mod dp {
             vec_remove(a, a[0]);
 
             sequence_matcher(a, b, group, answer);
-
+            group.pop();
             for el in set.clone(){
                 b.push(el);
             }
@@ -305,16 +310,23 @@ pub mod dp {
         let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
         let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
 
-        sequence_matcher(&mut vec![-10, 22, 5, -2], &mut vec![1, 2, 3, 4, 5], &mut group, &mut answer);
+        sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3], &mut group, &mut answer);
         // let answer = transpose(answer);
         assert_eq!(answer, vec![
             vec![
-                (VecDeque::from(vec![-10]), -10),
-                (VecDeque::from(vec![20]), 20), 
+                (VecDeque::from(vec![3]), 3),
+                (VecDeque::from(vec![5]), 5), 
+                (VecDeque::from(vec![1, -3, 4, 5]), 7), 
              ],
             vec![
-                (VecDeque::from(vec![16, 4]), 20),
-                (VecDeque::from(vec![20]), 20), 
+                (VecDeque::from(vec![3]), 3),
+                (VecDeque::from(vec![1, 4]), 5), 
+                (VecDeque::from(vec![-3, 5, 5]), 7), 
+             ],
+            vec![
+                (VecDeque::from(vec![1, -3, 5]), 3),
+                (VecDeque::from(vec![5]), 5), 
+                (VecDeque::from(vec![4, 3]), 7), 
              ],
         ]);
 
