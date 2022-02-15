@@ -333,13 +333,12 @@ pub mod dp {
         n_max: usize
     ) -> Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>>{
 
-        use rand::thread_rng;
         use rand::seq::SliceRandom;
 
         let mut group: Vec<(VecDeque<i32>, VecDeque<i32>)> = Vec::new();
         let mut answer: Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>> = Vec::new();
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
-        for i in 0..n_max {
+        for _i in 0..n_max {
             sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, key.len(), &mut key.clone(), rng.clone());
             key.shuffle(&mut rng);
         }
@@ -354,9 +353,7 @@ pub mod dp {
             n_key: usize, len_key: usize, key_orig: &mut Vec<i32>,
             mut rng: rand::rngs::StdRng
         ){
-        use rand::thread_rng;
         use rand::seq::SliceRandom;
-        use rand::{Rng, SeedableRng};
 
         // if n_key == len_key{
         //     println!("finish n_key");

@@ -1,9 +1,9 @@
 [package]
 name = "subset_sum"
-version = "0.8.0"
+version = "0.8.1"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
-description = "Solves subset sum problem and return a set of decomposed integers." 
+description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
 repository = "https://github.com/europeanplaice/subset_sum"
 readme = "readme.md"
 license = "MIT"
