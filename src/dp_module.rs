@@ -252,43 +252,85 @@ pub mod dp {
     /// let answer = sequence_matcher(&mut vec![10, 20], &mut vec![9, 21]);
     /// assert_eq!(answer, answer_unchanged);
     /// ```
-    pub fn sequence_matcher(key: &mut Vec<i32>, targets: &mut Vec<i32>) -> Vec<Vec<(VecDeque<i32>, i32)>>{
-        let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
-        let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
-        sequence_matcher_core(key, targets, &mut group, &mut answer);
+    pub fn sequence_matcher(
+        key: &mut Vec<i32>, 
+        targets: &mut Vec<i32>, 
+        n_max: usize
+    ) -> Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>>{
+
+        use rand::thread_rng;
+        use rand::seq::SliceRandom;
+
+        let mut group: Vec<(VecDeque<i32>, VecDeque<i32>)> = Vec::new();
+        let mut answer: Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>> = Vec::new();
+        for i in 0..n_max {
+            key.shuffle(&mut thread_rng());
+            sequence_matcher_core(key, targets, &mut group, &mut answer, 1, key.len(), &mut key.clone());
+        }
+        answer.sort();
+        answer.dedup();
         answer
     }
 
     fn sequence_matcher_core(key: &mut Vec<i32>, targets: &mut Vec<i32>, 
-            group: &mut Vec<(VecDeque<i32>, i32)>,
-            answer: &mut Vec<Vec<(VecDeque<i32>, i32)>>
+            group: &mut Vec<(VecDeque<i32>, VecDeque<i32>)>,
+            answer: &mut Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>>, 
+            n_key: usize, len_key: usize, key_orig: &mut Vec<i32>
         ){
+        use rand::thread_rng;
+        use rand::seq::SliceRandom;
+
+        // if n_key == len_key{
+        //     println!("finish n_key");
+        //     return;
+        // }
+
         if key.len() == 0 && targets.len() == 0 {
             answer.push(group.clone());
             return;
         } 
-        if key.len() == 0 && targets.len() > 0 {
-            return;
+        if (key.len() == 0 && targets.len() > 0) || (key.len() > 0 && targets.len() == 0) {
+            sequence_matcher_core(key, targets, group, answer, n_key+1, len_key, key_orig);
         }
-        if key.len() > 0 && targets.len() == 0 {
+
+        if n_key > key.len(){
+            let mut new_key = key.clone();
+            new_key.shuffle(&mut thread_rng());
+            sequence_matcher_core(&mut new_key, targets, group, answer, 1, len_key, key_orig);
             return;
         }
 
-        let set_: Vec<VecDeque<i32>> = find_subset(&targets, key[0]);
+
+        let mut sum_key = 0;
+        let mut vec_key = vec![];
+        for i in 0..n_key {
+            sum_key += key[i];
+            vec_key.push(key[i].clone())
+        }
+        let set_: Vec<VecDeque<i32>> = find_subset(&targets, sum_key);
+        if set_.len() == 0 {
+            sequence_matcher_core(key, targets, group, answer, n_key+1, len_key, key_orig);
+        }
         for set in set_ {
-            group.push((set.clone(), key[0]));
-            let i2 = key[0].clone();
+            let mut _set = Vec::from(set.clone());
+            _set.sort();
+            let mut _vec_key = vec_key.clone();
+            _vec_key.sort();
+            group.push((VecDeque::from(_set), VecDeque::from(_vec_key.clone())));
             for el in set.clone(){
                 vec_remove(targets, el);
             }
-            vec_remove(key, key[0]);
-
-            sequence_matcher_core(key, targets, group, answer);
+            for i in vec_key.clone(){
+                vec_remove(key, i);
+            }
+            sequence_matcher_core(key, targets, group, answer, n_key, len_key, key_orig);
             group.pop();
             for el in set.clone(){
                 targets.push(el);
             }
-            key.push(i2);
+            for i in vec_key.clone(){
+                key.push(i);
+            }
         }
     }
 

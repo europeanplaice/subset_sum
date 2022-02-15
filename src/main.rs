@@ -21,7 +21,7 @@ fn main() {
         for line in line2{
             targets.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
-        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets);
+        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, 10);
         for elem in result{
             println!("{:?}", elem);
         }

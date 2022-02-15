@@ -13,6 +13,7 @@ categories = ["algorithms"]
 keywords = ["dynamic_programming", "subset_sum", "accounting"]
 
 [dependencies]
+rand = "0.8.5"
 
 [dev-dependencies]
 criterion = "0.3"
