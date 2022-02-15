@@ -248,43 +248,43 @@ pub mod dp {
     ///      ],
     /// ]);
     /// ```
-    pub fn sequence_matcher(a: &mut Vec<i32>, b: &mut Vec<i32>) -> Vec<Vec<(VecDeque<i32>, i32)>>{
+    pub fn sequence_matcher(key: &mut Vec<i32>, targets: &mut Vec<i32>) -> Vec<Vec<(VecDeque<i32>, i32)>>{
         let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
         let mut answer: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
-        sequence_matcher_core(a, b, &mut group, &mut answer);
+        sequence_matcher_core(key, targets, &mut group, &mut answer);
         answer
     }
 
-    fn sequence_matcher_core(a: &mut Vec<i32>, b: &mut Vec<i32>, 
+    fn sequence_matcher_core(key: &mut Vec<i32>, targets: &mut Vec<i32>, 
             group: &mut Vec<(VecDeque<i32>, i32)>,
             answer: &mut Vec<Vec<(VecDeque<i32>, i32)>>
         ){
-        if a.len() == 0 && b.len() == 0 {
+        if key.len() == 0 && targets.len() == 0 {
             answer.push(group.clone());
             return;
         } 
-        if a.len() == 0 && b.len() > 0 {
+        if key.len() == 0 && targets.len() > 0 {
             return;
         }
-        if a.len() > 0 && b.len() == 0 {
+        if key.len() > 0 && targets.len() == 0 {
             return;
         }
 
-        let set_: Vec<VecDeque<i32>> = find_subset(&b, a[0]);
+        let set_: Vec<VecDeque<i32>> = find_subset(&targets, key[0]);
         for set in set_ {
-            group.push((set.clone(), a[0]));
-            let i2 = a[0].clone();
+            group.push((set.clone(), key[0]));
+            let i2 = key[0].clone();
             for el in set.clone(){
-                vec_remove(b, el);
+                vec_remove(targets, el);
             }
-            vec_remove(a, a[0]);
+            vec_remove(key, key[0]);
 
-            sequence_matcher_core(a, b, group, answer);
+            sequence_matcher_core(key, targets, group, answer);
             group.pop();
             for el in set.clone(){
-                b.push(el);
+                targets.push(el);
             }
-            a.push(i2);
+            key.push(i2);
         }
     }
 
