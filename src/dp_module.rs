@@ -224,7 +224,9 @@ pub mod dp {
         a.remove(index);
     }
 
-    /// Finds the intergers from two vectors that sum to the same value.
+    /// Finds the integers from two vectors that sum to the same value.
+    /// This method assumes that the two vectors have One-to-Many relationships.
+    /// Each integer of the `key` vector corresponds to the multiple integers of the `value` vector.
     /// # Example
     /// ```
     /// use std::collections::VecDeque;
@@ -292,8 +294,40 @@ pub mod dp {
         }
     }
 
-
-    pub fn sequence_matcher_n2n(
+    /// Finds the integers from two vectors that sum to the same value.
+    /// This method assumes that the two vectors have Many-to-Many relationships. 
+    /// Each integer of the `key` vector corresponds to the multiple integers of the `value` vector. 
+    /// With this method, we can find multiple combinations of the integers.
+    /// # Example
+    /// 
+    /// ```rust
+    ///use std::collections::VecDeque;
+    ///use subset_sum::dp::sequence_matcher_m2m;
+    ///let answer = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10);
+    ///assert_eq!(answer[0], vec![
+    ///    (VecDeque::from(vec![20, 30, 1050, 2900]), 
+    ///     VecDeque::from(vec![4000])),
+    /// 
+    ///     (VecDeque::from(vec![80, 1950, 3980]), 
+    ///     VecDeque::from(vec![1050, 1980, 2980])),
+    /// 
+    ///     (VecDeque::from(vec![200, 3300]), 
+    ///     VecDeque::from(vec![3500])),
+    ///
+    ///    ]);
+    ///assert_eq!(answer[1], vec![
+    ///    (VecDeque::from(vec![20, 30, 1050, 2900]), 
+    ///     VecDeque::from(vec![4000])),
+    /// 
+    ///     (VecDeque::from(vec![200, 3300]), 
+    ///     VecDeque::from(vec![3500])),
+    /// 
+    ///     (VecDeque::from(vec![80, 1950, 3980]), 
+    ///     VecDeque::from(vec![1050, 1980, 2980])),
+    ///
+    ///    ]);
+    /// ```
+    pub fn sequence_matcher_m2m(
         key: &mut Vec<i32>, 
         targets: &mut Vec<i32>, 
         n_max: usize
@@ -306,7 +340,7 @@ pub mod dp {
         let mut answer: Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>> = Vec::new();
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
         for i in 0..n_max {
-            sequence_matcher_core_n2n(key, targets, &mut group, &mut answer, 1, key.len(), &mut key.clone(), rng.clone());
+            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, key.len(), &mut key.clone(), rng.clone());
             key.shuffle(&mut rng);
         }
         answer.sort();
@@ -314,7 +348,7 @@ pub mod dp {
         answer
     }
 
-    fn sequence_matcher_core_n2n(key: &mut Vec<i32>, targets: &mut Vec<i32>, 
+    fn sequence_matcher_core_m2m(key: &mut Vec<i32>, targets: &mut Vec<i32>, 
             group: &mut Vec<(VecDeque<i32>, VecDeque<i32>)>,
             answer: &mut Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>>, 
             n_key: usize, len_key: usize, key_orig: &mut Vec<i32>,
@@ -334,13 +368,13 @@ pub mod dp {
             return;
         } 
         if (key.len() == 0 && targets.len() > 0) || (key.len() > 0 && targets.len() == 0) {
-            sequence_matcher_core_n2n(key, targets, group, answer, n_key+1, len_key, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, len_key, key_orig, rng.clone());
         }
 
         if n_key > key.len(){
             let mut new_key = key.clone();
             new_key.shuffle(&mut rng);
-            sequence_matcher_core_n2n(&mut new_key, targets, group, answer, 1, len_key, key_orig, rng.clone());
+            sequence_matcher_core_m2m(&mut new_key, targets, group, answer, 1, len_key, key_orig, rng.clone());
             return;
         }
 
@@ -353,7 +387,7 @@ pub mod dp {
         }
         let set_: Vec<VecDeque<i32>> = find_subset(&targets, sum_key);
         if set_.len() == 0 {
-            sequence_matcher_core_n2n(key, targets, group, answer, n_key+1, len_key, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, len_key, key_orig, rng.clone());
         }
         for set in set_ {
             let mut _set = Vec::from(set.clone());
@@ -367,7 +401,7 @@ pub mod dp {
             for i in vec_key.clone(){
                 vec_remove(key, i);
             }
-            sequence_matcher_core_n2n(key, targets, group, answer, n_key, len_key, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key, len_key, key_orig, rng.clone());
             group.pop();
             for el in set.clone(){
                 targets.push(el);
@@ -420,14 +454,14 @@ pub mod dp {
     }    
 
     #[test]
-    fn test_sequence_matcher_n2n(){
+    fn test_sequence_matcher_m2m(){
 
-        let answer = sequence_matcher_n2n(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10);
+        let answer = sequence_matcher_m2m(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10);
         assert_eq!(answer[0], vec![
             (VecDeque::from(vec![-8, -7, 5, 11]), VecDeque::from(vec![1])),
             (VecDeque::from(vec![14]), VecDeque::from(vec![2, 3, 4, 5])),
             ]);
-        let answer = sequence_matcher_n2n(&mut vec![1000, 1100, 150, 123, 5, 10], &mut vec![2100, 273, 4, 11], 10);
+        let answer = sequence_matcher_m2m(&mut vec![1000, 1100, 150, 123, 5, 10], &mut vec![2100, 273, 4, 11], 10);
         assert_eq!(answer[0], vec![
             (VecDeque::from(vec![4, 11]), 
              VecDeque::from(vec![5, 10])),

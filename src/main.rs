@@ -21,9 +21,17 @@ fn main() {
         for line in line2{
             targets.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
-        let result = dp_module::dp::sequence_matcher_n2n(&mut key, &mut targets, 10);
-        for elem in result{
-            println!("{:?}", elem);
+        if args.len() == 4 && args[3] == "m2m"{
+            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, 10);
+            for elem in result{
+                println!("{:?}", elem);
+            }
+        } else {
+            let result = dp_module::dp::sequence_matcher(&mut key, &mut targets);
+            for elem in result{
+                println!("{:?}", elem);
+            }
+
         }
     } else {
         let mut a: Vec<i32> = Vec::new();
