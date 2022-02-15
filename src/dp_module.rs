@@ -247,6 +247,10 @@ pub mod dp {
     ///         (VecDeque::from(vec![4, 3]), 7), 
     ///      ],
     /// ]);
+    /// 
+    /// let answer_unchanged: Vec<Vec<(VecDeque<i32>, i32)>> = Vec::new();
+    /// let answer = sequence_matcher(&mut vec![10, 20], &mut vec![9, 21]);
+    /// assert_eq!(answer, answer_unchanged);
     /// ```
     pub fn sequence_matcher(key: &mut Vec<i32>, targets: &mut Vec<i32>) -> Vec<Vec<(VecDeque<i32>, i32)>>{
         let mut group: Vec<(VecDeque<i32>, i32)> = Vec::new();
