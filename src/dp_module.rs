@@ -364,7 +364,7 @@ pub mod dp {
         }
 
         if n_key > key.len(){
-            if shuffle_counter == 100 {
+            if shuffle_counter == 2 {
                 return;
             }
             let mut new_key = key.clone();
