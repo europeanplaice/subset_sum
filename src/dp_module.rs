@@ -308,22 +308,29 @@ pub mod dp {
     ///    (VecDeque::from(vec![20, 30, 1050, 2900]), 
     ///     VecDeque::from(vec![4000])),
     /// 
+    ///     (VecDeque::from(vec![200, 3300]), 
+    ///     VecDeque::from(vec![3500])),
+    /// 
     ///     (VecDeque::from(vec![80, 1950, 3980]), 
     ///     VecDeque::from(vec![1050, 1980, 2980])),
     /// 
-    ///     (VecDeque::from(vec![200, 3300]), 
-    ///     VecDeque::from(vec![3500])),
     ///
     ///    ]);
     ///assert_eq!(answer[1], vec![
-    ///    (VecDeque::from(vec![20, 30, 1050, 2900]), 
+    ///    (VecDeque::from(vec![20, 3980]), 
     ///     VecDeque::from(vec![4000])),
+    /// 
+    ///     (VecDeque::from(vec![80, 2900]), 
+    ///     VecDeque::from(vec![2980])),
+    /// 
+    ///     (VecDeque::from(vec![30, 1950]), 
+    ///     VecDeque::from(vec![1980])),
+    /// 
+    ///     (VecDeque::from(vec![1050]), 
+    ///     VecDeque::from(vec![1050])),
     /// 
     ///     (VecDeque::from(vec![200, 3300]), 
     ///     VecDeque::from(vec![3500])),
-    /// 
-    ///     (VecDeque::from(vec![80, 1950, 3980]), 
-    ///     VecDeque::from(vec![1050, 1980, 2980])),
     ///
     ///    ]);
     /// ```
@@ -339,7 +346,7 @@ pub mod dp {
         let mut answer: Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>> = Vec::new();
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
         for _i in 0..n_max {
-            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, 1, &mut key.clone(), rng.clone());
+            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, &mut key.clone());
             key.shuffle(&mut rng);
         }
         answer.sort();
@@ -350,30 +357,21 @@ pub mod dp {
     fn sequence_matcher_core_m2m(key: &mut Vec<i32>, targets: &mut Vec<i32>, 
             group: &mut Vec<(VecDeque<i32>, VecDeque<i32>)>,
             answer: &mut Vec<Vec<(VecDeque<i32>, VecDeque<i32>)>>, 
-            n_key: usize, mut shuffle_counter: usize, key_orig: &mut Vec<i32>,
-            mut rng: rand::rngs::StdRng
+            n_key: usize, key_orig: &mut Vec<i32>
         ){
-        use rand::seq::SliceRandom;
 
         if key.len() == 0 && targets.len() == 0 {
             answer.push(group.clone());
             return;
         } 
+        
         if (key.len() == 0 && targets.len() > 0) || (key.len() > 0 && targets.len() == 0) {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, shuffle_counter, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, key_orig);
         }
 
         if n_key > key.len(){
-            if shuffle_counter == 2 {
-                return;
-            }
-            let mut new_key = key.clone();
-            new_key.shuffle(&mut rng);
-            shuffle_counter += 1;
-            sequence_matcher_core_m2m(&mut new_key, targets, group, answer, 1, shuffle_counter, key_orig, rng.clone());
             return;
         }
-
 
         let mut sum_key = 0;
         let mut vec_key = vec![];
@@ -383,7 +381,7 @@ pub mod dp {
         }
         let set_: Vec<VecDeque<i32>> = find_subset(&targets, sum_key);
         if set_.len() == 0 {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, shuffle_counter, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key+1, key_orig);
         }
         for set in set_ {
             let mut _set = Vec::from(set.clone());
@@ -397,7 +395,7 @@ pub mod dp {
             for i in vec_key.clone(){
                 vec_remove(key, i);
             }
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key, shuffle_counter, key_orig, rng.clone());
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key, key_orig);
             group.pop();
             for el in set.clone(){
                 targets.push(el);
@@ -457,6 +455,7 @@ pub mod dp {
             (VecDeque::from(vec![-8, -7, 5, 11]), VecDeque::from(vec![1])),
             (VecDeque::from(vec![14]), VecDeque::from(vec![2, 3, 4, 5])),
             ]);
+    
         let answer = sequence_matcher_m2m(&mut vec![1000, 1100, 150, 123, 5, 10], &mut vec![2100, 273, 4, 11], 10);
         assert_eq!(answer[0], vec![
             (VecDeque::from(vec![4, 11]), 
@@ -472,16 +471,29 @@ pub mod dp {
         let answer = sequence_matcher_m2m(&mut vec![1000, 1100, 150, 123, 5, 10], &mut vec![1000, 1200], 10);
         assert_eq!(answer.len(), 0);
 
+        let answer = sequence_matcher_m2m(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10);
+        assert_eq!(answer[0], vec![
+            (VecDeque::from(vec![50, 4000, 5000]), 
+             VecDeque::from(vec![-950, 10000])),
+            ]);
+            
+        let answer = sequence_matcher_m2m(&mut vec![99, 68, -74, 72, -38, 22], &mut vec![36, -23, -92, 88, 67, 73], 10);
+        assert_eq!(answer[2], vec![
+            (VecDeque::from(vec![-92, 36, 67, 88]), 
+             VecDeque::from(vec![99])),
+            (VecDeque::from(vec![-23, 73]), 
+             VecDeque::from(vec![-74, -38, 22, 68, 72])),
+            ]);
+
     }
 }
 
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
     use std::collections::VecDeque;
-
-
 
     #[test]
     fn test_find_subset_fast_only_positive(){
