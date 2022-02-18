@@ -364,6 +364,10 @@ pub mod dp {
         n_key: usize,
         key_orig: &mut Vec<i32>,
     ) {
+        if key.iter().sum::<i32>() != targets.iter().sum() {
+            return;
+        }
+
         if key.len() == 0 && targets.len() == 0 {
             answer.push(group.clone());
             return;
@@ -527,6 +531,10 @@ pub mod dp {
                 ),
             ]
         );
+
+        let answer = sequence_matcher_m2m(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10);
+
+        assert_eq!(answer.len(), 0);
     }
 }
 
