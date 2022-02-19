@@ -498,7 +498,7 @@ dependencies = [
 
 [[package]]
 name = "subset_sum"
-version = "0.8.4"
+version = "0.9.0"
 dependencies = [
  "criterion",
  "rand",

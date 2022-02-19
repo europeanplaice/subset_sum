@@ -13,12 +13,14 @@ fn main() {
     if Path::new(&args[2]).exists(){
         let mut key: Vec<i32> = Vec::new();
         for line in lines{
+            // Todo: skip an empty line
             key.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
         let file = File::open(args[2].clone()).unwrap();
         let line2 = io::BufReader::new(file).lines();
         let mut targets: Vec<i32> = Vec::new();
         for line in line2{
+            // Todo: skip an empty line
             targets.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
         if args.len() == 4 && args[3] == "m2m"{

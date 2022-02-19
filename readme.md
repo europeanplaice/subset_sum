@@ -27,7 +27,7 @@ Call `subset_sum.exe num_set.txt 3`
 The executable's name `subset_sum.exe` would be different from your choice. Change this example along with your environment.
 
 In this example, the output is   
-`[[1, 2], [2, -3, 4], [1, -3, 5]]`
+`[[2, 1], [4, -3, 2], [5, -3, 1]]`
 
 ### Sequence Matcher (One-to-Many)
 
@@ -52,9 +52,9 @@ Call `subset_sum.exe key.txt targets.txt`
 
 In this example, the output is   
 ```
-[([3], 3), ([5], 5), ([1, -3, 4, 5], 7)]
-[([3], 3), ([1, 4], 5), ([-3, 5, 5], 7)]
-[([1, -3, 5], 3), ([5], 5), ([4, 3], 7)]
+[([3], 3), ([5], 5), ([5, 4, -3, 1], 7)]
+[([3], 3), ([4, 1], 5), ([5, 5, -3], 7)]
+[([5, -3, 1], 3), ([5], 5), ([3, 4], 7)]
 ```
 
 ### Sequence Matcher (Many-to-Many)
@@ -117,13 +117,13 @@ subset_sum = "0.8.0"
 use subset_sum::dp::find_subset;
 
 fn main() {
-    let result = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3]);
+    let result = find_subset(&mut vec![1, 2, 3, 4, 5], 6);
     println!("{:?}", result);
 }
 ```
 Output
 ```
-[[-8, -10]]
+[[3, 2, 1], [4, 2], [5, 1]]
 ```
 ### Sequence Matcher (One-to-Many)
 `main.rs`
@@ -138,9 +138,9 @@ fn main() {
 Output
 ```
 [
- [([3], 3), ([5], 5), ([1, -3, 4, 5], 7)], 
- [([3], 3), ([1, 4], 5), ([-3, 5, 5], 7)], 
- [([1, -3, 5], 3), ([5], 5), ([4, 3], 7)]
+[([3], 3), ([5], 5), ([5, 4, -3, 1], 7)]
+[([3], 3), ([4, 1], 5), ([5, 5, -3], 7)]
+[([5, -3, 1], 3), ([5], 5), ([3, 4], 7)]
 ]
 ```
 ### Sequence Matcher (Many-to-Many)
