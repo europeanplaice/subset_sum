@@ -99,6 +99,21 @@ In this example, the output is
 [([1050], [1050]), ([30, 1950], [1980]), ([20, 3980], [4000]), ([80, 2900], [2980]), ([200, 3300], [3500])]
 ```
 There are a lot of combinations!
+
+## Use in Python
+### installation
+```
+pip install subset_sum
+```
+### Usage
+```python
+import subset_sum_py
+print(subset_sum_py.find_subset([1, 2, 3], 2))
+print(subset_sum_py.find_subset_fast_only_positive([1, 2, 3], 2))
+print(subset_sum_py.sequence_matcher([1, 2, 3], [1, 2, 3]))
+print(subset_sum_py.sequence_matcher_m2m([1, 2, 3], [1, 2, 3]))
+```
+
 ## Use in Rust
 
 `Cargo.toml`

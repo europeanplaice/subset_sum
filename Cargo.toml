@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.9.0"
+version = "0.10.0"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
@@ -17,6 +17,14 @@ rand = "0.8.5"
 
 [dev-dependencies]
 criterion = "0.3"
+
+[lib]
+name = "subset_sum_py"
+crate-type = ["cdylib"]
+
+[dependencies.pyo3]
+version = "0.15.1"
+features = ["extension-module"]
 
 [[bench]]
 name = "my_benchmark"
