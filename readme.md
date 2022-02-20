@@ -1,6 +1,8 @@
-# Subset Sum
+# Subset Sum(dpss)
 
-This is a Rust implementation that calculates subset sum problem. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
+This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
+
+`dpss` is short for `dynamic programming subset sum`.
 
 ## Installation
 Binary files are provided on the [Releases](https://github.com/europeanplaice/subset_sum/releases) page. When you download one of these, please add it to your PATH manually.
@@ -103,15 +105,15 @@ There are a lot of combinations!
 ## Use in Python
 ### installation
 ```
-pip install subset_sum
+pip install dpss
 ```
 ### Usage
 ```python
-import subset_sum_py
-print(subset_sum_py.find_subset([1, 2, 3], 2))
-print(subset_sum_py.find_subset_fast_only_positive([1, 2, 3], 2))
-print(subset_sum_py.sequence_matcher([1, 2, 3], [1, 2, 3]))
-print(subset_sum_py.sequence_matcher_m2m([1, 2, 3], [1, 2, 3]))
+import dpss
+print(dpss.find_subset([1, 2, 3], 2))
+print(dpss.find_subset_fast_only_positive([1, 2, 3], 2))
+print(dpss.sequence_matcher([1, 2, 3], [1, 2, 3]))
+print(dpss.sequence_matcher_m2m([1, 2, 3], [1, 2, 3]))
 ```
 
 ## Use in Rust

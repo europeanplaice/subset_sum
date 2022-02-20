@@ -25,7 +25,7 @@ fn sequence_matcher_m2m(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Ve
 }
 
 #[pymodule]
-fn subset_sum_py(_py: Python, m: &PyModule) -> PyResult<()> {
+fn dpss(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(find_subset, m)?)?;
     m.add_function(wrap_pyfunction!(sequence_matcher, m)?)?;
     m.add_function(wrap_pyfunction!(sequence_matcher_m2m, m)?)?;
