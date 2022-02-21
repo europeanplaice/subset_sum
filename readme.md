@@ -2,7 +2,19 @@
 
 This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
 
+Python implementation is also [available](#python).
+
 `dpss` is short for `dynamic programming subset sum`.
+
+## Links
+
+|Name|URL|
+|--|--|
+|github|https://github.com/europeanplaice/subset_sum|
+|crates.io|https://crates.io/crates/subset_sum|
+|docs.rs|https://docs.rs/subset_sum/latest/dpss/|
+|pypi|https://pypi.org/project/dpss/|
+
 
 ## Installation
 Binary files are provided on the [Releases](https://github.com/europeanplaice/subset_sum/releases) page. When you download one of these, please add it to your PATH manually.
@@ -102,7 +114,7 @@ In this example, the output is
 ```
 There are a lot of combinations!
 
-## Use in Python
+## <a id="python"></a>Use in Python
 ### installation
 ```
 pip install dpss
