@@ -32,9 +32,9 @@ fn sequence_matcher(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Vec<Ve
 /// With this method, we can find multiple combinations of the integers.
 #[pyfunction]
 #[pyo3(text_signature = "(key, targets, /)")]
-fn sequence_matcher_m2m(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Vec<Vec<(Vec<i32>, i32)>>> {
+fn sequence_matcher_m2m(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher(&mut key, &mut targets))
+    Ok(dp::sequence_matcher_m2m(&mut key, &mut targets, 10))
 }
 
 #[pymodule]

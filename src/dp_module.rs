@@ -346,6 +346,10 @@ pub mod dp {
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::new();
         let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::new();
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
+        if key.iter().sum::<i32>() != targets.iter().sum() {
+            println!("The sum of the key must be equal to the sum of the targets.");
+            return answer;
+        }
         for _i in 0..n_max {
             sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, &mut key.clone());
             key.shuffle(&mut rng);
