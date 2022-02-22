@@ -1,5 +1,11 @@
 # Subset Sum(dpss)
 
+[![Downloads](https://static.pepy.tech/personalized-badge/dpss?period=month&units=international_system&left_color=grey&right_color=brightgreen&left_text=PyPI%20Downloads)](https://pepy.tech/project/dpss)
+![PyPI - Downloads](https://img.shields.io/pypi/dd/dpss?label=PyPI%20Downloads%20%28Without%20Mirrors%29)
+![Crates.io](https://img.shields.io/crates/d/subset_sum?label=crates.io%20Downloads)
+![Crates.io (recent)](https://img.shields.io/crates/dr/subset_sum?label=crates.io%20Downloads%20%28recent%29)
+![GitHub all releases](https://img.shields.io/github/downloads/europeanplaice/subset_sum/total?label=GitHub%20releases%20Downloads)
+
 This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
 
 Python implementation is also [available](#python).
