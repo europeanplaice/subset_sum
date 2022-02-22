@@ -21,10 +21,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
-    - name: Create Env
-      run: |
-        python -m venv env
-        source ./env/bin/activate
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -37,9 +33,10 @@ jobs:
         flake8 python/ --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 python/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Develop with maturin
+    - name: maturin build
       run: |
-        maturin develop
+        maturin build
+        pip install --no-index --find-links target/wheels dpss   
     - name: Test with pytest
       run: |
         pytest
