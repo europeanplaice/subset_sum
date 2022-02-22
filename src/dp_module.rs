@@ -54,32 +54,47 @@ pub mod dp {
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
-        let offset: u32 = (max(a.iter().min().unwrap().abs() + 1, min(n, 0).abs() + 1)) as u32;
-        let mut b: Vec<u32> = Vec::new();
-        for i in a {
-            b.push((i + offset as i32) as u32);
-        }
-        let mut answer: Vec<Vec<i32>> = Vec::new();
-
-        // We will transform the array into a new array whose elements are all positive.
-        // And check if the transformed sum of the result of the new array is equal to the target value.
-        // If we find the sum is the same as the target, we will return the result.
-        for i in 1..a.len() + 1 {
-            let result =
-                find_subset_fast_only_positive(&b, (n + i as i32 * offset as i32) as usize);
-            for res in result {
-                let mut tempsum: i32 = 0;
-                let mut new_res: Vec<i32> = Vec::new();
-                for el in res {
-                    tempsum += el as i32 - offset as i32;
-                    new_res.push(el as i32 - offset as i32);
+        let mut b: Vec<u32> = Vec::with_capacity(a.len());
+        let mut answer: Vec<Vec<i32>> = Vec::with_capacity(a.len());
+        if a.iter().min().unwrap() > &0 && n > 0 {
+            for i in a {
+                b.push(*i as u32);
+            }
+            let result = find_subset_fast_only_positive(&b, n as usize);
+            for i in result {
+                let mut tempvec = Vec::with_capacity(i.len());
+                for j in i {
+                    tempvec.push(j as i32);
                 }
-                if tempsum == n as i32 {
-                    answer.push(new_res);
+                answer.push(tempvec)
+            }
+            return answer;
+        } else {
+            let offset: u32 = (max(a.iter().min().unwrap().abs() + 1, min(n, 0).abs() + 1)) as u32;
+            for i in a {
+                b.push((i + offset as i32) as u32);
+            }
+    
+            // We will transform the array into a new array whose elements are all positive.
+            // And check if the transformed sum of the result of the new array is equal to the target value.
+            // If we find the sum is the same as the target, we will return the result.
+            for i in 1..a.len() + 1 {
+                let result =
+                    find_subset_fast_only_positive(&b, (n + i as i32 * offset as i32) as usize);
+                for res in result {
+                    let mut tempsum: i32 = 0;
+                    let mut new_res: Vec<i32> = Vec::new();
+                    for el in res {
+                        tempsum += el as i32 - offset as i32;
+                        new_res.push(el as i32 - offset as i32);
+                    }
+                    if tempsum == n as i32 {
+                        answer.push(new_res);
+                    }
                 }
             }
-        }
-        answer
+            return answer;
+        };
     }
 
     fn rec(
@@ -209,8 +224,8 @@ pub mod dp {
             }
         }
         let a_length: usize = a.len();
-        let mut route: Vec<u32> = Vec::new();
-        let mut answer: Vec<Vec<u32>> = Vec::new();
+        let mut route: Vec<u32> = Vec::with_capacity(a_length);
+        let mut answer: Vec<Vec<u32>> = Vec::with_capacity(a_length);
 
         rec(&dp, &a, a_length, n, &mut route, &mut answer, &a_min);
         answer
@@ -258,6 +273,9 @@ pub mod dp {
         let mut group: Vec<(Vec<i32>, i32)> = Vec::new();
         let mut answer: Vec<Vec<(Vec<i32>, i32)>> = Vec::new();
         sequence_matcher_core(key, targets, &mut group, &mut answer);
+        if answer.len() == 0 {
+            println!("Can't find any combination.");
+        }
         answer
     }
 
@@ -344,7 +362,7 @@ pub mod dp {
         use rand::seq::SliceRandom;
 
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::new();
-        let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::new();
+        let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::with_capacity(n_max);
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
         if key.iter().sum::<i32>() != targets.iter().sum() {
             println!("The sum of the key must be equal to the sum of the targets.");
@@ -356,6 +374,9 @@ pub mod dp {
         }
         answer.sort();
         answer.dedup();
+        if answer.len() == 0 {
+            println!("Can't find any combination.");
+        }
         answer
     }
 
@@ -525,17 +546,17 @@ mod tests {
     }
 
     #[test]
-    fn test_find_test() {
+    fn test_find_subset() {
         let result = dp::find_subset(&vec![1, 2, 3], 3);
-        let route1: Vec<i32> = vec![3];
-        let route2: Vec<i32> = vec![2, 1];
+        let route1: Vec<i32> = vec![2, 1];
+        let route2: Vec<i32> = vec![3];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
         let result = dp::find_subset(&vec![1, 2, 3, 4, 5], 10);
-        let route1: Vec<i32> = vec![5, 3, 2];
-        let route2: Vec<i32> = vec![5, 4, 1];
-        let route3: Vec<i32> = vec![4, 3, 2, 1];
+        let route1: Vec<i32> = vec![4, 3, 2, 1];
+        let route2: Vec<i32> = vec![5, 3, 2];
+        let route3: Vec<i32> = vec![5, 4, 1];
         let answer: Vec<Vec<i32>> = vec![route1, route2, route3];
         assert_eq!(result, answer);
 

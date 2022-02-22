@@ -2,7 +2,7 @@ import dpss
 
 
 def test_find_subset():
-    assert dpss.find_subset([1, 2, 3, 4, 5], 6) == [[4, 2], [5, 1], [3, 2, 1]]
+    assert dpss.find_subset([1, 2, 3, 4, 5], 6) == [[3, 2, 1], [4, 2], [5, 1]]
 
 
 def test_find_subset_fast_only_positive():
