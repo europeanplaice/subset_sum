@@ -56,7 +56,7 @@ pub mod dp {
         // Find a subset even if an array contains negative values.
         let mut b: Vec<u32> = Vec::with_capacity(a.len());
         let mut answer: Vec<Vec<i32>> = Vec::with_capacity(a.len());
-        if a.iter().min().unwrap() > &0 && n > 0 {
+        if a.iter().min().unwrap() >= &0 && n > 0 {
             for i in a {
                 b.push(*i as u32);
             }
@@ -83,7 +83,7 @@ pub mod dp {
                     find_subset_fast_only_positive(&b, (n + i as i32 * offset as i32) as usize);
                 for res in result {
                     let mut tempsum: i32 = 0;
-                    let mut new_res: Vec<i32> = Vec::new();
+                    let mut new_res: Vec<i32> = Vec::with_capacity(res.len());
                     for el in res {
                         tempsum += el as i32 - offset as i32;
                         new_res.push(el as i32 - offset as i32);
@@ -133,7 +133,7 @@ pub mod dp {
     fn filter_j_idx(n: usize, a: &Vec<u32>) -> (Vec<usize>, u32) {
         // a_min is the minimum number in an except for zero.
         let mut a_min = a.iter().max().unwrap();
-        let mut a_no_zero: Vec<u32> = vec![];
+        let mut a_no_zero: Vec<u32> = Vec::with_capacity(a.len());
         for i in a {
             if i > &0 {
                 if a_min > &i {
@@ -142,7 +142,7 @@ pub mod dp {
                 a_no_zero.push(*i);
             }
         }
-        let mut j_indexes: Vec<usize> = vec![];
+        let mut j_indexes: Vec<usize> = Vec::with_capacity(n+1);
         let gcd = gcd_multi(a_no_zero);
         // j of the range of 1 to a_min-1 must be zero.
         // For example, if a_min = 10, there is no way to make sum 5.
@@ -270,8 +270,8 @@ pub mod dp {
         key: &mut Vec<i32>,
         targets: &mut Vec<i32>,
     ) -> Vec<Vec<(Vec<i32>, i32)>> {
-        let mut group: Vec<(Vec<i32>, i32)> = Vec::new();
-        let mut answer: Vec<Vec<(Vec<i32>, i32)>> = Vec::new();
+        let mut group: Vec<(Vec<i32>, i32)> = Vec::with_capacity(targets.len());
+        let mut answer: Vec<Vec<(Vec<i32>, i32)>> = Vec::with_capacity(targets.len());
         sequence_matcher_core(key, targets, &mut group, &mut answer);
         if answer.len() == 0 {
             println!("Can't find any combination.");
@@ -361,7 +361,7 @@ pub mod dp {
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
         use rand::seq::SliceRandom;
 
-        let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::new();
+        let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
         let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::with_capacity(n_max);
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
         if key.iter().sum::<i32>() != targets.iter().sum() {
@@ -369,7 +369,7 @@ pub mod dp {
             return answer;
         }
         for _i in 0..n_max {
-            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1, &mut key.clone());
+            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1);
             key.shuffle(&mut rng);
         }
         answer.sort();
@@ -386,7 +386,6 @@ pub mod dp {
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
         answer: &mut Vec<Vec<(Vec<i32>, Vec<i32>)>>,
         n_key: usize,
-        key_orig: &mut Vec<i32>,
     ) {
         if key.iter().sum::<i32>() != targets.iter().sum() {
             return;
@@ -397,7 +396,7 @@ pub mod dp {
             return;
         }
         if (key.len() == 0 && targets.len() > 0) || (key.len() > 0 && targets.len() == 0) {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1, key_orig);
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1);
         }
 
         if n_key > key.len() {
@@ -412,7 +411,7 @@ pub mod dp {
         }
         let set_: Vec<Vec<i32>> = find_subset(&targets, sum_key);
         if set_.len() == 0 {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1, key_orig);
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1);
         }
         for set in set_ {
             let mut _set = Vec::from(set.clone());
@@ -426,7 +425,7 @@ pub mod dp {
             for i in vec_key.clone() {
                 vec_remove(key, i);
             }
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key, key_orig);
+            sequence_matcher_core_m2m(key, targets, group, answer, n_key);
             group.pop();
             for el in set.clone() {
                 targets.push(el);
@@ -443,7 +442,6 @@ pub mod dp {
         assert_eq!(answer, vec![vec![(vec![1], 1), (vec![3, 3], 6)]]);
 
         let answer = sequence_matcher(&mut vec![10, 20], &mut vec![-10, 20, 16, 4]);
-        // let answer = transpose(answer);
         assert_eq!(answer, vec![vec![(vec![20, -10], 10), (vec![4, 16], 20),],]);
 
         let answer_unchanged: Vec<Vec<(Vec<i32>, i32)>> = Vec::new();
