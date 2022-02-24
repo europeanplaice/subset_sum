@@ -5,10 +5,23 @@
 [![Crates.io](https://img.shields.io/crates/d/subset_sum?label=crates.io%20Downloads)](https://crates.io/crates/subset_sum)
 [![Crates.io (recent)](https://img.shields.io/crates/dr/subset_sum?label=crates.io%20Downloads%20%28recent%29)](https://crates.io/crates/subset_sum)
 [![GitHub all releases](https://img.shields.io/github/downloads/europeanplaice/subset_sum/total?label=GitHub%20releases%20Downloads)](https://tooomm.github.io/github-release-stats/?username=europeanplaice&repository=subset_sum)
+[![GitHub Repo stars](https://img.shields.io/github/stars/europeanplaice/subset_sum?style=social)](https://github.com/europeanplaice/subset_sum)
 
 This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
 
-Python implementation is also [available](#python).
+There are three ways to use this program.
+* [CLI](#CLI)
+* [Rust](#rust)
+* [Python](#python)
+
+And it has three methods.
+
+* `find_subset`  
+    * It finds a subset from an array.
+* `Sequence Matcher (One-to-Many)`
+    * It finds One-to-Many relationships with two arrays.
+* `Sequence Matcher (Many-to-Many)`
+    * It finds Many-to-Many relationships with two arrays.
 
 `dpss` is short for `dynamic programming subset sum`.
 
@@ -21,6 +34,7 @@ Python implementation is also [available](#python).
 |docs.rs|https://docs.rs/subset_sum/latest/dpss/|
 |pypi|https://pypi.org/project/dpss/|
 
+## <a id="CLI"></a>CLI
 
 ## Installation
 Binary files are provided on the [Releases](https://github.com/europeanplaice/subset_sum/releases) page. When you download one of these, please add it to your PATH manually.
@@ -79,7 +93,7 @@ In this example, the output is
 
 ### Sequence Matcher (Many-to-Many)
 
-`key.txt`
+`arr1.txt`
 ```
 1980
 2980
@@ -88,7 +102,7 @@ In this example, the output is
 1050
 ```
 
-`targets.txt`
+`arr2.txt`
 ```
 1950
 2900
@@ -101,7 +115,7 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe key.txt targets.txt m2m`
+Call `subset_sum.exe arr1.txt arr2.txt m2m`
 
 In this example, the output is   
 ```
@@ -144,19 +158,17 @@ print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30,
 >>>[[([20, 30, 1050, 2900], [4000]), ([200, 3300], [3500]), ([80, 1950, 3980], [1050, 1980, 2980])], [([20, 3980], [4000]), ([80, 2900], [2980]), ([30, 1950], [1980]), ([1050], [1050]), ([200, 3300], [3500])], [([20, 3980], [4000]), ([80, 2900], [2980]), ([1050], [1050]), ([30, 1950], [1980]), ([200, 3300], [3500])], [([20, 3980], [4000]), ([200, 3300], [3500]), ([80, 2900], [2980]), ([1050], [1050]), ([30, 1950], [1980])], [([30, 1950], [1980]), ([80, 2900], [2980]), ([20, 3980], [4000]), ([200, 3300], [3500]), ([1050], [1050])], [([30, 1950], [1980]), ([80, 2900], [2980]), ([200, 3300], [3500]), ([20, 3980], [4000]), ([1050], [1050])], [([30, 1950], [1980]), ([80, 2900], [2980]), ([1050], [1050]), ([20, 3980], [4000]), ([200, 3300], [3500])], [([80, 2900], [2980]), ([20, 3980], [4000]), ([1050], [1050]), ([200, 3300], [3500]), ([30, 1950], [1980])], [([80, 2900], [2980]), ([1050], [1050]), ([30, 1950], [1980]), ([20, 3980], [4000]), ([200, 3300], [3500])], [([200, 3300], [3500]), ([20, 30, 1050, 2900], [4000]), ([80, 1950, 3980], [1050, 1980, 2980])], [([200, 3300], [3500]), ([20, 3980], [4000]), ([80, 2900], [2980]), ([30, 1950], [1980]), ([1050], [1050])], [([1050], [1050]), ([30, 1950], [1980]), ([20, 3980], [4000]), ([80, 2900], [2980]), ([200, 3300], [3500])]]
 ```
 
-## Use in Rust
+## <a id="rust"></a>Use in Rust
+
+Please check https://crates.io/crates/subset_sum.
 
 `Cargo.toml`
 ```
 [dependencies]
 subset_sum = "(version)"
 ```
-Example
-```
-subset_sum = "0.8.0"
-```
 
-### Subset sum
+### Find subset
 `main.rs`
 ```rust
 use subset_sum::dp::find_subset;

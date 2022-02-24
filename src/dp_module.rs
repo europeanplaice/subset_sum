@@ -34,8 +34,8 @@ pub mod dp {
     /// ```
     ///
     /// use subset_sum::dp::find_subset;
-    /// let a = vec![-1, -3, -2, 6, 12, 48];
-    /// let result = find_subset(&a, 0);
+    /// let arr = vec![-1, -3, -2, 6, 12, 48];
+    /// let result = find_subset(&arr, 0);
     /// let route1: Vec<i32> = vec![6, -2, -3, -1];
     /// let answer: Vec<Vec<i32>> = vec![route1];
     /// assert_eq!(result, answer);
@@ -49,18 +49,18 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1], [4, -3]]`
-    pub fn find_subset(a: &Vec<i32>, n: i32) -> Vec<Vec<i32>> {
+    pub fn find_subset(arr: &Vec<i32>, value: i32) -> Vec<Vec<i32>> {
         use std::cmp::max;
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
-        let mut b: Vec<u32> = Vec::with_capacity(a.len());
-        let mut answer: Vec<Vec<i32>> = Vec::with_capacity(a.len());
-        if a.iter().min().unwrap() >= &0 && n > 0 {
-            for i in a {
+        let mut b: Vec<u32> = Vec::with_capacity(arr.len());
+        let mut answer: Vec<Vec<i32>> = Vec::with_capacity(arr.len());
+        if arr.iter().min().unwrap() >= &0 && value > 0 {
+            for i in arr {
                 b.push(*i as u32);
             }
-            let result = find_subset_fast_only_positive(&b, n as usize);
+            let result = find_subset_fast_only_positive(&b, value as usize);
             for i in result {
                 let mut tempvec = Vec::with_capacity(i.len());
                 for j in i {
@@ -70,17 +70,17 @@ pub mod dp {
             }
             return answer;
         } else {
-            let offset: u32 = (max(a.iter().min().unwrap().abs() + 1, min(n, 0).abs() + 1)) as u32;
-            for i in a {
+            let offset: u32 = (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
+            for i in arr {
                 b.push((i + offset as i32) as u32);
             }
     
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
-            for i in 1..a.len() + 1 {
+            for i in 1..arr.len() + 1 {
                 let result =
-                    find_subset_fast_only_positive(&b, (n + i as i32 * offset as i32) as usize);
+                    find_subset_fast_only_positive(&b, (value + i as i32 * offset as i32) as usize);
                 for res in result {
                     let mut tempsum: i32 = 0;
                     let mut new_res: Vec<i32> = Vec::with_capacity(res.len());
@@ -88,7 +88,7 @@ pub mod dp {
                         tempsum += el as i32 - offset as i32;
                         new_res.push(el as i32 - offset as i32);
                     }
-                    if tempsum == n as i32 {
+                    if tempsum == value as i32 {
                         answer.push(new_res);
                     }
                 }
@@ -99,7 +99,7 @@ pub mod dp {
 
     fn rec(
         dp: &Vec<Vec<i32>>,
-        a: &Vec<u32>,
+        arr: &Vec<u32>,
         i: usize,
         j: usize,
         route: &mut Vec<u32>,
@@ -118,23 +118,23 @@ pub mod dp {
         }
 
         if dp[i - 1][j] != 0 {
-            rec(dp, a, i - 1, j, route, answer, a_min);
+            rec(dp, arr, i - 1, j, route, answer, a_min);
         }
 
-        if j as i32 - a[i - 1] as i32 >= 0 && dp[i - 1][j - a[i - 1] as usize] != 0 {
-            // Choose this element as a candidate for an answer.
-            route.push(a[i - 1]);
-            rec(dp, a, i - 1, j - a[i - 1] as usize, route, answer, a_min);
+        if j as i32 - arr[i - 1] as i32 >= 0 && dp[i - 1][j - arr[i - 1] as usize] != 0 {
+            // Choose this element as arr candidate for an answer.
+            route.push(arr[i - 1]);
+            rec(dp, arr, i - 1, j - arr[i - 1] as usize, route, answer, a_min);
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
         }
     }
 
-    fn filter_j_idx(n: usize, a: &Vec<u32>) -> (Vec<usize>, u32) {
+    fn filter_j_idx(value: usize, arr: &Vec<u32>) -> (Vec<usize>, u32) {
         // a_min is the minimum number in an except for zero.
-        let mut a_min = a.iter().max().unwrap();
-        let mut a_no_zero: Vec<u32> = Vec::with_capacity(a.len());
-        for i in a {
+        let mut a_min = arr.iter().max().unwrap();
+        let mut a_no_zero: Vec<u32> = Vec::with_capacity(arr.len());
+        for i in arr {
             if i > &0 {
                 if a_min > &i {
                     a_min = &i
@@ -142,16 +142,16 @@ pub mod dp {
                 a_no_zero.push(*i);
             }
         }
-        let mut j_indexes: Vec<usize> = Vec::with_capacity(n+1);
+        let mut j_indexes: Vec<usize> = Vec::with_capacity(value+1);
         let gcd = gcd_multi(a_no_zero);
         // j of the range of 1 to a_min-1 must be zero.
         // For example, if a_min = 10, there is no way to make sum 5.
         // Also, if j == 8 and target = 10 and a_min=5, we can't reach 10.
         // If all the numbers are even, j should be even.
-        for j in 0..n + 1 {
-            if (j as u32 >= *a_min && j as u32 <= n as u32 - *a_min && j as u32 % gcd == 0)
+        for j in 0..value + 1 {
+            if (j as u32 >= *a_min && j as u32 <= value as u32 - *a_min && j as u32 % gcd == 0)
                 || j as u32 == 0
-                || j == n
+                || j == value
             {
                 j_indexes.push(j)
             }
@@ -201,39 +201,39 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[5, 3, 2], [5, 4, 1], [4, 3, 2, 1]]`
-    pub fn find_subset_fast_only_positive(a: &Vec<u32>, n: usize) -> Vec<Vec<u32>> {
+    pub fn find_subset_fast_only_positive(arr: &Vec<u32>, value: usize) -> Vec<Vec<u32>> {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
-        let mut dp: Vec<Vec<i32>> = vec![vec![0; n + 1]; a.len() + 1];
+        let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
         dp[0][0] = 1;
 
-        let (j_indexes, a_min) = filter_j_idx(n, a);
-        for i in 0..a.len() {
+        let (j_indexes, a_min) = filter_j_idx(value, arr);
+        for i in 0..arr.len() {
             for j in &j_indexes {
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
                 dp[i + 1][*j] += dp[i][*j];
 
                 // Skip if j + the element is larger than the target value.
-                if *j as u32 + a[i] < n as u32 + 1 {
+                if *j as u32 + arr[i] < value as u32 + 1 {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
-                    dp[i + 1][j + a[i] as usize] += dp[i][*j];
+                    dp[i + 1][j + arr[i] as usize] += dp[i][*j];
                 }
             }
         }
-        let a_length: usize = a.len();
+        let a_length: usize = arr.len();
         let mut route: Vec<u32> = Vec::with_capacity(a_length);
         let mut answer: Vec<Vec<u32>> = Vec::with_capacity(a_length);
 
-        rec(&dp, &a, a_length, n, &mut route, &mut answer, &a_min);
+        rec(&dp, &arr, a_length, value, &mut route, &mut answer, &a_min);
         answer
     }
 
-    fn vec_remove(a: &mut Vec<i32>, v: i32) {
-        let index = a.iter().position(|x| *x == v).unwrap();
-        a.remove(index);
+    fn vec_remove(arr: &mut Vec<i32>, v: i32) {
+        let index = arr.iter().position(|x| *x == v).unwrap();
+        arr.remove(index);
     }
 
     /// Finds the integers from two vectors that sum to the same value.
@@ -316,7 +316,7 @@ pub mod dp {
 
     /// Finds the integers from two vectors that sum to the same value.
     /// This method assumes that the two vectors have Many-to-Many relationships.
-    /// Each integer of the `key` vector corresponds to the multiple integers of the `value` vector.
+    /// Each integer of the `arr1` vector corresponds to the multiple integers of the `arr2` vector.
     /// With this method, we can find multiple combinations of the integers.
     /// # Example
     ///
@@ -355,22 +355,22 @@ pub mod dp {
     ///    ]);
     /// ```
     pub fn sequence_matcher_m2m(
-        key: &mut Vec<i32>,
-        targets: &mut Vec<i32>,
+        arr1: &mut Vec<i32>,
+        arr2: &mut Vec<i32>,
         n_max: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
         use rand::seq::SliceRandom;
 
-        let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
+        let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(arr2.len());
         let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::with_capacity(n_max);
         let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
-        if key.iter().sum::<i32>() != targets.iter().sum() {
-            println!("The sum of the key must be equal to the sum of the targets.");
+        if arr1.iter().sum::<i32>() != arr2.iter().sum() {
+            println!("The sum of the arr1 must be equal to the sum of the arr2.");
             return answer;
         }
         for _i in 0..n_max {
-            sequence_matcher_core_m2m(key, targets, &mut group, &mut answer, 1);
-            key.shuffle(&mut rng);
+            sequence_matcher_core_m2m(arr1, arr2, &mut group, &mut answer, 1);
+            arr1.shuffle(&mut rng);
         }
         answer.sort();
         answer.dedup();
@@ -381,37 +381,37 @@ pub mod dp {
     }
 
     fn sequence_matcher_core_m2m(
-        key: &mut Vec<i32>,
-        targets: &mut Vec<i32>,
+        arr1: &mut Vec<i32>,
+        arr2: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
         answer: &mut Vec<Vec<(Vec<i32>, Vec<i32>)>>,
         n_key: usize,
     ) {
-        if key.iter().sum::<i32>() != targets.iter().sum() {
+        if arr1.iter().sum::<i32>() != arr2.iter().sum() {
             return;
         }
 
-        if key.len() == 0 && targets.len() == 0 {
+        if arr1.len() == 0 && arr2.len() == 0 {
             answer.push(group.clone());
             return;
         }
-        if (key.len() == 0 && targets.len() > 0) || (key.len() > 0 && targets.len() == 0) {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1);
+        if (arr1.len() == 0 && arr2.len() > 0) || (arr1.len() > 0 && arr2.len() == 0) {
+            sequence_matcher_core_m2m(arr1, arr2, group, answer, n_key + 1);
         }
 
-        if n_key > key.len() {
+        if n_key > arr1.len() {
             return;
         }
 
         let mut sum_key = 0;
         let mut vec_key = vec![];
         for i in 0..n_key {
-            sum_key += key[i];
-            vec_key.push(key[i].clone())
+            sum_key += arr1[i];
+            vec_key.push(arr1[i].clone())
         }
-        let set_: Vec<Vec<i32>> = find_subset(&targets, sum_key);
+        let set_: Vec<Vec<i32>> = find_subset(&arr2, sum_key);
         if set_.len() == 0 {
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key + 1);
+            sequence_matcher_core_m2m(arr1, arr2, group, answer, n_key + 1);
         }
         for set in set_ {
             let mut _set = Vec::from(set.clone());
@@ -420,18 +420,18 @@ pub mod dp {
             _vec_key.sort();
             group.push((_set, _vec_key.clone()));
             for el in set.clone() {
-                vec_remove(targets, el);
+                vec_remove(arr2, el);
             }
             for i in vec_key.clone() {
-                vec_remove(key, i);
+                vec_remove(arr1, i);
             }
-            sequence_matcher_core_m2m(key, targets, group, answer, n_key);
+            sequence_matcher_core_m2m(arr1, arr2, group, answer, n_key);
             group.pop();
             for el in set.clone() {
-                targets.push(el);
+                arr2.push(el);
             }
             for i in vec_key.clone() {
-                key.push(i);
+                arr1.push(i);
             }
         }
     }
@@ -558,48 +558,48 @@ mod tests {
         let answer: Vec<Vec<i32>> = vec![route1, route2, route3];
         assert_eq!(result, answer);
 
-        let a = vec![75, 467, 512, -835, 770, -69, 10];
-        let result = dp::find_subset(&a, 711);
+        let arr = vec![75, 467, 512, -835, 770, -69, 10];
+        let result = dp::find_subset(&arr, 711);
         let route1: Vec<i32> = vec![10, -69, 770];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
-        let a = vec![-3, 10, 56, -33, 65, -9, 8, 72, 63, 35];
-        let result = dp::find_subset(&a, 7);
+        let arr = vec![-3, 10, 56, -33, 65, -9, 8, 72, 63, 35];
+        let result = dp::find_subset(&arr, 7);
         let route1: Vec<i32> = vec![10, -3];
         let route2: Vec<i32> = vec![35, 8, -33, -3];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
-        let a = vec![
+        let arr = vec![
             73209, 95597, 84735, 40496, 83553, 95595, -628, 201, 27597, 7904, 98445, 6241, 33002,
             -776, -711, 45552, 86746, 84248, 66278, 37475,
         ];
-        let result = dp::find_subset(&a, 72782);
+        let result = dp::find_subset(&arr, 72782);
         let route1: Vec<i32> = vec![201, -628, 73209];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
-        let a = vec![-1, 2, 3];
-        let result = dp::find_subset(&a, -1);
+        let arr = vec![-1, 2, 3];
+        let result = dp::find_subset(&arr, -1);
         let route1: Vec<i32> = vec![-1];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
-        let a = vec![-10, 5, -2];
-        let result = dp::find_subset(&a, -5);
+        let arr = vec![-10, 5, -2];
+        let result = dp::find_subset(&arr, -5);
         let route1: Vec<i32> = vec![5, -10];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
-        let a = vec![-3, -5, -7];
-        let result = dp::find_subset(&a, -15);
+        let arr = vec![-3, -5, -7];
+        let result = dp::find_subset(&arr, -15);
         let route1: Vec<i32> = vec![-7, -5, -3];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
-        let a = vec![-100, 10, 20];
-        let result = dp::find_subset(&a, -70);
+        let arr = vec![-100, 10, 20];
+        let result = dp::find_subset(&arr, -70);
         let route1: Vec<i32> = vec![20, 10, -100];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
