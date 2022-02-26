@@ -178,13 +178,13 @@ Please check https://crates.io/crates/subset_sum.
 `Cargo.toml`
 ```
 [dependencies]
-subset_sum = "(version)"
+dpss = { version = "(version)", package = "subset_sum" }
 ```
 
 ### Find subset
 `main.rs`
 ```rust
-use subset_sum::dp::find_subset;
+use dpss::dp::find_subset;
 
 fn main() {
     let result = find_subset(&mut vec![1, 2, 3, 4, 5], 6);
@@ -198,7 +198,7 @@ Output
 ### Sequence Matcher (One-to-Many)
 `main.rs`
 ```rust
-use subset_sum::dp::sequence_matcher;
+use dpss::dp::sequence_matcher;
 
 fn main() {
     let result = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3]);
@@ -216,7 +216,7 @@ Output
 ### Sequence Matcher (Many-to-Many)
 `main.rs`
 ```rust
-use subset_sum::dp::sequence_matcher_m2m;
+use dpss::dp::sequence_matcher_m2m;
 
 fn main() {
     let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5);
