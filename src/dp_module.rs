@@ -33,7 +33,7 @@ pub mod dp {
     /// # Example
     /// ```
     ///
-    /// use subset_sum::dp::find_subset;
+    /// use dpss::dp::find_subset;
     /// let arr = vec![-1, -3, -2, 6, 12, 48];
     /// let result = find_subset(&arr, 0);
     /// let route1: Vec<i32> = vec![6, -2, -3, -1];
@@ -44,7 +44,7 @@ pub mod dp {
     /// # Return Value
     /// ```
     ///
-    /// use subset_sum::dp::find_subset;
+    /// use dpss::dp::find_subset;
     /// let result = find_subset(&vec![1, 2, 3, -4, 5], 1);
     /// println!("{:?}", result);
     /// ```
@@ -186,7 +186,7 @@ pub mod dp {
     /// # Example
     /// ```
     ///
-    /// use subset_sum::dp::find_subset_fast_only_positive;
+    /// use dpss::dp::find_subset_fast_only_positive;
     /// let result = find_subset_fast_only_positive(&vec![1, 2, 3], 3);
     /// let route1: Vec<u32> = vec![2, 1];
     /// let route2: Vec<u32> = vec![3];
@@ -196,7 +196,7 @@ pub mod dp {
     /// # Return Value
     /// ```
     ///
-    /// use subset_sum::dp::find_subset_fast_only_positive;
+    /// use dpss::dp::find_subset_fast_only_positive;
     /// let result = find_subset_fast_only_positive(&vec![1, 2, 3, 4, 5], 10);
     /// println!("{:?}", result);
     /// ```
@@ -242,7 +242,7 @@ pub mod dp {
     /// # Example
     /// ```
     ///
-    /// use subset_sum::dp::sequence_matcher;
+    /// use dpss::dp::sequence_matcher;
     /// let answer = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3]);
     /// assert_eq!(answer, vec![
     ///     vec![
@@ -325,7 +325,7 @@ pub mod dp {
     ///
     /// ```rust
     ///
-    ///use subset_sum::dp::sequence_matcher_m2m;
+    ///use dpss::dp::sequence_matcher_m2m;
     ///let answer = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5);
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
