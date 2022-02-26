@@ -17,7 +17,7 @@ rand = "0.8.5"
 
 [lib]
 name = "dpss"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies.pyo3]
 version = "0.15.1"
