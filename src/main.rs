@@ -23,8 +23,18 @@ fn main() {
             // Todo: skip an empty line
             targets.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
-        if args.len() == 4 && args[3] == "m2m"{
-            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, 10);
+        if args.len() >= 4 && args[3] == "m2m"{
+            let n_candidates = if args.len() == 4 {
+                10
+            } else {
+                args[4].parse::<usize>().unwrap()
+            };
+            let max_key_length = if args.len() == 4 || args.len() == 5 {
+                2
+            } else {
+                args[5].parse::<usize>().unwrap()
+            };
+            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates, max_key_length);
             for elem in result{
                 println!("{:?}", elem);
             }

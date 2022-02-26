@@ -21,20 +21,23 @@ fn find_subset_fast_only_positive(arr: Vec<u32>, value: usize) -> PyResult<Vec<V
 /// Each integer of the `key` vector corresponds to the multiple integers of the `targets` vector.
 #[pyfunction]
 #[pyo3(text_signature = "(key, targets, /)")]
-fn sequence_matcher(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Vec<Vec<(Vec<i32>, i32)>>> {
+fn sequence_matcher(mut key: Vec<i32>, mut targets: Vec<i32>) -> PyResult<Vec<Vec<(i32, Vec<i32>)>>> {
     use crate::dp_module::*;
     Ok(dp::sequence_matcher(&mut key, &mut targets))
 }
 
 /// Finds the integers from two vectors that sum to the same value.
 /// This method assumes that the two vectors have Many-to-Many relationships.
-/// Each integer of the `arr1` vector corresponds to the multiple integers of the `arr2` vector.
+/// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
 /// With this method, we can find multiple combinations of the integers.
+/// `n_candidates` is the number of candidates to be selected.
+/// `max_key_length` is the maximum length of the keys as a group.
+/// Especially in long sequences, this method is very slow so `n_candidates` and `max_key_length` should be small.
 #[pyfunction]
-#[pyo3(text_signature = "(arr1, arr2, /)")]
-fn sequence_matcher_m2m(mut arr1: Vec<i32>, mut arr2: Vec<i32>) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
+#[pyo3(text_signature = "(keys, targets, n_candidates, max_key_length/)")]
+fn sequence_matcher_m2m(mut keys: Vec<i32>, mut targets: Vec<i32>, n_candidates: usize, max_key_length: usize) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher_m2m(&mut arr1, &mut arr2, 10))
+    Ok(dp::sequence_matcher_m2m(&mut keys, &mut targets, n_candidates, max_key_length))
 }
 
 #[pymodule]
