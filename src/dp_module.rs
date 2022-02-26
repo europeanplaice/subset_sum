@@ -396,7 +396,7 @@ pub mod dp {
             return;
         }
         if (arr1.len() == 0 && arr2.len() > 0) || (arr1.len() > 0 && arr2.len() == 0) {
-            sequence_matcher_core_m2m(arr1, arr2, group, answer, n_key + 1);
+            return;
         }
 
         if n_key > arr1.len() {
@@ -462,6 +462,34 @@ pub mod dp {
 
     #[test]
     fn test_sequence_matcher_m2m() {
+
+        let answer = sequence_matcher_m2m(
+            &mut vec![6, 7, 3, 2, -9],
+            &mut vec![-3, 8, 3, 6, -5],
+            10,
+        );
+        assert_eq!(
+            answer[0],
+            vec![
+                (vec![-5, -3, 3, 8], vec![3]),
+                (vec![6], vec![-9, 2, 6, 7]),
+            ]
+        );
+
+        let answer = sequence_matcher_m2m(
+            &mut vec![9, 0, 1, 7, 1],
+            &mut vec![7, 2, 8, 0, 1],
+            10,
+        );
+        assert_eq!(
+            answer[0],
+            vec![
+                (vec![0], vec![0]),
+                (vec![1, 8], vec![9]),
+                (vec![2, 7], vec![1, 1, 7]),
+            ]
+        );
+
         let answer =
             sequence_matcher_m2m(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10);
         assert_eq!(

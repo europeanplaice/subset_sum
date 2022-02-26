@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.11.2"
+version = "0.11.3"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
@@ -15,9 +15,6 @@ keywords = ["dynamic_programming", "subset_sum", "accounting"]
 [dependencies]
 rand = "0.8.5"
 
-[dev-dependencies]
-criterion = "0.3"
-
 [lib]
 name = "dpss"
 crate-type = ["cdylib"]
@@ -26,6 +23,5 @@ crate-type = ["cdylib"]
 version = "0.15.1"
 features = ["extension-module"]
 
-[[bench]]
-name = "my_benchmark"
-harness = false
+[profile.release]
+lto = true
