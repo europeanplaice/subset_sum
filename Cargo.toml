@@ -1,5 +1,5 @@
 [package]
-name = "dpss"
+name = "subset_sum"
 version = "0.12.0"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
