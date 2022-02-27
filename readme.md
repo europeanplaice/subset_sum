@@ -236,7 +236,7 @@ dpss = { version = "(version)", package = "subset_sum" }
 use dpss::dp::find_subset;
 
 fn main() {
-    let result = find_subset(&mut vec![1, 2, 3, 4, 5], 6);
+    let result = find_subset(&mut vec![1, 2, 3, 4, 5], 6, 3);
     println!("{:?}", result);
 }
 ```
@@ -250,7 +250,7 @@ Output
 use dpss::dp::sequence_matcher;
 
 fn main() {
-    let result = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3]);
+    let result = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3], 4);
     println!("{:?}", result);
 }
 ```
@@ -268,7 +268,7 @@ Output
 use dpss::dp::sequence_matcher_m2m;
 
 fn main() {
-    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5);
+    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5, 10);
     println!("{:?}", result);
 }
 ```
