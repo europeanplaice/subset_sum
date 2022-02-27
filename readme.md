@@ -86,7 +86,7 @@ In this example, the output is
 3
 ```
 
-Call `subset_sum.exe key.txt targets.txt o2m 4`
+Call `subset_sum.exe key.txt targets.txt o2m 4`  
 The fourth argument is the maximum length of the combination.
 
 In this example, the output is   
@@ -120,7 +120,7 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt m2m 10 5 6`
+Call `subset_sum.exe arr1.txt arr2.txt m2m 10 5 6`  
 In this case, 10 is `n_candidates` that is the number of candidates to be selected. A default value is 10.
 5 is `max_key_length` that is the maximum length of the keys as a group. A default value is a key length.
 6 is `max_target_length` that is the maximum length of the targets as a group. A default value is a target length.
