@@ -23,27 +23,37 @@ fn main() {
             // Todo: skip an empty line
             targets.push(line.unwrap().trim().parse::<i32>().unwrap());
         }
-        if args.len() >= 4 && args[3] == "m2m"{
+        if args[3] == "m2m"{
             let n_candidates = if args.len() == 4 {
                 10
             } else {
                 args[4].parse::<usize>().unwrap()
             };
             let max_key_length = if args.len() == 4 || args.len() == 5 {
-                2
+                key.len()
             } else {
                 args[5].parse::<usize>().unwrap()
             };
-            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates, max_key_length);
+            let max_target_length = if args.len() == 4 || args.len() == 5 || args.len() == 6 {
+                targets.len()
+            } else {
+                args[6].parse::<usize>().unwrap()
+            };
+            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates, max_key_length, max_target_length);
             for elem in result{
                 println!("{:?}", elem);
             }
-        } else {
-            let result = dp_module::dp::sequence_matcher(&mut key, &mut targets);
+        } 
+        if args[3] == "o2m" {
+            let max_target_length = if args.len() == 4 {
+                targets.len()
+            } else {
+                args[4].parse::<usize>().unwrap()
+            };
+            let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_target_length);
             for elem in result{
                 println!("{:?}", elem);
             }
-
         }
     } else {
         let mut a: Vec<i32> = Vec::new();
@@ -52,9 +62,19 @@ fn main() {
         }
         if a.iter().min().unwrap() >= &0 {
             let b: Vec<u32> = a.iter().map(|x| *x as u32).collect();
-            println!("{:?}", dp_module::dp::find_subset_fast_only_positive(&b, args[2].parse::<usize>().unwrap()));
+            let max_length = if args.len() == 3 {
+                b.len()
+            } else {
+                args[3].parse::<usize>().unwrap()
+            };
+            println!("{:?}", dp_module::dp::find_subset_fast_only_positive(&b, args[2].parse::<usize>().unwrap(), max_length));
         } else {
-            let result = dp_module::dp::find_subset(&a, args[2].parse::<i32>().unwrap());
+            let max_length = if args.len() == 3 {
+                a.len()
+            } else {
+                args[3].parse::<usize>().unwrap()
+            };
+            let result = dp_module::dp::find_subset(&a, args[2].parse::<i32>().unwrap(), max_length);
             println!("{:?}", result);
         }
     }

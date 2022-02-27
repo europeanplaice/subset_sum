@@ -18,6 +18,8 @@ And it has three methods.
 
 * `find_subset`  
     * It finds a subset from an array.
+* `find_subset_fast_only_positive`  
+    * It finds a subset from an array. It can't accept negative values but relatively faster.
 * `Sequence Matcher (One-to-Many)`
     * It finds One-to-Many relationships with two arrays.
 * `Sequence Matcher (Many-to-Many)`
@@ -57,8 +59,10 @@ Second, call `subset_sum` with the path of the text file and the target sum.
 
 #### Example 
 
-Call `subset_sum.exe num_set.txt 3`  
+Call `subset_sum.exe num_set.txt 3 3`  
 The executable's name `subset_sum.exe` would be different from your choice. Change this example along with your environment.
+The second argument is the target sum.
+The third argument is the maximum length of the combination.
 
 In this example, the output is   
 `[[2, 1], [4, -3, 2], [5, -3, 1]]`
@@ -82,7 +86,8 @@ In this example, the output is
 3
 ```
 
-Call `subset_sum.exe key.txt targets.txt`
+Call `subset_sum.exe key.txt targets.txt o2m 4`
+The fourth argument is the maximum length of the combination.
 
 In this example, the output is   
 ```
@@ -115,9 +120,10 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt m2m 10 5`
+Call `subset_sum.exe arr1.txt arr2.txt m2m 10 5 6`
 In this case, 10 is `n_candidates` that is the number of candidates to be selected. A default value is 10.
-5 is `max_key_length` that is the maximum length of the keys as a group. A default value is 2.
+5 is `max_key_length` that is the maximum length of the keys as a group. A default value is a key length.
+6 is `max_target_length` that is the maximum length of the targets as a group. A default value is a target length.
 
 In this example, the output is   
 ```
@@ -143,20 +149,63 @@ pip install dpss
 ```
 ### Usage
 ```python
+import inspect
 import dpss
-print(dpss.find_subset([1, -2, 3, 4, 5], 2))
+help(dpss.find_subset)
+>>> find_subset(arr, value, max_length, /)
+>>>     Finds subsets sum of a target value. It can accept negative values.
+>>>     # Arguments
+>>>     * `arr` - An array.
+>>>     * `value` - The value to the sum of the subset comes.
+>>>     * `max_length` - The maximum length of combinations of the answer.
+
+print(dpss.find_subset([1, -2, 3, 4, 5], 2, 3))
 >>> [[4, -2], [3, -2, 1]]
 
 
-print(dpss.find_subset_fast_only_positive([1, 2, 3, 4, 5], 10)) 
+help(dpss.find_subset_fast_only_positive)
+>>> find_subset_fast_only_positive(arr, value, max_length, /)
+>>>    Finds subsets sum of a target value. It can't accept negative values but relatively faster.
+>>>    # Arguments
+>>>    * `arr` - An array.
+>>>    * `value` - The value to the sum of the subset comes.
+>>>    * `max_length` - The maximum length of combinations of the answer.
+
+print(dpss.find_subset_fast_only_positive([1, 2, 3, 4, 5], 10, 4)) 
 >>> [[4, 3, 2, 1], [5, 3, 2], [5, 4, 1]]
 
 
-print(dpss.sequence_matcher([3, 5, 7], [1, 5, -3, 4, 5, 3]))
->>> [[([3], 3), ([5], 5), ([5, 4, -3, 1], 7)], [([3], 3), ([4, 1], 5), ([5, 5, -3], 7)], [([5, -3, 1], 3), ([5], 5), ([3, 4], 7)]]
+help(dpss.sequence_matcher)
+>>> sequence_matcher(key, targets, max_target_length, /)
+>>>    Finds the integers from two vectors that sum to the same value.
+>>>    This method assumes that the two vectors have One-to-Many relationships.
+>>>    Each integer of the `key` vector corresponds to the multiple integers of the `targets` vector.
+>>>    # Arguments
+>>>    * `key` - An array.
+>>>    * `targets` - An array.
+>>>    * `max_length` - The maximum length of combinations of the answer.
+
+print(dpss.sequence_matcher([3, 5, 7], [1, 5, -3, 4, 5, 3], 4))
+>>> [ [(3, [3]), (5, [5]), (7, [5, 4, -3, 1])], [(3, [3]), (5, [4, 1]), (7, [5, 5, -3])], [(3, [5, -3, 1]), (5, [5]), (7, [3, 4])], ]
 
 
-print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5))
+help(dpss.sequence_matcher_m2m)
+>>> sequence_matcher_m2m(keys, targets, n_candidates, max_key_length, max_target_length, /)
+>>>    Finds the integers from two vectors that sum to the same value.
+>>>    This method assumes that the two vectors have Many-to-Many relationships.
+>>>    Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
+>>>    With this method, we can find multiple combinations of the integers.
+>>>    `n_candidates` is the number of candidates to be selected.
+>>>    `max_key_length` is the maximum length of the keys as a group.
+>>>    Especially in long sequences, this method is very slow so `n_candidates` and `max_key_length` should be small.
+>>>    # Arguments
+>>>    * `keys` - An array.
+>>>    * `targets` - An array.
+>>>    * `n_candidates` - The maximum length of combinations of the answer.
+>>>    * `max_key_length` - The maximum length of combinations of the keys.
+>>>    * `max_target_length` - The maximum length of combinations of the targets.
+
+print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5, 10))
 >>>[[([1050], [1050]), ([1980], [30, 1950]), ([4000], [20, 3980]), ([2980], [80, 2900]), ([3500], [200, 3300])]
 [([1980], [30, 1950]), ([2980], [80, 2900]), ([1050], [1050]), ([4000], [20, 3980]), ([3500], [200, 3300])]
 [([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980]), ([1050], [1050])]
