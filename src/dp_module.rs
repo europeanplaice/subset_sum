@@ -360,32 +360,26 @@ pub mod dp {
     ///     (vec![1980],
     ///     vec![30, 1950]),
     ///
-    ///     (vec![4000],
-    ///     vec![20, 3980]),
-    /// 
     ///     (vec![2980],
     ///     vec![80, 2900]),
     /// 
     ///     (vec![3500],
     ///     vec![200, 3300]),
+    /// 
+    ///     (vec![4000],
+    ///     vec![20, 3980]),
     ///
     ///
     ///    ]);
     ///assert_eq!(answer[1], vec![
-    ///    (vec![1980],
-    ///     vec![30, 1950]),
-    ///
-    ///     (vec![2980],
-    ///     vec![80, 2900]),
-    ///
-    ///     (vec![1050],
-    ///     vec![1050]),
-    ///
-    ///     (vec![4000],
-    ///     vec![20, 3980]),
+    ///    (vec![1050, 1980, 2980],
+    ///     vec![80, 1950, 3980]),
     ///
     ///     (vec![3500],
     ///     vec![200, 3300]),
+    ///
+    ///     (vec![4000],
+    ///     vec![20, 30, 1050, 2900]),
     ///
     ///    ]);
     /// ```
@@ -408,6 +402,13 @@ pub mod dp {
         for _i in 0..n_candidates {
             sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, max_key_length, max_target_length);
             keys.shuffle(&mut rng);
+        }
+        for i in 0..answer.len(){
+            for j in 0..answer[i].len(){
+                answer[i][j].0.sort();
+                answer[i][j].1.sort();
+            }
+            answer[i].sort();
         }
         answer.sort();
         answer.dedup();
@@ -527,8 +528,8 @@ pub mod dp {
         assert_eq!(
             answer[0],
             vec![
-                (vec![2, 6], vec![-3, 3, 8]),
-                (vec![-9, 3, 7], vec![-5, 6]),
+                (vec![-9, 2, 3, 7], vec![-5, -3, 3, 8]),
+                (vec![6], vec![6]),
             ]
         );
 
@@ -541,8 +542,9 @@ pub mod dp {
             answer[0],
             vec![
                 (vec![0], vec![0]),
-                (vec![9], vec![1, 8]),
-                (vec![1, 1, 7], vec![2, 7]),
+                (vec![1], vec![1]),
+                (vec![1, 7], vec![8]),
+                (vec![9], vec![2, 7]),
             ]
         );
 
@@ -562,15 +564,15 @@ pub mod dp {
             answer[0],
             vec![
                 (vec![5, 10], vec![4, 11]),
-                (vec![123, 150, 1000, 1100], vec![273, 2100]),
+                (vec![123, 150], vec![273]),
+                (vec![1000, 1100], vec![2100]),
             ]
         );
         assert_eq!(
             answer[1],
             vec![
-                (vec![1000, 1100], vec![2100]),
-                (vec![123, 150], vec![273]),
                 (vec![5, 10], vec![4, 11]),
+                (vec![123, 150, 1000, 1100], vec![273, 2100]),
             ]
         );
 
@@ -592,8 +594,8 @@ pub mod dp {
         assert_eq!(
             answer[0],
             vec![
-                (vec![-74, 68], vec![-92, -23, 36, 73]),
-                (vec![-38, 22, 72, 99], vec![67, 88]),
+                (vec![-74, -38, 22, 68, 72], vec![-23, 73]),
+                (vec![99], vec![-92, 36, 67, 88]),
             ]
         );
 
