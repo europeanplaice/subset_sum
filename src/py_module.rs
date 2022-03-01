@@ -41,21 +41,17 @@ fn sequence_matcher(mut key: Vec<i32>, mut targets: Vec<i32>, max_target_length:
 /// Finds the integers from two vectors that sum to the same value.
 /// This method assumes that the two vectors have Many-to-Many relationships.
 /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
-/// With this method, we can find multiple combinations of the integers.
-/// `n_candidates` is the number of candidates to be selected.
-/// `max_key_length` is the maximum length of the keys as a group.
-/// Especially in long sequences, this method is very slow so `n_candidates` and `max_key_length` should be small.
+/// With this method, we can find some combinations of the integers.
+/// `n_shuffle` is the number of trials. For each case, `kays` are shuffled. 
 /// # Arguments
 /// * `keys` - An array.
 /// * `targets` - An array.
-/// * `n_candidates` - The maximum length of combinations of the answer.
-/// * `max_key_length` - The maximum length of combinations of the keys.
-/// * `max_target_length` - The maximum length of combinations of the targets.
+/// * `n_shuffle` - The number of trials.
 #[pyfunction]
-#[pyo3(text_signature = "(keys, targets, n_candidates, max_key_length, max_target_length, /)")]
-fn sequence_matcher_m2m(mut keys: Vec<i32>, mut targets: Vec<i32>, n_candidates: usize, max_key_length: usize, max_target_length: usize) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
+#[pyo3(text_signature = "(keys, targets, n_shuffle, /)")]
+fn sequence_matcher_m2m(mut keys: Vec<i32>, mut targets: Vec<i32>, n_shuffle: usize) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher_m2m(&mut keys, &mut targets, n_candidates, max_key_length, max_target_length))
+    Ok(dp::sequence_matcher_m2m(&mut keys, &mut targets, n_shuffle))
 }
 
 #[pymodule]

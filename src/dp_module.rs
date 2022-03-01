@@ -1,5 +1,6 @@
 pub mod dp {
     //! This is a module for dynamic programming.
+    use std::collections::HashMap;
 
     fn gcd_multi(v: Vec<u32>) -> u32 {
         let mut result = v[0];
@@ -338,21 +339,17 @@ pub mod dp {
     /// This method assumes that the two vectors have Many-to-Many relationships.
     /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
     /// With this method, we can find some combinations of the integers.
-    /// `n_candidates` is the number of candidates to be selected.
-    /// `max_key_length` is the maximum length of the keys as a group.
-    /// Especially in long sequences, this method is slow so `n_candidates`, `max_key_length`, and `max_target_length` should be small.
+    /// `n_shuffle` is the number of trials. For each case, `kays` are shuffled. 
     /// # Arguments
     /// * `keys` - An array.
     /// * `targets` - An array.
-    /// * `n_candidates` - The maximum length of combinations of the answer.
-    /// * `max_key_length` - The maximum length of combinations of the keys.
-    /// * `max_target_length` - The maximum length of combinations of the targets.
+    /// * `n_shuffle` - The number of trials.
     /// # Example
     ///
     /// ```rust
     ///
     ///use dpss::dp::sequence_matcher_m2m;
-    ///let answer = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5, 10);
+    ///let answer = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10);
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
     ///     vec![1050]),
@@ -387,8 +384,6 @@ pub mod dp {
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         n_candidates: usize,
-        max_key_length: usize,
-        max_target_length: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
         use rand::seq::SliceRandom;
 
@@ -399,8 +394,10 @@ pub mod dp {
             println!("The sum of the keys must be equal to the sum of the targets.");
             return answer;
         }
+        let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
         for _i in 0..n_candidates {
-            sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, max_key_length, max_target_length);
+            let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> = HashMap::new();
+            sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, keys.len(), targets.len(), &mut hashmap_fs, &mut key_target_group);
             keys.shuffle(&mut rng);
         }
         for i in 0..answer.len(){
@@ -409,11 +406,13 @@ pub mod dp {
                 answer[i][j].1.sort();
             }
             answer[i].sort();
+            answer[i].dedup();
+
         }
         answer.sort();
         answer.dedup();
         if answer.len() == 0 {
-            println!("Can't find any combination.");
+            println!("Can't find any combination. You may have to increase n_candidates.");
         }
         answer
     }
@@ -426,6 +425,8 @@ pub mod dp {
         n_key: usize,
         max_key_length: usize,
         max_target_length: usize,
+        hashmap_fs: &mut HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>,
+        key_target_group: &mut HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>>,
     ) {
         if keys.iter().sum::<i32>() != targets.iter().sum() {
             return;
@@ -452,9 +453,10 @@ pub mod dp {
         if targets.iter().max().unwrap() == &0{
             return;
         }
-        let set_: Vec<Vec<i32>> = find_subset(&targets, sum_key, max_target_length);
+        targets.sort();
+        let set_ = hashmap_fs.entry((targets.clone(), sum_key.clone())).or_insert(find_subset(&targets, sum_key, max_target_length)).clone();
         if set_.len() == 0 {
-            sequence_matcher_core_m2m(keys, targets, group, answer, n_key + 1, max_key_length, max_target_length);
+            sequence_matcher_core_m2m(keys, targets, group, answer, n_key + 1, keys.len(), targets.len(), hashmap_fs, key_target_group);
         }
         for set in set_ {
             let mut _set = Vec::from(set.clone());
@@ -463,12 +465,44 @@ pub mod dp {
             _vec_key.sort();
             group.push((_vec_key.clone(), _set));
             for el in set.clone() {
+                if targets.contains(&el) == false {
+                    return;
+                }
                 vec_remove(targets, el);
             }
             for i in vec_key.clone() {
+                if keys.contains(&i) == false {
+                    return;
+                }
                 vec_remove(keys, i);
             }
-            sequence_matcher_core_m2m(keys, targets, group, answer, n_key, max_key_length, max_target_length);
+            if keys.len() > 0 && targets.len() > 0 {
+                if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
+                    group.push((keys.clone(), targets.clone()));
+                    for d in key_target_group.get(&(keys.clone(), targets.clone())).unwrap(){
+                        if group.contains(&d) == false {
+                            group.push(d.clone());
+                        }
+                        for i in &d.0 {
+                            if keys.contains(&i) == false {
+                                return;
+                            }
+                            vec_remove(keys, *i);
+                        }
+                        for el in &d.1 {
+                            if targets.contains(&el) == false {
+                                return;
+                            }
+                            vec_remove(targets, *el);
+                        }
+                    }
+                    answer.push(group.clone());
+                    return;
+                } else {
+                    key_target_group.insert((keys.clone(), targets.clone()), group.clone());
+                }
+            }
+            sequence_matcher_core_m2m(keys, targets, group, answer, n_key, keys.len(), targets.len(), hashmap_fs, key_target_group);
             group.pop();
             for el in set.clone() {
                 targets.push(el);
@@ -509,21 +543,22 @@ pub mod dp {
         let answer = sequence_matcher_m2m(
             &mut vec![6, 7, 3, 2, -9, -3, 8, 3, 6, -10],
             &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37],
-            10, 10, 10
+            10
         );
         assert_eq!(
             answer[0],
             vec![
-                (vec![-10], vec![-9, -8, 0, 2, 2, 3]),
-                (vec![-9], vec![-6, -3]),
-                (vec![-3, 2, 3, 3, 6, 6, 7, 8], vec![-5, 37]),
+                (vec![-10, -9, -3, 3, 6, 7, 8], vec![2]),
+                (vec![2], vec![2]),
+                (vec![3], vec![3]),
+                (vec![6], vec![-9, -8, -6, -5, -3, 0, 37]),
             ]
         );
 
         let answer = sequence_matcher_m2m(
             &mut vec![6, 7, 3, 2, -9],
             &mut vec![-3, 8, 3, 6, -5],
-            10, 4, 10
+            10
         );
         assert_eq!(
             answer[0],
@@ -536,7 +571,7 @@ pub mod dp {
         let answer = sequence_matcher_m2m(
             &mut vec![9, 0, 1, 7, 1],
             &mut vec![7, 2, 8, 0, 1],
-            10, 3, 10
+            10
         );
         assert_eq!(
             answer[0],
@@ -549,7 +584,7 @@ pub mod dp {
         );
 
         let answer =
-            sequence_matcher_m2m(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10, 4, 10);
+            sequence_matcher_m2m(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10);
         assert_eq!(
             answer[0],
             vec![(vec![1], vec![-8, -7, 5, 11]), (vec![2, 3, 4, 5], vec![14]),]
@@ -558,7 +593,7 @@ pub mod dp {
         let answer = sequence_matcher_m2m(
             &mut vec![1000, 1100, 150, 123, 5, 10],
             &mut vec![2100, 273, 4, 11],
-            10, 4, 10
+            10
         );
         assert_eq!(
             answer[0],
@@ -579,17 +614,17 @@ pub mod dp {
         let answer = sequence_matcher_m2m(
             &mut vec![1000, 1100, 150, 123, 5, 10],
             &mut vec![1000, 1200],
-            10, 6, 10
+            10
         );
         assert_eq!(answer.len(), 0);
 
-        let answer = sequence_matcher_m2m(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 2, 10);
+        let answer = sequence_matcher_m2m(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10);
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
         let answer = sequence_matcher_m2m(
             &mut vec![99, 68, -74, 72, -38, 22],
             &mut vec![36, -23, -92, 88, 67, 73],
-            10, 5, 10
+            10
         );
         assert_eq!(
             answer[0],
@@ -599,7 +634,7 @@ pub mod dp {
             ]
         );
 
-        let answer = sequence_matcher_m2m(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 2, 10);
+        let answer = sequence_matcher_m2m(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10);
 
         assert_eq!(answer.len(), 0);
     }

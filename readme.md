@@ -120,10 +120,8 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt m2m 10 5 6`  
-In this case, 10 is `n_candidates` that is the number of candidates to be selected. A default value is 10.
-5 is `max_key_length` that is the maximum length of the keys as a group. A default value is a key length.
-6 is `max_target_length` that is the maximum length of the targets as a group. A default value is a target length.
+Call `subset_sum.exe arr1.txt arr2.txt m2m 10`  
+In this case, 10 is `n_shuffle` that  is the number of trials.
 
 In this example, the output is   
 ```
@@ -202,23 +200,19 @@ print(dpss.sequence_matcher([3, 5, 7], [1, 5, -3, 4, 5, 3], 4))
 help(dpss.sequence_matcher_m2m)
 ```
 ```
->>> sequence_matcher_m2m(keys, targets, n_candidates, max_key_length, max_target_length, /)
->>>    Finds the integers from two vectors that sum to the same value.
->>>    This method assumes that the two vectors have Many-to-Many relationships.
->>>    Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
->>>    With this method, we can find multiple combinations of the integers.
->>>    `n_candidates` is the number of candidates to be selected.
->>>    `max_key_length` is the maximum length of the keys as a group.
->>>    Especially in long sequences, this method is very slow so `n_candidates` and `max_key_length` should be small.
->>>    # Arguments
->>>    * `keys` - An array.
->>>    * `targets` - An array.
->>>    * `n_candidates` - The maximum length of combinations of the answer.
->>>    * `max_key_length` - The maximum length of combinations of the keys.
->>>    * `max_target_length` - The maximum length of combinations of the targets.
+>>> sequence_matcher_m2m(keys, targets, n_shuffle, /)
+>>>     Finds the integers from two vectors that sum to the same value.
+>>>     This method assumes that the two vectors have Many-to-Many relationships.
+>>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
+>>>     With this method, we can find some combinations of the integers.
+>>>     `n_shuffle` is the number of trials. For each case, `kays` are shuffled. 
+>>>     # Arguments
+>>>     * `keys` - An array.
+>>>     * `targets` - An array.
+>>>     * `n_shuffle` - The number of trials.
 ```
 ```python
-print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5, 10))
+print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10))
 ```
 ```
 >>>[[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980])],
@@ -273,7 +267,7 @@ Output
 use dpss::dp::sequence_matcher_m2m;
 
 fn main() {
-    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 5, 10);
+    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10);
     println!("{:?}", result);
 }
 ```

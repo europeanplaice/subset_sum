@@ -29,17 +29,7 @@ fn main() {
             } else {
                 args[4].parse::<usize>().unwrap()
             };
-            let max_key_length = if args.len() == 4 || args.len() == 5 {
-                key.len()
-            } else {
-                args[5].parse::<usize>().unwrap()
-            };
-            let max_target_length = if args.len() == 4 || args.len() == 5 || args.len() == 6 {
-                targets.len()
-            } else {
-                args[6].parse::<usize>().unwrap()
-            };
-            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates, max_key_length, max_target_length);
+            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates);
             for elem in result{
                 println!("{:?}", elem);
             }
