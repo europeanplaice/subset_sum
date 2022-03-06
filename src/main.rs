@@ -13,15 +13,31 @@ fn main() {
     if Path::new(&args[2]).exists(){
         let mut key: Vec<i32> = Vec::new();
         for line in lines{
-            // Todo: skip an empty line
-            key.push(line.unwrap().trim().parse::<i32>().unwrap());
+            match line {
+                Ok(line) => {
+                    if line.is_empty() {
+                        continue;
+                    } else {
+                        key.push(line.trim().parse::<i32>().unwrap())
+                    }
+                },
+                Err(_) => println!("Error reading file"),
+            }
         }
         let file = File::open(args[2].clone()).unwrap();
         let line2 = io::BufReader::new(file).lines();
         let mut targets: Vec<i32> = Vec::new();
         for line in line2{
-            // Todo: skip an empty line
-            targets.push(line.unwrap().trim().parse::<i32>().unwrap());
+            match line {
+                Ok(line) => {
+                    if line.is_empty() {
+                        continue;
+                    } else {
+                        targets.push(line.trim().parse::<i32>().unwrap())
+                    }
+                },
+                Err(_) => println!("Error reading file"),
+            }
         }
         if args[3] == "m2m"{
             let n_candidates = if args.len() == 4 {
@@ -48,24 +64,23 @@ fn main() {
     } else {
         let mut a: Vec<i32> = Vec::new();
         for line in lines{
-            a.push(line.unwrap().trim().parse::<i32>().unwrap());
+            match line {
+                Ok(line) => {
+                    if line.is_empty() {
+                        continue;
+                    } else {
+                        a.push(line.trim().parse::<i32>().unwrap())
+                    }
+                },
+                Err(_) => println!("Error reading file"),
+            }
         }
-        if a.iter().min().unwrap() >= &0 {
-            let b: Vec<u32> = a.iter().map(|x| *x as u32).collect();
-            let max_length = if args.len() == 3 {
-                b.len()
-            } else {
-                args[3].parse::<usize>().unwrap()
-            };
-            println!("{:?}", dp_module::dp::find_subset_fast_only_positive(&b, args[2].parse::<usize>().unwrap(), max_length));
+        let max_length = if args.len() == 3 {
+            a.len()
         } else {
-            let max_length = if args.len() == 3 {
-                a.len()
-            } else {
-                args[3].parse::<usize>().unwrap()
-            };
-            let result = dp_module::dp::find_subset(&a, args[2].parse::<i32>().unwrap(), max_length);
-            println!("{:?}", result);
-        }
+            args[3].parse::<usize>().unwrap()
+        };
+        let result = dp_module::dp::find_subset(&a, args[2].parse::<i32>().unwrap(), max_length);
+        println!("{:?}", result);
     }
 }

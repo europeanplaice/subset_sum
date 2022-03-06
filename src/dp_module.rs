@@ -41,7 +41,7 @@ pub mod dp {
     /// use dpss::dp::find_subset;
     /// let arr = vec![-1, -3, -2, 6, 12, 48];
     /// let result = find_subset(&arr, 0, 4);
-    /// let route1: Vec<i32> = vec![6, -2, -3, -1];
+    /// let route1: Vec<i32> = vec![-3, -2, -1, 6];
     /// let answer: Vec<Vec<i32>> = vec![route1];
     /// assert_eq!(result, answer);
     /// ```
@@ -53,7 +53,7 @@ pub mod dp {
     /// let result = find_subset(&vec![1, 2, 3, -4, 5], 1, 2);
     /// println!("{:?}", result);
     /// ```
-    /// output: `[[1], [4, -3]]`
+    /// output: `[[1], [-3, 4]]`
     pub fn find_subset(arr: &Vec<i32>, value: i32, max_length: usize) -> Vec<Vec<i32>> {
         use std::cmp::max;
         use std::cmp::min;
@@ -73,7 +73,7 @@ pub mod dp {
                 }
                 answer.push(tempvec)
             }
-            return answer;
+            return vector_sorter(answer);
         } else {
             let offset: u32 = (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
             for i in arr {
@@ -98,7 +98,7 @@ pub mod dp {
                     }
                 }
             }
-            return answer;
+            return vector_sorter(answer);
         };
     }
 
@@ -140,6 +140,29 @@ pub mod dp {
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
         }
+    }
+
+    fn vector_sorter<T: std::cmp::Ord + std::iter::Sum + std::clone::Clone + Copy >(vec: Vec<Vec<T>>) -> Vec<Vec<T>> {
+        if vec.len() == 0 {
+            return vec;
+        }
+        let max_length = vec.iter().map(|x| x.len()).collect::<Vec<usize>>().iter().max().unwrap().clone();
+        let mut newvec: Vec<Vec<T>> = vec![];
+        for i in 0..max_length+1{
+            let mut tempv : Vec<Vec<T>> = vec![];
+            for v in vec.iter() {
+                if v.len() == i {
+                    let mut v_ = v.clone();
+                    v_.sort();
+                    tempv.push(v_.to_vec());
+                }
+            }
+            for j in (0..i).rev(){
+                tempv.sort_by_key(|x| x[j]);
+            }
+            newvec.append(&mut tempv);
+        };
+        newvec
     }
 
     fn filter_j_idx(value: usize, arr: &Vec<u32>) -> (Vec<usize>, u32) {
@@ -203,8 +226,8 @@ pub mod dp {
     ///
     /// use dpss::dp::find_subset_fast_only_positive;
     /// let result = find_subset_fast_only_positive(&vec![1, 2, 3], 3, 2);
-    /// let route1: Vec<u32> = vec![2, 1];
-    /// let route2: Vec<u32> = vec![3];
+    /// let route1: Vec<u32> = vec![3];
+    /// let route2: Vec<u32> = vec![1, 2];
     /// let answer: Vec<Vec<u32>> = vec![route1, route2];
     /// assert_eq!(result, answer);
     /// ```
@@ -215,7 +238,7 @@ pub mod dp {
     /// let result = find_subset_fast_only_positive(&vec![1, 2, 3, 4, 5], 10, 4);
     /// println!("{:?}", result);
     /// ```
-    /// output: `[[5, 3, 2], [5, 4, 1], [4, 3, 2, 1]]`
+    /// output: `[[1, 4, 5], [2, 3, 5], [1, 2, 3, 4]]`
     pub fn find_subset_fast_only_positive(arr: &Vec<u32>, value: usize, max_length: usize) -> Vec<Vec<u32>> {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
@@ -243,7 +266,13 @@ pub mod dp {
         let mut answer: Vec<Vec<u32>> = Vec::with_capacity(a_length);
 
         rec(&dp, &arr, a_length, value, &mut route, &mut answer, &a_min, max_length);
-        answer
+        // for i in answer.iter_mut(){
+        //     i.sort();
+        // };
+        // answer.sort_by_key(|k| k[0]);
+        // answer.sort_by_key(|k| k.len());
+        vector_sorter(answer)
+        // answer
     }
 
     fn vec_remove(arr: &mut Vec<i32>, v: i32) {
@@ -267,15 +296,15 @@ pub mod dp {
     ///     vec![
     ///         (3, vec![3]),
     ///         (5, vec![5]),
-    ///         (7, vec![5, 4, -3, 1]),
+    ///         (7, vec![-3, 1, 4, 5]),
     ///      ],
     ///     vec![
     ///         (3, vec![3]),
-    ///         (5, vec![4, 1]),
-    ///         (7, vec![5, 5, -3]),
+    ///         (5, vec![1, 4]),
+    ///         (7, vec![-3, 5, 5]),
     ///      ],
     ///     vec![
-    ///         (3, vec![5, -3, 1]),
+    ///         (3, vec![-3, 1, 5]),
     ///         (5, vec![5]),
     ///         (7, vec![3, 4]),
     ///      ],
@@ -463,7 +492,7 @@ pub mod dp {
             _set.sort();
             let mut _vec_key = vec_key.clone();
             _vec_key.sort();
-            group.push((_vec_key.clone(), _set));
+            group.push((_vec_key, _set));
             for el in set.clone() {
                 if targets.contains(&el) == false {
                     return;
@@ -519,7 +548,7 @@ pub mod dp {
         assert_eq!(answer, vec![vec![(1, vec![1]), (6, vec![3, 3])]]);
 
         let answer = sequence_matcher(&mut vec![10, 20], &mut vec![-10, 20, 16, 4], 2);
-        assert_eq!(answer, vec![vec![(10, vec![20, -10]), (20, vec![4, 16]),],]);
+        assert_eq!(answer, vec![vec![(10, vec![-10, 20]), (20, vec![4, 16]),],]);
 
         let answer_unchanged: Vec<Vec<(i32, Vec<i32>)>> = Vec::new();
 
@@ -530,9 +559,9 @@ pub mod dp {
         assert_eq!(
             answer,
             vec![
-                vec![(3, vec![3]), (5, vec![5]), (7, vec![5, 4, -3, 1]),],
-                vec![(3, vec![3]), (5, vec![4, 1]), (7, vec![5, 5, -3]),],
-                vec![(3, vec![5, -3, 1]), (5, vec![5]), (7, vec![3, 4]),],
+                vec![(3, vec![3]), (5, vec![5]), (7, vec![-3, 1, 4, 5]),],
+                vec![(3, vec![3]), (5, vec![1, 4]), (7, vec![-3, 5, 5]),],
+                vec![(3, vec![-3, 1, 5]), (5, vec![5]), (7, vec![3, 4]),],
             ]
         );
     }
@@ -578,8 +607,8 @@ pub mod dp {
             vec![
                 (vec![0], vec![0]),
                 (vec![1], vec![1]),
-                (vec![1, 7], vec![8]),
-                (vec![9], vec![2, 7]),
+                (vec![1, 9], vec![2, 8]),
+                (vec![7], vec![7]),
             ]
         );
 
@@ -648,22 +677,22 @@ mod tests {
     #[test]
     fn test_find_subset_fast_only_positive() {
         let result = dp::find_subset_fast_only_positive(&vec![1, 2, 3], 3, 2);
-        let route1: Vec<u32> = vec![2, 1];
-        let route2: Vec<u32> = vec![3];
+        let route1: Vec<u32> = vec![3];
+        let route2: Vec<u32> = vec![1, 2];
         let answer: Vec<Vec<u32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
         let result = dp::find_subset_fast_only_positive(&vec![0, 3, 5, 10], 3, 2);
         let route1: Vec<u32> = vec![3];
-        let route2: Vec<u32> = vec![3, 0];
+        let route2: Vec<u32> = vec![0, 3];
         let answer: Vec<Vec<u32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
         let result = dp::find_subset_fast_only_positive(&vec![1, 2, 3, 0], 3, 3);
-        let route1: Vec<u32> = vec![2, 1];
-        let route2: Vec<u32> = vec![3];
-        let route3: Vec<u32> = vec![0, 2, 1];
-        let route4: Vec<u32> = vec![0, 3];
+        let route1: Vec<u32> = vec![3];
+        let route2: Vec<u32> = vec![0, 3];
+        let route3: Vec<u32> = vec![1, 2];
+        let route4: Vec<u32> = vec![0, 1, 2];
         let answer: Vec<Vec<u32>> = vec![route1, route2, route3, route4];
         assert_eq!(result, answer);
     }
@@ -671,34 +700,34 @@ mod tests {
     #[test]
     fn test_find_subset() {
         let result = dp::find_subset(&vec![1, 2, 3], 3, 2);
-        let route1: Vec<i32> = vec![2, 1];
-        let route2: Vec<i32> = vec![3];
+        let route1: Vec<i32> = vec![3];
+        let route2: Vec<i32> = vec![1, 2];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
         let result = dp::find_subset(&vec![1, 2, 3, 4, 5], 10, 4);
-        let route1: Vec<i32> = vec![4, 3, 2, 1];
-        let route2: Vec<i32> = vec![5, 3, 2];
-        let route3: Vec<i32> = vec![5, 4, 1];
+        let route1: Vec<i32> = vec![1, 4, 5];
+        let route2: Vec<i32> = vec![2, 3, 5];
+        let route3: Vec<i32> = vec![1, 2, 3, 4];
         let answer: Vec<Vec<i32>> = vec![route1, route2, route3];
         assert_eq!(result, answer);
 
         let result = dp::find_subset(&vec![1, 2, 3, 4, 5], 10, 3);
-        let route2: Vec<i32> = vec![5, 3, 2];
-        let route3: Vec<i32> = vec![5, 4, 1];
+        let route2: Vec<i32> = vec![1, 4, 5];
+        let route3: Vec<i32> = vec![2, 3, 5];
         let answer: Vec<Vec<i32>> = vec![route2, route3];
         assert_eq!(result, answer);
 
         let arr = vec![75, 467, 512, -835, 770, -69, 10];
         let result = dp::find_subset(&arr, 711, 3);
-        let route1: Vec<i32> = vec![10, -69, 770];
+        let route1: Vec<i32> = vec![-69, 10, 770];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-3, 10, 56, -33, 65, -9, 8, 72, 63, 35];
         let result = dp::find_subset(&arr, 7, 4);
-        let route1: Vec<i32> = vec![10, -3];
-        let route2: Vec<i32> = vec![35, 8, -33, -3];
+        let route1: Vec<i32> = vec![-3, 10];
+        let route2: Vec<i32> = vec![-33, -3, 8, 35];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
@@ -707,7 +736,7 @@ mod tests {
             -776, -711, 45552, 86746, 84248, 66278, 37475,
         ];
         let result = dp::find_subset(&arr, 72782, 3);
-        let route1: Vec<i32> = vec![201, -628, 73209];
+        let route1: Vec<i32> = vec![-628, 201, 73209];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
@@ -719,7 +748,7 @@ mod tests {
 
         let arr = vec![-10, 5, -2];
         let result = dp::find_subset(&arr, -5, 2);
-        let route1: Vec<i32> = vec![5, -10];
+        let route1: Vec<i32> = vec![-10, 5];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
@@ -731,7 +760,7 @@ mod tests {
 
         let arr = vec![-100, 10, 20];
         let result = dp::find_subset(&arr, -70, 3);
-        let route1: Vec<i32> = vec![20, 10, -100];
+        let route1: Vec<i32> = vec![-100, 10, 20];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
     }
