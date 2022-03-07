@@ -27,6 +27,15 @@ pub mod dp {
         }
     }
 
+    impl RecordU32 {
+        fn to_i32(&self) -> Record {
+            Record {
+                key: self.key,
+                value: self.value as i32
+            }
+        }
+    }
+
     #[derive(Debug, Clone)]
     struct Records {
         records: Vec<Record>
@@ -48,6 +57,11 @@ pub mod dp {
 
         fn len(&self) -> usize {
             self.records.len()
+        }
+
+        fn min(&self) -> i32 {
+            let a = self.records.iter().map(|x| x.value).collect::<Vec<i32>>();
+            *(a.iter().min().unwrap())
         }
 
         fn push(&self, record: Record) -> () {
@@ -85,12 +99,27 @@ pub mod dp {
             self.records.len()
         }
 
+        fn min(&self) -> u32 {
+            let a = self.records.iter().map(|x| x.value).collect::<Vec<u32>>();
+            *(a.iter().min().unwrap())
+        }
+
         fn push(&self, record: RecordU32) -> () {
             self.records.push(record);
         }
 
         fn pop(&self) -> () {
             self.records.pop();
+        }
+        
+        fn to_i32(&self) -> Records {
+            let mut records: Vec<Record> = Vec::new();
+            for record in self.records.iter(){
+                records.push(record.to_i32())
+            }
+            Records {
+                records: records
+            }
         }
     }
 
@@ -156,15 +185,15 @@ pub mod dp {
             let result = find_subset_fast_only_positive(arr.to_u32().unwrap(), value as usize, max_length);
             for i in result {
                 let mut tempvec = Records{records: Vec::new()};
-                for j in i {
-                    tempvec.push(j as i32);
+                for j in i.records {
+                    tempvec.push(j.to_i32());
                 }
                 answer.push(tempvec)
             }
-            return vector_sorter(answer);
+            return answer;
         } else {
-            let offset: u32 = (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
-            for i in arr {
+            let offset: u32 = (max(arr.min().abs() + 1, min(value, 0).abs() + 1)) as u32;
+            for i in arr.records {
                 b.push((i + offset as i32) as u32);
             }
     
@@ -327,7 +356,7 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1, 4, 5], [2, 3, 5], [1, 2, 3, 4]]`
-    pub fn find_subset_fast_only_positive(arr: RecordsU32, value: usize, max_length: usize) -> Vec<Vec<u32>> {
+    pub fn find_subset_fast_only_positive(arr: RecordsU32, value: usize, max_length: usize) -> Vec<RecordsU32> {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
@@ -350,8 +379,8 @@ pub mod dp {
             }
         }
         let a_length: usize = arr.len();
-        let mut route: Vec<RecordsU32> = Vec::with_capacity(a_length);
-        let mut answer: Vec<Vec<RecordsU32>> = Vec::with_capacity(a_length);
+        let mut route: RecordsU32 = RecordsU32{records: Vec::new()};
+        let mut answer: Vec<RecordsU32> = Vec::with_capacity(a_length);
 
         rec(&dp, &arr, a_length, value, &mut route, &mut answer, &a_min, max_length);
         // for i in answer.iter_mut(){
@@ -359,8 +388,8 @@ pub mod dp {
         // };
         // answer.sort_by_key(|k| k[0]);
         // answer.sort_by_key(|k| k.len());
-        vector_sorter(answer)
-        // answer
+        // vector_sorter(answer)
+        answer
     }
 
     fn vec_remove(arr: &mut Vec<i32>, v: i32) {
