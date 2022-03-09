@@ -9,6 +9,8 @@
 
 This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
 
+Any feedback is welcome!
+
 There are three ways to use this program.
 * [CLI](#CLI)
 * [Rust](#rust)
