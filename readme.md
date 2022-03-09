@@ -14,6 +14,9 @@ There are three ways to use this program.
 * [Rust](#rust)
 * [Python](#python)
 
+Here is an out of the box example you can run now in google colab.
+https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/example.ipynb
+
 And it has three methods.
 
 * `find_subset`  
