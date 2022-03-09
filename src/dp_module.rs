@@ -2,98 +2,6 @@ pub mod dp {
     //! This is a module for dynamic programming.
     use std::collections::HashMap;
 
-    #[derive(Debug, Clone)]
-    struct Record {
-        key: String,
-        value: i32,
-    }
-
-    #[derive(Debug, Clone)]
-    struct RecordU32 {
-        key: String,
-        value: u32,
-    }
-
-    impl Record {
-        fn to_u32(&self) -> Result<RecordU32, String> {
-            if self.value < 0 {
-                return Err("aaa".to_string());
-            } else {
-                return Ok(RecordU32 {
-                    key: self.key,
-                    value: self.value as u32
-                });
-            }
-        }
-    }
-
-    #[derive(Debug, Clone)]
-    struct Records {
-        records: Vec<Record>
-    }
-
-    #[derive(Debug, Clone)]
-    struct RecordsU32 {
-        records: Vec<RecordU32>
-    }
-
-    impl Records {
-        fn get_value_vectors(&self) -> Vec<i32> {
-            let mut value_vectors: Vec<i32> = Vec::new();
-            for record in self.records.iter(){
-                value_vectors.push(record.value)
-            }
-            value_vectors
-        }
-
-        fn len(&self) -> usize {
-            self.records.len()
-        }
-
-        fn push(&self, record: Record) -> () {
-            self.records.push(record);
-        }
-
-        fn pop(&self) -> () {
-            self.records.pop();
-        }
-
-        fn to_u32(&self) -> Result<RecordsU32, String> {
-            let mut records_u32: Vec<RecordU32> = Vec::new();
-            for record in self.records.iter(){
-                match record.to_u32() {
-                    Ok(record_u32) => records_u32.push(record_u32),
-                    Err(err) => return Err("error".to_string()),
-                }
-            }
-            return Ok(RecordsU32 {
-                records: records_u32
-            });
-        }
-    }
-
-    impl RecordsU32 {
-        fn get_value_vectors(&self) -> Vec<u32> {
-            let mut value_vectors: Vec<u32> = Vec::new();
-            for record in self.records.iter(){
-                value_vectors.push(record.value)
-            }
-            value_vectors
-        }
-
-        fn len(&self) -> usize {
-            self.records.len()
-        }
-
-        fn push(&self, record: RecordU32) -> () {
-            self.records.push(record);
-        }
-
-        fn pop(&self) -> () {
-            self.records.pop();
-        }
-    }
-
     fn gcd_multi(v: Vec<u32>) -> u32 {
         let mut result = v[0];
         for i in 1..v.len() {
@@ -146,16 +54,20 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1], [-3, 4]]`
-    pub fn find_subset(arr: &Records, value: i32, max_length: usize) -> Vec<Records> {
+    pub fn find_subset(arr: &Vec<i32>, value: i32, max_length: usize) -> Vec<Vec<i32>> {
         use std::cmp::max;
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
-        let mut answer: Vec<Records> = Vec::with_capacity(arr.len());
-        if arr.get_value_vectors().iter().min().unwrap() >= &0 && value > 0 {
-            let result = find_subset_fast_only_positive(arr.to_u32().unwrap(), value as usize, max_length);
+        let mut b: Vec<u32> = Vec::with_capacity(arr.len());
+        let mut answer: Vec<Vec<i32>> = Vec::with_capacity(arr.len());
+        if arr.iter().min().unwrap() >= &0 && value > 0 {
+            for i in arr {
+                b.push(*i as u32);
+            }
+            let result = find_subset_fast_only_positive(&b, value as usize, max_length);
             for i in result {
-                let mut tempvec = Records{records: Vec::new()};
+                let mut tempvec = Vec::with_capacity(i.len());
                 for j in i {
                     tempvec.push(j as i32);
                 }
@@ -192,11 +104,11 @@ pub mod dp {
 
     fn rec(
         dp: &Vec<Vec<i32>>,
-        arr: &RecordsU32,
+        arr: &Vec<u32>,
         i: usize,
         j: usize,
-        route: &mut RecordsU32,
-        answer: &mut Vec<RecordsU32>,
+        route: &mut Vec<u32>,
+        answer: &mut Vec<Vec<u32>>,
         a_min: &u32,
         max_length: usize,
     ) {
@@ -221,10 +133,10 @@ pub mod dp {
             rec(dp, arr, i - 1, j, route, answer, a_min, max_length);
         }
 
-        if j as i32 - arr.records[i - 1].value as i32 >= 0 && dp[i - 1][j - arr.records[i - 1].value as usize] != 0 {
+        if j as i32 - arr[i - 1] as i32 >= 0 && dp[i - 1][j - arr[i - 1] as usize] != 0 {
             // Choose this element as arr candidate for an answer.
-            route.push(arr.records[i - 1]);
-            rec(dp, arr, i - 1, j - arr.records[i - 1].value as usize, route, answer, a_min, max_length);
+            route.push(arr[i - 1]);
+            rec(dp, arr, i - 1, j - arr[i - 1] as usize, route, answer, a_min, max_length);
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
         }
@@ -327,14 +239,14 @@ pub mod dp {
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1, 4, 5], [2, 3, 5], [1, 2, 3, 4]]`
-    pub fn find_subset_fast_only_positive(arr: RecordsU32, value: usize, max_length: usize) -> Vec<Vec<u32>> {
+    pub fn find_subset_fast_only_positive(arr: &Vec<u32>, value: usize, max_length: usize) -> Vec<Vec<u32>> {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
         let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
         dp[0][0] = 1;
 
-        let (j_indexes, a_min) = filter_j_idx(value, &(arr.get_value_vectors()));
+        let (j_indexes, a_min) = filter_j_idx(value, arr);
         for i in 0..arr.len() {
             for j in &j_indexes {
                 // If we don't choose to select an element to sum,
@@ -342,16 +254,16 @@ pub mod dp {
                 dp[i + 1][*j] += dp[i][*j];
 
                 // Skip if j + the element is larger than the target value.
-                if *j as u32 + arr.records[i].value < value as u32 + 1 {
+                if *j as u32 + arr[i] < value as u32 + 1 {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
-                    dp[i + 1][j + arr.records[i].value as usize] += dp[i][*j];
+                    dp[i + 1][j + arr[i] as usize] += dp[i][*j];
                 }
             }
         }
         let a_length: usize = arr.len();
-        let mut route: Vec<RecordsU32> = Vec::with_capacity(a_length);
-        let mut answer: Vec<Vec<RecordsU32>> = Vec::with_capacity(a_length);
+        let mut route: Vec<u32> = Vec::with_capacity(a_length);
+        let mut answer: Vec<Vec<u32>> = Vec::with_capacity(a_length);
 
         rec(&dp, &arr, a_length, value, &mut route, &mut answer, &a_min, max_length);
         // for i in answer.iter_mut(){
