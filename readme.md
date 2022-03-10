@@ -125,8 +125,7 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt m2m 10`  
-In this case, 10 is `n_shuffle` that  is the number of trials.
+Call `subset_sum.exe arr1.txt arr2.txt m2m`  
 
 In this example, the output is   
 ```
@@ -210,14 +209,12 @@ help(dpss.sequence_matcher_m2m)
 >>>     This method assumes that the two vectors have Many-to-Many relationships.
 >>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
 >>>     With this method, we can find some combinations of the integers.
->>>     `n_shuffle` is the number of trials. For each case, `kays` are shuffled. 
 >>>     # Arguments
 >>>     * `keys` - An array.
 >>>     * `targets` - An array.
->>>     * `n_shuffle` - The number of trials.
 ```
 ```python
-print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10))
+print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20]))
 ```
 ```
 >>>[[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980])],
@@ -272,7 +269,7 @@ Output
 use dpss::dp::sequence_matcher_m2m;
 
 fn main() {
-    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10);
+    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20]);
     println!("{:?}", result);
 }
 ```

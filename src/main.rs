@@ -40,12 +40,7 @@ fn main() {
             }
         }
         if args[3] == "m2m"{
-            let n_candidates = if args.len() == 4 {
-                10
-            } else {
-                args[4].parse::<usize>().unwrap()
-            };
-            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets, n_candidates);
+            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets);
             for elem in result{
                 println!("{:?}", elem);
             }
