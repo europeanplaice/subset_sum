@@ -414,31 +414,20 @@ pub mod dp {
         targets: &mut Vec<i32>,
         n_candidates: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
-        use rand::seq::SliceRandom;
 
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
-        let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = Vec::with_capacity(n_candidates);
-        let mut rng: rand::rngs::StdRng = rand::SeedableRng::from_seed([13; 32]);
+        let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = vec![];
         if keys.iter().sum::<i32>() != targets.iter().sum() {
             println!("The sum of the keys must be equal to the sum of the targets.");
             return answer;
         }
         let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
-        for _i in 0..n_candidates {
-            let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> = HashMap::new();
-            sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, keys.len(), targets.len(), &mut hashmap_fs, &mut key_target_group);
-            keys.shuffle(&mut rng);
-        }
+        let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> = HashMap::new();
+        sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, keys.len(), targets.len(), &mut hashmap_fs, &mut key_target_group);
         for i in 0..answer.len(){
-            for j in 0..answer[i].len(){
-                answer[i][j].0.sort();
-                answer[i][j].1.sort();
-            }
-            answer[i].sort();
             answer[i].dedup();
 
         }
-        answer.sort();
         answer.dedup();
         if answer.len() == 0 {
             println!("Can't find any combination. You may have to increase n_candidates.");
@@ -457,6 +446,8 @@ pub mod dp {
         hashmap_fs: &mut HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>,
         key_target_group: &mut HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>>,
     ) {
+        use itertools::Itertools;
+
         if keys.iter().sum::<i32>() != targets.iter().sum() {
             return;
         }
@@ -473,73 +464,86 @@ pub mod dp {
             return;
         }
 
-        let mut sum_key = 0;
-        let mut vec_key = vec![];
-        for i in 0..n_key {
-            sum_key += keys[i];
-            vec_key.push(keys[i].clone())
-        }
-        if targets.iter().max().unwrap() == &0{
-            return;
-        }
-        targets.sort();
-        let set_ = hashmap_fs.entry((targets.clone(), sum_key.clone())).or_insert(find_subset(&targets, sum_key, max_target_length)).clone();
-        if set_.len() == 0 {
-            sequence_matcher_core_m2m(keys, targets, group, answer, n_key + 1, keys.len(), targets.len(), hashmap_fs, key_target_group);
-        }
-        for set in set_ {
-            let mut _set = Vec::from(set.clone());
-            _set.sort();
-            let mut _vec_key = vec_key.clone();
-            _vec_key.sort();
-            group.push((_vec_key, _set));
-            for el in set.clone() {
-                if targets.contains(&el) == false {
+        let key_candidates = (0..keys.len()).powerset().collect::<Vec<_>>();
+        let goldkey = keys.clone();
+        let goldtargets = targets.clone();
+        let goldgroup = group.clone();
+        key_candidates.iter().for_each(|i| {
+            *keys = goldkey.clone();
+            *targets = goldtargets.clone();
+            *group = goldgroup.clone();
+            let mut sum_key = 0;
+            let mut vec_key = vec![];
+            for j in i.iter() {
+                if j >= &keys.len(){
                     return;
                 }
-                vec_remove(targets, el);
+                sum_key += keys[*j];
+                vec_key.push(keys[*j].clone());
             }
-            for i in vec_key.clone() {
-                if keys.contains(&i) == false {
-                    return;
-                }
-                vec_remove(keys, i);
+            if targets.iter().max().unwrap() == &0{
+                return;
             }
-            if keys.len() > 0 && targets.len() > 0 {
-                if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
-                    group.push((keys.clone(), targets.clone()));
-                    for d in key_target_group.get(&(keys.clone(), targets.clone())).unwrap(){
-                        if group.contains(&d) == false {
-                            group.push(d.clone());
-                        }
-                        for i in &d.0 {
-                            if keys.contains(&i) == false {
-                                return;
-                            }
-                            vec_remove(keys, *i);
-                        }
-                        for el in &d.1 {
-                            if targets.contains(&el) == false {
-                                return;
-                            }
-                            vec_remove(targets, *el);
-                        }
+            targets.sort();
+            let set_ = hashmap_fs.entry((targets.clone(), sum_key.clone())).or_insert(find_subset(&targets, sum_key, max_target_length)).clone();
+            if set_.len() == 0 {
+                return;
+            }
+            for set in set_ {
+                let mut _set = Vec::from(set.clone());
+                _set.sort();
+                let mut _vec_key = vec_key.clone();
+                _vec_key.sort();
+                group.push((_vec_key, _set));
+                for el in set.clone() {
+                    if targets.contains(&el) == false {
+                        return;
                     }
-                    answer.push(group.clone());
-                    return;
-                } else {
-                    key_target_group.insert((keys.clone(), targets.clone()), group.clone());
+                    vec_remove(targets, el);
+                }
+                for i in vec_key.clone() {
+                    if keys.contains(&i) == false {
+                        return;
+                    }
+                    vec_remove(keys, i);
+                }
+                if keys.len() > 0 && targets.len() > 0 {
+                    if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
+                        group.push((keys.clone(), targets.clone()));
+                        for d in key_target_group.get(&(keys.clone(), targets.clone())).unwrap(){
+                            if group.contains(&d) == false {
+                                group.push(d.clone());
+                            }
+                            for i in &d.0 {
+                                if keys.contains(&i) == false {
+                                    return;
+                                }
+                                vec_remove(keys, *i);
+                            }
+                            for el in &d.1 {
+                                if targets.contains(&el) == false {
+                                    return;
+                                }
+                                vec_remove(targets, *el);
+                            }
+                        }
+                        answer.push(group.clone());
+                        return;
+                    } else {
+                        key_target_group.insert((keys.clone(), targets.clone()), group.clone());
+                    }
+                }
+                sequence_matcher_core_m2m(keys, targets, group, answer, n_key, keys.len(), targets.len(), hashmap_fs, key_target_group);
+                group.pop();
+                for el in set.clone() {
+                    targets.push(el);
+                }
+                for i in vec_key.clone() {
+                    keys.push(i);
                 }
             }
-            sequence_matcher_core_m2m(keys, targets, group, answer, n_key, keys.len(), targets.len(), hashmap_fs, key_target_group);
-            group.pop();
-            for el in set.clone() {
-                targets.push(el);
-            }
-            for i in vec_key.clone() {
-                keys.push(i);
-            }
-        }
+            return;
+        });
     }
 
     #[test]
