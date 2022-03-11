@@ -408,12 +408,6 @@ pub mod dp {
         let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
         let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> = HashMap::new();
         sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, keys.len(), targets.len(), &mut hashmap_fs, &mut key_target_group);
-        for i in 0..answer.len(){
-            // answer[i].sort();
-            // answer[i].dedup();
-
-
-        }
         answer.sort();
         answer.dedup();
         if answer.len() == 0 {
