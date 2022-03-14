@@ -25,10 +25,8 @@ And it has three methods.
     * It finds a subset from an array.
 * `find_subset_fast_only_positive`  
     * It finds a subset from an array. It can't accept negative values but relatively faster.
-* `Sequence Matcher (One-to-Many)`
-    * It finds One-to-Many relationships with two arrays.
-* `Sequence Matcher (Many-to-Many)`
-    * It finds Many-to-Many relationships with two arrays.
+* `Sequence Matcher`
+    * It finds subset sum relationships with two arrays.
 
 `dpss` is short for `dynamic programming subset sum`.
 
@@ -72,36 +70,7 @@ The third argument is the maximum length of the combination.
 In this example, the output is   
 `[[2, 1], [4, -3, 2], [5, -3, 1]]`
 
-### Sequence Matcher (One-to-Many)
-
-`key.txt`
-```
-3
-5
-7
-```
-
-`targets.txt`
-```
-1
-5
--3
-4
-5
-3
-```
-
-Call `subset_sum.exe key.txt targets.txt o2m 4`  
-The fourth argument is the maximum length of the combination.
-
-In this example, the output is   
-```
-[(3, [3]), (5, [5]), (7, [5, 4, -3, 1])]
-[(3, [3]), (5, [4, 1]), (7, [5, 5, -3])]
-[(3, [5, -3, 1]), (5, [5]), (7, [3, 4])]
-```
-
-### Sequence Matcher (Many-to-Many)
+### Sequence Matcher
 
 `arr1.txt`
 ```
@@ -125,15 +94,14 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt m2m`  
+Call `subset_sum.exe arr1.txt arr2.txt 100 100`  
 
 In this example, the output is   
 ```
-[([1050], [1050]), ([1980, 2980, 3500, 4000], [20, 30, 80, 200, 1950, 2900, 3300, 3980])]
-[([1050, 1980, 2980], [80, 1950, 3980]), ([3500, 4000], [20, 30, 200, 1050, 2900, 3300])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500, 4000], [20, 200, 3300, 3980])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980, 3500, 4000], [20, 80, 200, 2900, 3300, 3980])]
 ...
-[([4000], [20, 3980]), ([1050], [1050]), ([1980, 2980, 3500], [30, 80, 200, 1950, 2900, 3300])]
-[([4000], [20, 3980]), ([1050, 1980, 2980, 3500], [30, 80, 200, 1050, 1950, 2900, 3300])]
 ```
 
 ## <a id="python"></a>Use in Python
@@ -187,27 +155,7 @@ print(dpss.find_subset_fast_only_positive([1, 2, 3, 4, 5], 10, 4))
 help(dpss.sequence_matcher)
 ```
 ```
->>> sequence_matcher(key, targets, max_target_length, /)
->>>    Finds the integers from two vectors that sum to the same value.
->>>    This method assumes that the two vectors have One-to-Many relationships.
->>>    Each integer of the `key` vector corresponds to the multiple integers of the `targets` vector.
->>>    # Arguments
->>>    * `key` - An array.
->>>    * `targets` - An array.
->>>    * `max_length` - The maximum length of combinations of the answer.
-```
-```python
-print(dpss.sequence_matcher([3, 5, 7], [1, 5, -3, 4, 5, 3], 4))
-```
-```
->>> [ [(3, [3]), (5, [5]), (7, [5, 4, -3, 1])], [(3, [3]), (5, [4, 1]), (7, [5, 5, -3])], [(3, [5, -3, 1]), (5, [5]), (7, [3, 4])], ]
-```
-#### `sequence_matcher_m2m`
-```python
-help(dpss.sequence_matcher_m2m)
-```
-```
->>> sequence_matcher_m2m(keys, targets, n_shuffle, /)
+>>> sequence_matcher(keys, targets, max_key_length, max_target_length /)
 >>>     Finds the integers from two vectors that sum to the same value.
 >>>     This method assumes that the two vectors have Many-to-Many relationships.
 >>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
@@ -215,16 +163,17 @@ help(dpss.sequence_matcher_m2m)
 >>>     # Arguments
 >>>     * `keys` - An array.
 >>>     * `targets` - An array.
+>>>     * `max_key_length` - An integer.
+>>>     * `max_target_length` - An integer.
 ```
 ```python
-print(dpss.sequence_matcher_m2m([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20]))
+print(dpss.sequence_matcher([1980, 2980, 3500, 4000, 1050], [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10))
 ```
 ```
->>>[[([1050], [1050]),
-  ([1980, 2980, 3500, 4000], [20, 30, 80, 200, 1950, 2900, 3300, 3980])],
- [([1050, 1980, 2980], [80, 1950, 3980]),
-  ([3500, 4000], [20, 30, 200, 1050, 2900, 3300])],
-  ...
+>>> [([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980])]
+>>> [([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500, 4000], [20, 200, 3300, 3980])]
+>>> [([1050], [1050]), ([1980], [30, 1950]), ([2980, 3500, 4000], [20, 80, 200, 2900, 3300, 3980])]
+...
 ```
 
 ## <a id="rust"></a>Use in Rust
@@ -251,38 +200,20 @@ Output
 ```
 [[3, 2, 1], [4, 2], [5, 1]]
 ```
-### Sequence Matcher (One-to-Many)
+### Sequence Matcher
 `main.rs`
 ```rust
 use dpss::dp::sequence_matcher;
 
 fn main() {
-    let result = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3], 4);
+    let result = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10);
     println!("{:?}", result);
 }
 ```
 Output
 ```
-[
-[(3, [3]), (5, [5]), (7, [5, 4, -3, 1])]
-[(3, [3]), (5, [4, 1]), (7, [5, 5, -3])]
-[(3, [5, -3, 1]), (5, [5]), (7, [3, 4])]
-]
-```
-### Sequence Matcher (Many-to-Many)
-`main.rs`
-```rust
-use dpss::dp::sequence_matcher_m2m;
-
-fn main() {
-    let result = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20]);
-    println!("{:?}", result);
-}
-```
-Output
-```
-[([1050], [1050]), ([1980, 2980, 3500, 4000], [20, 30, 80, 200, 1950, 2900, 3300, 3980])]
-[([1050, 1980, 2980], [80, 1950, 3980]), ([3500, 4000], [20, 30, 200, 1050, 2900, 3300])]
-[([1050, 1980, 2980, 3500, 4000], [20, 30, 80, 200, 1050, 1950, 2900, 3300, 3980])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500], [200, 3300]), ([4000], [20, 3980])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980], [80, 2900]), ([3500, 4000], [20, 200, 3300, 3980])]
+[([1050], [1050]), ([1980], [30, 1950]), ([2980, 3500, 4000], [20, 80, 200, 2900, 3300, 3980])]
 ...
 ```

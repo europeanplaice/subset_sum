@@ -73,7 +73,7 @@ pub mod dp {
                 }
                 answer.push(tempvec)
             }
-            return vector_sorter(answer);
+            return answer;
         } else {
             let offset: u32 = (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
             for i in arr {
@@ -98,7 +98,7 @@ pub mod dp {
                     }
                 }
             }
-            return vector_sorter(answer);
+            return answer;
         };
     }
 
@@ -280,89 +280,6 @@ pub mod dp {
         arr.remove(index);
     }
 
-    /// Finds the integers from two vectors that sum to the same value.
-    /// This method assumes that the two vectors have One-to-Many relationships.
-    /// Each integer of the `key` vector corresponds to the multiple integers of the `value` vector.
-    /// # Arguments
-    /// * `key` - An array.
-    /// * `targets` - An array.
-    /// * `max_length` - The maximum length of combinations of the answer.
-    /// # Example
-    /// ```
-    ///
-    /// use dpss::dp::sequence_matcher;
-    /// let answer = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3], 4);
-    /// assert_eq!(answer, vec![
-    ///     vec![
-    ///         (3, vec![3]),
-    ///         (5, vec![5]),
-    ///         (7, vec![-3, 1, 4, 5]),
-    ///      ],
-    ///     vec![
-    ///         (3, vec![3]),
-    ///         (5, vec![1, 4]),
-    ///         (7, vec![-3, 5, 5]),
-    ///      ],
-    ///     vec![
-    ///         (3, vec![-3, 1, 5]),
-    ///         (5, vec![5]),
-    ///         (7, vec![3, 4]),
-    ///      ],
-    /// ]);
-    ///
-    /// let answer_unchanged: Vec<Vec<(i32, Vec<i32>)>> = Vec::new();
-    /// let answer = sequence_matcher(&mut vec![10, 20], &mut vec![9, 21], 1);
-    /// assert_eq!(answer, answer_unchanged);
-    /// ```
-    pub fn sequence_matcher(
-        key: &mut Vec<i32>,
-        targets: &mut Vec<i32>,
-        max_target_length: usize,
-    ) -> Vec<Vec<(i32, Vec<i32>, )>> {
-        let mut group: Vec<(i32, Vec<i32>)> = Vec::with_capacity(targets.len());
-        let mut answer: Vec<Vec<(i32, Vec<i32>)>> = Vec::with_capacity(targets.len());
-        sequence_matcher_core(key, targets, &mut group, &mut answer, max_target_length);
-        if answer.len() == 0 {
-            println!("Can't find any combination.");
-        }
-        answer
-    }
-
-    fn sequence_matcher_core(
-        key: &mut Vec<i32>,
-        targets: &mut Vec<i32>,
-        group: &mut Vec<(i32, Vec<i32>)>,
-        answer: &mut Vec<Vec<(i32, Vec<i32>)>>,
-        max_target_length: usize
-    ) {
-        if key.len() == 0 && targets.len() == 0 {
-            answer.push(group.clone());
-            return;
-        }
-        if key.len() == 0 && targets.len() > 0 {
-            return;
-        }
-        if key.len() > 0 && targets.len() == 0 {
-            return;
-        }
-
-        let set_: Vec<Vec<i32>> = find_subset(&targets, key[0], max_target_length);
-        for set in set_ {
-            group.push((key[0], set.clone()));
-            let i2 = key[0].clone();
-            for el in set.clone() {
-                vec_remove(targets, el);
-            }
-            vec_remove(key, key[0]);
-
-            sequence_matcher_core(key, targets, group, answer, max_target_length);
-            group.pop();
-            for el in set.clone() {
-                targets.push(el);
-            }
-            key.push(i2);
-        }
-    }
 
     /// Finds the integers from two vectors that sum to the same value.
     /// This method assumes that the two vectors have Many-to-Many relationships.
@@ -371,32 +288,51 @@ pub mod dp {
     /// # Arguments
     /// * `keys` - An array.
     /// * `targets` - An array.
+    /// * `max_key_length` - An integer.
+    /// * `max_target_length` - An integer.
     /// # Example
     ///
     /// ```rust
     ///
-    ///use dpss::dp::sequence_matcher_m2m;
-    ///let answer = sequence_matcher_m2m(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20]);
+    ///use dpss::dp::sequence_matcher;
+    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10);
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
     ///     vec![1050]),
     ///
-    ///     (vec![1980, 2980, 3500, 4000],
-    ///     vec![20, 30, 80, 200, 1950, 2900, 3300, 3980]),
+    ///     (vec![1980],
+    ///     vec![30, 1950]),
+    /// 
+    ///     (vec![2980],
+    ///     vec![80, 2900]),
+    /// 
+    ///     (vec![3500],
+    ///     vec![200, 3300]),
+    /// 
+    ///     (vec![4000],
+    ///     vec![20, 3980]),
     ///
     ///    ]);
     ///assert_eq!(answer[1], vec![
-    ///    (vec![1050, 1980, 2980],
-    ///     vec![80, 1950, 3980]),
+    ///    (vec![1050],
+    ///     vec![1050]),
     ///
+    ///     (vec![1980],
+    ///     vec![30, 1950]),
+    /// 
+    ///     (vec![2980],
+    ///     vec![80, 2900]),
+    /// 
     ///     (vec![3500, 4000],
-    ///     vec![20, 30, 200, 1050, 2900, 3300]),
+    ///     vec![20, 200, 3300, 3980]),
     ///
     ///    ]);
     /// ```
-    pub fn sequence_matcher_m2m(
+    pub fn sequence_matcher(
         keys: &mut Vec<i32>,
-        targets: &mut Vec<i32>
+        targets: &mut Vec<i32>, 
+        max_key_length: usize,
+        max_target_length: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
 
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
@@ -407,7 +343,11 @@ pub mod dp {
         }
         let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
         let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> = HashMap::new();
-        sequence_matcher_core_m2m(keys, targets, &mut group, &mut answer, 1, keys.len(), targets.len(), &mut hashmap_fs, &mut key_target_group);
+        sequsequence_matcher_core(keys, targets, &mut group, &mut answer, 1, max_key_length, max_target_length, &mut hashmap_fs, &mut key_target_group);
+        for i in 0..answer.len() {
+            answer[i].sort_by_key(|k| k.0.iter().sum::<i32>());
+            answer[i].sort_by_key(|k| k.0.len());
+        }
         answer.sort();
         answer.dedup();
         if answer.len() == 0 {
@@ -416,7 +356,7 @@ pub mod dp {
         answer
     }
 
-    fn sequence_matcher_core_m2m(
+    fn sequsequence_matcher_core(
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
@@ -428,6 +368,8 @@ pub mod dp {
         key_target_group: &mut HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>>,
     ) {
         use itertools::Itertools;
+        use std::cmp::min;
+
 
         if keys.iter().sum::<i32>() != targets.iter().sum() {
             return;
@@ -445,7 +387,7 @@ pub mod dp {
             return;
         }
 
-        let key_candidates = (0..keys.len()).powerset().collect::<Vec<_>>();
+        let key_candidates: Vec<Vec<usize>> = (0..keys.len()).powerset().collect::<Vec<_>>().into_iter().filter(|x| x.len() <= max_key_length).collect();
         let goldkey = keys.clone();
         let goldtargets = targets.clone();
         let goldgroup = group.clone();
@@ -514,7 +456,7 @@ pub mod dp {
                         key_target_group.insert((keys.clone(), targets.clone()), group.clone());
                     }
                 }
-                sequence_matcher_core_m2m(keys, targets, group, answer, n_key, keys.len(), targets.len(), hashmap_fs, key_target_group);
+                sequsequence_matcher_core(keys, targets, group, answer, n_key, max_key_length, max_target_length, hashmap_fs, key_target_group);
                 group.pop();
                 for el in set.clone() {
                     targets.push(el);
@@ -527,36 +469,13 @@ pub mod dp {
         });
     }
 
+
     #[test]
     fn test_sequence_matcher() {
-        let answer = sequence_matcher(&mut vec![1, 6], &mut vec![1, 3, 3], 2);
-        assert_eq!(answer, vec![vec![(1, vec![1]), (6, vec![3, 3])]]);
 
-        let answer = sequence_matcher(&mut vec![10, 20], &mut vec![-10, 20, 16, 4], 2);
-        assert_eq!(answer, vec![vec![(10, vec![-10, 20]), (20, vec![4, 16]),],]);
-
-        let answer_unchanged: Vec<Vec<(i32, Vec<i32>)>> = Vec::new();
-
-        let answer = sequence_matcher(&mut vec![10, 20], &mut vec![10, 21], 2);
-        assert_eq!(answer, answer_unchanged);
-
-        let answer = sequence_matcher(&mut vec![3, 5, 7], &mut vec![1, 5, -3, 4, 5, 3], 4);
-        assert_eq!(
-            answer,
-            vec![
-                vec![(3, vec![3]), (5, vec![5]), (7, vec![-3, 1, 4, 5]),],
-                vec![(3, vec![3]), (5, vec![1, 4]), (7, vec![-3, 5, 5]),],
-                vec![(3, vec![-3, 1, 5]), (5, vec![5]), (7, vec![3, 4]),],
-            ]
-        );
-    }
-
-    #[test]
-    fn test_sequence_matcher_m2m() {
-
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![6, 7, 3, 2, -9, -3, 8, 3, 6, -10],
-            &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37],
+            &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37], 10, 10
         );
         assert_eq!(
             answer[0],
@@ -567,9 +486,9 @@ pub mod dp {
             ]
         );
 
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![6, 7, 3, 2, -9],
-            &mut vec![-3, 8, 3, 6, -5],
+            &mut vec![-3, 8, 3, 6, -5], 10, 10
         );
         assert_eq!(
             answer[0],
@@ -579,9 +498,9 @@ pub mod dp {
             ]
         );
 
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![9, 0, 1, 7, 1],
-            &mut vec![7, 2, 8, 0, 1],
+            &mut vec![7, 2, 8, 0, 1], 10, 10
         );
         assert_eq!(
             answer[0],
@@ -593,52 +512,53 @@ pub mod dp {
         );
 
         let answer =
-            sequence_matcher_m2m(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5]);
+            sequence_matcher(&mut vec![1, 2, 3, 4, 5], &mut vec![11, -8, 14, -7, 5], 10, 10);
         assert_eq!(
             answer[0],
             vec![(vec![1], vec![-8, -7, 5, 11]), (vec![2, 3, 4, 5], vec![14]),]
         );
 
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![1000, 1100, 150, 123, 5, 10],
-            &mut vec![2100, 273, 4, 11],
+            &mut vec![2100, 273, 4, 11], 10, 10
         );
         assert_eq!(
             answer[0],
             vec![
                 (vec![5, 10], vec![4, 11]),
-                (vec![123, 150, 1000, 1100], vec![273, 2100]),
+                (vec![123, 150], vec![273]),
+                (vec![1000, 1100], vec![2100]),
             ]
         );
         assert_eq!(
             answer[1],
             vec![
-                (vec![5, 10, 123, 150, 1000, 1100], vec![4, 11, 273, 2100]),
+                (vec![5, 10], vec![4, 11]),
+                (vec![123, 150, 1000, 1100], vec![273, 2100]),
             ]
         );
 
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![1000, 1100, 150, 123, 5, 10],
-            &mut vec![1000, 1200],
+            &mut vec![1000, 1200], 10, 10
         );
         assert_eq!(answer.len(), 0);
 
-        let answer = sequence_matcher_m2m(&mut vec![-950, 10000], &mut vec![5000, 4000, 50]);
+        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10);
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
-        let answer = sequence_matcher_m2m(
+        let answer = sequence_matcher(
             &mut vec![99, 68, -74, 72, -38, 22],
-            &mut vec![36, -23, -92, 88, 67, 73],
+            &mut vec![36, -23, -92, 88, 67, 73], 10, 10
         );
         assert_eq!(
             answer[0],
             vec![
-                (vec![-74, -38, 22, 68, 72], vec![-23, 73]),
-                (vec![99], vec![-92, 36, 67, 88]),
+                (vec![-74, -38, 22, 68, 72, 99], vec![-92, -23, 36, 67, 73, 88]),
             ]
         );
 
-        let answer = sequence_matcher_m2m(&mut vec![1, 2, 3, 4], &mut vec![1, 5]);
+        let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10);
 
         assert_eq!(answer.len(), 0);
     }

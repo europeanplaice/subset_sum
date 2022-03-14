@@ -39,22 +39,19 @@ fn main() {
                 Err(_) => println!("Error reading file"),
             }
         }
-        if args[3] == "m2m"{
-            let result = dp_module::dp::sequence_matcher_m2m(&mut key, &mut targets);
-            for elem in result{
-                println!("{:?}", elem);
-            }
-        } 
-        if args[3] == "o2m" {
-            let max_target_length = if args.len() == 4 {
-                targets.len()
-            } else {
-                args[4].parse::<usize>().unwrap()
-            };
-            let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_target_length);
-            for elem in result{
-                println!("{:?}", elem);
-            }
+        let max_key_length = if args.len() == 3 {
+            key.len()
+        } else {
+            args[3].parse::<usize>().unwrap()
+        };
+        let max_target_length = if args.len() == 4 {
+            targets.len()
+        } else {
+            args[4].parse::<usize>().unwrap()
+        };
+        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_key_length, max_target_length);
+        for elem in result{
+            println!("{:?}", elem);
         }
     } else {
         let mut a: Vec<i32> = Vec::new();
