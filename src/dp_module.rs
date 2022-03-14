@@ -394,7 +394,7 @@ pub mod dp {
         answer.sort();
         answer.dedup();
         if answer.len() == 0 {
-            println!("Can't find any combination. You may have to increase n_candidates.");
+            println!("Can't find any combination.");
         }
         answer
     }
@@ -479,35 +479,36 @@ pub mod dp {
                     }
                     vec_remove(keys, i);
                 }
-                if keys.len() > 0 && targets.len() > 0 {
-                    if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
-                        group.push((keys.clone(), targets.clone()));
-                        for d in key_target_group
-                            .get(&(keys.clone(), targets.clone()))
-                            .unwrap()
-                        {
-                            if group.contains(&d) == false {
-                                group.push(d.clone());
-                            }
-                            for i in &d.0 {
-                                if keys.contains(&i) == false {
-                                    return;
-                                }
-                                vec_remove(keys, *i);
-                            }
-                            for el in &d.1 {
-                                if targets.contains(&el) == false {
-                                    return;
-                                }
-                                vec_remove(targets, *el);
-                            }
-                        }
-                        answer.push(group.clone());
-                        return;
-                    } else {
-                        key_target_group.insert((keys.clone(), targets.clone()), group.clone());
-                    }
-                }
+                // if keys.len() > 0 && targets.len() > 0 {
+                //     if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
+                //         group.push((keys.clone(), targets.clone()));
+                //         for d in key_target_group
+                //             .get(&(keys.clone(), targets.clone()))
+                //             .unwrap()
+                //         {
+                //             if group.contains(&d) == false {
+                //                 group.push(d.clone());
+                //             }
+                //             for i in &d.0 {
+                //                 if keys.contains(&i) == false {
+                //                     continue;
+                //                 }
+                //                 vec_remove(keys, *i);
+                //             }
+                //             for el in &d.1 {
+                //                 if targets.contains(&el) == false {
+                //                     continue;
+                //                 }
+                //                 vec_remove(targets, *el);
+                //             }
+                //         }
+                //         answer.push(group.clone());
+                //         println!("ok");
+                //         return;
+                //     } else {
+                //         key_target_group.insert((keys.clone(), targets.clone()), group.clone());
+                //     }
+                // }
                 sequsequence_matcher_core(
                     keys,
                     targets,
