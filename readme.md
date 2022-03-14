@@ -17,7 +17,7 @@ There are three ways to use this program.
 * [Python](#python)
 
 Here is an out of the box example you can run now in google colab.
-https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/example.ipynb
+https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
 
 And it has three methods.
 
