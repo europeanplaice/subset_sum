@@ -49,7 +49,12 @@ fn main() {
         } else {
             args[4].parse::<usize>().unwrap()
         };
-        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_key_length, max_target_length);
+        let n_candidates = if args.len() == 5 {
+            10
+        } else {
+            args[5].parse::<usize>().unwrap()
+        };
+        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_key_length, max_target_length, n_candidates);
         for elem in result{
             println!("{:?}", elem);
         }

@@ -323,12 +323,13 @@ pub mod dp {
     /// * `targets` - An array.
     /// * `max_key_length` - An integer.
     /// * `max_target_length` - An integer.
+    /// * `n_candidates` - An integer.
     /// # Example
     ///
     /// ```rust
     ///
     ///use dpss::dp::sequence_matcher;
-    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10);
+    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 2);
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
     ///     vec![1050]),
@@ -347,17 +348,17 @@ pub mod dp {
     ///
     ///    ]);
     ///assert_eq!(answer[1], vec![
-    ///    (vec![1050],
-    ///     vec![1050]),
-    ///
-    ///     (vec![1980],
+    ///    (vec![1980],
     ///     vec![30, 1950]),
     ///
     ///     (vec![2980],
     ///     vec![80, 2900]),
     ///
-    ///     (vec![3500, 4000],
-    ///     vec![20, 200, 3300, 3980]),
+    ///     (vec![3500],
+    ///     vec![200, 3300]),
+    ///
+    ///     (vec![1050, 4000],
+    ///     vec![20, 1050, 3980]),
     ///
     ///    ]);
     /// ```
@@ -366,6 +367,7 @@ pub mod dp {
         targets: &mut Vec<i32>,
         max_key_length: usize,
         max_target_length: usize,
+        n_candidates: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
         let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = vec![];
@@ -374,18 +376,15 @@ pub mod dp {
             return answer;
         }
         let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
-        let mut key_target_group: HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>> =
-            HashMap::new();
         sequsequence_matcher_core(
             keys,
             targets,
             &mut group,
             &mut answer,
-            1,
             max_key_length,
             max_target_length,
             &mut hashmap_fs,
-            &mut key_target_group,
+            n_candidates
         );
         for i in 0..answer.len() {
             answer[i].sort_by_key(|k| k.0.iter().sum::<i32>());
@@ -404,27 +403,28 @@ pub mod dp {
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
         answer: &mut Vec<Vec<(Vec<i32>, Vec<i32>)>>,
-        n_key: usize,
         max_key_length: usize,
         max_target_length: usize,
         hashmap_fs: &mut HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>,
-        key_target_group: &mut HashMap<(Vec<i32>, Vec<i32>), Vec<(Vec<i32>, Vec<i32>)>>,
+        n_candidates: usize,
     ) {
         use itertools::Itertools;
 
-        if keys.iter().sum::<i32>() != targets.iter().sum() {
+        if answer.len() >= n_candidates {
             return;
         }
 
         if keys.len() == 0 && targets.len() == 0 {
-            answer.push(group.clone());
-            return;
+            group.sort_by_key(|k| k.0.iter().sum::<i32>());
+            group.sort_by_key(|k| k.0.len());
+            if answer.contains(&group) {
+                return;
+            } else {
+                answer.push(group.clone());
+                return;
+            }
         }
         if (keys.len() == 0 && targets.len() > 0) || (keys.len() > 0 && targets.len() == 0) {
-            return;
-        }
-
-        if n_key > max_key_length || n_key > keys.len() {
             return;
         }
 
@@ -444,91 +444,56 @@ pub mod dp {
             let mut sum_key = 0;
             let mut vec_key = vec![];
             for j in i.iter() {
-                if j >= &keys.len() {
-                    return;
-                }
                 sum_key += keys[*j];
                 vec_key.push(keys[*j].clone());
+            }
+            vec_key.sort();
+            if sum_key > targets.iter().sum() {
+                return;
             }
             if targets.iter().max().unwrap() == &0 {
                 return;
             }
             targets.sort();
             let set_ = hashmap_fs
-                .entry((targets.clone(), sum_key.clone()))
+                .entry((targets.clone(), sum_key))
                 .or_insert(find_subset(&targets, sum_key, max_target_length))
                 .clone();
             if set_.len() == 0 {
                 return;
             }
+            let goldkey = keys.clone();
+            let goldtargets = targets.clone();
+            let goldgroup = group.clone();
             for set in set_ {
-                let mut _set = Vec::from(set.clone());
-                _set.sort();
-                let mut _vec_key = vec_key.clone();
-                _vec_key.sort();
-                group.push((_vec_key, _set));
+                *keys = goldkey.clone();
+                *targets = goldtargets.clone();
+                *group = goldgroup.clone();
+                group.push((vec_key.clone(), set.clone()));
                 for el in set.clone() {
-                    if targets.contains(&el) == false {
-                        return;
-                    }
                     vec_remove(targets, el);
                 }
                 for i in vec_key.clone() {
-                    if keys.contains(&i) == false {
-                        return;
-                    }
                     vec_remove(keys, i);
                 }
-                // if keys.len() > 0 && targets.len() > 0 {
-                //     if key_target_group.contains_key(&(keys.clone(), targets.clone())) {
-                //         group.push((keys.clone(), targets.clone()));
-                //         for d in key_target_group
-                //             .get(&(keys.clone(), targets.clone()))
-                //             .unwrap()
-                //         {
-                //             if group.contains(&d) == false {
-                //                 group.push(d.clone());
-                //             }
-                //             for i in &d.0 {
-                //                 if keys.contains(&i) == false {
-                //                     continue;
-                //                 }
-                //                 vec_remove(keys, *i);
-                //             }
-                //             for el in &d.1 {
-                //                 if targets.contains(&el) == false {
-                //                     continue;
-                //                 }
-                //                 vec_remove(targets, *el);
-                //             }
-                //         }
-                //         answer.push(group.clone());
-                //         println!("ok");
-                //         return;
-                //     } else {
-                //         key_target_group.insert((keys.clone(), targets.clone()), group.clone());
-                //     }
-                // }
                 sequsequence_matcher_core(
                     keys,
                     targets,
                     group,
                     answer,
-                    n_key,
                     max_key_length,
                     max_target_length,
                     hashmap_fs,
-                    key_target_group,
+                    n_candidates
                 );
                 group.pop();
-                for el in set.clone() {
+                for el in set {
                     targets.push(el);
                 }
                 for i in vec_key.clone() {
                     keys.push(i);
                 }
             }
-            return;
         });
     }
 
@@ -539,15 +504,19 @@ pub mod dp {
             &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37],
             10,
             10,
+            2
         );
         assert_eq!(
             answer[0],
             vec![
-                (vec![], vec![-5, 2, 3]),
                 (vec![], vec![0]),
+                (vec![], vec![-3, 3]),
+                (vec![-9], vec![-9]),
+                (vec![-3], vec![-5, 2]),
+                (vec![2], vec![2]),
                 (
-                    vec![-10, -9, -3, 2, 3, 3, 6, 6, 7, 8],
-                    vec![-9, -8, -6, -3, 2, 37]
+                    vec![-10, 3, 3, 6, 6, 7, 8],
+                    vec![-8, -6, 37]
                 ),
             ]
         );
@@ -557,22 +526,25 @@ pub mod dp {
             &mut vec![-3, 8, 3, 6, -5],
             10,
             10,
+            2
         );
         assert_eq!(
             answer[0],
             vec![
-                (vec![], vec![-5, -3, 8]),
-                (vec![-9, 2, 3, 6, 7], vec![3, 6]),
+                (vec![], vec![-3, 3]),
+                (vec![3], vec![-5, 8]),
+                (vec![-9, 2, 6, 7], vec![6]),
             ]
         );
 
-        let answer = sequence_matcher(&mut vec![9, 0, 1, 7, 1], &mut vec![7, 2, 8, 0, 1], 10, 10);
+        let answer = sequence_matcher(&mut vec![9, 0, 1, 7, 1], &mut vec![7, 2, 8, 0, 1], 10, 10, 2);
         assert_eq!(
             answer[0],
             vec![
                 (vec![], vec![0]),
-                (vec![0, 1], vec![1]),
-                (vec![1, 7, 9], vec![2, 7, 8]),
+                (vec![7], vec![7]),
+                (vec![9], vec![1, 8]),
+                (vec![0, 1, 1], vec![2]),
             ]
         );
 
@@ -581,6 +553,7 @@ pub mod dp {
             &mut vec![11, -8, 14, -7, 5],
             10,
             10,
+            2
         );
         assert_eq!(
             answer[0],
@@ -592,6 +565,7 @@ pub mod dp {
             &mut vec![2100, 273, 4, 11],
             10,
             10,
+            2
         );
         assert_eq!(
             answer[0],
@@ -604,8 +578,8 @@ pub mod dp {
         assert_eq!(
             answer[1],
             vec![
-                (vec![5, 10], vec![4, 11]),
-                (vec![123, 150, 1000, 1100], vec![273, 2100]),
+                (vec![1000, 1100], vec![2100]),
+                (vec![5, 10, 123, 150], vec![4, 11, 273]),
             ]
         );
 
@@ -614,10 +588,11 @@ pub mod dp {
             &mut vec![1000, 1200],
             10,
             10,
+            2
         );
         assert_eq!(answer.len(), 0);
 
-        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10);
+        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10, 2);
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
         let answer = sequence_matcher(
@@ -625,18 +600,39 @@ pub mod dp {
             &mut vec![36, -23, -92, 88, 67, 73],
             10,
             10,
+            2
         );
         assert_eq!(
             answer[0],
-            vec![(
-                vec![-74, -38, 22, 68, 72, 99],
-                vec![-92, -23, 36, 67, 73, 88]
-            ),]
+            vec![
+                (vec![-74, 99], vec![-92, -23, 67, 73]),
+                (vec![-38, 22, 68, 72], vec![36, 88]),
+            ]
         );
 
-        let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10);
+        let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10, 2);
 
         assert_eq!(answer.len(), 0);
+
+        let answer = sequence_matcher(
+            &mut vec![183, 36, 231, 128, 137],
+            &mut vec![8, 9, 15, 15, 33, 36, 39, 45, 46, 60, 68, 73, 80, 92, 96],
+            1,
+            15,
+            20
+        );
+
+        assert_eq!(answer.len(), 13);
+        assert_eq!(
+            answer[0],
+            vec![
+                (vec![36], vec![36]),
+                (vec![128], vec![9, 39, 80]),
+                (vec![137], vec![8, 33, 96]),
+                (vec![183], vec![45, 46, 92]),
+                (vec![231], vec![15, 15, 60, 68, 73]),
+            ]
+        );
     }
 }
 
