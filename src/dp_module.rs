@@ -92,9 +92,9 @@ pub mod dp {
                 for res in result {
                     let mut tempsum: i32 = 0;
                     let mut new_res: Vec<i32> = Vec::with_capacity(res.len());
-                    for el in res {
-                        tempsum += el as i32 - offset as i32;
-                        new_res.push(el as i32 - offset as i32);
+                    for j in res {
+                        tempsum += j as i32 - offset as i32;
+                        new_res.push(j as i32 - offset as i32);
                     }
                     if tempsum == value as i32 {
                         answer.push(new_res);
@@ -300,13 +300,7 @@ pub mod dp {
             &a_min,
             max_length,
         );
-        // for i in answer.iter_mut(){
-        //     i.sort();
-        // };
-        // answer.sort_by_key(|k| k[0]);
-        // answer.sort_by_key(|k| k.len());
         vector_sorter(answer)
-        // answer
     }
 
     fn vec_remove(arr: &mut Vec<i32>, v: i32) {
@@ -376,7 +370,7 @@ pub mod dp {
             return answer;
         }
         let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
-        sequsequence_matcher_core(
+        sequence_matcher_core(
             keys,
             targets,
             &mut group,
@@ -398,7 +392,7 @@ pub mod dp {
         answer
     }
 
-    fn sequsequence_matcher_core(
+    fn sequence_matcher_core(
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
@@ -409,6 +403,7 @@ pub mod dp {
         n_candidates: usize,
     ) {
         use itertools::Itertools;
+        use std::cmp::min;
 
         if answer.len() >= n_candidates {
             return;
@@ -428,12 +423,11 @@ pub mod dp {
             return;
         }
 
-        let key_candidates: Vec<Vec<usize>> = (0..keys.len())
-            .powerset()
-            .collect::<Vec<_>>()
-            .into_iter()
-            .filter(|x| x.len() <= max_key_length)
-            .collect();
+        let mut key_candidates: Vec<Vec<usize>> = vec![vec![]];
+        for i in 1..min(max_key_length, keys.len())+1{
+            key_candidates.append(&mut (0..keys.len()).combinations(i).collect::<Vec<_>>())
+        }
+
         let goldkey = keys.clone();
         let goldtargets = targets.clone();
         let goldgroup = group.clone();
@@ -470,13 +464,13 @@ pub mod dp {
                 *targets = goldtargets.clone();
                 *group = goldgroup.clone();
                 group.push((vec_key.clone(), set.clone()));
-                for el in set.clone() {
-                    vec_remove(targets, el);
+                for j in set.clone() {
+                    vec_remove(targets, j);
                 }
                 for i in vec_key.clone() {
                     vec_remove(keys, i);
                 }
-                sequsequence_matcher_core(
+                sequence_matcher_core(
                     keys,
                     targets,
                     group,
@@ -487,8 +481,8 @@ pub mod dp {
                     n_candidates
                 );
                 group.pop();
-                for el in set {
-                    targets.push(el);
+                for j in set {
+                    targets.push(j);
                 }
                 for i in vec_key.clone() {
                     keys.push(i);
