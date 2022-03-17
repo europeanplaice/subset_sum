@@ -403,7 +403,6 @@ pub mod dp {
         n_candidates: usize,
     ) {
         use itertools::Itertools;
-        use std::cmp::min;
 
         if answer.len() >= n_candidates {
             return;
@@ -423,15 +422,10 @@ pub mod dp {
             return;
         }
 
-        let mut key_candidates: Vec<Vec<usize>> = vec![vec![]];
-        for i in 1..min(max_key_length, keys.len())+1{
-            key_candidates.append(&mut (0..keys.len()).combinations(i).collect::<Vec<_>>())
-        }
-
         let goldkey = keys.clone();
         let goldtargets = targets.clone();
         let goldgroup = group.clone();
-        key_candidates.iter().for_each(|i| {
+        (0..keys.len()).powerset().filter(|x| x.len() <= max_key_length).for_each(|i| {
             *keys = goldkey.clone();
             *targets = goldtargets.clone();
             *group = goldgroup.clone();
