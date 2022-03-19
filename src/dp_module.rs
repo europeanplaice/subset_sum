@@ -87,7 +87,7 @@ pub mod dp {
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             (1..min(length, max_length) + 1).into_par_iter().for_each(|i| {
-                let result = find_subset_fast_only_positive(
+                let result = _find_subset_fast_only_positive(
                     &b,
                     (value + i as i32 * offset as i32) as usize,
                     max_length,
@@ -104,7 +104,7 @@ pub mod dp {
                     }
                 }
             });
-            return answer.lock().unwrap().to_vec();
+            return vector_sorter(answer.lock().unwrap().to_vec());
         };
     }
 
@@ -268,6 +268,15 @@ pub mod dp {
         value: usize,
         max_length: usize,
     ) -> Vec<Vec<u32>> {
+        let answer = _find_subset_fast_only_positive(arr, value, max_length);
+        vector_sorter(answer)
+    }
+
+    fn _find_subset_fast_only_positive(
+        arr: &Vec<u32>,
+        value: usize,
+        max_length: usize,
+    ) -> Vec<Vec<u32>> {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
@@ -303,7 +312,7 @@ pub mod dp {
             &a_min,
             max_length,
         );
-        vector_sorter(answer)
+        answer
     }
 
     fn vec_remove(arr: &mut Vec<i32>, v: i32) {
