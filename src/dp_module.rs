@@ -1,6 +1,8 @@
 pub mod dp {
     //! This is a module for dynamic programming.
     use std::collections::HashMap;
+    use rayon::prelude::*;
+    use std::sync::{Arc, Mutex};
 
     fn gcd_multi(v: Vec<u32>) -> u32 {
         let mut result = v[0];
@@ -40,7 +42,7 @@ pub mod dp {
     ///
     /// use dpss::dp::find_subset;
     /// let arr = vec![-1, -3, -2, 6, 12, 48];
-    /// let result = find_subset(&arr, 0, 4);
+    /// let result = find_subset(arr, 0, 4);
     /// let route1: Vec<i32> = vec![-3, -2, -1, 6];
     /// let answer: Vec<Vec<i32>> = vec![route1];
     /// assert_eq!(result, answer);
@@ -50,20 +52,20 @@ pub mod dp {
     /// ```
     ///
     /// use dpss::dp::find_subset;
-    /// let result = find_subset(&vec![1, 2, 3, -4, 5], 1, 2);
+    /// let result = find_subset(vec![1, 2, 3, -4, 5], 1, 2);
     /// println!("{:?}", result);
     /// ```
     /// output: `[[1], [-3, 4]]`
-    pub fn find_subset(arr: &Vec<i32>, value: i32, max_length: usize) -> Vec<Vec<i32>> {
+    pub fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> Vec<Vec<i32>> {
         use std::cmp::max;
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
         let mut b: Vec<u32> = Vec::with_capacity(arr.len());
-        let mut answer: Vec<Vec<i32>> = Vec::with_capacity(arr.len());
+        let answer: Arc<Mutex<Vec<Vec<i32>>>> = Arc::new(Mutex::new(vec![]));
         if arr.iter().min().unwrap() >= &0 && value > 0 {
             for i in arr {
-                b.push(*i as u32);
+                b.push(i as u32);
             }
             let result = find_subset_fast_only_positive(&b, value as usize, max_length);
             for i in result {
@@ -71,10 +73,11 @@ pub mod dp {
                 for j in i {
                     tempvec.push(j as i32);
                 }
-                answer.push(tempvec)
+                answer.lock().unwrap().push(tempvec)
             }
-            return answer;
+            return answer.lock().unwrap().to_vec();
         } else {
+            let length = arr.len();
             let offset: u32 =
                 (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
             for i in arr {
@@ -83,7 +86,7 @@ pub mod dp {
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
-            for i in 1..arr.len() + 1 {
+            (1..min(length, max_length) + 1).into_par_iter().for_each(|i| {
                 let result = find_subset_fast_only_positive(
                     &b,
                     (value + i as i32 * offset as i32) as usize,
@@ -97,11 +100,11 @@ pub mod dp {
                         new_res.push(j as i32 - offset as i32);
                     }
                     if tempsum == value as i32 {
-                        answer.push(new_res);
+                        answer.lock().unwrap().push(new_res);
                     }
                 }
-            }
-            return answer;
+            });
+            return answer.lock().unwrap().to_vec();
         };
     }
 
@@ -287,8 +290,8 @@ pub mod dp {
             }
         }
         let a_length: usize = arr.len();
-        let mut route: Vec<u32> = Vec::with_capacity(a_length);
-        let mut answer: Vec<Vec<u32>> = Vec::with_capacity(a_length);
+        let mut route: Vec<u32> = Vec::with_capacity(max_length);
+        let mut answer: Vec<Vec<u32>> = vec![];
 
         rec(
             &dp,
@@ -363,13 +366,13 @@ pub mod dp {
         max_target_length: usize,
         n_candidates: usize,
     ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
-        let mut group: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(targets.len());
-        let mut answer: Vec<Vec<(Vec<i32>, Vec<i32>)>> = vec![];
+        let mut group: Vec<(Vec<i32>, Vec<i32>)> = vec![];
+        let mut answer: Arc<Mutex<Vec<Vec<(Vec<i32>, Vec<i32>)>>>> = Arc::new(Mutex::new(vec![]));
         if keys.iter().sum::<i32>() != targets.iter().sum() {
             println!("The sum of the keys must be equal to the sum of the targets.");
-            return answer;
+            return answer.lock().unwrap().to_vec();
         }
-        let mut hashmap_fs: HashMap<(Vec<i32>, i32), Vec<Vec<i32>>> = HashMap::new();
+        let mut hashmap_fs: Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> = Arc::new(Mutex::new(HashMap::new()));
         sequence_matcher_core(
             keys,
             targets,
@@ -380,108 +383,97 @@ pub mod dp {
             &mut hashmap_fs,
             n_candidates
         );
-        for i in 0..answer.len() {
-            answer[i].sort_by_key(|k| k.0.iter().sum::<i32>());
-            answer[i].sort_by_key(|k| k.0.len());
+        let mut answer2 : Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.lock().unwrap().to_vec();
+        for i in 0..answer2.len() {
+            answer2[i].sort_by_key(|k| k.0.iter().sum::<i32>());
+            answer2[i].sort_by_key(|k| k.0.len());
         }
-        answer.sort();
-        answer.dedup();
-        if answer.len() == 0 {
+        answer2.sort();
+        answer2.dedup();
+        // answer2.sort_by_key(|x| sequence_matcher_sort(x.to_vec()));
+        if answer2.len() == 0 {
             println!("Can't find any combination.");
         }
-        answer
+        answer2
     }
 
     fn sequence_matcher_core(
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
-        answer: &mut Vec<Vec<(Vec<i32>, Vec<i32>)>>,
+        answer: &mut Arc<Mutex<Vec<Vec<(Vec<i32>, Vec<i32>)>>>>,
         max_key_length: usize,
         max_target_length: usize,
-        hashmap_fs: &mut HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>,
+        hashmap_fs: &mut Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
         n_candidates: usize,
     ) {
         use itertools::Itertools;
-
-        if answer.len() >= n_candidates {
+        if answer.lock().unwrap().len() >= n_candidates {
             return;
         }
 
         if keys.len() == 0 && targets.len() == 0 {
             group.sort_by_key(|k| k.0.iter().sum::<i32>());
             group.sort_by_key(|k| k.0.len());
-            if answer.contains(&group) {
+            if answer.lock().unwrap().contains(&group) {
                 return;
             } else {
-                answer.push(group.clone());
+                answer.lock().unwrap().push(group.clone());
                 return;
             }
         }
         if (keys.len() == 0 && targets.len() > 0) || (keys.len() > 0 && targets.len() == 0) {
             return;
         }
-
-        let goldkey = keys.clone();
-        let goldtargets = targets.clone();
-        let goldgroup = group.clone();
-        (0..keys.len()).powerset().filter(|x| x.len() <= max_key_length).for_each(|i| {
-            *keys = goldkey.clone();
-            *targets = goldtargets.clone();
-            *group = goldgroup.clone();
+        (0..keys.len()).powerset().filter(|x| x.len() <= max_key_length).par_bridge().for_each(|i| {
+            let keys2 = keys.clone();
+            let mut targets2 = targets.clone();
+            let group2 = group.clone();
             let mut sum_key = 0;
             let mut vec_key = vec![];
             for j in i.iter() {
-                sum_key += keys[*j];
-                vec_key.push(keys[*j].clone());
+                sum_key += keys2[*j];
+                vec_key.push(keys2[*j].clone());
             }
             vec_key.sort();
-            if sum_key > targets.iter().sum() {
+            if sum_key > targets2.iter().sum() {
                 return;
             }
-            if targets.iter().max().unwrap() == &0 {
+            if targets2.iter().max().unwrap() == &0 {
                 return;
             }
-            targets.sort();
-            let set_ = hashmap_fs
-                .entry((targets.clone(), sum_key))
-                .or_insert(find_subset(&targets, sum_key, max_target_length))
-                .clone();
+            targets2.sort();
+            let set_ = match hashmap_fs.try_lock() {
+                Ok(mut v) => v.entry((targets2.clone(), sum_key))
+                    .or_insert(find_subset(targets2.clone(), sum_key, max_target_length))
+                    .clone(),
+                Err(_) => find_subset(targets2.clone(), sum_key, max_target_length)
+            };
             if set_.len() == 0 {
                 return;
             }
-            let goldkey = keys.clone();
-            let goldtargets = targets.clone();
-            let goldgroup = group.clone();
-            for set in set_ {
-                *keys = goldkey.clone();
-                *targets = goldtargets.clone();
-                *group = goldgroup.clone();
-                group.push((vec_key.clone(), set.clone()));
+            set_.par_iter().for_each(|set| {
+                let mut keys3 = keys2.clone();
+                let mut targets3 = targets2.clone();
+                let mut group3 = group2.clone();
+                group3.push((vec_key.clone(), set.clone()));
                 for j in set.clone() {
-                    vec_remove(targets, j);
+                    vec_remove(&mut targets3, j);
                 }
                 for i in vec_key.clone() {
-                    vec_remove(keys, i);
+                    vec_remove(&mut keys3, i);
                 }
                 sequence_matcher_core(
-                    keys,
-                    targets,
-                    group,
-                    answer,
+                    &mut keys3,
+                    &mut targets3,
+                    &mut group3,
+                    &mut answer.clone(),
                     max_key_length,
                     max_target_length,
-                    hashmap_fs,
+                    &mut hashmap_fs.clone(),
                     n_candidates
                 );
-                group.pop();
-                for j in set {
-                    targets.push(j);
-                }
-                for i in vec_key.clone() {
-                    keys.push(i);
-                }
-            }
+            })
         });
     }
 
@@ -490,71 +482,50 @@ pub mod dp {
         let answer = sequence_matcher(
             &mut vec![6, 7, 3, 2, -9, -3, 8, 3, 6, -10],
             &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37],
-            10,
-            10,
-            2
+            7,
+            6,
+            30
         );
+        assert_eq!(answer.len(), 30);
+
+        let answer = sequence_matcher(
+            &mut vec![100, 200, 300, 400, 500, 600, -700, 800, 900, 1000],
+            &mut vec![300, 700, 500, 600, -700, 2700],
+            3,
+            2,
+            200
+        );
+        assert_eq!(answer.len(), 197);
+        assert_eq!(
+            answer[0],
+            vec![
+                (vec![], vec![-700, 700]),
+                (vec![200, 300], vec![500]),
+                (vec![100, 500], vec![600]),
+                (vec![-700, 400, 600], vec![300]),
+                (vec![800, 900, 1000], vec![2700]),
+            ]
+        );
+
+        let answer = sequence_matcher(&mut vec![9, 0, 1, 7, 1], &mut vec![7, 2, 8, 0, 1], 3, 2, 100);
+        assert_eq!(answer.len(), 37);
         assert_eq!(
             answer[0],
             vec![
                 (vec![], vec![0]),
-                (vec![], vec![-3, 3]),
-                (vec![-9], vec![-9]),
-                (vec![-3], vec![-5, 2]),
-                (vec![2], vec![2]),
-                (
-                    vec![-10, 3, 3, 6, 6, 7, 8],
-                    vec![-8, -6, 37]
-                ),
+                (vec![0, 9], vec![1, 8]),
+                (vec![1, 1, 7], vec![2, 7]),
             ]
-        );
-
-        let answer = sequence_matcher(
-            &mut vec![6, 7, 3, 2, -9],
-            &mut vec![-3, 8, 3, 6, -5],
-            10,
-            10,
-            2
-        );
-        assert_eq!(
-            answer[0],
-            vec![
-                (vec![], vec![-3, 3]),
-                (vec![3], vec![-5, 8]),
-                (vec![-9, 2, 6, 7], vec![6]),
-            ]
-        );
-
-        let answer = sequence_matcher(&mut vec![9, 0, 1, 7, 1], &mut vec![7, 2, 8, 0, 1], 10, 10, 2);
-        assert_eq!(
-            answer[0],
-            vec![
-                (vec![], vec![0]),
-                (vec![7], vec![7]),
-                (vec![9], vec![1, 8]),
-                (vec![0, 1, 1], vec![2]),
-            ]
-        );
-
-        let answer = sequence_matcher(
-            &mut vec![1, 2, 3, 4, 5],
-            &mut vec![11, -8, 14, -7, 5],
-            10,
-            10,
-            2
-        );
-        assert_eq!(
-            answer[0],
-            vec![(vec![1], vec![-8, -7, 5, 11]), (vec![2, 3, 4, 5], vec![14]),]
         );
 
         let answer = sequence_matcher(
             &mut vec![1000, 1100, 150, 123, 5, 10],
             &mut vec![2100, 273, 4, 11],
-            10,
-            10,
-            2
+            6,
+            4,
+            200
         );
+        assert_eq!(answer.len(), 5);
         assert_eq!(
             answer[0],
             vec![
@@ -564,10 +535,9 @@ pub mod dp {
             ]
         );
         assert_eq!(
-            answer[1],
+            answer[2],
             vec![
-                (vec![1000, 1100], vec![2100]),
-                (vec![5, 10, 123, 150], vec![4, 11, 273]),
+                (vec![5, 10, 123, 150, 1000, 1100], vec![4, 11, 273, 2100]),
             ]
         );
 
@@ -582,21 +552,6 @@ pub mod dp {
 
         let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10, 2);
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
-
-        let answer = sequence_matcher(
-            &mut vec![99, 68, -74, 72, -38, 22],
-            &mut vec![36, -23, -92, 88, 67, 73],
-            10,
-            10,
-            2
-        );
-        assert_eq!(
-            answer[0],
-            vec![
-                (vec![-74, 99], vec![-92, -23, 67, 73]),
-                (vec![-38, 22, 68, 72], vec![36, 88]),
-            ]
-        );
 
         let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10, 2);
 
@@ -654,33 +609,33 @@ mod tests {
 
     #[test]
     fn test_find_subset() {
-        let result = dp::find_subset(&vec![1, 2, 3], 3, 2);
+        let result = dp::find_subset(vec![1, 2, 3], 3, 2);
         let route1: Vec<i32> = vec![3];
         let route2: Vec<i32> = vec![1, 2];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
         assert_eq!(result, answer);
 
-        let result = dp::find_subset(&vec![1, 2, 3, 4, 5], 10, 4);
+        let result = dp::find_subset(vec![1, 2, 3, 4, 5], 10, 4);
         let route1: Vec<i32> = vec![1, 4, 5];
         let route2: Vec<i32> = vec![2, 3, 5];
         let route3: Vec<i32> = vec![1, 2, 3, 4];
         let answer: Vec<Vec<i32>> = vec![route1, route2, route3];
         assert_eq!(result, answer);
 
-        let result = dp::find_subset(&vec![1, 2, 3, 4, 5], 10, 3);
+        let result = dp::find_subset(vec![1, 2, 3, 4, 5], 10, 3);
         let route2: Vec<i32> = vec![1, 4, 5];
         let route3: Vec<i32> = vec![2, 3, 5];
         let answer: Vec<Vec<i32>> = vec![route2, route3];
         assert_eq!(result, answer);
 
         let arr = vec![75, 467, 512, -835, 770, -69, 10];
-        let result = dp::find_subset(&arr, 711, 3);
+        let result = dp::find_subset(arr, 711, 3);
         let route1: Vec<i32> = vec![-69, 10, 770];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-3, 10, 56, -33, 65, -9, 8, 72, 63, 35];
-        let result = dp::find_subset(&arr, 7, 4);
+        let result = dp::find_subset(arr, 7, 4);
         let route1: Vec<i32> = vec![-3, 10];
         let route2: Vec<i32> = vec![-33, -3, 8, 35];
         let answer: Vec<Vec<i32>> = vec![route1, route2];
@@ -690,31 +645,31 @@ mod tests {
             73209, 95597, 84735, 40496, 83553, 95595, -628, 201, 27597, 7904, 98445, 6241, 33002,
             -776, -711, 45552, 86746, 84248, 66278, 37475,
         ];
-        let result = dp::find_subset(&arr, 72782, 3);
+        let result = dp::find_subset(arr, 72782, 3);
         let route1: Vec<i32> = vec![-628, 201, 73209];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-1, 2, 3];
-        let result = dp::find_subset(&arr, -1, 1);
+        let result = dp::find_subset(arr, -1, 1);
         let route1: Vec<i32> = vec![-1];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-10, 5, -2];
-        let result = dp::find_subset(&arr, -5, 2);
+        let result = dp::find_subset(arr, -5, 2);
         let route1: Vec<i32> = vec![-10, 5];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-3, -5, -7];
-        let result = dp::find_subset(&arr, -15, 3);
+        let result = dp::find_subset(arr, -15, 3);
         let route1: Vec<i32> = vec![-7, -5, -3];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);
 
         let arr = vec![-100, 10, 20];
-        let result = dp::find_subset(&arr, -70, 3);
+        let result = dp::find_subset(arr, -70, 3);
         let route1: Vec<i32> = vec![-100, 10, 20];
         let answer: Vec<Vec<i32>> = vec![route1];
         assert_eq!(result, answer);

@@ -77,7 +77,7 @@ fn main() {
         } else {
             args[3].parse::<usize>().unwrap()
         };
-        let result = dp_module::dp::find_subset(&a, args[2].parse::<i32>().unwrap(), max_length);
+        let result = dp_module::dp::find_subset(a, args[2].parse::<i32>().unwrap(), max_length);
         println!("{:?}", result);
     }
 }

@@ -9,7 +9,7 @@ use pyo3::prelude::*;
 #[pyo3(text_signature = "(arr, value, max_length, /)")]
 fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec<i32>>> {
     use crate::dp_module::*;
-    Ok(dp::find_subset(&arr, value, max_length))
+    Ok(dp::find_subset(arr, value, max_length))
 }
 
 /// Finds subsets sum of a target value. It can't accept negative values but relatively faster.

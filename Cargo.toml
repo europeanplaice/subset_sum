@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.16.2"
+version = "0.17.0"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
@@ -14,6 +14,7 @@ keywords = ["dynamic_programming", "subset_sum", "accounting"]
 
 [dependencies]
 itertools = "0.10.2"
+rayon = "1"
 
 [lib]
 name = "dpss"
