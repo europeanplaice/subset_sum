@@ -1,6 +1,7 @@
 /target
 /env
 build.bat
+publish.bat
 python/__pycache__
 /__pycache__
 /.vscode
