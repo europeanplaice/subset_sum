@@ -115,7 +115,6 @@ pub mod dp {
         j: usize,
         route: &mut Vec<u32>,
         answer: &mut Vec<Vec<u32>>,
-        a_min: &u32,
         max_length: usize,
     ) {
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
@@ -136,7 +135,7 @@ pub mod dp {
         }
 
         if dp[i - 1][j] != 0 {
-            rec(dp, arr, i - 1, j, route, answer, a_min, max_length);
+            rec(dp, arr, i - 1, j, route, answer, max_length);
         }
 
         if j as i32 - arr[i - 1] as i32 >= 0 && dp[i - 1][j - arr[i - 1] as usize] != 0 {
@@ -149,7 +148,6 @@ pub mod dp {
                 j - arr[i - 1] as usize,
                 route,
                 answer,
-                a_min,
                 max_length,
             );
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
@@ -283,7 +281,7 @@ pub mod dp {
         let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
         dp[0][0] = 1;
 
-        let (j_indexes, a_min) = filter_j_idx(value, arr);
+        let (j_indexes, _a_min) = filter_j_idx(value, arr);
         for i in 0..arr.len() {
             for j in &j_indexes {
                 // If we don't choose to select an element to sum,
@@ -309,7 +307,6 @@ pub mod dp {
             value,
             &mut route,
             &mut answer,
-            &a_min,
             max_length,
         );
         answer
@@ -434,9 +431,10 @@ pub mod dp {
         if (keys.len() == 0 && targets.len() > 0) || (keys.len() > 0 && targets.len() == 0) {
             return;
         }
+        targets.sort();
         (0..keys.len()).powerset().filter(|x| x.len() <= max_key_length).par_bridge().for_each(|i| {
             let keys2 = keys.clone();
-            let mut targets2 = targets.clone();
+            let targets2 = targets.clone();
             let group2 = group.clone();
             let mut sum_key = 0;
             let mut vec_key = vec![];
@@ -451,7 +449,6 @@ pub mod dp {
             if targets2.iter().max().unwrap() == &0 {
                 return;
             }
-            targets2.sort();
             let set_ = match hashmap_fs.try_lock() {
                 Ok(mut v) => v.entry((targets2.clone(), sum_key))
                     .or_insert(find_subset(targets2.clone(), sum_key, max_target_length))
