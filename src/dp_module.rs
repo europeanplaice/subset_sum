@@ -428,7 +428,6 @@ pub mod dp {
         }
         answer2.sort();
         answer2.dedup();
-        // answer2.sort_by_key(|x| sequence_matcher_sort(x.to_vec()));
         if answer2.len() == 0 {
             println!("Can't find any combination.");
         }
@@ -472,30 +471,27 @@ pub mod dp {
             combs: combs,
         };
         mc.par_bridge().for_each(|i| {
-            let keys2 = keys.clone();
-            let targets2 = targets.clone();
-            let group2 = group.clone();
             let mut sum_key = 0;
             let mut vec_key = vec![];
             for j in i.iter() {
-                sum_key += keys2[*j];
-                vec_key.push(keys2[*j].clone());
+                sum_key += keys[*j];
+                vec_key.push(keys[*j].clone());
             }
             vec_key.sort();
-            if sum_key > targets2.iter().sum() {
+            if sum_key > targets.iter().sum() {
                 return;
             }
-            if sum_key < *targets2.iter().min().unwrap() {
+            if sum_key < *targets.iter().min().unwrap() {
                 return;
             }
-            if targets2.iter().max().unwrap() == &0 {
+            if targets.iter().max().unwrap() == &0 {
                 return;
             }
             let mut set_ = match hashmap_fs.try_lock() {
-                Ok(mut v) => {v.entry((targets2.clone(), sum_key))
-                    .or_insert(find_subset(targets2.clone(), sum_key, max_target_length))
+                Ok(mut v) => {v.entry((targets.clone(), sum_key))
+                    .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
                     .clone()},
-                Err(_) => {find_subset(targets2.clone(), sum_key, max_target_length)}
+                Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
             };
             if set_.len() == 0 {
                 return;
@@ -503,9 +499,9 @@ pub mod dp {
             set_.sort();
             set_.dedup();
             set_.par_iter().for_each(|set| {
-                let mut keys3 = keys2.clone();
-                let mut targets3 = targets2.clone();
-                let mut group3 = group2.clone();
+                let mut keys3 = keys.clone();
+                let mut targets3 = targets.clone();
+                let mut group3 = group.clone();
                 group3.push((vec_key.clone(), set.clone()));
                 for j in set.clone() {
                     vec_remove(&mut targets3, j);
