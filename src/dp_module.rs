@@ -109,13 +109,14 @@ pub mod dp {
     }
 
     fn rec(
-        dp: &Vec<Vec<i32>>,
+        dp: &Vec<i32>,
         arr: &Vec<u32>,
         i: usize,
         j: usize,
         route: &mut Vec<u32>,
         answer: &mut Vec<Vec<u32>>,
         max_length: usize,
+        collen: usize
     ) {
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
         // We follow the dp table backward to find combinations of subsets.
@@ -134,11 +135,11 @@ pub mod dp {
             return;
         }
 
-        if dp[i - 1][j] != 0 {
-            rec(dp, arr, i - 1, j, route, answer, max_length);
+        if dp[(i - 1) * collen + j] != 0 {
+            rec(dp, arr, i - 1, j, route, answer, max_length, collen);
         }
 
-        if j as i32 - arr[i - 1] as i32 >= 0 && dp[i - 1][j - arr[i - 1] as usize] != 0 {
+        if j as i32 - arr[i - 1] as i32 >= 0 && dp[(i - 1) * collen + j - arr[i - 1] as usize] != 0 {
             // Choose this element as arr candidate for an answer.
             route.push(arr[i - 1]);
             rec(
@@ -149,6 +150,7 @@ pub mod dp {
                 route,
                 answer,
                 max_length,
+                collen
             );
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
@@ -278,21 +280,26 @@ pub mod dp {
         // dp is a table that stores the information of subset sum.
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
-        let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
-        dp[0][0] = 1;
+        // let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
+        let collen = value + 1;
+        let mut dp: Vec<i32> = vec![0; (value + 1) * (arr.len() + 1)];
+        dp[0] = 1;
 
         let (j_indexes, _a_min) = filter_j_idx(value, arr);
         for i in 0..arr.len() {
             for j in &j_indexes {
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
-                dp[i + 1][*j] += dp[i][*j];
+                // dp[i + 1][*j] += dp[i][*j];
+                dp[(i + 1) * collen + *j] += dp[i * collen + *j]; 
 
                 // Skip if j + the element is larger than the target value.
                 if *j as u32 + arr[i] < value as u32 + 1 {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
-                    dp[i + 1][j + arr[i] as usize] += dp[i][*j];
+                    // dp[i + 1][j + arr[i] as usize] += dp[i][*j];
+                    dp[(i + 1) * collen + j + arr[i] as usize] += dp[i * collen + *j]; 
+
                 }
             }
         }
@@ -308,6 +315,7 @@ pub mod dp {
             &mut route,
             &mut answer,
             max_length,
+            collen
         );
         answer
     }
