@@ -85,45 +85,34 @@ pub mod dp {
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
-        let mut b: Vec<u32> = Vec::with_capacity(arr.len());
         let answer: Arc<Mutex<Vec<Vec<i32>>>> = Arc::new(Mutex::new(vec![]));
         if arr.iter().min().unwrap() >= &0 && value > 0 {
-            for i in arr {
-                b.push(i as u32);
-            }
-            let result = find_subset_fast_only_positive(&b, value as usize, max_length);
+            let result = find_subset_fast_only_positive(&arr.iter().map(|e| *e as u32).collect::<Vec<u32>>(), value as usize, max_length);
             for i in result {
-                let mut tempvec = Vec::with_capacity(i.len());
-                for j in i {
-                    tempvec.push(j as i32);
-                }
-                answer.lock().unwrap().push(tempvec)
+                answer.lock().unwrap().push(i.iter().map(|e| *e as i32).collect::<Vec<i32>>())
             }
             return answer.lock().unwrap().to_vec();
         } else {
             let length = arr.len();
-            let offset: u32 =
-                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32;
-            for i in arr {
-                b.push((i + offset as i32) as u32);
-            }
+            let offset: i32 =
+                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32;
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             (1..min(length, max_length) + 1).into_par_iter().for_each(|i| {
                 let result = _find_subset_fast_only_positive(
-                    &b,
-                    (value + i as i32 * offset as i32) as usize,
+                    &arr.iter().map(|e| (e + offset) as u32).collect::<Vec<u32>>(),
+                    (value + i as i32 * offset) as usize,
                     max_length,
                 );
                 for res in result {
                     let mut tempsum: i32 = 0;
                     let mut new_res: Vec<i32> = Vec::with_capacity(res.len());
-                    for j in res {
-                        tempsum += j as i32 - offset as i32;
-                        new_res.push(j as i32 - offset as i32);
+                    for j in &res {
+                        tempsum += *j as i32 - offset;
+                        new_res.push(*j as i32 - offset);
                     }
-                    if tempsum == value as i32 {
+                    if tempsum == value {
                         answer.lock().unwrap().push(new_res);
                     }
                 }
@@ -133,7 +122,7 @@ pub mod dp {
     }
 
     fn rec(
-        dp: &Vec<i32>,
+        dp: &Vec<u32>,
         arr: &Vec<u32>,
         i: usize,
         j: usize,
@@ -306,11 +295,12 @@ pub mod dp {
         // We follow from the start of this table.
         // let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
         let collen = value + 1;
-        let mut dp: Vec<i32> = vec![0; (value + 1) * (arr.len() + 1)];
+        let mut dp: Vec<u32> = vec![0; (value + 1) * (arr.len() + 1)];
         dp[0] = 1;
 
         let (j_indexes, _a_min) = filter_j_idx(value, arr);
-        for i in 0..arr.len() {
+        for (i, v_u32) in arr.iter().enumerate() {
+            let v_usize = *v_u32 as usize;
             for j in &j_indexes {
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
@@ -318,14 +308,14 @@ pub mod dp {
                 dp[(i + 1) * collen + *j] += dp[i * collen + *j]; 
 
                 // Skip if j + the element is larger than the target value.
-                if *j as u32 + arr[i] < value as u32 + 1 {
+                if *j + v_usize < value + 1 {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
                     // dp[i + 1][j + arr[i] as usize] += dp[i][*j];
-                    dp[(i + 1) * collen + j + arr[i] as usize] += dp[i * collen + *j]; 
+                    dp[(i + 1) * collen + j + v_usize] += dp[i * collen + *j]; 
 
                 }
-            }
+            };
         }
         let a_length: usize = arr.len();
         let mut route: Vec<u32> = vec![];
