@@ -95,7 +95,7 @@ pub mod dp {
         } else {
             let length = arr.len();
             let offset: i32 =
-                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32;
+                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32 as i32;
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
