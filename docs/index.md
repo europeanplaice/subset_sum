@@ -12,7 +12,7 @@ For detail information of subset sum problem, please refer to https://en.wikiped
 [DPSS](https://github.com/europeanplaice/subset_sum) provides a tool to solve this problem without any specialized math knowledge.
 
 ## How to use DPSS?
-The easiest way to use this tool is the [Google Colab Notebook](https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb) that I made. I also explain the other ways in https://github.com/europeanplaice/subset_sum .
+The easiest way to use this tool is the [Google Colab Notebook](https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb) that I made. I also explain the other ways in [https://github.com/europeanplaice/subset_sum] .
 
 ## What is an applications of subset sum problem and this tool?
 This tool can be used in bank reconciliation.  
