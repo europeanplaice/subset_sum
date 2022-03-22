@@ -1,0 +1,26 @@
+{
+  "name": "subset_sum",
+  "collaborators": [
+    "Tomohiro Endo <europeanplaice@gmail.com>"
+  ],
+  "description": "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.",
+  "version": "0.18.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/europeanplaice/subset_sum"
+  },
+  "files": [
+    "dpss_bg.wasm",
+    "dpss.js",
+    "dpss.d.ts"
+  ],
+  "module": "dpss.js",
+  "types": "dpss.d.ts",
+  "sideEffects": false,
+  "keywords": [
+    "dynamic_programming",
+    "subset_sum",
+    "accounting"
+  ]
+}

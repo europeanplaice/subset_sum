@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Subset Sum Solver</title>
+  </head>
+  <body>
+    <div>
+      <p>Please input below. Currently it can accept only positive values.</p>
+      <div>
+        <label for="subset">Subset</label>
+        <input type="text" id="subset" placeholder="1, 2, 3">
+      </div>
+      <div>
+        <label for="sum">target sum</label>
+        <input type="text" id="sum" placeholder="3">
+      </div>
+      <div>
+        <label for="max_subset">maximum subset length</label>
+        <input type="text" id="max_subset" placeholder="2">
+      </div>
+      <button onclick="btnClick()">find_subset</button>
+    </div>
+    <p id="answer"></p>
+    <script type="module">
+      import init, {wasm_find_subset} from "./pkg/dpss.js";
+      // init()
+      //   .then(() => {
+      //     console.log(wasm_find_subset("1, 2, 3", 3, 2))
+      //   });
+      
+      window.btnClick = function(youCanSetParams){
+        init().then(() => {
+          document.getElementById("answer").innerText = wasm_find_subset(
+            document.getElementById("subset").value, 
+            document.getElementById("sum").value, 
+            document.getElementById("max_subset").value
+            )
+        });
+      }
+    </script>
+    <p><a href="index.html">Go back to main page.</a></p>
+  </body>
+</html>

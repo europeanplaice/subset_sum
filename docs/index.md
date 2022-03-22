@@ -1,4 +1,4 @@
-# DPSS
+# Subset Sum(dpss)
 This library is a rust implementation of an algorithm that solves subset sum problem. It is available for both Python and Rust.
 
 ## What is subset sum problem?
@@ -13,6 +13,8 @@ For detail information of subset sum problem, please refer to https://en.wikiped
 
 ## How to use DPSS?
 The easiest way to use this tool is the [Google Colab Notebook](https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb) that I made. I also explain the other ways in [https://github.com/europeanplaice/subset_sum] .
+
+Or, there is [a WebAssenbly implementation](find_subset.html). But, it is not stable and I'm still working on it.
 
 ## What is an applications of subset sum problem and this tool?
 This tool can be used in bank reconciliation.  
