@@ -99,7 +99,7 @@ pub mod dp {
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
-            (1..min(length, max_length) + 1).into_par_iter().for_each(|i| {
+            let c = |i| {
                 let result = _find_subset_fast_only_positive(
                     &arr.iter().map(|e| (e + offset) as u32).collect::<Vec<u32>>(),
                     (value + i as i32 * offset) as usize,
@@ -116,7 +116,12 @@ pub mod dp {
                         answer.lock().unwrap().push(new_res);
                     }
                 }
-            });
+            };
+            if cfg!(feature="wasm"){
+                (1..min(length, max_length) + 1).into_iter().for_each(c);
+            } else {
+                (1..min(length, max_length) + 1).into_par_iter().for_each(c);
+            }
             return vector_sorter(answer.lock().unwrap().to_vec());
         };
     }

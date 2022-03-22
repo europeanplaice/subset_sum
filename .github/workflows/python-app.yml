@@ -35,7 +35,7 @@ jobs:
         flake8 python/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: maturin build
       run: |
-        maturin build --release
+        maturin build --release --cargo-extra-args="--features python" 
         pip install --no-index --find-links target/wheels dpss   
     - name: Test with pytest
       run: |

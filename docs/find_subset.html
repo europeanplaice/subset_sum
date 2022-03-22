@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Subset Sum Solver</title>
-  </head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-GL0P9YL3TE"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+  
+        gtag('config', 'G-GL0P9YL3TE');
+      </script>
+      <meta charset="utf-8">
+      <title>Subset Sum Solver</title>
+      <meta name="description" content="Solves subset sum problem and return a set of decomposed integers." />
+    </head>
   <body>
     <div>
-      <p>Please input below. Currently it can accept only positive values.</p>
+      <p>Please input below.</p>
       <div>
         <label for="subset">Subset</label>
         <input type="text" id="subset" placeholder="1, 2, 3">
@@ -24,10 +35,6 @@
     <p id="answer"></p>
     <script type="module">
       import init, {wasm_find_subset} from "./pkg/dpss.js";
-      // init()
-      //   .then(() => {
-      //     console.log(wasm_find_subset("1, 2, 3", 3, 2))
-      //   });
       
       window.btnClick = function(youCanSetParams){
         init().then(() => {

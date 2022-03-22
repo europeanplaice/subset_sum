@@ -16,6 +16,6 @@ The easiest way to use this tool is the [Google Colab Notebook](https://colab.re
 
 Or, there is [a WebAssenbly implementation](find_subset.html). But, it is not stable and I'm still working on it.
 
-## What is an applications of subset sum problem and this tool?
+## What are the applications of subset sum problem and this tool?
 This tool can be used in bank reconciliation.  
 [Here](https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/bank_reconciliation.ipynb) is a Google Colab Notebook that shows the example of the usage of DPSS in bank reconciliation.
