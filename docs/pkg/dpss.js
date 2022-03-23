@@ -80,17 +80,21 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 /**
-* @param {string} arr
-* @param {number} value
-* @param {number} max_length
+* @param {string} keys
+* @param {string} targets
+* @param {number} max_key_length
+* @param {number} max_target_length
+* @param {number} n_candidates
 * @returns {string}
 */
-export function wasm_find_subset(arr, value, max_length) {
+export function wasm_find_subset(keys, targets, max_key_length, max_target_length, n_candidates) {
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-        var ptr0 = passStringToWasm0(arr, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var ptr0 = passStringToWasm0(keys, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         var len0 = WASM_VECTOR_LEN;
-        wasm.wasm_find_subset(retptr, ptr0, len0, value, max_length);
+        var ptr1 = passStringToWasm0(targets, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len1 = WASM_VECTOR_LEN;
+        wasm.wasm_find_subset(retptr, ptr0, len0, ptr1, len1, max_key_length, max_target_length, n_candidates);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         return getStringFromWasm0(r0, r1);

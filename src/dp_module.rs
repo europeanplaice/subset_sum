@@ -465,57 +465,111 @@ pub mod dp {
         let mc = MultiCombination{
             combs: combs,
         };
-        mc.par_bridge().for_each(|i| {
-            let mut sum_key = 0;
-            let mut vec_key = vec![];
-            for j in i.iter() {
-                sum_key += keys[*j];
-                vec_key.push(keys[*j].clone());
-            }
-            vec_key.sort();
-            if sum_key > targets.iter().sum() {
-                return;
-            }
-            if sum_key < *targets.iter().min().unwrap() {
-                return;
-            }
-            if targets.iter().max().unwrap() == &0 {
-                return;
-            }
-            let mut set_ = match hashmap_fs.try_lock() {
-                Ok(mut v) => {v.entry((targets.clone(), sum_key))
-                    .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
-                    .clone()},
-                Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
-            };
-            if set_.len() == 0 {
-                return;
-            }
-            set_.sort();
-            set_.dedup();
-            set_.par_iter().for_each(|set| {
-                let mut keys3 = keys.clone();
-                let mut targets3 = targets.clone();
-                let mut group3 = group.clone();
-                group3.push((vec_key.clone(), set.clone()));
-                for j in set.clone() {
-                    vec_remove(&mut targets3, j);
+        if cfg!(feature="wasm") {
+            mc.for_each(|i| {
+                let mut sum_key = 0;
+                let mut vec_key = vec![];
+                for j in i.iter() {
+                    sum_key += keys[*j];
+                    vec_key.push(keys[*j].clone());
                 }
-                for i in vec_key.clone() {
-                    vec_remove(&mut keys3, i);
+                vec_key.sort();
+                if sum_key > targets.iter().sum() {
+                    return;
                 }
-                sequence_matcher_core(
-                    &mut keys3,
-                    &mut targets3,
-                    &mut group3,
-                    &mut answer.clone(),
-                    max_key_length,
-                    max_target_length,
-                    &mut hashmap_fs.clone(),
-                    n_candidates
-                );
+                if sum_key < *targets.iter().min().unwrap() {
+                    return;
+                }
+                if targets.iter().max().unwrap() == &0 {
+                    return;
+                }
+                let mut set_ = match hashmap_fs.try_lock() {
+                    Ok(mut v) => {v.entry((targets.clone(), sum_key))
+                        .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
+                        .clone()},
+                    Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
+                };
+                if set_.len() == 0 {
+                    return;
+                }
+                set_.sort();
+                set_.dedup();
+                set_.iter().for_each(|set| {
+                    let mut keys3 = keys.clone();
+                    let mut targets3 = targets.clone();
+                    let mut group3 = group.clone();
+                    group3.push((vec_key.clone(), set.clone()));
+                    for j in set.clone() {
+                        vec_remove(&mut targets3, j);
+                    }
+                    for i in vec_key.clone() {
+                        vec_remove(&mut keys3, i);
+                    }
+                    sequence_matcher_core(
+                        &mut keys3,
+                        &mut targets3,
+                        &mut group3,
+                        &mut answer.clone(),
+                        max_key_length,
+                        max_target_length,
+                        &mut hashmap_fs.clone(),
+                        n_candidates
+                    );
+                });
             });
-        });
+        } else {
+            mc.par_bridge().for_each(|i| {
+                let mut sum_key = 0;
+                let mut vec_key = vec![];
+                for j in i.iter() {
+                    sum_key += keys[*j];
+                    vec_key.push(keys[*j].clone());
+                }
+                vec_key.sort();
+                if sum_key > targets.iter().sum() {
+                    return;
+                }
+                if sum_key < *targets.iter().min().unwrap() {
+                    return;
+                }
+                if targets.iter().max().unwrap() == &0 {
+                    return;
+                }
+                let mut set_ = match hashmap_fs.try_lock() {
+                    Ok(mut v) => {v.entry((targets.clone(), sum_key))
+                        .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
+                        .clone()},
+                    Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
+                };
+                if set_.len() == 0 {
+                    return;
+                }
+                set_.sort();
+                set_.dedup();
+                set_.par_iter().for_each(|set| {
+                    let mut keys3 = keys.clone();
+                    let mut targets3 = targets.clone();
+                    let mut group3 = group.clone();
+                    group3.push((vec_key.clone(), set.clone()));
+                    for j in set.clone() {
+                        vec_remove(&mut targets3, j);
+                    }
+                    for i in vec_key.clone() {
+                        vec_remove(&mut keys3, i);
+                    }
+                    sequence_matcher_core(
+                        &mut keys3,
+                        &mut targets3,
+                        &mut group3,
+                        &mut answer.clone(),
+                        max_key_length,
+                        max_target_length,
+                        &mut hashmap_fs.clone(),
+                        n_candidates
+                    );
+                });
+            });
+        }
         ()
     }
 

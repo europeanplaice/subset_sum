@@ -11,12 +11,13 @@ This is a Rust implementation that calculates subset sum problem using dynamic p
 
 Any feedback is welcome!
 
-There are three ways to use this program.
+There are four ways to use this program.
 * [CLI](#CLI)
 * [Rust](#rust)
 * [Python](#python)
+* [Web](https://europeanplaice.github.io/subset_sum/find_subset.html) (Easy to use)
 
-Here is an out of the box example you can run now in google colab.
+Here is also an out of the box example of python you can run now in google colab.
 https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
 
 And it has three methods.
@@ -26,7 +27,7 @@ And it has three methods.
 * `find_subset_fast_only_positive`  
     * It finds a subset from an array. It can't accept negative values but relatively faster.
 * `Sequence Matcher`
-    * It finds subset sum relationships with two arrays.
+    * It finds subset sum relationships with two arrays. Solving multiple subset sub problem.
 
 `dpss` is short for `dynamic programming subset sum`.
 

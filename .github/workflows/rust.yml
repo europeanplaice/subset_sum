@@ -21,3 +21,5 @@ jobs:
       run: cargo build --verbose --release
     - name: Run tests
       run: cargo test --verbose --release
+    - name: Run tests wasm
+      run: cargo test --verbose --release --featuers wasm
