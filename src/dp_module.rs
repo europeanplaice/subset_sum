@@ -28,33 +28,6 @@ pub mod dp {
     use rayon::prelude::*;
     use std::sync::{Arc, Mutex};
 
-    fn gcd_multi(v: Vec<u32>) -> u32 {
-        let mut result = v[0];
-        for i in 1..v.len() {
-            result = gcd(result, v[i]);
-        }
-        result
-    }
-
-    fn gcd(a: u32, b: u32) -> u32 {
-        if b == 0 {
-            a
-        } else {
-            gcd(b, a % b)
-        }
-    }
-    #[test]
-    fn test_gcd() {
-        assert_eq!(gcd(20, 10), 10);
-        assert_eq!(gcd(55, 5), 5);
-        assert_eq!(gcd(991, 997), 1);
-    }
-
-    #[test]
-    fn test_gcd_multi() {
-        assert_eq!(gcd_multi(vec![5, 10, 20]), 5);
-        assert_eq!(gcd_multi(vec![131, 863, 887]), 1);
-    }
     /// Finds subsets sum of a target value. It can accept negative values.
     ///
     /// # Arguments
@@ -149,6 +122,10 @@ pub mod dp {
             return;
         }
 
+        if answer.len() > dp[dp.len() - 1] as usize {
+            return;
+        }
+
         if route.len() > max_length {
             return;
         }
@@ -207,57 +184,6 @@ pub mod dp {
         newvec
     }
 
-    fn filter_j_idx(value: usize, arr: &Vec<u32>) -> (Vec<usize>, u32) {
-        // a_min is the minimum number in an except for zero.
-        let mut a_min = arr.iter().max().unwrap();
-        let mut a_no_zero: Vec<u32> = Vec::with_capacity(arr.len());
-        for i in arr {
-            if i > &0 {
-                if a_min > &i {
-                    a_min = &i
-                }
-                a_no_zero.push(*i);
-            }
-        }
-        let mut j_indexes: Vec<usize> = Vec::with_capacity(value + 1);
-        let gcd = gcd_multi(a_no_zero);
-        // j of the range of 1 to a_min-1 must be zero.
-        // For example, if a_min = 10, there is no way to make sum 5.
-        // Also, if j == 8 and target = 10 and a_min=5, we can't reach 10.
-        // If all the numbers are even, j should be even.
-        for j in 0..value + 1 {
-            if (j as u32 >= *a_min && j as u32 <= value as u32 - *a_min && j as u32 % gcd == 0)
-                || j as u32 == 0
-                || j == value
-            {
-                j_indexes.push(j)
-            }
-        }
-        (j_indexes, *a_min)
-    }
-
-    #[test]
-    fn test_filter_j_idx() {
-        let (result, _a_min) = filter_j_idx(10, &vec![3, 4, 5, 6, 7, 8, 9, 10]);
-        let answer: Vec<usize> = vec![0, 3, 4, 5, 6, 7, 10];
-        assert_eq!(result, answer);
-
-        let (result, _a_min) = filter_j_idx(5, &vec![3, 4, 5]);
-        let answer: Vec<usize> = vec![0, 5];
-        assert_eq!(result, answer);
-
-        let (result, _a_min) = filter_j_idx(10, &vec![0, 2, 4, 6, 8]);
-        let answer: Vec<usize> = vec![0, 2, 4, 6, 8, 10];
-        assert_eq!(result, answer);
-
-        let (result, _a_min) = filter_j_idx(20, &vec![10, 20, 30, 40, 50]);
-        let answer: Vec<usize> = vec![0, 10, 20];
-        assert_eq!(result, answer);
-
-        let (result, _a_min) = filter_j_idx(8, &vec![2, 3, 5, 7]);
-        let answer: Vec<usize> = vec![0, 2, 3, 4, 5, 6, 8];
-        assert_eq!(result, answer);
-    }
     /// Finds subsets sum of a target value. It can't accept negative values but relatively faster.
     /// # Arguments
     /// * `arr` - An array.
@@ -303,21 +229,23 @@ pub mod dp {
         let mut dp: Vec<u32> = vec![0; (value + 1) * (arr.len() + 1)];
         dp[0] = 1;
 
-        let (j_indexes, _a_min) = filter_j_idx(value, arr);
         for (i, v_u32) in arr.iter().enumerate() {
             let v_usize = *v_u32 as usize;
-            for j in &j_indexes {
+            for j in 0..value+1 {
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
                 // dp[i + 1][*j] += dp[i][*j];
-                dp[(i + 1) * collen + *j] += dp[i * collen + *j]; 
+                if dp[i * collen + j] == 0 {
+                    continue;
+                };
+                dp[(i + 1) * collen + j] += dp[i * collen + j]; 
 
                 // Skip if j + the element is larger than the target value.
-                if *j + v_usize < value + 1 {
+                if j + v_usize < value + 1 {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
-                    // dp[i + 1][j + arr[i] as usize] += dp[i][*j];
-                    dp[(i + 1) * collen + j + v_usize] += dp[i * collen + *j]; 
+                    // dp[i + 1][j + arr[i] as usize] += dp[i][j];
+                    dp[(i + 1) * collen + j + v_usize] += dp[i * collen + j]; 
 
                 }
             };

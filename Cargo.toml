@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.18.0"
+version = "0.18.1"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
