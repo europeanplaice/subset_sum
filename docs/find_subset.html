@@ -33,15 +33,15 @@
         </div>
         <div class="field">
           <label for="key_length" class="label">Maximum subset length (required when target is an array)</label>
-          <input type="number" id="key_length" placeholder="2" class="input is-info" size="4" min="1">
+          <input type="number" id="key_length" placeholder="2" class="input is-info" size="4" min="1" value="10">
         </div>
         <div class="field">
           <label for="target_length" class="label">Maximum target length (required)</label>
-          <input type="number" id="target_length" placeholder="2" class="input is-primary" size="4" required min="1">
+          <input type="number" id="target_length" placeholder="2" class="input is-primary" size="4" required min="1" value="10">
         </div>
         <div class="field">
           <label for="n_candidates" class="label">The number of candidates (required when target is an array)</label>
-          <input type="number" id="n_candidates" placeholder="2" class="input is-info" size="4" min="1">
+          <input type="number" id="n_candidates" placeholder="2" class="input is-info" size="4" min="1" value="10">
         </div>
         <button onclick="btnClick()" id="find_subset" class="button is-link">GO!</button>
       </div>
@@ -67,19 +67,29 @@
           let flag = true;
           document.getElementById("answer").innerText = "";
 
+          document.getElementById("subset").value = document.getElementById("subset").value.trim().replace(/(^ *,)|(, *$)/i, '');
           document.getElementById("subset").style.backgroundColor = "transparent";
           if (!(document.getElementById("subset").value)){
             document.getElementById("answer").innerText = "You need to input subset array.\n";
             document.getElementById("subset").style.backgroundColor = "yellow";
             flag = false;
-          }        
+          } else if (document.getElementById("subset").value.match(/^ *(-*\d+ *, *)+-*\d+ *$/g) === null){
+            document.getElementById("answer").innerText = "Subset array is invalid. \n";
+            document.getElementById("subset").style.backgroundColor = "yellow";
+            flag = false;
+          }
 
+          document.getElementById("sum").value = document.getElementById("sum").value.trim().replace(/(^ *,)|(, *$)/i, '');
           document.getElementById("sum").style.backgroundColor = "transparent";
           if (!(document.getElementById("sum").value)){
             document.getElementById("answer").innerText += "You need to input target array or value.\n";
             document.getElementById("sum").style.backgroundColor = "yellow";
             flag = false;
-          }       
+          } else if (document.getElementById("sum").value.match(/(^ *(-*\d+ *, *)+-*\d+ *$)|^ *-*\d+$/g) === null) {
+            document.getElementById("answer").innerText += "Target array or value is invalid. \n";
+            document.getElementById("sum").style.backgroundColor = "yellow";
+            flag = false;
+          }
 
           document.getElementById("target_length").style.backgroundColor = "transparent";
           if (!(document.getElementById("target_length").value)){
