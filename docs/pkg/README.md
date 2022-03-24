@@ -39,6 +39,7 @@ And it has three methods.
 |crates.io|https://crates.io/crates/subset_sum|
 |docs.rs|https://docs.rs/subset_sum/latest/dpss/|
 |pypi|https://pypi.org/project/dpss/|
+|Website|https://europeanplaice.github.io/subset_sum/|
 
 ## <a id="CLI"></a>CLI
 

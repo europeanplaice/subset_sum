@@ -13,7 +13,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn wasm_find_subset(keys: String, targets: String, max_key_length: usize, max_target_length: usize, n_candidates: usize) -> String {
     let mut keys: Vec<i32> = keys.split(",").map(|x| x.trim().parse::<i32>().unwrap()).collect();
-    if targets.contains(", ") {
+    if targets.contains(",") {
 
         let mut targets: Vec<i32> = targets.split(",").map(|x| x.trim().parse::<i32>().unwrap()).collect();
         if keys.iter().sum::<i32>() != targets.iter().sum::<i32>() {
