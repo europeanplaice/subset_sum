@@ -100,14 +100,15 @@ pub mod dp {
     }
 
     fn rec(
-        dp: &Vec<u32>,
+        dp: &Vec<u16>,
         arr: &Vec<u32>,
         i: usize,
         j: usize,
         route: &mut Vec<u32>,
         answer: &mut Vec<Vec<u32>>,
         max_length: usize,
-        collen: usize
+        collen: usize,
+        last_value: usize
     ) {
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
         // We follow the dp table backward to find combinations of subsets.
@@ -122,30 +123,35 @@ pub mod dp {
             return;
         }
 
-        if answer.len() > dp[dp.len() - 1] as usize {
+        if answer.len() > last_value {
             return;
         }
 
         if route.len() > max_length {
             return;
         }
+        let i_minus_one = i - 1;
+        let one_step_up = i_minus_one * collen + j;
+        let v = arr[i_minus_one];
 
-        if dp[(i - 1) * collen + j] != 0 {
-            rec(dp, arr, i - 1, j, route, answer, max_length, collen);
+        if dp[one_step_up] != 0 {
+            rec(dp, arr, i_minus_one, j, route, answer, max_length, collen, last_value);
         }
 
-        if j as i32 - arr[i - 1] as i32 >= 0 && dp[(i - 1) * collen + j - arr[i - 1] as usize] != 0 {
+        let j_v = j as i32 - v as i32;
+        if j_v >= 0 && dp[one_step_up - v as usize] != 0 {
             // Choose this element as arr candidate for an answer.
-            route.push(arr[i - 1]);
+            route.push(v);
             rec(
                 dp,
                 arr,
-                i - 1,
-                j - arr[i - 1] as usize,
+                i_minus_one,
+                j_v as usize,
                 route,
                 answer,
                 max_length,
-                collen
+                collen, 
+                last_value
             );
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
@@ -226,34 +232,38 @@ pub mod dp {
         // We follow from the start of this table.
         // let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
         let collen = value + 1;
-        let mut dp: Vec<u32> = vec![0; (value + 1) * (arr.len() + 1)];
+        let mut dp: Vec<u16> = vec![0; (value + 1) * (arr.len() + 1)];
         dp[0] = 1;
 
-        for (i, v_u32) in arr.iter().enumerate() {
+        let mut current_address= 0;
+        arr.iter().for_each(|v_u32| {
             let v_usize = *v_u32 as usize;
-            for j in 0..value+1 {
+            (0..value+1).for_each(|j| {
+                let current_value = dp[current_address];
+                if current_value == 0 {
+                    current_address += 1;
+                    return;
+                };
+                let address_onestep_down = current_address + collen;
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
                 // dp[i + 1][*j] += dp[i][*j];
-                if dp[i * collen + j] == 0 {
-                    continue;
-                };
-                dp[(i + 1) * collen + j] += dp[i * collen + j]; 
+                dp[address_onestep_down] += current_value; 
 
                 // Skip if j + the element is larger than the target value.
-                if j + v_usize < value + 1 {
+                if j + v_usize < collen {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
                     // dp[i + 1][j + arr[i] as usize] += dp[i][j];
-                    dp[(i + 1) * collen + j + v_usize] += dp[i * collen + j]; 
+                    dp[address_onestep_down + v_usize] += current_value; 
 
                 }
-            };
-        }
+                current_address += 1;
+            });
+        });
         let a_length: usize = arr.len();
         let mut route: Vec<u32> = vec![];
         let mut answer: Vec<Vec<u32>> = vec![];
-
         rec(
             &dp,
             &arr,
@@ -262,7 +272,8 @@ pub mod dp {
             &mut route,
             &mut answer,
             max_length,
-            collen
+            collen,
+            dp[dp.len() - 1] as usize
         );
         answer
     }
@@ -397,10 +408,11 @@ pub mod dp {
             mc.for_each(|i| {
                 let mut sum_key = 0;
                 let mut vec_key = vec![];
-                for j in i.iter() {
-                    sum_key += keys[*j];
-                    vec_key.push(keys[*j].clone());
-                }
+                i.iter().for_each(|j| {
+                    let k = keys[*j];
+                    sum_key += k;
+                    vec_key.push(k);
+                });
                 vec_key.sort();
                 if sum_key > targets.iter().sum() {
                     return;
@@ -427,12 +439,12 @@ pub mod dp {
                     let mut targets3 = targets.clone();
                     let mut group3 = group.clone();
                     group3.push((vec_key.clone(), set.clone()));
-                    for j in set.clone() {
-                        vec_remove(&mut targets3, j);
-                    }
-                    for i in vec_key.clone() {
-                        vec_remove(&mut keys3, i);
-                    }
+                    set.iter().for_each(|j| {
+                        vec_remove(&mut targets3, *j);
+                    });
+                    vec_key.iter().for_each(|i| {
+                        vec_remove(&mut keys3, *i);
+                    });
                     sequence_matcher_core(
                         &mut keys3,
                         &mut targets3,
@@ -449,10 +461,11 @@ pub mod dp {
             mc.par_bridge().for_each(|i| {
                 let mut sum_key = 0;
                 let mut vec_key = vec![];
-                for j in i.iter() {
-                    sum_key += keys[*j];
-                    vec_key.push(keys[*j].clone());
-                }
+                i.iter().for_each(|j| {
+                    let k = keys[*j];
+                    sum_key += k;
+                    vec_key.push(k);
+                });
                 vec_key.sort();
                 if sum_key > targets.iter().sum() {
                     return;
@@ -463,12 +476,12 @@ pub mod dp {
                 if targets.iter().max().unwrap() == &0 {
                     return;
                 }
-                let mut set_ = match hashmap_fs.try_lock() {
+                let mut set_ = {match hashmap_fs.try_lock() {
                     Ok(mut v) => {v.entry((targets.clone(), sum_key))
                         .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
                         .clone()},
                     Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
-                };
+                }};
                 if set_.len() == 0 {
                     return;
                 }
@@ -479,12 +492,12 @@ pub mod dp {
                     let mut targets3 = targets.clone();
                     let mut group3 = group.clone();
                     group3.push((vec_key.clone(), set.clone()));
-                    for j in set.clone() {
-                        vec_remove(&mut targets3, j);
-                    }
-                    for i in vec_key.clone() {
-                        vec_remove(&mut keys3, i);
-                    }
+                    set.iter().for_each(|j| {
+                        vec_remove(&mut targets3, *j);
+                    });
+                    vec_key.iter().for_each(|i| {
+                        vec_remove(&mut keys3, *i);
+                    });
                     sequence_matcher_core(
                         &mut keys3,
                         &mut targets3,
