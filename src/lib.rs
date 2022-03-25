@@ -57,7 +57,7 @@ pub fn wasm_find_subset(
                 }
                 t.push(format!("([{}] [{}])", key_str, target_str));
             }
-            s.push(format!("[{}]\n", t.join(",  ")))
+            s.push(format!("pattern => [{}]\n",t.join(",  ")))
         }
         format!("[{}]\n", s.join(", "))
     } else {

@@ -1,5 +1,7 @@
 # Subset Sum(dpss)
 
+![github](https://user-images.githubusercontent.com/38364983/160049852-dbbf4d5a-1d48-4fb7-af0e-89efbd79c2e2.jpg)
+
 [![Downloads](https://static.pepy.tech/personalized-badge/dpss?period=total&units=none&left_color=grey&right_color=brightgreen&left_text=PyPI%20Downloads)](https://pepy.tech/project/dpss)
 [![PyPI - Downloads](https://img.shields.io/pypi/dd/dpss?label=PyPI%20Downloads%20%28Without%20Mirrors%29)](https://pypistats.org/packages/dpss)
 [![Crates.io](https://img.shields.io/crates/d/subset_sum?label=crates.io%20Downloads)](https://crates.io/crates/subset_sum)
@@ -7,15 +9,16 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/europeanplaice/subset_sum/total?label=GitHub%20releases%20Downloads)](https://tooomm.github.io/github-release-stats/?username=europeanplaice&repository=subset_sum)
 [![GitHub Repo stars](https://img.shields.io/github/stars/europeanplaice/subset_sum?style=social)](https://github.com/europeanplaice/subset_sum)
 
+
 This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
 
 Any feedback is welcome!
 
 There are four ways to use this program.
-* [CLI](#CLI)
-* [Rust](#rust)
-* [Python](#python)
-* [Web](https://europeanplaice.github.io/subset_sum/find_subset.html) (Easy to use)
+* [CLI](#CLI)🖥️
+* [Rust](#rust)🦀
+* [Python](#python)🐍
+* [Web](https://europeanplaice.github.io/subset_sum/find_subset.html)🌎 (Easy to use)
 
 Here is also an out of the box example of python you can run now in google colab.
 https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
