@@ -1,6 +1,6 @@
 # Subset Sum(dpss)
 
-![github](https://user-images.githubusercontent.com/38364983/160028676-75b8afe5-62c5-4398-8e41-0b0640e6c4bc.jpg)
+![github](https://user-images.githubusercontent.com/38364983/160049852-dbbf4d5a-1d48-4fb7-af0e-89efbd79c2e2.jpg)
 
 [![Downloads](https://static.pepy.tech/personalized-badge/dpss?period=total&units=none&left_color=grey&right_color=brightgreen&left_text=PyPI%20Downloads)](https://pepy.tech/project/dpss)
 [![PyPI - Downloads](https://img.shields.io/pypi/dd/dpss?label=PyPI%20Downloads%20%28Without%20Mirrors%29)](https://pypistats.org/packages/dpss)
