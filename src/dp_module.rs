@@ -6,26 +6,26 @@ pub mod dp {
     struct MultiCombination<I: Iterator> {
         combs: Vec<Combinations<I>>,
     }
-    
-    impl<I> Iterator for MultiCombination<I> 
-        where I: Iterator,
-        I::Item: Clone  
+
+    impl<I> Iterator for MultiCombination<I>
+    where
+        I: Iterator,
+        I::Item: Clone,
     {
         type Item = Vec<I::Item>;
-    
         fn next(&mut self) -> Option<Self::Item> {
             for comb in &mut self.combs {
                 if let Some(elt) = comb.next() {
                     return Some(elt);
                 } else {
-                    continue
+                    continue;
                 }
             }
             None
         }
     }
-    use std::collections::HashMap;
     use rayon::prelude::*;
+    use std::collections::HashMap;
     use std::sync::{Arc, Mutex};
 
     /// Finds subsets sum of a target value. It can accept negative values.
@@ -60,9 +60,16 @@ pub mod dp {
         // Find a subset even if an array contains negative values.
         let answer: Arc<Mutex<Vec<Vec<i32>>>> = Arc::new(Mutex::new(vec![]));
         if arr.iter().min().unwrap() >= &0 && value > 0 {
-            let result = find_subset_fast_only_positive(&arr.iter().map(|e| *e as u32).collect::<Vec<u32>>(), value as usize, max_length);
+            let result = find_subset_fast_only_positive(
+                &arr.iter().map(|e| *e as u32).collect::<Vec<u32>>(),
+                value as usize,
+                max_length,
+            );
             for i in result {
-                answer.lock().unwrap().push(i.iter().map(|e| *e as i32).collect::<Vec<i32>>())
+                answer
+                    .lock()
+                    .unwrap()
+                    .push(i.iter().map(|e| *e as i32).collect::<Vec<i32>>())
             }
             return answer.lock().unwrap().to_vec();
         } else {
@@ -74,7 +81,9 @@ pub mod dp {
             // If we find the sum is the same as the target, we will return the result.
             let c = |i| {
                 let result = _find_subset_fast_only_positive(
-                    &arr.iter().map(|e| (e + offset) as u32).collect::<Vec<u32>>(),
+                    &arr.iter()
+                        .map(|e| (e + offset) as u32)
+                        .collect::<Vec<u32>>(),
                     (value + i as i32 * offset) as usize,
                     max_length,
                 );
@@ -90,7 +99,7 @@ pub mod dp {
                     }
                 }
             };
-            if cfg!(feature="wasm"){
+            if cfg!(feature = "wasm") {
                 (1..min(length, max_length) + 1).into_iter().for_each(c);
             } else {
                 (1..min(length, max_length) + 1).into_par_iter().for_each(c);
@@ -108,7 +117,7 @@ pub mod dp {
         answer: &mut Vec<Vec<u32>>,
         max_length: usize,
         collen: usize,
-        last_value: usize
+        last_value: usize,
     ) {
         // This code is mostly copied from https://drken1215.hatenablog.com/entry/2019/12/17/190300
         // We follow the dp table backward to find combinations of subsets.
@@ -135,7 +144,17 @@ pub mod dp {
         let v = arr[i_minus_one];
 
         if dp[one_step_up] != 0 {
-            rec(dp, arr, i_minus_one, j, route, answer, max_length, collen, last_value);
+            rec(
+                dp,
+                arr,
+                i_minus_one,
+                j,
+                route,
+                answer,
+                max_length,
+                collen,
+                last_value,
+            );
         }
 
         let j_v = j as i32 - v as i32;
@@ -150,8 +169,8 @@ pub mod dp {
                 route,
                 answer,
                 max_length,
-                collen, 
-                last_value
+                collen,
+                last_value,
             );
             // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
             route.pop();
@@ -235,10 +254,10 @@ pub mod dp {
         let mut dp: Vec<u16> = vec![0; (value + 1) * (arr.len() + 1)];
         dp[0] = 1;
 
-        let mut current_address= 0;
+        let mut current_address = 0;
         arr.iter().for_each(|v_u32| {
             let v_usize = *v_u32 as usize;
-            (0..value+1).for_each(|j| {
+            (0..value + 1).for_each(|j| {
                 let current_value = dp[current_address];
                 if current_value == 0 {
                     current_address += 1;
@@ -248,15 +267,14 @@ pub mod dp {
                 // If we don't choose to select an element to sum,
                 // the ways to make a sum are the same as with the previous element.
                 // dp[i + 1][*j] += dp[i][*j];
-                dp[address_onestep_down] += current_value; 
+                dp[address_onestep_down] += current_value;
 
                 // Skip if j + the element is larger than the target value.
                 if j + v_usize < collen {
                     // This means we find another way to make sum j with i elements
                     // when we choose this element as an element to sum.
                     // dp[i + 1][j + arr[i] as usize] += dp[i][j];
-                    dp[address_onestep_down + v_usize] += current_value; 
-
+                    dp[address_onestep_down + v_usize] += current_value;
                 }
                 current_address += 1;
             });
@@ -273,7 +291,7 @@ pub mod dp {
             &mut answer,
             max_length,
             collen,
-            dp[dp.len() - 1] as usize
+            dp[dp.len() - 1] as usize,
         );
         answer
     }
@@ -344,7 +362,8 @@ pub mod dp {
             println!("The sum of the keys must be equal to the sum of the targets.");
             return answer.lock().unwrap().to_vec();
         }
-        let mut hashmap_fs: Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> = Arc::new(Mutex::new(HashMap::new()));
+        let mut hashmap_fs: Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> =
+            Arc::new(Mutex::new(HashMap::new()));
         sequence_matcher_core(
             keys,
             targets,
@@ -353,9 +372,9 @@ pub mod dp {
             max_key_length,
             max_target_length,
             &mut hashmap_fs,
-            n_candidates
+            n_candidates,
         );
-        let mut answer2 : Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.lock().unwrap().to_vec();
+        let mut answer2: Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.lock().unwrap().to_vec();
         for i in 0..answer2.len() {
             answer2[i].sort_by_key(|k| k.0.iter().sum::<i32>());
             answer2[i].sort_by_key(|k| k.0.len());
@@ -377,7 +396,7 @@ pub mod dp {
         max_target_length: usize,
         hashmap_fs: &mut Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
         n_candidates: usize,
-    ) -> (){
+    ) -> () {
         use itertools::Itertools;
         use std::cmp::min;
         if answer.lock().unwrap().len() >= n_candidates {
@@ -398,13 +417,11 @@ pub mod dp {
         }
         targets.sort();
         let mut combs = vec![];
-        for i in 1..min(max_key_length, keys.len()) + 1{
+        for i in 1..min(max_key_length, keys.len()) + 1 {
             combs.push((0..keys.len()).into_iter().combinations(i))
-        };
-        let mc = MultiCombination{
-            combs: combs,
-        };
-        if cfg!(feature="wasm") {
+        }
+        let mc = MultiCombination { combs: combs };
+        if cfg!(feature = "wasm") {
             mc.for_each(|i| {
                 let mut sum_key = 0;
                 let mut vec_key = vec![];
@@ -424,10 +441,11 @@ pub mod dp {
                     return;
                 }
                 let mut set_ = match hashmap_fs.try_lock() {
-                    Ok(mut v) => {v.entry((targets.clone(), sum_key))
+                    Ok(mut v) => v
+                        .entry((targets.clone(), sum_key))
                         .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
-                        .clone()},
-                    Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
+                        .clone(),
+                    Err(_) => find_subset(targets.clone(), sum_key, max_target_length),
                 };
                 if set_.len() == 0 {
                     return;
@@ -453,7 +471,7 @@ pub mod dp {
                         max_key_length,
                         max_target_length,
                         &mut hashmap_fs.clone(),
-                        n_candidates
+                        n_candidates,
                     );
                 });
             });
@@ -476,12 +494,15 @@ pub mod dp {
                 if targets.iter().max().unwrap() == &0 {
                     return;
                 }
-                let mut set_ = {match hashmap_fs.try_lock() {
-                    Ok(mut v) => {v.entry((targets.clone(), sum_key))
-                        .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
-                        .clone()},
-                    Err(_) => {find_subset(targets.clone(), sum_key, max_target_length)}
-                }};
+                let mut set_ = {
+                    match hashmap_fs.try_lock() {
+                        Ok(mut v) => v
+                            .entry((targets.clone(), sum_key))
+                            .or_insert(find_subset(targets.clone(), sum_key, max_target_length))
+                            .clone(),
+                        Err(_) => find_subset(targets.clone(), sum_key, max_target_length),
+                    }
+                };
                 if set_.len() == 0 {
                     return;
                 }
@@ -506,7 +527,7 @@ pub mod dp {
                         max_key_length,
                         max_target_length,
                         &mut hashmap_fs.clone(),
-                        n_candidates
+                        n_candidates,
                     );
                 });
             });
@@ -521,7 +542,7 @@ pub mod dp {
             &mut vec![3, 2, -6, -8, 2, -9, 0, -5, -3, 37],
             7,
             6,
-            30
+            30,
         );
         assert_eq!(answer.len(), 30);
 
@@ -530,7 +551,7 @@ pub mod dp {
             &mut vec![300, 700, 500, 600, -700, 2700],
             3,
             2,
-            200
+            200,
         );
         assert_eq!(answer.len(), 195);
         assert_eq!(
@@ -544,7 +565,13 @@ pub mod dp {
             ]
         );
 
-        let answer = sequence_matcher(&mut vec![9, 0, 1, 7, 1], &mut vec![7, 2, 8, 0, 1], 3, 2, 100);
+        let answer = sequence_matcher(
+            &mut vec![9, 0, 1, 7, 1],
+            &mut vec![7, 2, 8, 0, 1],
+            3,
+            2,
+            100,
+        );
         assert_eq!(answer.len(), 24);
         assert_eq!(
             answer[0],
@@ -561,7 +588,7 @@ pub mod dp {
             &mut vec![2100, 273, 4, 11],
             6,
             4,
-            200
+            200,
         );
         assert_eq!(answer.len(), 5);
         assert_eq!(
@@ -574,9 +601,7 @@ pub mod dp {
         );
         assert_eq!(
             answer[2],
-            vec![
-                (vec![5, 10, 123, 150, 1000, 1100], vec![4, 11, 273, 2100]),
-            ]
+            vec![(vec![5, 10, 123, 150, 1000, 1100], vec![4, 11, 273, 2100]),]
         );
 
         let answer = sequence_matcher(
@@ -584,7 +609,7 @@ pub mod dp {
             &mut vec![1000, 1200],
             10,
             10,
-            2
+            2,
         );
         assert_eq!(answer.len(), 0);
 
@@ -600,7 +625,7 @@ pub mod dp {
             &mut vec![8, 9, 15, 15, 33, 36, 39, 45, 46, 60, 68, 73, 80, 92, 96],
             1,
             15,
-            20
+            20,
         );
 
         assert_eq!(answer.len(), 13);

@@ -19,7 +19,11 @@ fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec
 /// * `max_length` - The maximum length of combinations of the answer.
 #[pyfunction]
 #[pyo3(text_signature = "(arr, value, max_length, /)")]
-fn find_subset_fast_only_positive(arr: Vec<u32>, value: usize, max_length: usize) -> PyResult<Vec<Vec<u32>>> {
+fn find_subset_fast_only_positive(
+    arr: Vec<u32>,
+    value: usize,
+    max_length: usize,
+) -> PyResult<Vec<Vec<u32>>> {
     use crate::dp_module::*;
     Ok(dp::find_subset_fast_only_positive(&arr, value, max_length))
 }
@@ -36,9 +40,21 @@ fn find_subset_fast_only_positive(arr: Vec<u32>, value: usize, max_length: usize
 /// * `n_candidates` - An integer.
 #[pyfunction]
 #[pyo3(text_signature = "(keys, targets, max_key_length, max_target_length, n_candidates /)")]
-fn sequence_matcher(mut keys: Vec<i32>, mut targets: Vec<i32>, max_key_length: usize, max_target_length: usize, n_candidates: usize) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
+fn sequence_matcher(
+    mut keys: Vec<i32>,
+    mut targets: Vec<i32>,
+    max_key_length: usize,
+    max_target_length: usize,
+    n_candidates: usize,
+) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher(&mut keys, &mut targets, max_key_length, max_target_length, n_candidates))
+    Ok(dp::sequence_matcher(
+        &mut keys,
+        &mut targets,
+        max_key_length,
+        max_target_length,
+        n_candidates,
+    ))
 }
 
 #[pymodule]

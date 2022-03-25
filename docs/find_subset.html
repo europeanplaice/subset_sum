@@ -1,136 +1,145 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GL0P9YL3TE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-GL0P9YL3TE');
-    </script>
-    <meta charset="utf-8">
-    <title>Subset Sum Solver</title>
-    <meta name="description" content="Solves subset sum problem and multiple subset sum. It returns a set of decomposed integers." />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    </head>
-  <body>
-    <div class="container is-fluid">
-      <h1 class="title mt-4">Solving subset sub problem and multiple subset sub problem.</h1>
-      <div class="column">
-        <p>It solves subset sum problem and multiple subset sub problem. This program was implemented in Rust and WebAssembly. 
-          The calulation is done in your browser without communicating with servers.</p>
-        <p>Please input values below.</p>
-        <div class="field">
-          <label for="subset" class="label">Subset array (required)</label>
-          <input type="text" id="subset" placeholder="1, 2, 3, 4, 5" class="input is-primary" required>
-        </div>
-        <div class="field">
-          <label for="sum" class="label">Target array or value (required)</label>
-          <input type="text" id="sum" placeholder="3, 5, 7 or 3" class="input is-primary" required>
-        </div>
-        <div class="field">
-          <label for="key_length" class="label">Maximum subset length (required when target is an array)</label>
-          <input type="number" id="key_length" placeholder="2" class="input is-info" size="4" min="1" value="10">
-        </div>
-        <div class="field">
-          <label for="target_length" class="label">Maximum target length (required)</label>
-          <input type="number" id="target_length" placeholder="2" class="input is-primary" size="4" required min="1" value="10">
-        </div>
-        <div class="field">
-          <label for="n_candidates" class="label">The number of candidates (required when target is an array)</label>
-          <input type="number" id="n_candidates" placeholder="2" class="input is-info" size="4" min="1" value="10">
-        </div>
-        <button onclick="btnClick()" id="find_subset" class="button is-link">GO!</button>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GL0P9YL3TE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GL0P9YL3TE');
+  </script>
+  <meta charset="utf-8">
+  <title>Subset Sum Solver</title>
+  <meta name="description"
+    content="Solves subset sum problem and multiple subset sum. It returns a set of decomposed integers." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+  <div class="container is-fluid">
+    <h1 class="title mt-4">Solving subset sub problem and multiple subset sub problem.</h1>
+    <div class="column">
+      <p>It solves subset sum problem and multiple subset sub problem. This program was implemented in Rust and
+        WebAssembly.
+        The calulation is done in your browser without communicating with servers.</p>
+      <p>Please input values below.</p>
+      <div class="field">
+        <label for="subset" class="label">Subset array (required)</label>
+        <input type="text" id="subset" placeholder="1, 2, 3, 4, 5" class="input is-primary" required>
       </div>
-      <div class="column card has-background-link-light">
-        <p id="answer" style="white-space:pre-wrap; word-wrap:break-word;"></p>
+      <div class="field">
+        <label for="sum" class="label">Target array or value (required)</label>
+        <input type="text" id="sum" placeholder="3, 5, 7 or 3" class="input is-primary" required>
       </div>
-      <script type="module">
-        import init, {wasm_find_subset} from "./pkg/dpss.js";
-        
-        let func = function(youCanSetParams){
-          init().then(() => {
-            document.getElementById("answer").innerText = wasm_find_subset(
-              document.getElementById("subset").value, 
-              document.getElementById("sum").value, 
-              document.getElementById("key_length").value,
-              document.getElementById("target_length").value,
-              document.getElementById("n_candidates").value
-              )
-          });
-        };
+      <div class="field">
+        <label for="key_length" class="label">Maximum subset length (required when target is an array)</label>
+        <input type="number" id="key_length" placeholder="2" class="input is-info" size="4" min="1" value="10">
+      </div>
+      <div class="field">
+        <label for="target_length" class="label">Maximum target length (required)</label>
+        <input type="number" id="target_length" placeholder="2" class="input is-primary" size="4" required min="1"
+          value="10">
+      </div>
+      <div class="field">
+        <label for="n_candidates" class="label">The number of candidates (required when target is an array)</label>
+        <input type="number" id="n_candidates" placeholder="2" class="input is-info" size="4" min="1" value="10">
+      </div>
+      <button onclick="btnClick()" id="find_subset" class="button is-link">GO!</button>
+    </div>
+    <div class="column card has-background-link-light">
+      <p id="answer" style="white-space:pre-wrap; word-wrap:break-word;"></p>
+    </div>
+    <script type="module">
+      import init, { wasm_find_subset } from "./pkg/dpss.js";
 
-        function check(){
-          let flag = true;
-          document.getElementById("answer").innerText = "";
+      let func = function (youCanSetParams) {
+        init().then(() => {
+          document.getElementById("answer").innerText = wasm_find_subset(
+            document.getElementById("subset").value,
+            document.getElementById("sum").value,
+            document.getElementById("key_length").value,
+            document.getElementById("target_length").value,
+            document.getElementById("n_candidates").value
+          )
+        });
+      };
 
-          document.getElementById("subset").value = document.getElementById("subset").value.trim().replace(/(^ *,)|(, *$)/i, '');
-          document.getElementById("subset").style.backgroundColor = "transparent";
-          if (!(document.getElementById("subset").value)){
-            document.getElementById("answer").innerText = "You need to input subset array.\n";
-            document.getElementById("subset").style.backgroundColor = "yellow";
-            flag = false;
-          } else if (document.getElementById("subset").value.match(/^ *(-*\d+ *, *)+-*\d+ *$/g) === null){
-            document.getElementById("answer").innerText = "Subset array is invalid. \n";
-            document.getElementById("subset").style.backgroundColor = "yellow";
-            flag = false;
-          }
+      function check() {
+        let flag = true;
+        document.getElementById("answer").innerText = "";
 
-          document.getElementById("sum").value = document.getElementById("sum").value.trim().replace(/(^ *,)|(, *$)/i, '');
-          document.getElementById("sum").style.backgroundColor = "transparent";
-          if (!(document.getElementById("sum").value)){
-            document.getElementById("answer").innerText += "You need to input target array or value.\n";
-            document.getElementById("sum").style.backgroundColor = "yellow";
-            flag = false;
-          } else if (document.getElementById("sum").value.match(/(^ *(-*\d+ *, *)+-*\d+ *$)|^ *-*\d+$/g) === null) {
-            document.getElementById("answer").innerText += "Target array or value is invalid. \n";
-            document.getElementById("sum").style.backgroundColor = "yellow";
-            flag = false;
-          }
-
-          document.getElementById("target_length").style.backgroundColor = "transparent";
-          if (!(document.getElementById("target_length").value)){
-            document.getElementById("answer").innerText += "You need to input maximum target length.\n";
-            document.getElementById("target_length").style.backgroundColor = "yellow";
-            flag = false;
-          }
-          if (document.getElementById("sum").value.includes(",")){
-            document.getElementById("key_length").style.backgroundColor = "transparent";
-            if (!(document.getElementById("key_length").value)){
-              document.getElementById("answer").innerText += "You need to input maximum subset length.\n";
-              document.getElementById("key_length").style.backgroundColor = "yellow";
-              flag = false;
-            }
-            document.getElementById("n_candidates").style.backgroundColor = "transparent";
-            if (!(document.getElementById("n_candidates").value)){
-              document.getElementById("answer").innerText += "You need to input the number of candidates.";
-              document.getElementById("n_candidates").style.backgroundColor = "yellow";
-              flag = false;
-            }
-          }
-          return flag; 
+        document.getElementById("subset").value = document.getElementById("subset").value.trim().replace(/(^ *,)|(, *$)/i, '');
+        document.getElementById("subset").style.backgroundColor = "transparent";
+        if (!(document.getElementById("subset").value)) {
+          document.getElementById("answer").innerText = "You need to input subset array.\n";
+          document.getElementById("subset").style.backgroundColor = "yellow";
+          flag = false;
+        } else if (document.getElementById("subset").value.match(/^ *(-*\d+ *, *)+-*\d+ *$/g) === null) {
+          document.getElementById("answer").innerText = "Subset array is invalid. \n";
+          document.getElementById("subset").style.backgroundColor = "yellow";
+          flag = false;
         }
 
-        window.btnClick = () => {
+        document.getElementById("sum").value = document.getElementById("sum").value.trim().replace(/(^ *,)|(, *$)/i, '');
+        document.getElementById("sum").style.backgroundColor = "transparent";
+        if (!(document.getElementById("sum").value)) {
+          document.getElementById("answer").innerText += "You need to input target array or value.\n";
+          document.getElementById("sum").style.backgroundColor = "yellow";
+          flag = false;
+        } else if (document.getElementById("sum").value.match(/(^ *(-*\d+ *, *)+-*\d+ *$)|^ *-*\d+$/g) === null) {
+          document.getElementById("answer").innerText += "Target array or value is invalid. \n";
+          document.getElementById("sum").style.backgroundColor = "yellow";
+          flag = false;
+        }
+
+        document.getElementById("target_length").style.backgroundColor = "transparent";
+        if (!(document.getElementById("target_length").value)) {
+          document.getElementById("answer").innerText += "You need to input maximum target length.\n";
+          document.getElementById("target_length").style.backgroundColor = "yellow";
+          flag = false;
+        }
+        if (document.getElementById("sum").value.includes(",")) {
+          document.getElementById("key_length").style.backgroundColor = "transparent";
+          if (!(document.getElementById("key_length").value)) {
+            document.getElementById("answer").innerText += "You need to input maximum subset length.\n";
+            document.getElementById("key_length").style.backgroundColor = "yellow";
+            flag = false;
+          }
+          document.getElementById("n_candidates").style.backgroundColor = "transparent";
+          if (!(document.getElementById("n_candidates").value)) {
+            document.getElementById("answer").innerText += "You need to input the number of candidates.";
+            document.getElementById("n_candidates").style.backgroundColor = "yellow";
+            flag = false;
+          }
+        }
+        return flag;
+      }
+
+      window.btnClick = () => {
+        let review = check();
+        if (review == true) {
+          func();
+        }
+      };
+
+      var btn = document.getElementById('find_subset');
+
+      window.document.onkeydown = function (event) {
+        if (event.key === 'Enter') {
           let review = check();
           if (review == true) {
             func();
           }
-        };
-
-        var btn = document.getElementById('find_subset');
-
-        window.document.onkeydown = function(event){
-            if (event.key === 'Enter') {
-              func();
-            }
         }
+      }
 
-      </script>
-      <p class="mb-6"><a href="index.html">Go back to the main page.</a></p>
-    </div>
-  </body>
+    </script>
+    <p class="mb-6"><a href="index.html">Go back to the main page.</a></p>
+  </div>
+</body>
+
 </html>

@@ -10,9 +10,9 @@ fn main() {
 
     let file = File::open(args[1].clone()).unwrap();
     let lines = io::BufReader::new(file).lines();
-    if Path::new(&args[2]).exists(){
+    if Path::new(&args[2]).exists() {
         let mut key: Vec<i32> = Vec::new();
-        for line in lines{
+        for line in lines {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
@@ -20,14 +20,14 @@ fn main() {
                     } else {
                         key.push(line.trim().parse::<i32>().unwrap())
                     }
-                },
+                }
                 Err(_) => println!("Error reading file"),
             }
         }
         let file = File::open(args[2].clone()).unwrap();
         let line2 = io::BufReader::new(file).lines();
         let mut targets: Vec<i32> = Vec::new();
-        for line in line2{
+        for line in line2 {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
@@ -35,7 +35,7 @@ fn main() {
                     } else {
                         targets.push(line.trim().parse::<i32>().unwrap())
                     }
-                },
+                }
                 Err(_) => println!("Error reading file"),
             }
         }
@@ -54,13 +54,19 @@ fn main() {
         } else {
             args[5].parse::<usize>().unwrap()
         };
-        let result = dp_module::dp::sequence_matcher(&mut key, &mut targets, max_key_length, max_target_length, n_candidates);
-        for elem in result{
+        let result = dp_module::dp::sequence_matcher(
+            &mut key,
+            &mut targets,
+            max_key_length,
+            max_target_length,
+            n_candidates,
+        );
+        for elem in result {
             println!("{:?}", elem);
         }
     } else {
         let mut a: Vec<i32> = Vec::new();
-        for line in lines{
+        for line in lines {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
@@ -68,7 +74,7 @@ fn main() {
                     } else {
                         a.push(line.trim().parse::<i32>().unwrap())
                     }
-                },
+                }
                 Err(_) => println!("Error reading file"),
             }
         }

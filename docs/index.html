@@ -2,121 +2,123 @@
 <html lang="en-US">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <!-- Begin Jekyll SEO tag v2.8.0 -->
-    <title>Subset Sum(dpss) | subset_sum</title>
-    <meta name="generator" content="Jekyll v3.9.0" />
-    <meta property="og:title" content="Subset Sum(dpss)" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="description" content="Solves subset sum problem and return a set of decomposed integers." />
-    <meta property="og:description" content="Solves subset sum problem and return a set of decomposed integers." />
-    <link rel="canonical" href="https://europeanplaice.github.io/subset_sum/" />
-    <meta property="og:url" content="https://europeanplaice.github.io/subset_sum/" />
-    <meta property="og:site_name" content="subset_sum" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta property="twitter:title" content="Subset Sum(dpss)" />
-    <script type="application/ld+json">
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+  <title>Subset Sum(dpss) | subset_sum</title>
+  <meta name="generator" content="Jekyll v3.9.0" />
+  <meta property="og:title" content="Subset Sum(dpss)" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="description" content="Solves subset sum problem and return a set of decomposed integers." />
+  <meta property="og:description" content="Solves subset sum problem and return a set of decomposed integers." />
+  <link rel="canonical" href="https://europeanplaice.github.io/subset_sum/" />
+  <meta property="og:url" content="https://europeanplaice.github.io/subset_sum/" />
+  <meta property="og:site_name" content="subset_sum" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title" content="Subset Sum(dpss)" />
+  <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","description":"Solves subset sum problem and return a set of decomposed integers.","headline":"Subset Sum(dpss)","name":"subset_sum","url":"https://europeanplaice.github.io/subset_sum/"}</script>
-    <!-- End Jekyll SEO tag -->
+  <!-- End Jekyll SEO tag -->
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style"
-        type="text/css" crossorigin>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="/subset_sum/assets/css/style.css?v=a8dddc9e91acf6f56980fc0ce12ee16094afb686">
-    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style"
+    type="text/css" crossorigin>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/subset_sum/assets/css/style.css?v=a8dddc9e91acf6f56980fc0ce12ee16094afb686">
+  <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
-    <!-- Setup Google Analytics -->
+  <!-- Setup Google Analytics -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GL0P9YL3TE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GL0P9YL3TE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-        gtag('config', 'G-GL0P9YL3TE');
-    </script>
+    gtag('config', 'G-GL0P9YL3TE');
+  </script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
 
-    <!-- You can set your favicon here -->
-    <!-- link rel="shortcut icon" type="image/x-icon" href="/subset_sum/favicon.ico" -->
 
-    <!-- end custom head snippets -->
+
+  <!-- You can set your favicon here -->
+  <!-- link rel="shortcut icon" type="image/x-icon" href="/subset_sum/favicon.ico" -->
+
+  <!-- end custom head snippets -->
 
 </head>
 
 <body>
 
-    <div>
-        <header class="page-header" role="banner">
-            <h1 class="project-name">Subset Sum(dpss)</h1>
-            <h2 class="project-tagline">Solves subset sum problem and return a set of decomposed integers.</h2>
+  <div>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Subset Sum(dpss)</h1>
+      <h2 class="project-tagline">Solves subset sum problem and return a set of decomposed integers.</h2>
 
-            <a href="https://github.com/europeanplaice/subset_sum" class="btn">View on GitHub</a>
-
-
-        </header>
-    </div>
-
-    <main id="content" class="main-content" role="main">
-        <h1 id="subset-sumdpss" class="title">Subset Sum(dpss)</h1>
-        <div class="block">This library is a rust implementation of an algorithm that solves subset sum problem. It is available for
-            both Python and Rust.</div>
-
-        <h2 id="what-is-subset-sum-problem" class="subtitle">What is subset sum problem?</h2>
-
-        <p>Assuming there is a list of integers (such as [1, 2, 3, 6, -9, 11]), and another integer (such as
-            6), subset sum problem is the question to answer the subsets that sum to the specified integer. In this
-            case, the answer is [1, 2, 3] and [-9, 1, 3, 11].</p>
-
-        <p>For detail information of subset sum problem, please refer to <a
-                href="https://en.wikipedia.org/wiki/Subset_sum_problem">https://en.wikipedia.org/wiki/Subset_sum_problem</a>
-        </p>
-
-        <h2 id="what-is-dpss" class="subtitle">What is DPSS?</h2>
-        <p><a href="https://github.com/europeanplaice/subset_sum">DPSS</a> provides a tool to solve this problem without
-            any specialized math knowledge.
-            It also offers a method to solve multiple subset sum problem.</p>
-
-        <h2 id="how-to-use-dpss" class="subtitle">How to use DPSS?</h2>
-        <p>The easiest way to use this tool is the <a
-                href="https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb">Google
-                Colab Notebook</a> that I made. I also explain the other ways in <a
-                href="https://github.com/europeanplaice/subset_sum">https://github.com/europeanplaice/subset_sum</a> .
-        </p>
-
-        <p>Or, there is <a href="/subset_sum/find_subset.html">a WebAssenbly implementation</a>. But, it is not stable
-            and I’m still working on it.</p>
-
-        <h2 id="what-are-the-applications-of-subset-sum-problem-and-this-tool" class="subtitle">What are the
-            applications of subset sum
-            problem and this tool?</h2>
-        <p>This tool can be used in bank reconciliation. Here is
-            <a
-                href="https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/bank_reconciliation.ipynb">a Google Colab Notebook</a>
-             that shows the example of the usage of DPSS in bank reconciliation. Inside of
-            this example, a function of solving multiple subset sum problem is used.
-        </p>
+      <a href="https://github.com/europeanplaice/subset_sum" class="btn">View on GitHub</a>
 
 
-        <footer class="site-footer">
+    </header>
+  </div>
 
-            <span class="site-footer-owner"><a href="https://github.com/europeanplaice/subset_sum">subset_sum</a> is
-                maintained by <a href="https://github.com/europeanplaice">europeanplaice</a>.</span>
+  <main id="content" class="main-content" role="main">
+    <h1 id="subset-sumdpss" class="title">Subset Sum(dpss)</h1>
+    <div class="block">This library is a rust implementation of an algorithm that solves subset sum problem. It is
+      available for
+      both Python and Rust.</div>
 
-            <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
-                    Pages</a>.</span>
-        </footer>
-    </main>
+    <h2 id="what-is-subset-sum-problem" class="subtitle">What is subset sum problem?</h2>
+
+    <p>Assuming there is a list of integers (such as [1, 2, 3, 6, -9, 11]), and another integer (such as
+      6), subset sum problem is the question to answer the subsets that sum to the specified integer. In this
+      case, the answer is [1, 2, 3] and [-9, 1, 3, 11].</p>
+
+    <p>For detail information of subset sum problem, please refer to <a
+        href="https://en.wikipedia.org/wiki/Subset_sum_problem">https://en.wikipedia.org/wiki/Subset_sum_problem</a>
+    </p>
+
+    <h2 id="what-is-dpss" class="subtitle">What is DPSS?</h2>
+    <p><a href="https://github.com/europeanplaice/subset_sum">DPSS</a> provides a tool to solve this problem without
+      any specialized math knowledge.
+      It also offers a method to solve multiple subset sum problem.</p>
+
+    <h2 id="how-to-use-dpss" class="subtitle">How to use DPSS?</h2>
+    <p>The easiest way to use this tool is the <a
+        href="https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb">Google
+        Colab Notebook</a> that I made. I also explain the other ways in <a
+        href="https://github.com/europeanplaice/subset_sum">https://github.com/europeanplaice/subset_sum</a> .
+    </p>
+
+    <p>Or, there is <a href="/subset_sum/find_subset.html">a WebAssenbly implementation</a>. But, it is not stable
+      and I’m still working on it.</p>
+
+    <h2 id="what-are-the-applications-of-subset-sum-problem-and-this-tool" class="subtitle">What are the
+      applications of subset sum
+      problem and this tool?</h2>
+    <p>This tool can be used in bank reconciliation. Here is
+      <a
+        href="https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/bank_reconciliation.ipynb">a
+        Google Colab Notebook</a>
+      that shows the example of the usage of DPSS in bank reconciliation. Inside of
+      this example, a function of solving multiple subset sum problem is used.
+    </p>
+
+
+    <footer class="site-footer">
+
+      <span class="site-footer-owner"><a href="https://github.com/europeanplaice/subset_sum">subset_sum</a> is
+        maintained by <a href="https://github.com/europeanplaice">europeanplaice</a>.</span>
+
+      <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
+          Pages</a>.</span>
+    </footer>
+  </main>
 </body>
 
 </html>
