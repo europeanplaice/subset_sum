@@ -86,8 +86,13 @@
 
     <h2 id="what-is-dpss" class="subtitle">What is DPSS?</h2>
     <p><a href="https://github.com/europeanplaice/subset_sum">DPSS</a> provides a tool to solve this problem without
-      any specialized math knowledge.
-      It also offers a method to solve multiple subset sum problem.</p>
+      any specialized math knowledge.</p>
+      <p>It also offers a method to solve multiple subset sum problem. For example, if you are a travel planner, and you have to allocate families to some cars, you can count on this tool to make a plan of allocation. 
+        Given each member of the family are [2, 3, 2, 4, 5, 3, 2] and the capacities of each car are [4, 5, 8, 4],
+        you can allocate the families to the cars as follows:</p>
+      <p>[pattern => [([4, ] [4, ]),  ([2, 2, ] [4, ]),  ([2, 3, ] [5, ]),  ([3, 5, ] [8, ])]
+        , pattern => [([4, ] [4, ]),  ([5, ] [5, ]),  ([2, 2, ] [4, ]),  ([2, 3, 3, ] [8, ])]
+        ]</p>
 
     <h2 id="how-to-use-dpss" class="subtitle">How to use DPSS?</h2>
     <p>The easiest way to use this tool is the <a
