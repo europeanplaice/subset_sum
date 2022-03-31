@@ -3,12 +3,7 @@ import dpss
 
 def test_find_subset():
     assert dpss.find_subset([1, 2, 3, 4, 5], 6, 3) == [
-        [1, 5], [2, 4], [1, 2, 3]]
-
-
-def test_find_subset_fast_only_positive():
-    assert dpss.find_subset_fast_only_positive([1, 2, 3, 4, 5], 10, 4) == [
-        [1, 4, 5], [2, 3, 5], [1, 2, 3, 4]]
+        [2, 4], [1, 5], [1, 2, 3]]
 
 
 def test_sequence_matcher():

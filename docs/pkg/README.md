@@ -18,17 +18,15 @@ There are four ways to use this program.
 * [CLI](#CLI)🖥️
 * [Rust](#rust)🦀
 * [Python](#python)🐍
-* [Web](https://europeanplaice.github.io/subset_sum/find_subset.html)🌎 (Easy to use)
+* [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (Easy to use)
 
 Here is also an out of the box example of python you can run now in google colab.
 https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
 
-And it has three methods.
+And it has two methods.
 
 * `find_subset`  
     * It finds a subset from an array.
-* `find_subset_fast_only_positive`  
-    * It finds a subset from an array. It can't accept negative values but relatively faster.
 * `Sequence Matcher`
     * It finds subset sum relationships with two arrays. Solving multiple subset sub problem.
 
@@ -135,24 +133,6 @@ print(dpss.find_subset([1, -2, 3, 4, 5], 2, 3))
 ```
 ```
 >>> [[4, -2], [3, -2, 1]]
-```
-#### `find_subset_fast_only_positive`
-```python
-help(dpss.find_subset_fast_only_positive)
-```
-```
->>> find_subset_fast_only_positive(arr, value, max_length, /)
->>>    Finds subsets sum of a target value. It can't accept negative values but relatively faster.
->>>    # Arguments
->>>    * `arr` - An array.
->>>    * `value` - The value to the sum of the subset comes.
->>>    * `max_length` - The maximum length of combinations of the answer.
-```
-```python
-print(dpss.find_subset_fast_only_positive([1, 2, 3, 4, 5], 10, 4)) 
-```
-```
->>> [[4, 3, 2, 1], [5, 3, 2], [5, 4, 1]]
 ```
 
 #### `sequence_matcher`
