@@ -31,6 +31,11 @@
   <style>
     #answer {
       font-family: 'Noto Sans Mono', monospace;
+      display:inline-block;
+      white-space:pre;
+    }
+    #answer-div {
+      overflow: scroll;
     }
   </style>
 </head>
@@ -68,8 +73,8 @@
       </div>
       <button onclick="btnClick()" id="find_subset" class="button is-link">GO!</button>
     </div>
-    <div class="column card has-background-link-light">
-      <p id="answer" style="white-space:pre-wrap; word-wrap:break-word;"></p>
+    <div class="column card has-background-link-light" id="answer-div">
+      <p id="answer"></p>
     </div>
     <script type="module">
       import init, { wasm_find_subset } from "../pkg/dpss.js";
