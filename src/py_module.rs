@@ -33,19 +33,30 @@ fn sequence_matcher(
     n_candidates: usize,
 ) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher(
+    use pyo3::exceptions::PyValueError;
+    match dp::sequence_matcher(
         &mut keys,
         &mut targets,
         max_key_length,
         max_target_length,
         n_candidates,
-    ))
+    ){
+        Ok(res) => (Ok(res)),
+        Err(error) => Err(PyValueError::new_err(error))
+    }
+}
+
+#[pyfunction]
+fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> PyResult<String> {
+    use crate::dp_module::*;
+    Ok(dp::sequence_matcher_formatter(result))
 }
 
 #[pymodule]
 fn dpss(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(find_subset, m)?)?;
     m.add_function(wrap_pyfunction!(sequence_matcher, m)?)?;
+    m.add_function(wrap_pyfunction!(sequence_matcher_formatter, m)?)?;
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
 
     Ok(())

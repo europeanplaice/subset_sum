@@ -2,6 +2,7 @@ pub mod dp {
     //! This is a module for dynamic programming.
 
     use itertools::structs::Combinations;
+    use std::sync::RwLock;
 
     struct MultiCombination<I: Iterator> {
         combs: Vec<Combinations<I>>,
@@ -26,13 +27,28 @@ pub mod dp {
     }
     use rayon::prelude::*;
     use std::collections::HashMap;
-    use std::sync::{Arc, Mutex};
+    use std::sync::Arc;
 
     #[derive(Clone, Debug)]
     struct DpTable {
         dp: Vec<bool>,
         max_value: usize,
     }
+
+    pub fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> String{
+        let mut s: Vec<String> = vec![];
+        for (i, r) in result.iter().enumerate() {
+            let mut t: Vec<String> = vec![];
+            for elem in r {
+                let key_str: String = elem.0.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(" + ");
+                let target_str: String = elem.1.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(" + ");
+                t.push(format!("(({}) -> [{}] == [{}])", elem.0.iter().sum::<i32>(), key_str, target_str));
+            }
+            s.push(format!("pattern{number:^width$}=> [{v}],\n", number=i+1, width=4, v=t.join("\n               ")))
+        }
+        s.join("\n")
+    }
+
 
     /// Finds subsets sum of a target value. It can accept negative values.
     ///
@@ -68,33 +84,33 @@ pub mod dp {
         value: i32,
         max_length: usize,
         dptable: Option<&DpTable>,
-        arr2: Option<&Vec<u32>>,
+        arr_pos: Option<&Vec<u32>>,
         offset: Option<i32>,
     ) -> Vec<Vec<i32>> {
         use std::cmp::max;
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
-        let answer: Arc<Mutex<Vec<Vec<i32>>>> = Arc::new(Mutex::new(vec![]));
+        let answer: Arc<RwLock<Vec<Vec<i32>>>> = Arc::new(RwLock::new(vec![]));
         if arr.iter().min().unwrap() >= &0 && value >= 0 {
-            let arr2 = arr.iter().map(|e| *e as u32).collect::<Vec<u32>>();
+            let arr_pos = arr.iter().map(|e| *e as u32).collect::<Vec<u32>>();
             let newdp: DpTable;
             let dptable = match dptable {
                 Some(x) => x,
                 None => {
-                    newdp = _make_dp_table(&arr2, value as usize);
+                    newdp = _make_dp_table(&arr_pos, value as usize);
                     &newdp
                 }
             };
             let result =
-                _find_subset_fast_only_positive(&arr2, value as usize, max_length, dptable);
+                _find_subset_fast_only_positive(&arr_pos, value as usize, max_length, dptable);
             result.iter().for_each(|i| {
                 answer
-                    .lock()
+                    .write()
                     .unwrap()
                     .push(i.iter().map(|e| *e as i32).collect::<Vec<i32>>())
             });
-            return vector_sorter(answer.lock().unwrap().to_vec());
+            return vector_sorter(answer.read().unwrap().to_vec());
         } else {
             let length = arr.len();
             let offset: i32 = match offset {
@@ -108,22 +124,29 @@ pub mod dp {
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             let max_value = value + min(length, max_length) as i32 * offset;
-            let arr3: &Vec<u32>;
+            let _arr_pos: &Vec<u32>;
             let temp;
-            arr3 = match arr2 {
+            _arr_pos = match arr_pos {
                 None => {
-                    temp = arr.iter().map(|e| (e + offset) as u32).collect::<Vec<u32>>();
-                    &temp},
+                    temp = arr
+                        .iter()
+                        .map(|e| (e + offset) as u32)
+                        .collect::<Vec<u32>>();
+                    &temp
+                }
                 Some(x) => x,
             };
             let temp2;
             let dptable = match dptable {
                 Some(x) => x,
-                None => {temp2 = _make_dp_table(&arr3, max_value as usize); &temp2},
+                None => {
+                    temp2 = _make_dp_table(&_arr_pos, max_value as usize);
+                    &temp2
+                }
             };
             let c = |i| {
                 let result = _find_subset_fast_only_positive(
-                    &arr3,
+                    &_arr_pos,
                     (value + i as i32 * offset) as usize,
                     max_length,
                     dptable,
@@ -137,7 +160,7 @@ pub mod dp {
                         new_res.push(v);
                     }
                     if tempsum == value {
-                        answer.lock().unwrap().push(new_res);
+                        answer.write().unwrap().push(new_res);
                     }
                 })
             };
@@ -146,7 +169,7 @@ pub mod dp {
             } else {
                 (1..min(length, max_length) + 1).into_par_iter().for_each(c);
             }
-            return vector_sorter(answer.lock().unwrap().to_vec());
+            return vector_sorter(answer.read().unwrap().to_vec());
         };
     }
 
@@ -181,19 +204,10 @@ pub mod dp {
         let v = { *arr.get(i_minus_one).unwrap() };
 
         if *dp.get(one_step_up).unwrap() == true {
-            rec(
-                dp,
-                arr,
-                i_minus_one,
-                j,
-                route,
-                answer,
-                max_length,
-                collen,
-            );
+            rec(dp, arr, i_minus_one, j, route, answer, max_length, collen);
         }
 
-        let j_v: usize = match j.checked_sub(v as usize){
+        let j_v: usize = match j.checked_sub(v as usize) {
             Some(x) => x,
             None => return,
         };
@@ -201,40 +215,27 @@ pub mod dp {
             Some(x) => {
                 if x == &true {
                     route.push(v);
-                    rec(
-                        dp,
-                        arr,
-                        i_minus_one,
-                        j_v,
-                        route,
-                        answer,
-                        max_length,
-                        collen,
-                    );
-                    // Remove this element after we reach i == 0 regardless of whether we reach j == 0.
+                    rec(dp, arr, i_minus_one, j_v, route, answer, max_length, collen);
                     route.pop();
                 }
-            },
-            None => ()
+            }
+            None => (),
         }
-
-
-
     }
 
     #[test]
 
-    fn test_vector_sorter(){
-        for _i in 0..1{
-            let v = vec![vec![1,3,4], vec![4, 5]];
+    fn test_vector_sorter() {
+        for _i in 0..1 {
+            let v = vec![vec![1, 3, 4], vec![4, 5]];
             let r = vector_sorter(v);
             assert_eq!(r, vec![vec![4, 5], vec![1, 3, 4]]);
-    
+
             let v = vec![vec![4, 2, 1], vec![4, 2]];
             let r = vector_sorter(v);
             assert_eq!(r, vec![vec![2, 4], vec![1, 2, 4]]);
 
-            let v = vec![vec![3, 0], vec![3],  vec![2, 1], vec![1, 0, 2]];
+            let v = vec![vec![3, 0], vec![3], vec![2, 1], vec![1, 0, 2]];
             let r = vector_sorter(v);
             assert_eq!(r, vec![vec![3], vec![1, 2], vec![0, 3], vec![0, 1, 2]]);
         }
@@ -246,9 +247,9 @@ pub mod dp {
         if vec.len() == 0 {
             return vec;
         }
-        vec.sort();
-        vec.sort_by_key(|x| x.len());
-        vec.iter_mut().for_each(|x| x.sort());
+        vec.sort_unstable();
+        vec.sort_unstable_by_key(|x| x.len());
+        vec.iter_mut().for_each(|x| x.sort_unstable());
         vec
     }
 
@@ -293,8 +294,11 @@ pub mod dp {
         // dp[i][j] is the number of ways to make sum j with i element.
         // We follow from the start of this table.
         // let mut dp: Vec<Vec<i32>> = vec![vec![0; value + 1]; arr.len() + 1];
-        let answer_count: bool = *dptable.dp.get(dptable.dp.len() - 1 - (dptable.max_value - value)).unwrap();
-        if answer_count == false {
+        let answer_exist: bool = *dptable
+            .dp
+            .get(dptable.dp.len() - 1 - (dptable.max_value - value))
+            .unwrap();
+        if answer_exist == false {
             return vec![];
         }
         let collen = dptable.max_value + 1;
@@ -335,7 +339,7 @@ pub mod dp {
     /// ```rust
     ///
     ///use dpss::dp::sequence_matcher;
-    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 100);
+    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 100).unwrap();
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
     ///     vec![1050]),
@@ -374,17 +378,18 @@ pub mod dp {
         max_key_length: usize,
         max_target_length: usize,
         n_candidates: usize,
-    ) -> Vec<Vec<(Vec<i32>, Vec<i32>)>> {
+    ) -> Result<Vec<Vec<(Vec<i32>, Vec<i32>)>>, String> {
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = vec![];
-        let mut answer: Arc<Mutex<Vec<Vec<(Vec<i32>, Vec<i32>)>>>> = Arc::new(Mutex::new(vec![]));
-        if keys.iter().sum::<i32>() != targets.iter().sum() {
-            println!("The sum of the keys must be equal to the sum of the targets.");
-            return answer.lock().unwrap().to_vec();
+        let mut answer: Arc<RwLock<Vec<Vec<(Vec<i32>, Vec<i32>)>>>> = Arc::new(RwLock::new(vec![]));
+        let ks = keys.iter().sum::<i32>();
+        let ts = targets.iter().sum::<i32>();
+        if ks != ts {
+            return Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", ks, ts, ks - ts));
         }
-        let mut hashmap_fs: Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> =
-            Arc::new(Mutex::new(HashMap::new()));
-        keys.sort();
-        targets.sort();
+        let mut hashmap_fs: Arc<RwLock<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> =
+            Arc::new(RwLock::new(HashMap::new()));
+        keys.sort_unstable();
+        targets.sort_unstable();
         sequence_matcher_core(
             keys,
             targets,
@@ -395,70 +400,74 @@ pub mod dp {
             &mut hashmap_fs,
             n_candidates,
         );
-        let mut answer2: Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.lock().unwrap().to_vec();
+        let mut answer2: Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.read().unwrap().to_vec();
         for i in 0..answer2.len() {
-            answer2[i].sort_by_key(|k| k.0.iter().sum::<i32>());
-            answer2[i].sort_by_key(|k| k.0.len());
+            answer2[i].sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
+            answer2[i].sort_unstable_by_key(|k| k.0.len());
         }
-        answer2.sort();
+        answer2.sort_unstable();
         answer2.dedup();
         if answer2.len() == 0 {
             println!("Can't find any combination.");
         }
-        answer2
+        Ok(answer2)
     }
 
     fn sequence_matcher_core(
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
-        answer: &mut Arc<Mutex<Vec<Vec<(Vec<i32>, Vec<i32>)>>>>,
+        answer: &mut Arc<RwLock<Vec<Vec<(Vec<i32>, Vec<i32>)>>>>,
         max_key_length: usize,
         max_target_length: usize,
-        hashmap_fs: &mut Arc<Mutex<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
+        hashmap_fs: &mut Arc<RwLock<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
         n_candidates: usize,
     ) -> () {
         use itertools::Itertools;
         use std::cmp::max;
         use std::cmp::min;
+        
+        let guard = answer.read().unwrap();
 
-        if answer.lock().unwrap().len() >= n_candidates {
+        if guard.len() >= n_candidates {
             return;
         }
         if keys.len() == 0 && targets.len() == 0 {
-            group.sort_by_key(|k| k.0.iter().sum::<i32>());
-            group.sort_by_key(|k| k.0.len());
-            if answer.lock().unwrap().contains(&group) {
+            group.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
+            group.sort_unstable_by_key(|k| k.0.len());
+            if guard.contains(&group) {
                 return;
             } else {
-                answer.lock().unwrap().push(group.clone());
+                drop(guard);
+                answer.write().unwrap().push(group.clone());
                 return;
             }
         }
+        drop(guard);
         if (keys.len() == 0 && targets.len() > 0) || (keys.len() > 0 && targets.len() == 0) {
             return;
         }
-        targets.sort();
+        targets.sort_unstable();
         let mut combs = vec![];
         for i in (1..min(max_key_length, keys.len()) + 1).rev() {
-            combs.push((0..keys.len()).into_iter().combinations(i))
+            combs.push(keys.clone().into_iter().enumerate().combinations(i))
         }
-        keys.sort();
+        keys.sort_unstable();
         keys.reverse();
         let dp: DpTable;
         let mut offset: i32 = 0;
-        let arr2: Vec<u32>;
+        let arr_pos: Vec<u32>;
         let dp2: Option<&DpTable> = if targets.iter().min().unwrap() >= &0 {
-            arr2 = targets.iter().map(|e| *e as u32).collect::<Vec<u32>>();
+            arr_pos = targets.iter().map(|e| *e as u32).collect::<Vec<u32>>();
             let max_value = keys[..min(max_key_length, keys.len())].iter().sum::<i32>();
-            dp = _make_dp_table(&arr2, max_value as usize);
+            dp = _make_dp_table(&arr_pos, max_value as usize);
             Some(&dp)
         } else {
             offset = (max(
                 targets.iter().min().unwrap().abs() + 1,
                 keys.iter().min().unwrap().abs() + 1,
             )) as u32 as i32;
-            arr2 = targets
+            arr_pos = targets
                 .iter()
                 .map(|e| (e + offset) as u32)
                 .collect::<Vec<u32>>();
@@ -467,21 +476,14 @@ pub mod dp {
                 .map(|x| max(0, *x))
                 .sum::<i32>();
             let max_value = _max_value + min(targets.len(), max_target_length) as i32 * offset;
-            dp = _make_dp_table(&arr2, max_value as usize);
+            dp = _make_dp_table(&arr_pos, max_value as usize);
             Some(&dp)
         };
         keys.reverse();
         let mc = MultiCombination { combs: combs };
         if cfg!(feature = "wasm") {
             mc.for_each(|i| {
-                let mut sum_key = 0;
-                let mut vec_key = vec![];
-                i.iter().for_each(|j| {
-                    let k = keys.get(*j).unwrap();
-                    sum_key += k;
-                    vec_key.push(*k);
-                });
-                vec_key.sort();
+                let sum_key: i32 = i.iter().map(|j| j.1).sum();
                 if sum_key > targets.iter().sum() {
                     return;
                 }
@@ -491,46 +493,52 @@ pub mod dp {
                 if targets.iter().max().unwrap() == &0 {
                     return;
                 }
-                let mut set_ = match hashmap_fs.try_lock() {
-                    Ok(mut v) => v
-                        .entry((targets.clone(), sum_key))
-                        .or_insert(_find_subset(
+                let mut set_ = {
+                    match hashmap_fs.try_write() {
+                        Ok(mut v) => v
+                            .entry((targets.clone(), sum_key))
+                            .or_insert(_find_subset(
+                                &targets,
+                                sum_key,
+                                max_target_length,
+                                dp2,
+                                Some(&arr_pos),
+                                Some(offset),
+                            ))
+                            .clone(),
+                        Err(_) => _find_subset(
                             &targets,
                             sum_key,
                             max_target_length,
                             dp2,
-                            Some(&arr2),
+                            Some(&arr_pos),
                             Some(offset),
-                        ))
-                        .clone(),
-                    Err(_) => _find_subset(
-                        &targets,
-                        sum_key,
-                        max_target_length,
-                        dp2,
-                        Some(&arr2),
-                        Some(offset),
-                    ),
+                        ),
+                    }
                 };
-                set_.sort_by_key(|x| x.len());
-                set_.reverse();
+                if set_.len() == 0 {
+                    return;
+                }
                 set_.dedup();
+                let mut keys3: Vec<i32> = keys.clone();
+                let vec_key: Vec<i32> = i
+                    .iter()
+                    .enumerate()
+                    .map(|(j2, j)| keys3.remove(j.0 - j2))
+                    .collect();
                 set_.iter().for_each(|set| {
                     if set.len() == 0 {
                         return;
                     }
-                    let mut keys3 = keys.clone();
+                    let mut keys4 = keys3.clone();
                     let mut targets3 = targets.clone();
                     let mut group3 = group.clone();
                     group3.push((vec_key.clone(), set.clone()));
                     set.iter().for_each(|j| {
                         vec_remove(&mut targets3, *j);
                     });
-                    vec_key.iter().for_each(|i| {
-                        vec_remove(&mut keys3, *i);
-                    });
                     sequence_matcher_core(
-                        &mut keys3,
+                        &mut keys4,
                         &mut targets3,
                         &mut group3,
                         &mut answer.clone(),
@@ -543,25 +551,18 @@ pub mod dp {
             });
         } else {
             mc.par_bridge().for_each(|i| {
-                let mut sum_key = 0;
-                let mut vec_key = vec![];
-                i.iter().for_each(|j| {
-                    let k = keys[*j];
-                    sum_key += k;
-                    vec_key.push(k);
-                });
-                vec_key.sort();
-                if sum_key > targets.iter().sum() {
+                let sum_key: i32 = i.par_iter().map(|j| j.1).sum();
+                if sum_key > targets.par_iter().sum() {
                     return;
                 }
-                if sum_key < *targets.iter().min().unwrap() {
+                if sum_key < *targets.par_iter().min().unwrap() {
                     return;
                 }
-                if targets.iter().max().unwrap() == &0 {
+                if targets.par_iter().max().unwrap() == &0 {
                     return;
                 }
                 let mut set_ = {
-                    match hashmap_fs.try_lock() {
+                    match hashmap_fs.try_write() {
                         Ok(mut v) => v
                             .entry((targets.clone(), sum_key))
                             .or_insert(_find_subset(
@@ -569,7 +570,7 @@ pub mod dp {
                                 sum_key,
                                 max_target_length,
                                 dp2,
-                                Some(&arr2),
+                                Some(&arr_pos),
                                 Some(offset),
                             ))
                             .clone(),
@@ -578,30 +579,34 @@ pub mod dp {
                             sum_key,
                             max_target_length,
                             dp2,
-                            Some(&arr2),
+                            Some(&arr_pos),
                             Some(offset),
                         ),
                     }
                 };
-                set_.sort();
-                set_.reverse();
+                if set_.len() == 0 {
+                    return;
+                }
                 set_.dedup();
+                let mut keys3: Vec<i32> = keys.clone();
+                let vec_key: Vec<i32> = i
+                    .iter()
+                    .enumerate()
+                    .map(|(j2, j)| keys3.remove(j.0 - j2))
+                    .collect();
                 set_.par_iter().for_each(|set| {
                     if set.len() == 0 {
                         return;
                     }
-                    let mut keys3 = keys.clone();
+                    let mut keys4 = keys3.clone();
                     let mut targets3 = targets.clone();
                     let mut group3 = group.clone();
                     group3.push((vec_key.clone(), set.clone()));
                     set.iter().for_each(|j| {
                         vec_remove(&mut targets3, *j);
                     });
-                    vec_key.iter().for_each(|i| {
-                        vec_remove(&mut keys3, *i);
-                    });
                     sequence_matcher_core(
-                        &mut keys3,
+                        &mut keys4,
                         &mut targets3,
                         &mut group3,
                         &mut answer.clone(),
@@ -618,7 +623,7 @@ pub mod dp {
 
     #[test]
     fn test_sequence_matcher() {
-        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10, 2);
+        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10, 2).unwrap();
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
         let answer = sequence_matcher(
@@ -627,8 +632,8 @@ pub mod dp {
             7,
             6,
             30,
-        );
-        assert!(answer.len() >= 29 || answer.len() <= 31);
+        ).unwrap();
+        assert!(answer.len() >= 29 && answer.len() <= 31);
         // Sometimes the answer is 29 or 31, It may be due to parallel execution. Currently I ignore it.
 
         let answer = sequence_matcher(
@@ -637,7 +642,7 @@ pub mod dp {
             3,
             2,
             200,
-        );
+        ).unwrap();
         assert_eq!(answer.len(), 195);
         assert_eq!(
             answer[0],
@@ -656,7 +661,7 @@ pub mod dp {
             3,
             2,
             100,
-        );
+        ).unwrap();
         assert_eq!(answer.len(), 24);
         assert_eq!(
             answer[0],
@@ -674,7 +679,7 @@ pub mod dp {
             6,
             4,
             200,
-        );
+        ).unwrap();
         assert_eq!(answer.len(), 5);
         assert_eq!(
             answer[0],
@@ -690,17 +695,19 @@ pub mod dp {
         );
 
         let answer = sequence_matcher(
-            &mut vec![1000, 1100, 150, 123, 5, 10],
+            &mut vec![1, 2, 3],
             &mut vec![1000, 1200],
             10,
             10,
             2,
         );
-        assert_eq!(answer.len(), 0);
+        let expected = Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", 6, 2200, -2194));
+        assert_eq!(answer, expected);
 
         let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10, 2);
+        let expected = Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", 10, 6, 4));
 
-        assert_eq!(answer.len(), 0);
+        assert_eq!(answer, expected);
 
         let answer = sequence_matcher(
             &mut vec![183, 36, 231, 128, 137],
@@ -708,7 +715,7 @@ pub mod dp {
             1,
             15,
             20,
-        );
+        ).unwrap();
 
         assert_eq!(answer.len(), 13);
         assert_eq!(

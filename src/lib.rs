@@ -26,40 +26,32 @@ pub fn wasm_find_subset(
             .split(",")
             .map(|x| x.trim().parse::<i32>().unwrap())
             .collect();
-        if keys.iter().sum::<i32>() != targets.iter().sum::<i32>() {
-            let ks = keys.iter().sum::<i32>();
-            let ts = targets.iter().sum::<i32>();
-            return format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}.", ks, ts);
-        }
-        let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = dp::sequence_matcher(
+        // if keys.iter().sum::<i32>() != targets.iter().sum::<i32>() {
+        //     let ks = keys.iter().sum::<i32>();
+        //     let ts = targets.iter().sum::<i32>();
+        //     return format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}.", ks, ts);
+        // }
+        // let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = dp::sequence_matcher(
+        //     &mut keys,
+        //     &mut targets,
+        //     max_key_length,
+        //     max_target_length,
+        //     n_candidates,
+        // ).unwrap();
+        let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = match dp::sequence_matcher(
             &mut keys,
             &mut targets,
             max_key_length,
             max_target_length,
             n_candidates,
-        );
-        let mut s: Vec<String> = vec![];
+        ){
+            Ok(res) => res,
+            Err(err) => return err,
+        };
         if result.len() == 0 {
             return "No solution. You might want to increase maximum length.".to_string();
         }
-        for r in result {
-            let mut t: Vec<String> = vec![];
-            for elem in r {
-                let mut key_str = String::new();
-                let mut target_str = String::new();
-                for key in elem.0 {
-                    key_str.push_str(&key.to_string());
-                    key_str.push_str(", ");
-                }
-                for target in elem.1 {
-                    target_str.push_str(&target.to_string());
-                    target_str.push_str(", ");
-                }
-                t.push(format!("([{}] [{}])", key_str, target_str));
-            }
-            s.push(format!("pattern => [{}]\n",t.join(",  ")))
-        }
-        format!("[{}]\n", s.join(", "))
+        dp::sequence_matcher_formatter(result)
     } else {
         let res: Vec<Vec<i32>> =
             dp::find_subset(keys, targets.parse::<i32>().unwrap(), max_target_length);

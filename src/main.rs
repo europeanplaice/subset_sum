@@ -54,16 +54,14 @@ fn main() {
         } else {
             args[5].parse::<usize>().unwrap()
         };
-        let result = dp_module::dp::sequence_matcher(
+        let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = dp_module::dp::sequence_matcher(
             &mut key,
             &mut targets,
             max_key_length,
             max_target_length,
             n_candidates,
-        );
-        for elem in result {
-            println!("{:?}", elem);
-        }
+        ).unwrap();
+        println!("{}", dp_module::dp::sequence_matcher_formatter(result));
     } else {
         let mut a: Vec<i32> = Vec::new();
         for line in lines {
