@@ -17,11 +17,14 @@ Any feedback is welcome!
 There are four ways to use this program.
 * [CLI](#CLI)🖥️
 * [Rust](#rust)🦀
-* [Python](#python)🐍
 * [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (Easy to use)
 
-Here is also an out of the box example of python you can run now in google colab.
-https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
+    <iframe width="320" height="240" src="https://www.youtube.com/embed/cMTnvOXoHGc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+* [Python](#python)🐍
+
+    In python, here is an out of the box example you can run now in google colab.
+    https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb
 
 And it has two methods.
 
