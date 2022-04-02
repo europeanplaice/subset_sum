@@ -19,7 +19,7 @@ There are four ways to use this program.
 * [Rust](#rust)🦀
 * [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (Easy to use)
 
-    <iframe width="320" height="240" src="https://www.youtube.com/embed/cMTnvOXoHGc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="320" height="240" src="https://www.youtube.com/embed/cMTnvOXoHGc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 * [Python](#python)🐍
 
