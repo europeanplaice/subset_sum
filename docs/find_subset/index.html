@@ -18,8 +18,8 @@
     gtag('config', 'G-GL0P9YL3TE');
 
     function set_sample_array() {
-      document.getElementById("subset").value = "1980, 2980, 3500, 4000, 1050";
-      document.getElementById("sum").value = "1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20";
+      document.getElementById("subset").value = "1980\n2980\n3500\n4000\n1050";
+      document.getElementById("sum").value = "1950\n2900\n30\n80\n3300\n200\n3980\n1050\n20";
 
     };
   </script>
@@ -52,11 +52,11 @@
           Values</button></p>
       <div class="field">
         <label for="subset" class="label">Subset array (required)</label>
-        <input type="search" id="subset" placeholder="1, 2, 3, 4, 5" class="input is-primary" required>
+        <textarea id="subset" class="textarea is-primary" rows="10"></textarea>
       </div>
       <div class="field">
         <label for="sum" class="label">Target array or value (required)</label>
-        <input type="search" id="sum" placeholder="3, 5, 7 or 3" class="input is-primary" required>
+        <textarea id="sum" class="textarea is-primary" rows="10"></textarea>
       </div>
       <div class="field">
         <label for="key_length" class="label">Maximum subset length (required when target is an array)</label>
@@ -82,82 +82,24 @@
       let func = function (youCanSetParams) {
         init().then(() => {
           document.getElementById("answer").innerText = wasm_find_subset(
-            document.getElementById("subset").value,
-            document.getElementById("sum").value,
-            document.getElementById("key_length").value,
-            document.getElementById("target_length").value,
-            document.getElementById("n_candidates").value
+            document.getElementById("subset").value.trim(),
+            document.getElementById("sum").value.trim(),
+            document.getElementById("key_length").value.trim(),
+            document.getElementById("target_length").value.trim(),
+            document.getElementById("n_candidates").value.trim()
           )
         });
       };
 
-
-      function check() {
-        let flag = true;
-        document.getElementById("answer").innerText = "";
-
-        document.getElementById("subset").value = document.getElementById("subset").value.trim().replace(/(^ *,)|(, *$)/i, '');
-        document.getElementById("subset").style.backgroundColor = "transparent";
-        if (!(document.getElementById("subset").value)) {
-          document.getElementById("answer").innerText = "You need to input subset array.\n";
-          document.getElementById("subset").style.backgroundColor = "yellow";
-          flag = false;
-        } else if (document.getElementById("subset").value.match(/^ *(-*\d+ *, *)+-*\d+ *$/g) === null) {
-          document.getElementById("answer").innerText = "Subset array is invalid. \n";
-          document.getElementById("subset").style.backgroundColor = "yellow";
-          flag = false;
-        }
-
-        document.getElementById("sum").value = document.getElementById("sum").value.trim().replace(/(^ *,)|(, *$)/i, '');
-        document.getElementById("sum").style.backgroundColor = "transparent";
-        if (!(document.getElementById("sum").value)) {
-          document.getElementById("answer").innerText += "You need to input target array or value.\n";
-          document.getElementById("sum").style.backgroundColor = "yellow";
-          flag = false;
-        } else if (document.getElementById("sum").value.match(/(^ *(-*\d+ *, *)+-*\d+ *$)|^ *-*\d+$/g) === null) {
-          document.getElementById("answer").innerText += "Target array or value is invalid. \n";
-          document.getElementById("sum").style.backgroundColor = "yellow";
-          flag = false;
-        }
-
-        document.getElementById("target_length").style.backgroundColor = "transparent";
-        if (!(document.getElementById("target_length").value)) {
-          document.getElementById("answer").innerText += "You need to input maximum target length.\n";
-          document.getElementById("target_length").style.backgroundColor = "yellow";
-          flag = false;
-        }
-        if (document.getElementById("sum").value.includes(",")) {
-          document.getElementById("key_length").style.backgroundColor = "transparent";
-          if (!(document.getElementById("key_length").value)) {
-            document.getElementById("answer").innerText += "You need to input maximum subset length.\n";
-            document.getElementById("key_length").style.backgroundColor = "yellow";
-            flag = false;
-          }
-          document.getElementById("n_candidates").style.backgroundColor = "transparent";
-          if (!(document.getElementById("n_candidates").value)) {
-            document.getElementById("answer").innerText += "You need to input the number of candidates.";
-            document.getElementById("n_candidates").style.backgroundColor = "yellow";
-            flag = false;
-          }
-        }
-        return flag;
-      }
-
       window.btnClick = () => {
-        let review = check();
-        if (review == true) {
-          func();
-        }
+        func();
       };
 
       var btn = document.getElementById('find_subset');
 
       window.document.onkeydown = function (event) {
         if (event.key === 'Enter') {
-          let review = check();
-          if (review == true) {
-            func();
-          }
+          func();
         }
       }
 
