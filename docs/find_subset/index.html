@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,16 +54,24 @@
         <label for="subset" class="label">Subset array (required)</label>
         <input type="checkbox" id="check_subset">
         <label for="check_subset">Use all the values in the list for the answer.</label>
-        <textarea id="subset" class="textarea is-primary" rows="10"></textarea>
+        <textarea id="subset" class="textarea is-primary" rows="10" placeholder="53
+34
+-97
+..."></textarea>
       </div>
       <div class="field">
         <label for="sum" class="label">Target array or value (required)</label>
         <input type="checkbox" id="check_sum">
         <label for="check_sum">Use all the values in the list for the answer.</label>
-        <textarea id="sum" class="textarea is-primary" rows="10"></textarea>
+        <textarea id="sum" class="textarea is-primary" rows="10" placeholder="29
+65
+-876
+9
+..."></textarea>
       </div>
       <div class="field">
-        <label for="key_length" class="label">Maximum subset length (required when target is an array)</label>
+        <label for="key_length" class="label" title="">Maximum subset length (required)</label>
+        Restricts the maximum length of subset for a result. E.g. If 3 the array would be like [1 + 2 + 3] or [4 + 7].
         <input type="number" id="key_length" placeholder="2" class="input is-info" size="4" min="1" value="3">
       </div>
       <div class="field">
@@ -110,7 +118,7 @@
       }
 
     </script>
-    <p class="mb-6"><a href="../index.html">Go back to the main page.</a></p>
+    <p class="mt-4 mb-6"><a href="../index.html">Go back to the main page.</a></p>
   </div>
 </body>
 
