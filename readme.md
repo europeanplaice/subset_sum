@@ -106,6 +106,15 @@ Synopsis:
 [executable] [keys text file path] [targets text file path] [max key length] [max target length] [max number of answers] [boolean to use all keys] [boolean to use all targets]
 ```
 
+* `max_key_length` is used to restrict the number of values in keys chosen.
+* If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
+* `max_target_length` is the same as `max_key_length` for targets.
+* `max number of answers` specifies the maximum number of pattern.
+* If `use_all_keys` is true, an answer must contain all the elements of the keys.
+* If `use_all_targets` is true, an answer must contain all the elements of the targets.
+* When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
+
+
 In this example, the output is   
 ```
 pattern 1  => [((1050) -> [1050] == [1050])
