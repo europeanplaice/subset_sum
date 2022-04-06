@@ -17,7 +17,7 @@ Any feedback is welcome!
 There are four ways to use this program.
 * [CLI](#CLI)🖥️
 * [Rust](#rust)🦀
-* [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (This is a easiest way to use)  
+* [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (This is the easiest way to use.)  
 
 * [Python](#python)🐍
 
