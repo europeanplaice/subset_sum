@@ -35,20 +35,39 @@ pub mod dp {
         max_value: usize,
     }
 
-    pub fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> String{
+    pub fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> String {
         let mut s: Vec<String> = vec![];
         for (i, r) in result.iter().enumerate() {
             let mut t: Vec<String> = vec![];
             for elem in r {
-                let key_str: String = elem.0.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(" + ");
-                let target_str: String = elem.1.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(" + ");
-                t.push(format!("(({}) -> [{}] == [{}])", elem.0.iter().sum::<i32>(), key_str, target_str));
+                let key_str: String = elem
+                    .0
+                    .iter()
+                    .map(|k| k.to_string())
+                    .collect::<Vec<String>>()
+                    .join(" + ");
+                let target_str: String = elem
+                    .1
+                    .iter()
+                    .map(|k| k.to_string())
+                    .collect::<Vec<String>>()
+                    .join(" + ");
+                t.push(format!(
+                    "(({}) -> [{}] == [{}])",
+                    elem.0.iter().sum::<i32>(),
+                    key_str,
+                    target_str
+                ));
             }
-            s.push(format!("pattern{number:^width$}=> [{v}],\n", number=i+1, width=4, v=t.join("\n               ")))
+            s.push(format!(
+                "pattern{number:^width$}=> [{v}],\n",
+                number = i + 1,
+                width = 4,
+                v = t.join("\n               ")
+            ))
         }
         s.join("\n")
     }
-
 
     /// Finds subsets sum of a target value. It can accept negative values.
     ///
@@ -91,8 +110,14 @@ pub mod dp {
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
         // Find a subset even if an array contains negative values.
+        let offset: i32 = match offset {
+            Some(x) => x,
+            None => {
+                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32 as i32
+            }
+        };
         let answer: Arc<RwLock<Vec<Vec<i32>>>> = Arc::new(RwLock::new(vec![]));
-        if arr.iter().min().unwrap() >= &0 && value >= 0 {
+        if offset == 0 && arr.iter().min().unwrap() >= &0 && value >= 0 {
             let arr_pos = arr.iter().map(|e| *e as u32).collect::<Vec<u32>>();
             let newdp: DpTable;
             let dptable = match dptable {
@@ -113,13 +138,7 @@ pub mod dp {
             return vector_sorter(answer.read().unwrap().to_vec());
         } else {
             let length = arr.len();
-            let offset: i32 = match offset {
-                Some(x) => x,
-                None => {
-                    (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32
-                        as i32
-                }
-            };
+
             // We will transform the array into a new array whose elements are all positive.
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
@@ -147,7 +166,7 @@ pub mod dp {
             let c = |i| {
                 let result = _find_subset_fast_only_positive(
                     &_arr_pos,
-                    (value + i as i32 * offset) as usize,
+                    (value + (i as i32 * offset)) as usize,
                     max_length,
                     dptable,
                 );
@@ -319,7 +338,6 @@ pub mod dp {
     }
 
     fn vec_remove(arr: &mut Vec<i32>, v: i32) {
-        // let index = arr.iter().position(|x| *x == v).unwrap();
         let index = arr.binary_search(&v).unwrap();
         arr.remove(index);
     }
@@ -328,18 +346,28 @@ pub mod dp {
     /// This method assumes that the two vectors have Many-to-Many relationships.
     /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
     /// With this method, we can find combinations of the integers.
+    /// To avoid combinatorial explosion, some parameters need to be set.
+    /// `max_key_length` is used to restrict the number of values in keys chosen.
+    /// If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
+    /// `max_target_length` is the same as `max_key_length` for targets.
+    /// `n_candidates` specifies the maximum number of pattern.
+    /// If `use_all_keys` is true, an answer must contain all the elements of the keys.
+    /// If `use_all_targets` is true, an answer must contain all the elements of the targets.
+    /// When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
     /// # Arguments
     /// * `keys` - An array.
     /// * `targets` - An array.
     /// * `max_key_length` - An integer.
     /// * `max_target_length` - An integer.
     /// * `n_candidates` - An integer.
+    /// * `use_all_keys` - Boolean.
+    /// * `use_all_targets` - Boolean.
     /// # Example
     ///
     /// ```rust
     ///
     ///use dpss::dp::sequence_matcher;
-    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 100).unwrap();
+    ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 100, true, true).unwrap();
     ///assert_eq!(answer[0], vec![
     ///    (vec![1050],
     ///     vec![1050]),
@@ -378,29 +406,58 @@ pub mod dp {
         max_key_length: usize,
         max_target_length: usize,
         n_candidates: usize,
+        use_all_keys: bool,
+        use_all_targets: bool,
     ) -> Result<Vec<Vec<(Vec<i32>, Vec<i32>)>>, String> {
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = vec![];
         let mut answer: Arc<RwLock<Vec<Vec<(Vec<i32>, Vec<i32>)>>>> = Arc::new(RwLock::new(vec![]));
-        let ks = keys.iter().sum::<i32>();
-        let ts = targets.iter().sum::<i32>();
-        if ks != ts {
-            return Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", ks, ts, ks - ts));
+        if use_all_keys && use_all_targets {
+            let ks = keys.iter().sum::<i32>();
+            let ts = targets.iter().sum::<i32>();
+            if ks != ts {
+                return Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", ks, ts, ks - ts));
+            }
         }
         let mut hashmap_fs: Arc<RwLock<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>> =
             Arc::new(RwLock::new(HashMap::new()));
         keys.sort_unstable();
         targets.sort_unstable();
-        sequence_matcher_core(
-            keys,
-            targets,
-            &mut group,
-            &mut answer,
-            max_key_length,
-            max_target_length,
-            &mut hashmap_fs,
-            n_candidates,
-        );
+        let swap: bool;
+        let (keys, targets, max_key_length, max_target_length, use_all_keys, use_all_targets) = if keys.len() > targets.len() {
+            swap = true;
+            (targets, keys, max_target_length, max_key_length, use_all_targets, use_all_keys)
+        } else {
+            swap = false;
+            (keys, targets, max_key_length, max_target_length, use_all_keys, use_all_targets)
+        };
+        use std::cmp::min;
+        (0..min(keys.len(), targets.len())).for_each(|i| {
+            sequence_matcher_core(
+                keys,
+                targets,
+                &mut group,
+                &mut answer,
+                max_key_length,
+                max_target_length,
+                &mut hashmap_fs,
+                n_candidates,
+                use_all_keys,
+                use_all_targets,
+                i,
+                vec![]
+            )
+        });
         let mut answer2: Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.read().unwrap().to_vec();
+        if swap{
+            answer2.iter_mut().for_each(|x| {
+                x.iter_mut().for_each(|y|{
+                    let a = y.0.clone();
+                    let b = y.1.clone();
+                    y.1 = a;
+                    y.0 = b;
+                })
+            });
+        }
         for i in 0..answer2.len() {
             answer2[i].sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
             answer2[i].sort_unstable_by_key(|k| k.0.len());
@@ -410,7 +467,7 @@ pub mod dp {
         if answer2.len() == 0 {
             println!("Can't find any combination.");
         }
-        Ok(answer2)
+        Ok(answer2[..min(n_candidates, answer2.len())].to_vec())
     }
 
     fn sequence_matcher_core(
@@ -422,75 +479,95 @@ pub mod dp {
         max_target_length: usize,
         hashmap_fs: &mut Arc<RwLock<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
         n_candidates: usize,
+        use_all_keys: bool,
+        use_all_targets: bool,
+        max_depth: usize,
+        last_key: Vec<i32>
     ) -> () {
         use itertools::Itertools;
         use std::cmp::max;
         use std::cmp::min;
-        
-        let guard = answer.read().unwrap();
 
-        if guard.len() >= n_candidates {
+        if answer.read().unwrap().len() >= n_candidates {
             return;
         }
-        if keys.len() == 0 && targets.len() == 0 {
+
+        let add: bool = match (keys.len() == 0, targets.len() == 0) {
+            (true, true) => true,
+            (true, false) => {
+                let add = match (use_all_keys, use_all_targets) {
+                    (true, false) => true,
+                    (false, false) => true,
+                    _ => false,
+                };
+                add
+            }
+            (false, true) => {
+                let add = match (use_all_keys, use_all_targets) {
+                    (false, true) => true,
+                    (false, false) => true,
+                    _ => false,
+                };
+                add
+            }
+            (false, false) => false,
+        };
+
+        if add {
             group.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
             group.sort_unstable_by_key(|k| k.0.len());
-            if guard.contains(&group) {
+            if answer.read().unwrap().contains(&group) {
                 return;
             } else {
-                drop(guard);
                 answer.write().unwrap().push(group.clone());
                 return;
             }
         }
-        drop(guard);
-        if (keys.len() == 0 && targets.len() > 0) || (keys.len() > 0 && targets.len() == 0) {
+        if keys.len() == 0 || targets.len() == 0 {
+            return;
+        }
+        if group.len() > max_depth {
             return;
         }
         targets.sort_unstable();
         let mut combs = vec![];
-        for i in (1..min(max_key_length, keys.len()) + 1).rev() {
-            combs.push(keys.clone().into_iter().enumerate().combinations(i))
-        }
         keys.sort_unstable();
         keys.reverse();
         let dp: DpTable;
         let mut offset: i32 = 0;
         let arr_pos: Vec<u32>;
-        let dp2: Option<&DpTable> = if targets.iter().min().unwrap() >= &0 {
-            arr_pos = targets.iter().map(|e| *e as u32).collect::<Vec<u32>>();
-            let max_value = keys[..min(max_key_length, keys.len())].iter().sum::<i32>();
-            dp = _make_dp_table(&arr_pos, max_value as usize);
-            Some(&dp)
-        } else {
-            offset = (max(
-                targets.iter().min().unwrap().abs() + 1,
-                keys.iter().min().unwrap().abs() + 1,
-            )) as u32 as i32;
-            arr_pos = targets
-                .iter()
-                .map(|e| (e + offset) as u32)
-                .collect::<Vec<u32>>();
-            let _max_value = keys[..min(max_key_length, keys.len())]
-                .iter()
-                .map(|x| max(0, *x))
-                .sum::<i32>();
-            let max_value = _max_value + min(targets.len(), max_target_length) as i32 * offset;
-            dp = _make_dp_table(&arr_pos, max_value as usize);
-            Some(&dp)
-        };
+        let dp2: Option<&DpTable> =
+            if targets.iter().min().unwrap() >= &0 && keys.iter().min().unwrap() >= &0 {
+                arr_pos = targets.iter().map(|e| *e as u32).collect::<Vec<u32>>();
+                let max_value = keys[..min(max_key_length, keys.len())].iter().sum::<i32>();
+                dp = _make_dp_table(&arr_pos, max_value as usize);
+                Some(&dp)
+            } else {
+                offset = (max(
+                    targets.iter().min().unwrap().abs() + 1,
+                    keys.iter().fold(0, |sum, x| min(sum, x + sum)).abs() + 1,
+                )) as u32 as i32;
+                arr_pos = targets
+                    .iter()
+                    .map(|e| (e + offset) as u32)
+                    .collect::<Vec<u32>>();
+                let _max_value = keys[..min(max_key_length, keys.len())]
+                    .iter()
+                    .map(|x| max(0, *x))
+                    .sum::<i32>();
+                let max_value = _max_value + min(targets.len(), max_target_length) as i32 * offset;
+                dp = _make_dp_table(&arr_pos, max_value as usize);
+                Some(&dp)
+            };
         keys.reverse();
+        for i in 1..min(max_key_length, keys.len()) + 1 {
+            combs.push(keys.clone().into_iter().enumerate().combinations(i))
+        }
         let mc = MultiCombination { combs: combs };
         if cfg!(feature = "wasm") {
             mc.for_each(|i| {
                 let sum_key: i32 = i.iter().map(|j| j.1).sum();
-                if sum_key > targets.iter().sum() {
-                    return;
-                }
-                if sum_key < *targets.iter().min().unwrap() {
-                    return;
-                }
-                if targets.iter().max().unwrap() == &0 {
+                if sum_key < last_key.iter().sum() && i.len() == last_key.len() {
                     return;
                 }
                 let mut set_ = {
@@ -546,19 +623,17 @@ pub mod dp {
                         max_target_length,
                         &mut hashmap_fs.clone(),
                         n_candidates,
+                        use_all_keys,
+                        use_all_targets,
+                        max_depth,
+                        vec_key.clone()
                     );
                 });
             });
         } else {
             mc.par_bridge().for_each(|i| {
                 let sum_key: i32 = i.par_iter().map(|j| j.1).sum();
-                if sum_key > targets.par_iter().sum() {
-                    return;
-                }
-                if sum_key < *targets.par_iter().min().unwrap() {
-                    return;
-                }
-                if targets.par_iter().max().unwrap() == &0 {
+                if sum_key < last_key.iter().sum() && i.len() == last_key.len() {
                     return;
                 }
                 let mut set_ = {
@@ -614,16 +689,38 @@ pub mod dp {
                         max_target_length,
                         &mut hashmap_fs.clone(),
                         n_candidates,
+                        use_all_keys,
+                        use_all_targets,
+                        max_depth,
+                        vec_key.clone()
                     );
                 });
             });
+        }
+        if use_all_keys == false && use_all_targets == false {
+            if answer.read().unwrap().len() >= n_candidates {
+                return;
+            }
+            if group.len() == 0 {
+                return;
+            }
+            answer.write().unwrap().push(group.clone());
         }
         ()
     }
 
     #[test]
     fn test_sequence_matcher() {
-        let answer = sequence_matcher(&mut vec![-950, 10000], &mut vec![5000, 4000, 50], 10, 10, 2).unwrap();
+        let answer = sequence_matcher(
+            &mut vec![-950, 10000],
+            &mut vec![5000, 4000, 50],
+            10,
+            10,
+            2,
+            true,
+            true,
+        )
+        .unwrap();
         assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
         let answer = sequence_matcher(
@@ -632,7 +729,10 @@ pub mod dp {
             7,
             6,
             30,
-        ).unwrap();
+            true,
+            true,
+        )
+        .unwrap();
         assert!(answer.len() >= 29 && answer.len() <= 31);
         // Sometimes the answer is 29 or 31, It may be due to parallel execution. Currently I ignore it.
 
@@ -642,7 +742,10 @@ pub mod dp {
             3,
             2,
             200,
-        ).unwrap();
+            true,
+            true,
+        )
+        .unwrap();
         assert_eq!(answer.len(), 195);
         assert_eq!(
             answer[0],
@@ -661,7 +764,10 @@ pub mod dp {
             3,
             2,
             100,
-        ).unwrap();
+            true,
+            true,
+        )
+        .unwrap();
         assert_eq!(answer.len(), 24);
         assert_eq!(
             answer[0],
@@ -679,7 +785,10 @@ pub mod dp {
             6,
             4,
             200,
-        ).unwrap();
+            true,
+            true,
+        )
+        .unwrap();
         assert_eq!(answer.len(), 5);
         assert_eq!(
             answer[0],
@@ -700,11 +809,21 @@ pub mod dp {
             10,
             10,
             2,
+            true,
+            true,
         );
         let expected = Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", 6, 2200, -2194));
         assert_eq!(answer, expected);
 
-        let answer = sequence_matcher(&mut vec![1, 2, 3, 4], &mut vec![1, 5], 10, 10, 2);
+        let answer = sequence_matcher(
+            &mut vec![1, 2, 3, 4],
+            &mut vec![1, 5],
+            10,
+            10,
+            2,
+            true,
+            true,
+        );
         let expected = Err(format!("The sums of two arrays must be the same values. key's sum is {}. target's sum is {}. The difference is {}.", 10, 6, 4));
 
         assert_eq!(answer, expected);
@@ -715,7 +834,10 @@ pub mod dp {
             1,
             15,
             20,
-        ).unwrap();
+            true,
+            true,
+        )
+        .unwrap();
 
         assert_eq!(answer.len(), 13);
         assert_eq!(
@@ -727,6 +849,67 @@ pub mod dp {
                 (vec![183], vec![45, 46, 92]),
                 (vec![231], vec![15, 15, 60, 68, 73]),
             ]
+        );
+    }
+    #[test]
+
+    fn test_sequence_matcher_allowing_imcomplete_answer() {
+        let answer = sequence_matcher(
+            &mut vec![1, 2, -3, 4, 5],
+            &mut vec![1, 2],
+            6,
+            4,
+            200,
+            true,
+            false,
+        )
+        .unwrap();
+        assert_eq!(answer.len(), 0);
+
+        let answer = sequence_matcher(
+            &mut vec![1, 2, -3, 4, 5],
+            &mut vec![1, 2],
+            6,
+            4,
+            200,
+            false,
+            true,
+        )
+        .unwrap();
+        assert_eq!(answer.len(), 6);
+        assert_eq!(answer[0], vec![(vec![-3, 1, 5], vec![1, 2]),]);
+    }
+
+    #[test]
+    fn test_sequence_matcher_allowing_imcomplete_answer_complicated() {
+        let answer = sequence_matcher(
+            &mut vec![-755, 222, 851, 291, -511, -567, 958, 939, -28],
+            &mut vec![-590, 785, -597, -184, -968, -555, -221, -28],
+            30,
+            30,
+            200,
+            false,
+            true,
+        )
+        .unwrap();
+        assert_eq!(answer.len(), 0);
+
+        let answer = sequence_matcher(
+            &mut vec![-755, 222, 851, 291, -511, -567, 958, 939, -28],
+            &mut vec![-590, 785, -597, -184, -968, -555, -221, -28],
+            30,
+            30,
+            100,
+            false,
+            false,
+        )
+        .unwrap();
+        assert_eq!(
+            answer[0],
+            vec![(
+                vec![-755, -567, -511, -28, 939],
+                vec![-968, -555, -184, 785]
+            ),]
         );
     }
 }

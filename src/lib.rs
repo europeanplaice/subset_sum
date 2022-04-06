@@ -16,6 +16,8 @@ pub fn wasm_find_subset(
     max_key_length: usize,
     max_target_length: usize,
     n_candidates: usize,
+    use_all_keys: bool,
+    use_all_targets: bool,
 ) -> String {
     let mut keys: Vec<i32> = keys
         .split("\n")
@@ -33,6 +35,8 @@ pub fn wasm_find_subset(
             max_key_length,
             max_target_length,
             n_candidates,
+            use_all_keys,
+            use_all_targets,
         ){
             Ok(res) => res,
             Err(err) => return err,

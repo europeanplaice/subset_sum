@@ -85,16 +85,18 @@ function getStringFromWasm0(ptr, len) {
 * @param {number} max_key_length
 * @param {number} max_target_length
 * @param {number} n_candidates
+* @param {boolean} use_all_keys
+* @param {boolean} use_all_targets
 * @returns {string}
 */
-export function wasm_find_subset(keys, targets, max_key_length, max_target_length, n_candidates) {
+export function wasm_find_subset(keys, targets, max_key_length, max_target_length, n_candidates, use_all_keys, use_all_targets) {
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
         var ptr0 = passStringToWasm0(keys, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         var len0 = WASM_VECTOR_LEN;
         var ptr1 = passStringToWasm0(targets, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         var len1 = WASM_VECTOR_LEN;
-        wasm.wasm_find_subset(retptr, ptr0, len0, ptr1, len1, max_key_length, max_target_length, n_candidates);
+        wasm.wasm_find_subset(retptr, ptr0, len0, ptr1, len1, max_key_length, max_target_length, n_candidates, use_all_keys, use_all_targets);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         return getStringFromWasm0(r0, r1);

@@ -99,7 +99,12 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt 100 100 10`  
+Call `subset_sum.exe arr1.txt arr2.txt 100 100 10 false true`  
+
+Synopsis:
+```
+[executable] [keys text file path] [targets text file path] [max key length] [max target length] [max number of answers] [boolean to use all keys] [boolean to use all targets]
+```
 
 In this example, the output is   
 ```
@@ -172,17 +177,27 @@ help(dpss.sequence_matcher)
 >>>     This method assumes that the two vectors have Many-to-Many relationships.
 >>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
 >>>     With this method, we can find some combinations of the integers.
+>>>     To avoid combinatorial explosion, some parameters need to be set.
+>>>     `max_key_length` is used to restrict the number of values in keys chosen.
+>>>     If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
+>>>     `max_target_length` is the same as `max_key_length` for targets.
+>>>     `n_candidates` specifies the maximum number of pattern.
+>>>     If `use_all_keys` is true, an answer must contain all the elements of the keys.
+>>>     If `use_all_targets` is true, an answer must contain all the elements of the targets.
+>>>     When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
 >>>     # Arguments
 >>>     * `keys` - An array.
 >>>     * `targets` - An array.
 >>>     * `max_key_length` - An integer.
 >>>     * `max_target_length` - An integer.
 >>>     * `n_candidates` - An integer.
+>>>     * `use_all_keys` - Boolean.
+>>>     * `use_all_targets` - Boolean.
 ```
 ```python
 a = dpss.sequence_matcher(
         [1980, 2980, 3500, 4000, 1050],
-        [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 10)
+        [1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 10, True, True)
 print(dpss.sequence_matcher_formatter(a))
 ```
 ```
@@ -248,7 +263,7 @@ use dpss::dp::sequence_matcher;
 use dpss::dp::sequence_matcher_formatter;
 
 fn main() {
-    let result = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 10);
+    let result = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 10, true, true);
     println!("{}", sequence_matcher_formatter(result));
 }
 ```

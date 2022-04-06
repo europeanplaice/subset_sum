@@ -6,15 +6,17 @@
 * @param {number} max_key_length
 * @param {number} max_target_length
 * @param {number} n_candidates
+* @param {boolean} use_all_keys
+* @param {boolean} use_all_targets
 * @returns {string}
 */
-export function wasm_find_subset(keys: string, targets: string, max_key_length: number, max_target_length: number, n_candidates: number): string;
+export function wasm_find_subset(keys: string, targets: string, max_key_length: number, max_target_length: number, n_candidates: number, use_all_keys: boolean, use_all_targets: boolean): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly wasm_find_subset: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => void;
+  readonly wasm_find_subset: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;

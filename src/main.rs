@@ -54,12 +54,23 @@ fn main() {
         } else {
             args[5].parse::<usize>().unwrap()
         };
+        let with_all_keys = if args.len() == 6 {
+            false
+        } else {
+            args[6].parse::<bool>().unwrap()
+        };
+        let with_all_targets = if args.len() == 7 {
+            false
+        } else {
+            args[7].parse::<bool>().unwrap()
+        };
         let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = dp_module::dp::sequence_matcher(
             &mut key,
             &mut targets,
             max_key_length,
             max_target_length,
             n_candidates,
+            with_all_keys, with_all_targets
         ).unwrap();
         println!("{}", dp_module::dp::sequence_matcher_formatter(result));
     } else {

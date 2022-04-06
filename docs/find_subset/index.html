@@ -52,10 +52,14 @@
           Values</button></p>
       <div class="field">
         <label for="subset" class="label">Subset array (required)</label>
+        <input type="checkbox" id="check_subset">
+        <label for="check_subset">Use all the values in the list for the answer.</label>
         <textarea id="subset" class="textarea is-primary" rows="10"></textarea>
       </div>
       <div class="field">
         <label for="sum" class="label">Target array or value (required)</label>
+        <input type="checkbox" id="check_sum">
+        <label for="check_sum">Use all the values in the list for the answer.</label>
         <textarea id="sum" class="textarea is-primary" rows="10"></textarea>
       </div>
       <div class="field">
@@ -86,7 +90,9 @@
             document.getElementById("sum").value.trim(),
             document.getElementById("key_length").value.trim(),
             document.getElementById("target_length").value.trim(),
-            document.getElementById("n_candidates").value.trim()
+            document.getElementById("n_candidates").value.trim(),
+            document.getElementById("check_subset").checked,
+            document.getElementById("check_sum").checked
           )
         });
       };
