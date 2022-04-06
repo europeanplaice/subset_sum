@@ -109,7 +109,7 @@ Synopsis:
 * `max_key_length` is used to restrict the number of values in keys chosen.
 * If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
 * `max_target_length` is the same as `max_key_length` for targets.
-* `max number of answers` specifies the maximum number of pattern.
+* `max number of answers` specifies the maximum number of patterns.
 * If `use_all_keys` is true, an answer must contain all the elements of the keys.
 * If `use_all_targets` is true, an answer must contain all the elements of the targets.
 * When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
@@ -186,14 +186,16 @@ help(dpss.sequence_matcher)
 >>>     This method assumes that the two vectors have Many-to-Many relationships.
 >>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
 >>>     With this method, we can find some combinations of the integers.
+>>>
 >>>     To avoid combinatorial explosion, some parameters need to be set.
 >>>     `max_key_length` is used to restrict the number of values in keys chosen.
 >>>     If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
 >>>     `max_target_length` is the same as `max_key_length` for targets.
->>>     `n_candidates` specifies the maximum number of pattern.
+>>>     `n_candidates` specifies the maximum number of patterns.
 >>>     If `use_all_keys` is true, an answer must contain all the elements of the keys.
 >>>     If `use_all_targets` is true, an answer must contain all the elements of the targets.
 >>>     When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
+>>>
 >>>     # Arguments
 >>>     * `keys` - An array.
 >>>     * `targets` - An array.
@@ -307,5 +309,4 @@ pattern 9  => [((4000) -> [4000] == [20 + 30 + 1050 + 2900])
 
 pattern 10 => [((4000) -> [4000] == [20 + 3980])
                ((9510) -> [1050 + 1980 + 2980 + 3500] == [30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
-...
 ```

@@ -94,16 +94,20 @@
       have to allocate families to some cars, you can count on this tool to make a plan of allocation.
       Given each member of the family are [2, 3, 2, 4, 5, 3, 2] and the capacities of each car are [4, 5, 8, 4],
       you can allocate the families to the cars as follows:</p>
-    <p>[pattern => [([4, ] [4, ]), ([2, 2, ] [4, ]), ([2, 3, ] [5, ]), ([3, 5, ] [8, ])]
-      , pattern => [([4, ] [4, ]), ([5, ] [5, ]), ([2, 2, ] [4, ]), ([2, 3, 3, ] [8, ])]
-      ]</p>
+    <p style="White-space:pre;">pattern 1  => [((4) -> [2 + 2] == [4])
+                        ((5) -> [2 + 3] == [5])
+                        ((12) -> [3 + 4 + 5] == [4 + 8])],
+
+pattern 2  => [((4) -> [4] == [4])
+                        ((8) -> [2 + 3 + 3] == [8])
+                        ((9) -> [2 + 2 + 5] == [4 + 5])],</p>
 
     <p>And there are some questions posted on stackoverflow that can be sorted out by this tool.
       The questions are...
       <ul>
-        <li><a href="https://stackoverflow.com/questions/3420937/algorithm-to-find-which-number-in-a-list-sum-up-to-a-certain-number">Algorithm to find which number in a list sum up to a certain number</a></li>
-        <li><a href="https://stackoverflow.com/questions/42422921/multiple-subset-sum-calculation">Multiple subset sum calculation</a></li>
-        <li><a href="https://stackoverflow.com/questions/4355955/subset-sum-algorithm">Subset Sum algorithm</a></li>
+        <li>* <a href="https://stackoverflow.com/questions/3420937/algorithm-to-find-which-number-in-a-list-sum-up-to-a-certain-number">Algorithm to find which number in a list sum up to a certain number</a></li>
+        <li>* <a href="https://stackoverflow.com/questions/42422921/multiple-subset-sum-calculation">Multiple subset sum calculation</a></li>
+        <li>* <a href="https://stackoverflow.com/questions/4355955/subset-sum-algorithm">Subset Sum algorithm</a></li>
       </ul>
     </p>
 
