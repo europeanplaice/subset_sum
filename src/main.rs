@@ -64,7 +64,7 @@ fn main() {
         } else {
             args[7].parse::<bool>().unwrap()
         };
-        let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = dp_module::dp::sequence_matcher(
+        let result: Vec<dp_module::dp::AnswerElement> = dp_module::dp::sequence_matcher(
             &mut key,
             &mut targets,
             max_key_length,

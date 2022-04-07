@@ -4,7 +4,7 @@
     "Tomohiro Endo <europeanplaice@gmail.com>"
   ],
   "description": "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -43,7 +43,7 @@ fn sequence_matcher(
     n_candidates: usize,
     use_all_keys: bool,
     use_all_targets: bool,
-) -> PyResult<Vec<Vec<(Vec<i32>, Vec<i32>)>>> {
+) -> PyResult<Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>> {
     use crate::dp_module::*;
     use pyo3::exceptions::PyValueError;
     match dp::sequence_matcher(
@@ -55,15 +55,30 @@ fn sequence_matcher(
         use_all_keys,
         use_all_targets
     ){
-        Ok(res) => (Ok(res)),
+        
+        Ok(res) => {
+            let mut v = vec![];
+            for r in res{
+                v.push((r.answer_arr, r.keys_remainder, r.targets_remainder))
+            }
+            Ok(v)
+        },
         Err(error) => Err(PyValueError::new_err(error))
     }
 }
 
 #[pyfunction]
-fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> PyResult<String> {
+fn sequence_matcher_formatter(result: Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>) -> PyResult<String> {
     use crate::dp_module::*;
-    Ok(dp::sequence_matcher_formatter(result))
+    let mut v = vec![];
+    for r in result {
+        v.push(dp::AnswerElement{
+            answer_arr: r.0,
+            keys_remainder: r.1,
+            targets_remainder: r.2
+        })
+    }
+    Ok(dp::sequence_matcher_formatter(v))
 }
 
 #[pymodule]

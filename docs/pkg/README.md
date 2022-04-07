@@ -17,8 +17,7 @@ Any feedback is welcome!
 There are four ways to use this program.
 * [CLI](#CLI)🖥️
 * [Rust](#rust)🦀
-* [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (Easy to use)  
-    * YouTube link https://www.youtube.com/watch?v=cMTnvOXoHGc
+* [Web](https://europeanplaice.github.io/subset_sum/find_subset)🌎 (This is the easiest way to use.)  
 
 * [Python](#python)🐍
 
@@ -99,44 +98,67 @@ In this example, the output is
 20
 ```
 
-Call `subset_sum.exe arr1.txt arr2.txt 100 100 10 false true`  
+Call `subset_sum.exe arr1.txt arr2.txt 100 100 10 false false`  
 
 Synopsis:
 ```
-[executable] [keys text file path] [targets text file path] [max key length] [max target length] [max number of answers] [boolean to use all keys] [boolean to use all targets]
+[executable] [keys text file path] [targets text file path] [max key length] [max target length] [the maximum number of answers] [boolean to use all keys] [boolean to use all targets]
 ```
+
+* `max_key_length` is used to restrict the number of values in keys chosen.
+* If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
+* `max_target_length` is the same as `max_key_length` for targets.
+* `the maximum number of answers` specifies the maximum number of patterns.
+* If `use_all_keys` is true, an answer must contain all the elements of the keys.
+* If `use_all_targets` is true, an answer must contain all the elements of the targets.
+* When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
+
 
 In this example, the output is   
 ```
-pattern 1  => [((1050) -> [1050] == [1050])
-               ((12460) -> [1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+pattern 1  => [(Sum(1050) -> keys:[1050] == targets:[1050])],
+               keys remainder    : 1980, 2980, 3500, 4000
+               targets remainder : 20, 30, 80, 200, 1950, 2900, 3300, 3980
 
-pattern 2  => [((13510) -> [1050 + 1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],
+pattern 2  => [(Sum(1050) -> keys:[1050] == targets:[1050])
+               (Sum(12460) -> keys:[1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+               keys remainder    :
+               targets remainder :
 
-pattern 3  => [((1980) -> [1980] == [30 + 1950])
-               ((11530) -> [1050 + 2980 + 3500 + 4000] == [20 + 80 + 200 + 1050 + 2900 + 3300 + 3980])],
+pattern 3  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[30 + 1050 + 1950])],
+               keys remainder    : 2980, 3500, 4000
+               targets remainder : 20, 80, 200, 2900, 3300, 3980
 
-pattern 4  => [((2980) -> [2980] == [80 + 2900])
-               ((10530) -> [1050 + 1980 + 3500 + 4000] == [20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+pattern 4  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[30 + 1050 + 1950])
+               (Sum(10480) -> keys:[2980 + 3500 + 4000] == targets:[20 + 80 + 200 + 2900 + 3300 + 3980])],
+               keys remainder    :
+               targets remainder :
 
-pattern 5  => [((2980) -> [2980] == [80 + 2900])
-               ((4000) -> [4000] == [20 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 5  => [(Sum(13510) -> keys:[1050 + 1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],      
+               keys remainder    :
+               targets remainder :
 
-pattern 6  => [((6980) -> [2980 + 4000] == [20 + 80 + 2900 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 6  => [(Sum(1980) -> keys:[1980] == targets:[30 + 1950])],
+               keys remainder    : 1050, 2980, 3500, 4000
+               targets remainder : 20, 80, 200, 1050, 2900, 3300, 3980
 
-pattern 7  => [((3500) -> [3500] == [200 + 3300])
-               ((10010) -> [1050 + 1980 + 2980 + 4000] == [20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+pattern 7  => [(Sum(2980) -> keys:[2980] == targets:[80 + 2900])],
+               keys remainder    : 1050, 1980, 3500, 4000
+               targets remainder : 20, 30, 200, 1050, 1950, 3300, 3980
 
-pattern 8  => [((7500) -> [3500 + 4000] == [20 + 30 + 200 + 1050 + 2900 + 3300])
-               ((6010) -> [1050 + 1980 + 2980] == [80 + 1950 + 3980])],
+pattern 8  => [(Sum(2980) -> keys:[2980] == targets:[80 + 2900])
+               (Sum(10530) -> keys:[1050 + 1980 + 3500 + 4000] == targets:[20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+               keys remainder    :
+               targets remainder :
 
-pattern 9  => [((4000) -> [4000] == [20 + 30 + 1050 + 2900])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [80 + 200 + 1950 + 3300 + 3980])],
+pattern 9  => [(Sum(3500) -> keys:[3500] == targets:[200 + 3300])],
+               keys remainder    : 1050, 1980, 2980, 4000
+               targets remainder : 20, 30, 80, 1050, 1950, 2900, 3980
 
-pattern 10 => [((4000) -> [4000] == [20 + 3980])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
+pattern 10 => [(Sum(3500) -> keys:[3500] == targets:[200 + 3300])
+               (Sum(10010) -> keys:[1050 + 1980 + 2980 + 4000] == targets:[20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+               keys remainder    :
+               targets remainder :
 ```
 
 ## <a id="python"></a>Use in Python
@@ -177,14 +199,16 @@ help(dpss.sequence_matcher)
 >>>     This method assumes that the two vectors have Many-to-Many relationships.
 >>>     Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
 >>>     With this method, we can find some combinations of the integers.
+>>>
 >>>     To avoid combinatorial explosion, some parameters need to be set.
 >>>     `max_key_length` is used to restrict the number of values in keys chosen.
 >>>     If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
 >>>     `max_target_length` is the same as `max_key_length` for targets.
->>>     `n_candidates` specifies the maximum number of pattern.
+>>>     `n_candidates` specifies the maximum number of patterns.
 >>>     If `use_all_keys` is true, an answer must contain all the elements of the keys.
 >>>     If `use_all_targets` is true, an answer must contain all the elements of the targets.
 >>>     When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
+>>>
 >>>     # Arguments
 >>>     * `keys` - An array.
 >>>     * `targets` - An array.
@@ -201,35 +225,54 @@ a = dpss.sequence_matcher(
 print(dpss.sequence_matcher_formatter(a))
 ```
 ```
-pattern 1  => [((1050) -> [1050] == [1050])
-               ((12460) -> [1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+pattern 1  => [(Sum(1050) -> keys:[1050] == targets:[1050])
+               (Sum(12460) -> keys:[1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 2  => [((13510) -> [1050 + 1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],
+pattern 2  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[20 + 30 + 80 + 2900])
+               (Sum(10480) -> keys:[2980 + 3500 + 4000] == targets:[200 + 1050 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 3  => [((1980) -> [1980] == [30 + 1950])
-               ((11530) -> [1050 + 2980 + 3500 + 4000] == [20 + 80 + 200 + 1050 + 2900 + 3300 + 3980])],
+pattern 3  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[30 + 1050 + 1950])
+               (Sum(10480) -> keys:[2980 + 3500 + 4000] == targets:[20 + 80 + 200 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 4  => [((2980) -> [2980] == [80 + 2900])
-               ((10530) -> [1050 + 1980 + 3500 + 4000] == [20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+pattern 4  => [(Sum(13510) -> keys:[1050 + 1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 5  => [((2980) -> [2980] == [80 + 2900])
-               ((4000) -> [4000] == [20 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 5  => [(Sum(4030) -> keys:[1050 + 2980] == targets:[80 + 1050 + 2900])
+               (Sum(9480) -> keys:[1980 + 3500 + 4000] == targets:[20 + 30 + 200 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 6  => [((6980) -> [2980 + 4000] == [20 + 80 + 2900 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 6  => [(Sum(1980) -> keys:[1980] == targets:[30 + 1950])
+               (Sum(11530) -> keys:[1050 + 2980 + 3500 + 4000] == targets:[20 + 80 + 200 + 1050 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 7  => [((3500) -> [3500] == [200 + 3300])
-               ((10010) -> [1050 + 1980 + 2980 + 4000] == [20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+pattern 7  => [(Sum(2980) -> keys:[2980] == targets:[80 + 2900])
+               (Sum(10530) -> keys:[1050 + 1980 + 3500 + 4000] == targets:[20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 8  => [((7500) -> [3500 + 4000] == [20 + 30 + 200 + 1050 + 2900 + 3300])
-               ((6010) -> [1050 + 1980 + 2980] == [80 + 1950 + 3980])],
+pattern 8  => [(Sum(3500) -> keys:[3500] == targets:[200 + 3300])
+               (Sum(10010) -> keys:[1050 + 1980 + 2980 + 4000] == targets:[20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 9  => [((4000) -> [4000] == [20 + 30 + 1050 + 2900])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [80 + 200 + 1950 + 3300 + 3980])],
+pattern 9  => [(Sum(4000) -> keys:[4000] == targets:[20 + 30 + 1050 + 2900])
+               (Sum(9510) -> keys:[1050 + 1980 + 2980 + 3500] == targets:[80 + 200 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 10 => [((4000) -> [4000] == [20 + 3980])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
+pattern 10 => [(Sum(4000) -> keys:[4000] == targets:[20 + 3980])
+               (Sum(9510) -> keys:[1050 + 1980 + 2980 + 3500] == targets:[30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
+               keys remainder    : 
+               targets remainder : 
 ```
 
 ## <a id="rust"></a>Use in Rust
@@ -269,34 +312,52 @@ fn main() {
 ```
 Output
 ```
-pattern 1  => [((1050) -> [1050] == [1050])
-               ((12460) -> [1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+pattern 1  => [(Sum(1050) -> keys:[1050] == targets:[1050])
+               (Sum(12460) -> keys:[1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1950 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 2  => [((13510) -> [1050 + 1980 + 2980 + 3500 + 4000] == [20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],
+pattern 2  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[20 + 30 + 80 + 2900])
+               (Sum(10480) -> keys:[2980 + 3500 + 4000] == targets:[200 + 1050 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 3  => [((1980) -> [1980] == [30 + 1950])
-               ((11530) -> [1050 + 2980 + 3500 + 4000] == [20 + 80 + 200 + 1050 + 2900 + 3300 + 3980])],
+pattern 3  => [(Sum(3030) -> keys:[1050 + 1980] == targets:[30 + 1050 + 1950])
+               (Sum(10480) -> keys:[2980 + 3500 + 4000] == targets:[20 + 80 + 200 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 4  => [((2980) -> [2980] == [80 + 2900])
-               ((10530) -> [1050 + 1980 + 3500 + 4000] == [20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+pattern 4  => [(Sum(13510) -> keys:[1050 + 1980 + 2980 + 3500 + 4000] == targets:[20 + 30 + 80 + 200 + 1050 + 1950 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 5  => [((2980) -> [2980] == [80 + 2900])
-               ((4000) -> [4000] == [20 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 5  => [(Sum(4030) -> keys:[1050 + 2980] == targets:[80 + 1050 + 2900])
+               (Sum(9480) -> keys:[1980 + 3500 + 4000] == targets:[20 + 30 + 200 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 6  => [((6980) -> [2980 + 4000] == [20 + 80 + 2900 + 3980])
-               ((6530) -> [1050 + 1980 + 3500] == [30 + 200 + 1050 + 1950 + 3300])],
+pattern 6  => [(Sum(1980) -> keys:[1980] == targets:[30 + 1950])
+               (Sum(11530) -> keys:[1050 + 2980 + 3500 + 4000] == targets:[20 + 80 + 200 + 1050 + 2900 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 7  => [((3500) -> [3500] == [200 + 3300])
-               ((10010) -> [1050 + 1980 + 2980 + 4000] == [20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+pattern 7  => [(Sum(2980) -> keys:[2980] == targets:[80 + 2900])
+               (Sum(10530) -> keys:[1050 + 1980 + 3500 + 4000] == targets:[20 + 30 + 200 + 1050 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 8  => [((7500) -> [3500 + 4000] == [20 + 30 + 200 + 1050 + 2900 + 3300])
-               ((6010) -> [1050 + 1980 + 2980] == [80 + 1950 + 3980])],
+pattern 8  => [(Sum(3500) -> keys:[3500] == targets:[200 + 3300])
+               (Sum(10010) -> keys:[1050 + 1980 + 2980 + 4000] == targets:[20 + 30 + 80 + 1050 + 1950 + 2900 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 9  => [((4000) -> [4000] == [20 + 30 + 1050 + 2900])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [80 + 200 + 1950 + 3300 + 3980])],
+pattern 9  => [(Sum(4000) -> keys:[4000] == targets:[20 + 30 + 1050 + 2900])
+               (Sum(9510) -> keys:[1050 + 1980 + 2980 + 3500] == targets:[80 + 200 + 1950 + 3300 + 3980])],
+               keys remainder    : 
+               targets remainder : 
 
-pattern 10 => [((4000) -> [4000] == [20 + 3980])
-               ((9510) -> [1050 + 1980 + 2980 + 3500] == [30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
-...
+pattern 10 => [(Sum(4000) -> keys:[4000] == targets:[20 + 3980])
+               (Sum(9510) -> keys:[1050 + 1980 + 2980 + 3500] == targets:[30 + 80 + 200 + 1050 + 1950 + 2900 + 3300])],
+               keys remainder    : 
+               targets remainder : 
 ```

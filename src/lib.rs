@@ -29,7 +29,7 @@ pub fn wasm_find_subset(
             .map(|x| x.trim().parse::<i32>().unwrap())
             .collect();
             
-        let result: Vec<Vec<(Vec<i32>, Vec<i32>)>> = match dp::sequence_matcher(
+        let result: Vec<dp::AnswerElement> = match dp::sequence_matcher(
             &mut keys,
             &mut targets,
             max_key_length,

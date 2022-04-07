@@ -30,16 +30,45 @@ pub mod dp {
     use std::sync::Arc;
 
     #[derive(Clone, Debug)]
+    pub struct AnswerElement {
+        pub answer_arr: Vec<(Vec<i32>, Vec<i32>)>,
+        pub keys_remainder: Vec<i32>,
+        pub targets_remainder: Vec<i32>,
+    }
+
+    impl Eq for AnswerElement {}
+
+    impl PartialEq for AnswerElement {
+        fn eq(&self, other: &Self) -> bool {
+            self.answer_arr == other.answer_arr
+        }
+    }
+
+    use std::cmp::Ordering;
+
+    impl Ord for AnswerElement {
+        fn cmp(&self, other: &Self) -> Ordering {
+            self.answer_arr.cmp(&other.answer_arr)
+        }
+    }
+
+    impl PartialOrd for AnswerElement {
+        fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+            Some(self.cmp(other))
+        }
+    }
+
+    #[derive(Clone, Debug)]
     struct DpTable {
         dp: Vec<bool>,
         max_value: usize,
     }
 
-    pub fn sequence_matcher_formatter(result: Vec<Vec<(Vec<i32>, Vec<i32>)>>) -> String {
+    pub fn sequence_matcher_formatter(result: Vec<AnswerElement>) -> String {
         let mut s: Vec<String> = vec![];
         for (i, r) in result.iter().enumerate() {
             let mut t: Vec<String> = vec![];
-            for elem in r {
+            for elem in r.answer_arr.clone() {
                 let key_str: String = elem
                     .0
                     .iter()
@@ -53,17 +82,20 @@ pub mod dp {
                     .collect::<Vec<String>>()
                     .join(" + ");
                 t.push(format!(
-                    "(({}) -> [{}] == [{}])",
+                    "(Sum({}) -> keys:[{}] == targets:[{}])",
                     elem.0.iter().sum::<i32>(),
                     key_str,
                     target_str
                 ));
             }
+            
             s.push(format!(
-                "pattern{number:^width$}=> [{v}],\n",
+                "pattern{number:^width$}=> [{v}],\n               keys remainder    : {k}\n               targets remainder : {t}\n",
                 number = i + 1,
                 width = 4,
-                v = t.join("\n               ")
+                v = t.join("\n               "),
+                k = r.keys_remainder.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(", "),
+                t = r.targets_remainder.iter().map(|k| k.to_string()).collect::<Vec<String>>().join(", "),
             ))
         }
         s.join("\n")
@@ -346,6 +378,7 @@ pub mod dp {
     /// This method assumes that the two vectors have Many-to-Many relationships.
     /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
     /// With this method, we can find combinations of the integers.
+    /// 
     /// To avoid combinatorial explosion, some parameters need to be set.
     /// `max_key_length` is used to restrict the number of values in keys chosen.
     /// If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
@@ -354,6 +387,7 @@ pub mod dp {
     /// If `use_all_keys` is true, an answer must contain all the elements of the keys.
     /// If `use_all_targets` is true, an answer must contain all the elements of the targets.
     /// When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
+    /// 
     /// # Arguments
     /// * `keys` - An array.
     /// * `targets` - An array.
@@ -368,7 +402,7 @@ pub mod dp {
     ///
     ///use dpss::dp::sequence_matcher;
     ///let answer = sequence_matcher(&mut vec![1980, 2980, 3500, 4000, 1050], &mut vec![1950, 2900, 30, 80, 3300, 200, 3980, 1050, 20], 10, 10, 100, true, true).unwrap();
-    ///assert_eq!(answer[0], vec![
+    ///assert_eq!(answer[0].answer_arr, vec![
     ///    (vec![1050],
     ///     vec![1050]),
     ///
@@ -385,7 +419,7 @@ pub mod dp {
     ///     vec![20, 3980]),
     ///
     ///    ]);
-    ///assert_eq!(answer[1], vec![
+    ///assert_eq!(answer[1].answer_arr, vec![
     ///    (vec![1050],
     ///     vec![1050]),
     ///
@@ -408,9 +442,9 @@ pub mod dp {
         n_candidates: usize,
         use_all_keys: bool,
         use_all_targets: bool,
-    ) -> Result<Vec<Vec<(Vec<i32>, Vec<i32>)>>, String> {
+    ) -> Result<Vec<AnswerElement>, String> {
         let mut group: Vec<(Vec<i32>, Vec<i32>)> = vec![];
-        let mut answer: Arc<RwLock<Vec<Vec<(Vec<i32>, Vec<i32>)>>>> = Arc::new(RwLock::new(vec![]));
+        let mut answer: Arc<RwLock<Vec<AnswerElement>>> = Arc::new(RwLock::new(vec![]));
         if use_all_keys && use_all_targets {
             let ks = keys.iter().sum::<i32>();
             let ts = targets.iter().sum::<i32>();
@@ -447,20 +481,24 @@ pub mod dp {
                 vec![]
             )
         });
-        let mut answer2: Vec<Vec<(Vec<i32>, Vec<i32>)>> = answer.read().unwrap().to_vec();
+        let mut answer2: Vec<AnswerElement> = answer.read().unwrap().to_vec();
         if swap{
             answer2.iter_mut().for_each(|x| {
-                x.iter_mut().for_each(|y|{
+                x.answer_arr.iter_mut().for_each(|y|{
                     let a = y.0.clone();
                     let b = y.1.clone();
                     y.1 = a;
                     y.0 = b;
-                })
+                });
+                let a = x.keys_remainder.clone();
+                let b = x.targets_remainder.clone();
+                x.keys_remainder = b;
+                x.targets_remainder = a;
             });
         }
         for i in 0..answer2.len() {
-            answer2[i].sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
-            answer2[i].sort_unstable_by_key(|k| k.0.len());
+            answer2[i].answer_arr.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
+            answer2[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
         }
         answer2.sort_unstable();
         answer2.dedup();
@@ -474,7 +512,7 @@ pub mod dp {
         keys: &mut Vec<i32>,
         targets: &mut Vec<i32>,
         group: &mut Vec<(Vec<i32>, Vec<i32>)>,
-        answer: &mut Arc<RwLock<Vec<Vec<(Vec<i32>, Vec<i32>)>>>>,
+        answer: &mut Arc<RwLock<Vec<AnswerElement>>>,
         max_key_length: usize,
         max_target_length: usize,
         hashmap_fs: &mut Arc<RwLock<HashMap<(Vec<i32>, i32), Vec<Vec<i32>>>>>,
@@ -492,34 +530,49 @@ pub mod dp {
             return;
         }
 
-        let add: bool = match (keys.len() == 0, targets.len() == 0) {
-            (true, true) => true,
+        let add:  bool = match (use_all_keys, use_all_targets) {
+            (true, true) => {
+                let add = match (keys.len() == 0, targets.len() == 0) {
+                    (true, true) => true,
+                    _ => false,
+                };
+                add
+            },
             (true, false) => {
-                let add = match (use_all_keys, use_all_targets) {
+                let add = match (keys.len() == 0, targets.len() == 0) {
+                    (true, true) => true,
                     (true, false) => true,
-                    (false, false) => true,
                     _ => false,
                 };
                 add
-            }
+            },
             (false, true) => {
-                let add = match (use_all_keys, use_all_targets) {
+                let add = match (keys.len() == 0, targets.len() == 0) {
+                    (true, true) => true,
                     (false, true) => true,
-                    (false, false) => true,
                     _ => false,
                 };
                 add
-            }
-            (false, false) => false,
+            },
+            (false, false) => {
+                let add = match (keys.len() == 0, targets.len() == 0) {
+                    (true, true) => true,
+                    (false, true) => true,
+                    (true, false) => true,
+                    _ => false,
+                };
+                add
+            },
         };
 
         if add {
             group.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
             group.sort_unstable_by_key(|k| k.0.len());
-            if answer.read().unwrap().contains(&group) {
+            let elem = AnswerElement {answer_arr: group.clone(), keys_remainder: keys.clone(), targets_remainder: targets.clone()};
+            if answer.read().unwrap().contains(&elem) {
                 return;
             } else {
-                answer.write().unwrap().push(group.clone());
+                answer.write().unwrap().push(elem.clone());
                 return;
             }
         }
@@ -698,13 +751,11 @@ pub mod dp {
             });
         }
         if use_all_keys == false && use_all_targets == false {
-            if answer.read().unwrap().len() >= n_candidates {
-                return;
-            }
             if group.len() == 0 {
                 return;
             }
-            answer.write().unwrap().push(group.clone());
+            let elem = AnswerElement {answer_arr: group.clone(), keys_remainder: keys.clone(), targets_remainder: targets.clone()};
+            answer.write().unwrap().push(elem.clone());
         }
         ()
     }
@@ -721,7 +772,7 @@ pub mod dp {
             true,
         )
         .unwrap();
-        assert_eq!(answer[0], vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
+        assert_eq!(answer[0].answer_arr, vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
 
         let answer = sequence_matcher(
             &mut vec![6, 7, 3, 2, -9, -3, 8, 3, 6, -10],
@@ -748,7 +799,7 @@ pub mod dp {
         .unwrap();
         assert_eq!(answer.len(), 195);
         assert_eq!(
-            answer[0],
+            answer[0].answer_arr,
             vec![
                 (vec![-700], vec![-700]),
                 (vec![100, 200], vec![300]),
@@ -770,7 +821,7 @@ pub mod dp {
         .unwrap();
         assert_eq!(answer.len(), 24);
         assert_eq!(
-            answer[0],
+            answer[0].answer_arr,
             vec![
                 (vec![0], vec![0]),
                 (vec![1], vec![1]),
@@ -791,7 +842,7 @@ pub mod dp {
         .unwrap();
         assert_eq!(answer.len(), 5);
         assert_eq!(
-            answer[0],
+            answer[0].answer_arr,
             vec![
                 (vec![5, 10], vec![4, 11]),
                 (vec![123, 150], vec![273]),
@@ -799,7 +850,7 @@ pub mod dp {
             ]
         );
         assert_eq!(
-            answer[2],
+            answer[2].answer_arr,
             vec![(vec![5, 10, 123, 150, 1000, 1100], vec![4, 11, 273, 2100]),]
         );
 
@@ -841,7 +892,7 @@ pub mod dp {
 
         assert_eq!(answer.len(), 13);
         assert_eq!(
-            answer[0],
+            answer[0].answer_arr,
             vec![
                 (vec![36], vec![36]),
                 (vec![128], vec![9, 39, 80]),
@@ -877,7 +928,7 @@ pub mod dp {
         )
         .unwrap();
         assert_eq!(answer.len(), 6);
-        assert_eq!(answer[0], vec![(vec![-3, 1, 5], vec![1, 2]),]);
+        assert_eq!(answer[0].answer_arr, vec![(vec![-3, 1, 5], vec![1, 2]),]);
     }
 
     #[test]
@@ -905,7 +956,7 @@ pub mod dp {
         )
         .unwrap();
         assert_eq!(
-            answer[0],
+            answer[0].answer_arr,
             vec![(
                 vec![-755, -567, -511, -28, 939],
                 vec![-968, -555, -184, 785]
