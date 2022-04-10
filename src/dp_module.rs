@@ -88,7 +88,6 @@ pub mod dp {
                     target_str
                 ));
             }
-            
             s.push(format!(
                 "pattern{number:^width$}=> [{v}],\n               keys remainder    : {k}\n               targets remainder : {t}\n",
                 number = i + 1,
@@ -378,7 +377,7 @@ pub mod dp {
     /// This method assumes that the two vectors have Many-to-Many relationships.
     /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
     /// With this method, we can find combinations of the integers.
-    /// 
+    ///
     /// To avoid combinatorial explosion, some parameters need to be set.
     /// `max_key_length` is used to restrict the number of values in keys chosen.
     /// If `max_key_length` is 3, an answer's length is at most 3, such as `[1980 + 2980 + 3500], [1050]`
@@ -387,7 +386,7 @@ pub mod dp {
     /// If `use_all_keys` is true, an answer must contain all the elements of the keys.
     /// If `use_all_targets` is true, an answer must contain all the elements of the targets.
     /// When both `use_all_keys` and `use_all_targets` are true, the sum of the keys and the targets must be the same.
-    /// 
+    ///
     /// # Arguments
     /// * `keys` - An array.
     /// * `targets` - An array.
@@ -457,13 +456,28 @@ pub mod dp {
         keys.sort_unstable();
         targets.sort_unstable();
         let swap: bool;
-        let (keys, targets, max_key_length, max_target_length, use_all_keys, use_all_targets) = if keys.len() > targets.len() {
-            swap = true;
-            (targets, keys, max_target_length, max_key_length, use_all_targets, use_all_keys)
-        } else {
-            swap = false;
-            (keys, targets, max_key_length, max_target_length, use_all_keys, use_all_targets)
-        };
+        let (keys, targets, max_key_length, max_target_length, use_all_keys, use_all_targets) =
+            if keys.len() > targets.len() {
+                swap = true;
+                (
+                    targets,
+                    keys,
+                    max_target_length,
+                    max_key_length,
+                    use_all_targets,
+                    use_all_keys,
+                )
+            } else {
+                swap = false;
+                (
+                    keys,
+                    targets,
+                    max_key_length,
+                    max_target_length,
+                    use_all_keys,
+                    use_all_targets,
+                )
+            };
         use std::cmp::min;
         (0..min(keys.len(), targets.len())).for_each(|i| {
             sequence_matcher_core(
@@ -478,13 +492,13 @@ pub mod dp {
                 use_all_keys,
                 use_all_targets,
                 i,
-                vec![]
+                vec![],
             )
         });
         let mut answer2: Vec<AnswerElement> = answer.read().unwrap().to_vec();
-        if swap{
+        if swap {
             answer2.iter_mut().for_each(|x| {
-                x.answer_arr.iter_mut().for_each(|y|{
+                x.answer_arr.iter_mut().for_each(|y| {
                     let a = y.0.clone();
                     let b = y.1.clone();
                     y.1 = a;
@@ -497,7 +511,9 @@ pub mod dp {
             });
         }
         for i in 0..answer2.len() {
-            answer2[i].answer_arr.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
+            answer2[i]
+                .answer_arr
+                .sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
             answer2[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
         }
         answer2.sort_unstable();
@@ -520,7 +536,7 @@ pub mod dp {
         use_all_keys: bool,
         use_all_targets: bool,
         max_depth: usize,
-        last_key: Vec<i32>
+        last_key: Vec<i32>,
     ) -> () {
         use itertools::Itertools;
         use std::cmp::max;
@@ -530,14 +546,14 @@ pub mod dp {
             return;
         }
 
-        let add:  bool = match (use_all_keys, use_all_targets) {
+        let add: bool = match (use_all_keys, use_all_targets) {
             (true, true) => {
                 let add = match (keys.len() == 0, targets.len() == 0) {
                     (true, true) => true,
                     _ => false,
                 };
                 add
-            },
+            }
             (true, false) => {
                 let add = match (keys.len() == 0, targets.len() == 0) {
                     (true, true) => true,
@@ -545,7 +561,7 @@ pub mod dp {
                     _ => false,
                 };
                 add
-            },
+            }
             (false, true) => {
                 let add = match (keys.len() == 0, targets.len() == 0) {
                     (true, true) => true,
@@ -553,7 +569,7 @@ pub mod dp {
                     _ => false,
                 };
                 add
-            },
+            }
             (false, false) => {
                 let add = match (keys.len() == 0, targets.len() == 0) {
                     (true, true) => true,
@@ -562,13 +578,17 @@ pub mod dp {
                     _ => false,
                 };
                 add
-            },
+            }
         };
 
         if add {
             group.sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
             group.sort_unstable_by_key(|k| k.0.len());
-            let elem = AnswerElement {answer_arr: group.clone(), keys_remainder: keys.clone(), targets_remainder: targets.clone()};
+            let elem = AnswerElement {
+                answer_arr: group.clone(),
+                keys_remainder: keys.clone(),
+                targets_remainder: targets.clone(),
+            };
             if answer.read().unwrap().contains(&elem) {
                 return;
             } else {
@@ -596,10 +616,11 @@ pub mod dp {
                 dp = _make_dp_table(&arr_pos, max_value as usize);
                 Some(&dp)
             } else {
-                offset = (max(
+                offset = max(
                     targets.iter().min().unwrap().abs() + 1,
                     keys.iter().fold(0, |sum, x| min(sum, x + sum)).abs() + 1,
-                )) as u32 as i32;
+                );
+                assert!(offset >= 0);
                 arr_pos = targets
                     .iter()
                     .map(|e| (e + offset) as u32)
@@ -679,7 +700,7 @@ pub mod dp {
                         use_all_keys,
                         use_all_targets,
                         max_depth,
-                        vec_key.clone()
+                        vec_key.clone(),
                     );
                 });
             });
@@ -745,7 +766,7 @@ pub mod dp {
                         use_all_keys,
                         use_all_targets,
                         max_depth,
-                        vec_key.clone()
+                        vec_key.clone(),
                     );
                 });
             });
@@ -754,7 +775,11 @@ pub mod dp {
             if group.len() == 0 {
                 return;
             }
-            let elem = AnswerElement {answer_arr: group.clone(), keys_remainder: keys.clone(), targets_remainder: targets.clone()};
+            let elem = AnswerElement {
+                answer_arr: group.clone(),
+                keys_remainder: keys.clone(),
+                targets_remainder: targets.clone(),
+            };
             answer.write().unwrap().push(elem.clone());
         }
         ()
@@ -772,7 +797,10 @@ pub mod dp {
             true,
         )
         .unwrap();
-        assert_eq!(answer[0].answer_arr, vec![(vec![-950, 10000], vec![50, 4000, 5000]),]);
+        assert_eq!(
+            answer[0].answer_arr,
+            vec![(vec![-950, 10000], vec![50, 4000, 5000]),]
+        );
 
         let answer = sequence_matcher(
             &mut vec![6, 7, 3, 2, -9, -3, 8, 3, 6, -10],

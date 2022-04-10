@@ -12,7 +12,6 @@ fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec
     Ok(dp::find_subset(arr, value, max_length))
 }
 
-
 /// Finds the integers from two vectors that sum to the same value.
 /// This method assumes that the two vectors have Many-to-Many relationships.
 /// Each integer of the `keys` vector corresponds to the multiple integers of the `targets` vector.
@@ -34,7 +33,9 @@ fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec
 /// * `use_all_keys` - Boolean.
 /// * `use_all_targets` - Boolean.
 #[pyfunction]
-#[pyo3(text_signature = "(keys, targets, max_key_length, max_target_length, n_candidates, use_all_keys, use_all_targets /)")]
+#[pyo3(
+    text_signature = "(keys, targets, max_key_length, max_target_length, n_candidates, use_all_keys, use_all_targets /)"
+)]
 fn sequence_matcher(
     mut keys: Vec<i32>,
     mut targets: Vec<i32>,
@@ -53,29 +54,30 @@ fn sequence_matcher(
         max_target_length,
         n_candidates,
         use_all_keys,
-        use_all_targets
-    ){
-        
+        use_all_targets,
+    ) {
         Ok(res) => {
             let mut v = vec![];
-            for r in res{
+            for r in res {
                 v.push((r.answer_arr, r.keys_remainder, r.targets_remainder))
             }
             Ok(v)
-        },
-        Err(error) => Err(PyValueError::new_err(error))
+        }
+        Err(error) => Err(PyValueError::new_err(error)),
     }
 }
 
 #[pyfunction]
-fn sequence_matcher_formatter(result: Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>) -> PyResult<String> {
+fn sequence_matcher_formatter(
+    result: Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>,
+) -> PyResult<String> {
     use crate::dp_module::*;
     let mut v = vec![];
     for r in result {
-        v.push(dp::AnswerElement{
+        v.push(dp::AnswerElement {
             answer_arr: r.0,
             keys_remainder: r.1,
-            targets_remainder: r.2
+            targets_remainder: r.2,
         })
     }
     Ok(dp::sequence_matcher_formatter(v))

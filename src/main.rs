@@ -70,8 +70,10 @@ fn main() {
             max_key_length,
             max_target_length,
             n_candidates,
-            with_all_keys, with_all_targets
-        ).unwrap();
+            with_all_keys,
+            with_all_targets,
+        )
+        .unwrap();
         println!("{}", dp_module::dp::sequence_matcher_formatter(result));
     } else {
         let mut a: Vec<i32> = Vec::new();

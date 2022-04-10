@@ -28,7 +28,6 @@ pub fn wasm_find_subset(
             .split("\n")
             .map(|x| x.trim().parse::<i32>().unwrap())
             .collect();
-            
         let result: Vec<dp::AnswerElement> = match dp::sequence_matcher(
             &mut keys,
             &mut targets,
@@ -37,7 +36,7 @@ pub fn wasm_find_subset(
             n_candidates,
             use_all_keys,
             use_all_targets,
-        ){
+        ) {
             Ok(res) => res,
             Err(err) => return err,
         };
