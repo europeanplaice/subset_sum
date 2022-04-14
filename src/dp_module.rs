@@ -144,22 +144,22 @@ pub mod dp {
         let offset: i32 = match offset {
             Some(x) => x,
             None => {
-                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as u32 as i32
+                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32
             }
         };
         let answer: Arc<RwLock<Vec<Vec<i32>>>> = Arc::new(RwLock::new(vec![]));
         if offset == 0 && arr.iter().min().unwrap() >= &0 && value >= 0 {
             let arr_pos = arr.iter().map(|e| *e as u32).collect::<Vec<u32>>();
-            let newdp: DpTable;
+            let _dp: DpTable;
             let dptable = match dptable {
                 Some(x) => x,
                 None => {
-                    newdp = _make_dp_table(&arr_pos, value as usize);
-                    &newdp
+                    _dp = _make_dp_table(&arr_pos, value as usize);
+                    &_dp
                 }
             };
             let result =
-                _find_subset_fast_only_positive(&arr_pos, value as usize, max_length, dptable);
+                _find_subsetsfast_only_positive(&arr_pos, value as usize, max_length, dptable);
             result.iter().for_each(|i| {
                 answer
                     .write()
@@ -195,7 +195,7 @@ pub mod dp {
                 }
             };
             let c = |i| {
-                let result = _find_subset_fast_only_positive(
+                let result = _find_subsetsfast_only_positive(
                     &_arr_pos,
                     (value + (i as i32 * offset)) as usize,
                     max_length,
@@ -334,7 +334,7 @@ pub mod dp {
         }
     }
 
-    fn _find_subset_fast_only_positive(
+    fn _find_subsetsfast_only_positive(
         arr: &Vec<u32>,
         value: usize,
         max_length: usize,
@@ -495,9 +495,9 @@ pub mod dp {
                 vec![],
             )
         });
-        let mut answer2: Vec<AnswerElement> = answer.read().unwrap().to_vec();
+        let mut answer_vec: Vec<AnswerElement> = answer.read().unwrap().to_vec();
         if swap {
-            answer2.iter_mut().for_each(|x| {
+            answer_vec.iter_mut().for_each(|x| {
                 x.answer_arr.iter_mut().for_each(|y| {
                     let a = y.0.clone();
                     let b = y.1.clone();
@@ -510,18 +510,18 @@ pub mod dp {
                 x.targets_remainder = a;
             });
         }
-        for i in 0..answer2.len() {
-            answer2[i]
+        for i in 0..answer_vec.len() {
+            answer_vec[i]
                 .answer_arr
                 .sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
-            answer2[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
+            answer_vec[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
         }
-        answer2.sort_unstable();
-        answer2.dedup();
-        if answer2.len() == 0 {
+        answer_vec.sort_unstable();
+        answer_vec.dedup();
+        if answer_vec.len() == 0 {
             println!("Can't find any combination.");
         }
-        Ok(answer2[..min(n_candidates, answer2.len())].to_vec())
+        Ok(answer_vec[..min(n_candidates, answer_vec.len())].to_vec())
     }
 
     fn sequence_matcher_core(
@@ -603,7 +603,6 @@ pub mod dp {
             return;
         }
         targets.sort_unstable();
-        let mut combs = vec![];
         keys.sort_unstable();
         keys.reverse();
         let dp: DpTable;
@@ -620,7 +619,6 @@ pub mod dp {
                     targets.iter().min().unwrap().abs() + 1,
                     keys.iter().fold(0, |sum, x| min(sum, x + sum)).abs() + 1,
                 );
-                assert!(offset >= 0);
                 arr_pos = targets
                     .iter()
                     .map(|e| (e + offset) as u32)
@@ -634,6 +632,7 @@ pub mod dp {
                 Some(&dp)
             };
         keys.reverse();
+        let mut combs = vec![];
         for i in 1..min(max_key_length, keys.len()) + 1 {
             combs.push(keys.clone().into_iter().enumerate().combinations(i))
         }
@@ -644,7 +643,7 @@ pub mod dp {
                 if sum_key < last_key.iter().sum() && i.len() == last_key.len() {
                     return;
                 }
-                let mut set_ = {
+                let mut sets = {
                     match hashmap_fs.try_write() {
                         Ok(mut v) => v
                             .entry((targets.clone(), sum_key))
@@ -667,31 +666,31 @@ pub mod dp {
                         ),
                     }
                 };
-                if set_.len() == 0 {
+                if sets.len() == 0 {
                     return;
                 }
-                set_.dedup();
-                let mut keys3: Vec<i32> = keys.clone();
+                sets.dedup();
+                let mut keys_removed: Vec<i32> = keys.clone();
                 let vec_key: Vec<i32> = i
                     .iter()
                     .enumerate()
-                    .map(|(j2, j)| keys3.remove(j.0 - j2))
+                    .map(|(j2, j)| keys_removed.remove(j.0 - j2))
                     .collect();
-                set_.iter().for_each(|set| {
+                sets.iter().for_each(|set| {
                     if set.len() == 0 {
                         return;
                     }
-                    let mut keys4 = keys3.clone();
-                    let mut targets3 = targets.clone();
-                    let mut group3 = group.clone();
-                    group3.push((vec_key.clone(), set.clone()));
+                    let mut keys_for_next = keys_removed.clone();
+                    let mut targets_for_next = targets.clone();
+                    let mut group_for_next = group.clone();
+                    group_for_next.push((vec_key.clone(), set.clone()));
                     set.iter().for_each(|j| {
-                        vec_remove(&mut targets3, *j);
+                        vec_remove(&mut targets_for_next, *j);
                     });
                     sequence_matcher_core(
-                        &mut keys4,
-                        &mut targets3,
-                        &mut group3,
+                        &mut keys_for_next,
+                        &mut targets_for_next,
+                        &mut group_for_next,
                         &mut answer.clone(),
                         max_key_length,
                         max_target_length,
@@ -710,7 +709,7 @@ pub mod dp {
                 if sum_key < last_key.iter().sum() && i.len() == last_key.len() {
                     return;
                 }
-                let mut set_ = {
+                let mut sets = {
                     match hashmap_fs.try_write() {
                         Ok(mut v) => v
                             .entry((targets.clone(), sum_key))
@@ -733,31 +732,31 @@ pub mod dp {
                         ),
                     }
                 };
-                if set_.len() == 0 {
+                if sets.len() == 0 {
                     return;
                 }
-                set_.dedup();
-                let mut keys3: Vec<i32> = keys.clone();
+                sets.dedup();
+                let mut keys_removed: Vec<i32> = keys.clone();
                 let vec_key: Vec<i32> = i
                     .iter()
                     .enumerate()
-                    .map(|(j2, j)| keys3.remove(j.0 - j2))
+                    .map(|(j2, j)| keys_removed.remove(j.0 - j2))
                     .collect();
-                set_.par_iter().for_each(|set| {
+                sets.par_iter().for_each(|set| {
                     if set.len() == 0 {
                         return;
                     }
-                    let mut keys4 = keys3.clone();
-                    let mut targets3 = targets.clone();
-                    let mut group3 = group.clone();
-                    group3.push((vec_key.clone(), set.clone()));
+                    let mut keys_for_next = keys_removed.clone();
+                    let mut targets_for_next = targets.clone();
+                    let mut group_for_next = group.clone();
+                    group_for_next.push((vec_key.clone(), set.clone()));
                     set.iter().for_each(|j| {
-                        vec_remove(&mut targets3, *j);
+                        vec_remove(&mut targets_for_next, *j);
                     });
                     sequence_matcher_core(
-                        &mut keys4,
-                        &mut targets3,
-                        &mut group3,
+                        &mut keys_for_next,
+                        &mut targets_for_next,
+                        &mut group_for_next,
                         &mut answer.clone(),
                         max_key_length,
                         max_target_length,
