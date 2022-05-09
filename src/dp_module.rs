@@ -3,6 +3,7 @@ pub mod dp {
 
     use itertools::structs::Combinations;
     use std::sync::RwLock;
+    use field_accessor::FieldAccessor;
 
     struct MultiCombination<I: Iterator> {
         combs: Vec<Combinations<I>>,
@@ -29,7 +30,7 @@ pub mod dp {
     use std::collections::HashMap;
     use std::sync::Arc;
 
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, FieldAccessor)]
     pub struct AnswerElement {
         pub answer_arr: Vec<(Vec<i32>, Vec<i32>)>,
         pub keys_remainder: Vec<i32>,
@@ -499,15 +500,14 @@ pub mod dp {
         if swap {
             answer_vec.iter_mut().for_each(|x| {
                 x.answer_arr.iter_mut().for_each(|y| {
-                    let a = y.0.clone();
-                    let b = y.1.clone();
-                    y.1 = a;
-                    y.0 = b;
+                    mem::swap(&mut y.0, &mut y.1);
                 });
-                let a = x.keys_remainder.clone();
-                let b = x.targets_remainder.clone();
-                x.keys_remainder = b;
-                x.targets_remainder = a;
+                match x.swap(&"keys_remainder".to_string(), &"targets_remainder".to_string()) {
+                    Ok(_) => {},
+                    Err(e) => {
+                        panic!("{}", e);
+                    }
+                }
             });
         }
         for i in 0..answer_vec.len() {
