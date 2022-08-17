@@ -17,7 +17,7 @@ pyo3 = {version = "0.16.1", features = ["extension-module"], optional = true}
 itertools = {version = "0.10.2"}
 rayon = {version = "1"}
 wasm-bindgen = {version = "0.2.79", optional = true}
-field_accessor = "0"
+field_accessor = "0.5"
 
 [features]
 wasm = ["wasm-bindgen"]
