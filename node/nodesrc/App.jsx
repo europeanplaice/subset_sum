@@ -60,7 +60,7 @@ function App() {
               <Link href={colabpath} underline="none">
                 <Box style={{ padding: '2em', margin: '1em', border: 'solid 4px', borderRadius: '8px' }}>
                   <div>
-                    <span>Here is an Google Colab Notebook subset sum solver.</span>
+                    <span>Here is a Google Colab Notebook subset sum solver.</span>
                   </div>
                 </Box>
               </Link>
