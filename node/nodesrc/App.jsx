@@ -6,8 +6,11 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Stack from '@mui/joy/Stack';
 import Highlight from "react-highlight.js";
+import ReactGA from "react-ga4";
 
 import './style.css';
+
+ReactGA.initialize("G-GL0P9YL3TE");
 
 const colabpath = 'https://colab.research.google.com/github/europeanplaice/subset_sum/blob/main/python/python_subset_sum.ipynb'
 
