@@ -500,7 +500,7 @@ pub mod dp {
         if swap {
             answer_vec.iter_mut().for_each(|x| {
                 x.answer_arr.iter_mut().for_each(|y| {
-                    mem::swap(&mut y.0, &mut y.1);
+                    std::mem::swap(&mut y.0, &mut y.1);
                 });
                 match x.swap(&"keys_remainder".to_string(), &"targets_remainder".to_string()) {
                     Ok(_) => {},

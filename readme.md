@@ -291,7 +291,7 @@ dpss = { version = "(version)", package = "subset_sum" }
 use dpss::dp::find_subset;
 
 fn main() {
-    let result = find_subset(&mut vec![1, 2, 3, 4, 5], 6, 3);
+    let result = find_subset(vec![1, 2, 3, 4, 5], 6, 3);
     println!("{:?}", result);
 }
 ```
