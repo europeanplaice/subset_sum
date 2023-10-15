@@ -1,6 +1,6 @@
 mod dp_module;
 
-// #[cfg(feature = "python")]
+#[cfg(feature = "python")]
 mod py_module;
 
 pub use self::dp_module::*;
