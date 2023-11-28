@@ -1,9 +1,9 @@
 pub mod dp {
     //! This is a module for dynamic programming.
 
+    use field_accessor::FieldAccessor;
     use itertools::structs::Combinations;
     use std::sync::RwLock;
-    use field_accessor::FieldAccessor;
 
     struct MultiCombination<I: Iterator> {
         combs: Vec<Combinations<I>>,
@@ -144,9 +144,7 @@ pub mod dp {
         // Find a subset even if an array contains negative values.
         let offset: i32 = match offset {
             Some(x) => x,
-            None => {
-                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32
-            }
+            None => (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32,
         };
         let answer: Arc<RwLock<Vec<Vec<i32>>>> = Arc::new(RwLock::new(vec![]));
         if offset == 0 && arr.iter().min().unwrap() >= &0 && value >= 0 {
@@ -175,7 +173,7 @@ pub mod dp {
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             let max_value = value + min(length, max_length) as i32 * offset;
-            
+
             let temp;
             let _arr_pos: &Vec<u32> = match arr_pos {
                 None => {
@@ -502,8 +500,11 @@ pub mod dp {
                 x.answer_arr.iter_mut().for_each(|y| {
                     std::mem::swap(&mut y.0, &mut y.1);
                 });
-                match x.swap(&"keys_remainder".to_string(), &"targets_remainder".to_string()) {
-                    Ok(_) => {},
+                match x.swap(
+                    &"keys_remainder".to_string(),
+                    &"targets_remainder".to_string(),
+                ) {
+                    Ok(_) => {}
                     Err(e) => {
                         panic!("{}", e);
                     }
@@ -547,38 +548,26 @@ pub mod dp {
         }
 
         let add: bool = match (use_all_keys, use_all_targets) {
-            (true, true) => {
-                
-                match (keys.is_empty(), targets.is_empty()) {
-                    (true, true) => true,
-                    _ => false,
-                }
-            }
-            (true, false) => {
-                
-                match (keys.is_empty(), targets.is_empty()) {
-                    (true, true) => true,
-                    (true, false) => true,
-                    _ => false,
-                }
-            }
-            (false, true) => {
-                
-                match (keys.is_empty(), targets.is_empty()) {
-                    (true, true) => true,
-                    (false, true) => true,
-                    _ => false,
-                }
-            }
-            (false, false) => {
-                
-                match (keys.is_empty(), targets.is_empty()) {
-                    (true, true) => true,
-                    (false, true) => true,
-                    (true, false) => true,
-                    _ => false,
-                }
-            }
+            (true, true) => match (keys.is_empty(), targets.is_empty()) {
+                (true, true) => true,
+                _ => false,
+            },
+            (true, false) => match (keys.is_empty(), targets.is_empty()) {
+                (true, true) => true,
+                (true, false) => true,
+                _ => false,
+            },
+            (false, true) => match (keys.is_empty(), targets.is_empty()) {
+                (true, true) => true,
+                (false, true) => true,
+                _ => false,
+            },
+            (false, false) => match (keys.is_empty(), targets.is_empty()) {
+                (true, true) => true,
+                (false, true) => true,
+                (true, false) => true,
+                _ => false,
+            },
         };
 
         if add {
@@ -781,7 +770,6 @@ pub mod dp {
             };
             answer.write().unwrap().push(elem.clone());
         }
-        
     }
 
     #[test]
