@@ -1,9 +1,9 @@
 pub mod dp {
     //! This is a module for dynamic programming.
 
+    use field_accessor::FieldAccessor;
     use itertools::structs::Combinations;
     use std::sync::RwLock;
-    use field_accessor::FieldAccessor;
 
     struct MultiCombination<I: Iterator> {
         combs: Vec<Combinations<I>>,
@@ -144,9 +144,7 @@ pub mod dp {
         // Find a subset even if an array contains negative values.
         let offset: i32 = match offset {
             Some(x) => x,
-            None => {
-                (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32
-            }
+            None => (max(arr.iter().min().unwrap().abs() + 1, min(value, 0).abs() + 1)) as i32,
         };
         let answer: Arc<RwLock<Vec<Vec<i32>>>> = Arc::new(RwLock::new(vec![]));
         if offset == 0 && arr.iter().min().unwrap() >= &0 && value >= 0 {
@@ -175,9 +173,9 @@ pub mod dp {
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             let max_value = value + min(length, max_length) as i32 * offset;
-            let _arr_pos: &Vec<u32>;
+
             let temp;
-            _arr_pos = match arr_pos {
+            let _arr_pos: &Vec<u32> = match arr_pos {
                 None => {
                     temp = arr
                         .iter()
@@ -191,13 +189,13 @@ pub mod dp {
             let dptable = match dptable {
                 Some(x) => x,
                 None => {
-                    temp2 = _make_dp_table(&_arr_pos, max_value as usize);
+                    temp2 = _make_dp_table(_arr_pos, max_value as usize);
                     &temp2
                 }
             };
             let c = |i| {
                 let result = _find_subsetsfast_only_positive(
-                    &_arr_pos,
+                    _arr_pos,
                     (value + (i as i32 * offset)) as usize,
                     max_length,
                     dptable,
@@ -216,7 +214,7 @@ pub mod dp {
                 })
             };
             if cfg!(feature = "wasm") {
-                (1..min(length, max_length) + 1).into_iter().for_each(c);
+                (1..min(length, max_length) + 1).for_each(c);
             } else {
                 (1..min(length, max_length) + 1).into_par_iter().for_each(c);
             }
@@ -254,7 +252,7 @@ pub mod dp {
         let one_step_up = i_minus_one * collen + j;
         let v = { *arr.get(i_minus_one).unwrap() };
 
-        if *dp.get(one_step_up).unwrap() == true {
+        if *dp.get(one_step_up).unwrap() {
             rec(dp, arr, i_minus_one, j, route, answer, max_length, collen);
         }
 
@@ -262,15 +260,12 @@ pub mod dp {
             Some(x) => x,
             None => return,
         };
-        match dp.get(one_step_up - v as usize) {
-            Some(x) => {
-                if x == &true {
-                    route.push(v);
-                    rec(dp, arr, i_minus_one, j_v, route, answer, max_length, collen);
-                    route.pop();
-                }
+        if let Some(&x) = dp.get(one_step_up - v as usize) {
+            if x {
+                route.push(v);
+                rec(dp, arr, i_minus_one, j_v, route, answer, max_length, collen);
+                route.pop();
             }
-            None => (),
         }
     }
 
@@ -295,7 +290,7 @@ pub mod dp {
     fn vector_sorter<T: std::cmp::Ord + std::iter::Sum + std::clone::Clone + Copy>(
         mut vec: Vec<Vec<T>>,
     ) -> Vec<Vec<T>> {
-        if vec.len() == 0 {
+        if vec.is_empty() {
             return vec;
         }
         vec.sort_unstable();
@@ -313,24 +308,21 @@ pub mod dp {
             let v_usize = *v_u32 as usize;
             (0..value + 1).for_each(|_j| {
                 let current_value = *dp.get(current_address).unwrap();
-                if current_value == false {
+                if !current_value {
                     current_address += 1;
                     return;
                 };
                 let address_onestep_down = current_address + collen;
                 dp[address_onestep_down] = true;
 
-                match dp.get_mut(address_onestep_down + v_usize) {
-                    Some(x) => {
-                        *x = true;
-                    }
-                    None => {}
+                if let Some(x) = dp.get_mut(address_onestep_down + v_usize) {
+                    *x = true;
                 }
                 current_address += 1;
             });
         });
         DpTable {
-            dp: dp,
+            dp,
             max_value: value,
         }
     }
@@ -349,7 +341,7 @@ pub mod dp {
             .dp
             .get(dptable.dp.len() - 1 - (dptable.max_value - value))
             .unwrap();
-        if answer_exist == false {
+        if !answer_exist {
             return vec![];
         }
         let collen = dptable.max_value + 1;
@@ -358,7 +350,7 @@ pub mod dp {
         let mut answer: Vec<Vec<u32>> = vec![];
         rec(
             &dptable.dp,
-            &arr,
+            arr,
             a_length,
             value,
             &mut route,
@@ -502,23 +494,26 @@ pub mod dp {
                 x.answer_arr.iter_mut().for_each(|y| {
                     std::mem::swap(&mut y.0, &mut y.1);
                 });
-                match x.swap(&"keys_remainder".to_string(), &"targets_remainder".to_string()) {
-                    Ok(_) => {},
+                match x.swap(
+                    &"keys_remainder".to_string(),
+                    &"targets_remainder".to_string(),
+                ) {
+                    Ok(_) => {}
                     Err(e) => {
                         panic!("{}", e);
                     }
                 }
             });
         }
-        for i in 0..answer_vec.len() {
-            answer_vec[i]
+        for answer in &mut answer_vec {
+            answer
                 .answer_arr
                 .sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
-            answer_vec[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
+            answer.answer_arr.sort_unstable_by_key(|k| k.0.len());
         }
         answer_vec.sort_unstable();
         answer_vec.dedup();
-        if answer_vec.len() == 0 {
+        if answer_vec.is_empty() {
             println!("Can't find any combination.");
         }
         Ok(answer_vec[..min(n_candidates, answer_vec.len())].to_vec())
@@ -537,7 +532,7 @@ pub mod dp {
         use_all_targets: bool,
         max_depth: usize,
         last_key: Vec<i32>,
-    ) -> () {
+    ) {
         use itertools::Itertools;
         use std::cmp::max;
         use std::cmp::min;
@@ -547,38 +542,10 @@ pub mod dp {
         }
 
         let add: bool = match (use_all_keys, use_all_targets) {
-            (true, true) => {
-                let add = match (keys.len() == 0, targets.len() == 0) {
-                    (true, true) => true,
-                    _ => false,
-                };
-                add
-            }
-            (true, false) => {
-                let add = match (keys.len() == 0, targets.len() == 0) {
-                    (true, true) => true,
-                    (true, false) => true,
-                    _ => false,
-                };
-                add
-            }
-            (false, true) => {
-                let add = match (keys.len() == 0, targets.len() == 0) {
-                    (true, true) => true,
-                    (false, true) => true,
-                    _ => false,
-                };
-                add
-            }
-            (false, false) => {
-                let add = match (keys.len() == 0, targets.len() == 0) {
-                    (true, true) => true,
-                    (false, true) => true,
-                    (true, false) => true,
-                    _ => false,
-                };
-                add
-            }
+            (true, true) => keys.is_empty() && targets.is_empty(),
+            (true, false) => keys.is_empty(),
+            (false, true) => targets.is_empty(),
+            (false, false) => keys.is_empty() || targets.is_empty(),
         };
 
         if add {
@@ -596,7 +563,7 @@ pub mod dp {
                 return;
             }
         }
-        if keys.len() == 0 || targets.len() == 0 {
+        if keys.is_empty() || targets.is_empty() {
             return;
         }
         if group.len() > max_depth {
@@ -636,7 +603,7 @@ pub mod dp {
         for i in 1..min(max_key_length, keys.len()) + 1 {
             combs.push(keys.clone().into_iter().enumerate().combinations(i))
         }
-        let mc = MultiCombination { combs: combs };
+        let mc = MultiCombination { combs };
         if cfg!(feature = "wasm") {
             mc.for_each(|i| {
                 let sum_key: i32 = i.iter().map(|j| j.1).sum();
@@ -648,7 +615,7 @@ pub mod dp {
                         Ok(mut v) => v
                             .entry((targets.clone(), sum_key))
                             .or_insert(_find_subset(
-                                &targets,
+                                targets,
                                 sum_key,
                                 max_target_length,
                                 dp2,
@@ -657,7 +624,7 @@ pub mod dp {
                             ))
                             .clone(),
                         Err(_) => _find_subset(
-                            &targets,
+                            targets,
                             sum_key,
                             max_target_length,
                             dp2,
@@ -666,7 +633,7 @@ pub mod dp {
                         ),
                     }
                 };
-                if sets.len() == 0 {
+                if sets.is_empty() {
                     return;
                 }
                 sets.dedup();
@@ -677,7 +644,7 @@ pub mod dp {
                     .map(|(j2, j)| keys_removed.remove(j.0 - j2))
                     .collect();
                 sets.iter().for_each(|set| {
-                    if set.len() == 0 {
+                    if set.is_empty() {
                         return;
                     }
                     let mut keys_for_next = keys_removed.clone();
@@ -714,7 +681,7 @@ pub mod dp {
                         Ok(mut v) => v
                             .entry((targets.clone(), sum_key))
                             .or_insert(_find_subset(
-                                &targets,
+                                targets,
                                 sum_key,
                                 max_target_length,
                                 dp2,
@@ -723,7 +690,7 @@ pub mod dp {
                             ))
                             .clone(),
                         Err(_) => _find_subset(
-                            &targets,
+                            targets,
                             sum_key,
                             max_target_length,
                             dp2,
@@ -732,7 +699,7 @@ pub mod dp {
                         ),
                     }
                 };
-                if sets.len() == 0 {
+                if sets.is_empty() {
                     return;
                 }
                 sets.dedup();
@@ -743,7 +710,7 @@ pub mod dp {
                     .map(|(j2, j)| keys_removed.remove(j.0 - j2))
                     .collect();
                 sets.par_iter().for_each(|set| {
-                    if set.len() == 0 {
+                    if set.is_empty() {
                         return;
                     }
                     let mut keys_for_next = keys_removed.clone();
@@ -770,8 +737,8 @@ pub mod dp {
                 });
             });
         }
-        if use_all_keys == false && use_all_targets == false {
-            if group.len() == 0 {
+        if !use_all_keys && !use_all_targets {
+            if group.is_empty() {
                 return;
             }
             let elem = AnswerElement {
@@ -781,7 +748,6 @@ pub mod dp {
             };
             answer.write().unwrap().push(elem.clone());
         }
-        ()
     }
 
     #[test]
