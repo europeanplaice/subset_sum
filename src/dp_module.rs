@@ -511,11 +511,11 @@ pub mod dp {
                 }
             });
         }
-        for i in 0..answer_vec.len() {
-            answer_vec[i]
+        for answer in &mut answer_vec {
+            answer
                 .answer_arr
                 .sort_unstable_by_key(|k| k.0.iter().sum::<i32>());
-            answer_vec[i].answer_arr.sort_unstable_by_key(|k| k.0.len());
+            answer.answer_arr.sort_unstable_by_key(|k| k.0.len());
         }
         answer_vec.sort_unstable();
         answer_vec.dedup();
