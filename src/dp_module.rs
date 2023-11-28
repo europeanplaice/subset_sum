@@ -260,15 +260,12 @@ pub mod dp {
             Some(x) => x,
             None => return,
         };
-        match dp.get(one_step_up - v as usize) {
-            Some(x) => {
-                if x == &true {
-                    route.push(v);
-                    rec(dp, arr, i_minus_one, j_v, route, answer, max_length, collen);
-                    route.pop();
-                }
+        if let Some(&x) = dp.get(one_step_up - v as usize) {
+            if x {
+                route.push(v);
+                rec(dp, arr, i_minus_one, j_v, route, answer, max_length, collen);
+                route.pop();
             }
-            None => (),
         }
     }
 
@@ -318,11 +315,8 @@ pub mod dp {
                 let address_onestep_down = current_address + collen;
                 dp[address_onestep_down] = true;
 
-                match dp.get_mut(address_onestep_down + v_usize) {
-                    Some(x) => {
-                        *x = true;
-                    }
-                    None => {}
+                if let Some(x) = dp.get_mut(address_onestep_down + v_usize) {
+                    *x = true;
                 }
                 current_address += 1;
             });
