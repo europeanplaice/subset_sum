@@ -548,26 +548,10 @@ pub mod dp {
         }
 
         let add: bool = match (use_all_keys, use_all_targets) {
-            (true, true) => match (keys.is_empty(), targets.is_empty()) {
-                (true, true) => true,
-                _ => false,
-            },
-            (true, false) => match (keys.is_empty(), targets.is_empty()) {
-                (true, true) => true,
-                (true, false) => true,
-                _ => false,
-            },
-            (false, true) => match (keys.is_empty(), targets.is_empty()) {
-                (true, true) => true,
-                (false, true) => true,
-                _ => false,
-            },
-            (false, false) => match (keys.is_empty(), targets.is_empty()) {
-                (true, true) => true,
-                (false, true) => true,
-                (true, false) => true,
-                _ => false,
-            },
+            (true, true) => keys.is_empty() && targets.is_empty(),
+            (true, false) => keys.is_empty(),
+            (false, true) => targets.is_empty(),
+            (false, false) => keys.is_empty() || targets.is_empty(),
         };
 
         if add {
