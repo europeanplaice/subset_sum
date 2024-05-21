@@ -11,14 +11,14 @@ fn main() {
     let file = File::open(args[1].clone()).unwrap();
     let lines = io::BufReader::new(file).lines();
     if Path::new(&args[2]).exists() {
-        let mut key: Vec<i32> = Vec::new();
+        let mut key: Vec<i64> = Vec::new();
         for line in lines {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
                         continue;
                     } else {
-                        key.push(line.trim().parse::<i32>().unwrap())
+                        key.push(line.trim().parse::<i64>().unwrap())
                     }
                 }
                 Err(_) => println!("Error reading file"),
@@ -26,14 +26,14 @@ fn main() {
         }
         let file = File::open(args[2].clone()).unwrap();
         let line2 = io::BufReader::new(file).lines();
-        let mut targets: Vec<i32> = Vec::new();
+        let mut targets: Vec<i64> = Vec::new();
         for line in line2 {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
                         continue;
                     } else {
-                        targets.push(line.trim().parse::<i32>().unwrap())
+                        targets.push(line.trim().parse::<i64>().unwrap())
                     }
                 }
                 Err(_) => println!("Error reading file"),
@@ -76,14 +76,14 @@ fn main() {
         .unwrap();
         println!("{}", dp_module::dp::sequence_matcher_formatter(result));
     } else {
-        let mut a: Vec<i32> = Vec::new();
+        let mut a: Vec<i64> = Vec::new();
         for line in lines {
             match line {
                 Ok(line) => {
                     if line.is_empty() {
                         continue;
                     } else {
-                        a.push(line.trim().parse::<i32>().unwrap())
+                        a.push(line.trim().parse::<i64>().unwrap())
                     }
                 }
                 Err(_) => println!("Error reading file"),
@@ -94,7 +94,7 @@ fn main() {
         } else {
             args[3].parse::<usize>().unwrap()
         };
-        let result = dp_module::dp::find_subset(a, args[2].parse::<i32>().unwrap(), max_length);
+        let result = dp_module::dp::find_subset(a, args[2].parse::<i64>().unwrap(), max_length);
         println!("{:?}", result);
     }
 }

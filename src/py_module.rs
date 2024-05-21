@@ -7,7 +7,7 @@ use pyo3::prelude::*;
 /// * `max_length` - The maximum length of combinations of the answer.
 #[pyfunction]
 #[pyo3(text_signature = "(arr, value, max_length, /)")]
-fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec<i32>>> {
+fn find_subset(arr: Vec<i64>, value: i64, max_length: usize) -> PyResult<Vec<Vec<i64>>> {
     use crate::dp_module::*;
     Ok(dp::find_subset(arr, value, max_length))
 }
@@ -37,14 +37,14 @@ fn find_subset(arr: Vec<i32>, value: i32, max_length: usize) -> PyResult<Vec<Vec
     text_signature = "(keys, targets, max_key_length, max_target_length, n_candidates, use_all_keys, use_all_targets /)"
 )]
 fn sequence_matcher(
-    mut keys: Vec<i32>,
-    mut targets: Vec<i32>,
+    mut keys: Vec<i64>,
+    mut targets: Vec<i64>,
     max_key_length: usize,
     max_target_length: usize,
     n_candidates: usize,
     use_all_keys: bool,
     use_all_targets: bool,
-) -> PyResult<Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>> {
+) -> PyResult<Vec<(Vec<(Vec<i64>, Vec<i64>)>, Vec<i64>, Vec<i64>)>> {
     use crate::dp_module::*;
     use pyo3::exceptions::PyValueError;
     match dp::sequence_matcher(
@@ -69,7 +69,7 @@ fn sequence_matcher(
 
 #[pyfunction]
 fn sequence_matcher_formatter(
-    result: Vec<(Vec<(Vec<i32>, Vec<i32>)>, Vec<i32>, Vec<i32>)>,
+    result: Vec<(Vec<(Vec<i64>, Vec<i64>)>, Vec<i64>, Vec<i64>)>,
 ) -> PyResult<String> {
     use crate::dp_module::*;
     let mut v = vec![];
