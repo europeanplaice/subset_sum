@@ -19,14 +19,14 @@ pub fn wasm_find_subset(
     use_all_keys: bool,
     use_all_targets: bool,
 ) -> String {
-    let mut keys: Vec<i32> = keys
+    let mut keys: Vec<i64> = keys
         .split("\n")
-        .map(|x| x.trim().parse::<i32>().unwrap())
+        .map(|x| x.trim().parse::<i64>().unwrap())
         .collect();
     if targets.contains("\n") {
-        let mut targets: Vec<i32> = targets
+        let mut targets: Vec<i64> = targets
             .split("\n")
-            .map(|x| x.trim().parse::<i32>().unwrap())
+            .map(|x| x.trim().parse::<i64>().unwrap())
             .collect();
         let result: Vec<dp::AnswerElement> = match dp::sequence_matcher(
             &mut keys,
@@ -45,8 +45,8 @@ pub fn wasm_find_subset(
         }
         dp::sequence_matcher_formatter(result)
     } else {
-        let res: Vec<Vec<i32>> =
-            dp::find_subset(keys, targets.parse::<i32>().unwrap(), max_target_length);
+        let res: Vec<Vec<i64>> =
+            dp::find_subset(keys, targets.parse::<i64>().unwrap(), max_target_length);
         let mut r3: Vec<String> = vec![];
         if res.len() == 0 {
             return "No solution. You might want to increase maximum subset length.".to_string();
