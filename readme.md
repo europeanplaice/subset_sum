@@ -10,7 +10,7 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/europeanplaice/subset_sum?style=social)](https://github.com/europeanplaice/subset_sum)
 
 
-This is a Rust implementation that calculates subset sum problem using dynamic programming. It solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation.
+This Rust implementation uses dynamic programming to solve the subset sum problem, returning a set of decomposed integers. Additionally, it can match corresponding numbers from two vectors, making it useful for account reconciliation.
 
 Any feedback is welcome!
 
