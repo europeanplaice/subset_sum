@@ -1,6 +1,6 @@
 [package]
 name = "subset_sum"
-version = "0.23.0"
+version = "0.23.1"
 edition = "2018"
 authors = ["Tomohiro Endo <europeanplaice@gmail.com>"]
 description = "Solves subset sum problem and returns a set of decomposed integers. It also can match corresponding numbers from two vectors and be used for Account reconciliation." 
@@ -13,9 +13,9 @@ categories = ["algorithms"]
 keywords = ["dynamic_programming", "subset_sum", "accounting"]
 
 [dependencies]
-pyo3 = {version = "0.20.0", features = ["extension-module"], optional = true}
-itertools = {version = "0.10.2"}
-rayon = {version = "1.10"}
+pyo3 = {version = "0.27.1", features = ["abi3-py38", "extension-module"], optional = true}
+itertools = {version = "0.14.0"}
+rayon = {version = "1.11"}
 wasm-bindgen = {version = "0.2.79", optional = true}
 field_accessor = "0.5"
 bitvec = "1"
