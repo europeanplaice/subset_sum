@@ -1,5 +1,6 @@
 /target
-/env
+.venvlinux
+.venvwin
 build.bat
 publish.bat
 python/__pycache__

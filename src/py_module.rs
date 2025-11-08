@@ -84,11 +84,10 @@ fn sequence_matcher_formatter(
 }
 
 #[pymodule]
-fn dpss(_py: Python, m: &PyModule) -> PyResult<()> {
+fn dpss(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(find_subset, m)?)?;
     m.add_function(wrap_pyfunction!(sequence_matcher, m)?)?;
     m.add_function(wrap_pyfunction!(sequence_matcher_formatter, m)?)?;
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
-
     Ok(())
 }
