@@ -29,5 +29,6 @@ docker run --rm -v "$PWD":/io "$DOCKER_IMAGE" build \
   --strip \
   --target "$TARGET_ARCH" \
   --compatibility "$COMPAT_LEVEL" \
+  --sdist \
   --out "$OUTPUT_DIR" \
   "${EXTRA_ARGS[@]}"

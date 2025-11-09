@@ -9,14 +9,14 @@ Helper scripts for Linux (WSL) and Windows wheel builds live here. Each script s
 ```
 
 - Requires Docker CLI on WSL2 (Docker Desktop or equivalent).
-- Pulls `ghcr.io/pyo3/maturin` by default and builds a manylinux2014-compatible wheel for CPython ≥ 3.8 (abi3).
+- Pulls `ghcr.io/pyo3/maturin` by default and builds a manylinux2014-compatible wheel **and** sdist for CPython ≥ 3.8 (abi3).
 - Tunable environment variables:
   - `TARGET_ARCH` (default: `x86_64-unknown-linux-gnu`).
   - `COMPAT_LEVEL` (default: `manylinux_2_17`).
   - `OUTPUT_DIR` (default: `dist`).
   - `DOCKER_IMAGE` (default: `ghcr.io/pyo3/maturin`).
   - `SKIP_PULL=1` skips the `docker pull` step if the image is already local.
-  - `EXTRA_ARGS="--sdist"` passes additional `maturin build` flags (array-friendly syntax).
+  - `EXTRA_ARGS="--no-sdist"` passes additional `maturin build` flags (array-friendly syntax) when you truly need to skip the sdist.
 
 ## Windows — `build_windows.ps1`
 
@@ -25,12 +25,12 @@ pwsh ./scripts/build_windows.ps1
 ```
 
 - Assumes Visual Studio Build Tools (Desktop development with C++) and a CPython interpreter (e.g., `py -3.12`).
-- Runs `maturin build --release --features python --target x86_64-pc-windows-msvc --interpreter python3.12 --out dist` by default.
+- Runs `maturin build --release --features python --target x86_64-pc-windows-msvc --interpreter python3.12 --out dist` by default (wheel only).
 - Parameters:
   - `-Interpreter python3.12` — choose which CPython to point PyO3 at for import libs.
   - `-Target x86_64-pc-windows-msvc` — adjust if you ever produce other Windows targets.
   - `-OutputDir dist` — override the wheel output directory.
-  - `-ExtraArgs @('--sdist')` — append extra `maturin` arguments.
+  - `-ExtraArgs @('--sdist')` — append extra `maturin` arguments (use `--sdist` if you need Windows to emit it too).
 
 ## Quick Verification
 
