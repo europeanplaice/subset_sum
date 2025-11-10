@@ -42,3 +42,17 @@ python -c "import dpss; print(dpss.__version__)"
 ```
 
 Translate to PowerShell (`py -3.12 -m pip install dist\dpss-*.whl`) when testing on Windows.
+
+## Publishing with Twine
+
+After both Linux (`build_linux.sh`) and Windows (`build_windows.ps1`) runs drop artifacts into `dist/`, upload them with Twine:
+
+```bash
+python -m pip install --upgrade twine
+python -m twine check dist/*
+python -m twine upload dist/*
+```
+
+- Start with TestPyPI via `--repository testpypi` (or `TWINE_REPOSITORY=testpypi`), then switch to the real PyPI once satisfied.
+- Pass credentials through `TWINE_USERNAME`/`TWINE_PASSWORD`, an API token (`__token__`), or `~/.pypirc` entries so secrets never land in shell history.
+- Limit the glob (e.g., `dist/dpss-0.1.0-*`) if you only want to publish the fresh wheels and leave older files untouched.
