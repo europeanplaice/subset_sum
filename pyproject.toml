@@ -1,5 +1,8 @@
 [project]
 name = "dpss"
+description = "Dynamic-programming subset sum solver with Python bindings"
+readme = { file = "readme.md", content-type = "text/markdown" }
+dynamic = ["version"]
 dependencies = [
     "cffi"
 ]
