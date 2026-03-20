@@ -10,9 +10,27 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/europeanplaice/subset_sum?style=social)](https://github.com/europeanplaice/subset_sum)
 
 
-This Rust implementation uses dynamic programming to solve the subset sum problem, returning a set of decomposed integers. Additionally, it can match corresponding numbers from two vectors, making it useful for account reconciliation.
+This library solves the **subset sum problem** using dynamic programming and extends it to **many-to-many transaction matching** — finding which combinations of amounts from one list correspond to which combinations in another. It supports negative numbers via an offset transformation, uses a sparse hash-set-based DP table for memory efficiency, and runs in parallel via Rayon on native targets.
+
+The two core functions are:
+
+- `find_subset` — finds all subsets of an array that sum to a target value
+- `sequence_matcher` — finds all ways to pair groups from two arrays such that each pair sums to the same value, returning matched pairs and unmatched remainders
+
+This makes it well-suited for **bank reconciliation**, **account reconciliation**, and **transaction matching**, where the challenge is not just whether a match exists, but *which specific combinations* of entries on each side explain the other.
 
 Any feedback is welcome!
+
+## Use Cases
+
+### Bank Reconciliation
+Bank statements and internal ledgers often diverge not because entries are wrong, but because one payment on the bank side maps to multiple entries in the ledger, or vice versa. `sequence_matcher` finds exactly these many-to-many correspondences — pairing groups of amounts that sum to the same value, and surfacing what remains unmatched so you know exactly where the discrepancy lies.
+
+### Account Reconciliation
+When reconciling two accounts, debits and credits may not be one-to-one. A single debit can correspond to several credits spread across periods or cost centers. `sequence_matcher` exhaustively finds all valid groupings across both sets, with configurable limits on group size (`max_key_length`, `max_target_length`) to keep computation tractable even on large datasets.
+
+### Transaction Matching
+Matching transactions between systems — say, a payment processor and an ERP — is hard when settlement amounts are batched or split differently on each side. `find_subset` can determine which line items in one system compose a given total, while `sequence_matcher` matches across both systems simultaneously, returning every valid pairing along with unmatched residuals.
 
 There are four ways to use this program.
 * [CLI](#CLI)🖥️
