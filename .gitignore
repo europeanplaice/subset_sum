@@ -3,8 +3,8 @@
 .venvwin
 build.bat
 publish.bat
-python/__pycache__
-/__pycache__
+__pycache__/
+*.pyc
 /.vscode
 wasm.bat
 dist/
