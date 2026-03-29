@@ -32,11 +32,12 @@ This specific challenge in automated banking was recently formalized as a combin
 
 ## 🛠️ Usage
 
-There are four ways to use this program:
+There are five ways to use this program:
 * [Web UI](#web-ui)🌎 (The easiest way!)
 * [Python](#python)🐍
 * [CLI](#cli)🖥️
 * [Rust](#rust)🦀
+* [Agent Skills / MCP](#agent-skills-mcp)🤖
 
 ---
 
@@ -147,3 +148,11 @@ fn main() {
     println!("Matched groups: {}", result.matched.len());
 }
 ```
+
+---
+
+## <a id="agent-skills-mcp"></a>Use with Agent Skills / MCP
+`dpss` includes a Model Context Protocol (MCP) server and specialized Agent Skills, allowing AI assistants like Claude Code and Gemini CLI to autonomously reconcile your data safely and deterministically.
+
+- See [`python_mcp/README.md`](python_mcp/README.md) for MCP server setup instructions.
+- We provide an official agent skill instruction set in [`.agents/skills/dpss-reconcile/SKILL.md`](.agents/skills/dpss-reconcile/SKILL.md).
