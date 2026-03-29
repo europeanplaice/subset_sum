@@ -1,0 +1,56 @@
+[
+  {
+    "id": "INV-3001",
+    "amount": 12000,
+    "date": "2026-03-01",
+    "description": "Retail order 1001"
+  },
+  {
+    "id": "INV-3002",
+    "amount": 15000,
+    "date": "2026-03-02",
+    "description": "Marketplace seller payout A"
+  },
+  {
+    "id": "INV-3003",
+    "amount": 30000,
+    "date": "2026-03-02",
+    "description": "Marketplace seller payout B"
+  },
+  {
+    "id": "INV-3004",
+    "amount": 20000,
+    "date": "2026-03-03",
+    "description": "Enterprise invoice expected fee"
+  },
+  {
+    "id": "INV-3005",
+    "amount": 10000,
+    "date": "2026-03-04",
+    "description": "Standard Subscription March"
+  },
+  {
+    "id": "INV-3006",
+    "amount": 6000,
+    "date": "2026-03-05",
+    "description": "Acme split invoice A"
+  },
+  {
+    "id": "INV-3007",
+    "amount": 4000,
+    "date": "2026-03-05",
+    "description": "Acme split invoice B"
+  },
+  {
+    "id": "INV-3008",
+    "amount": 6000,
+    "date": "2026-03-05",
+    "description": "Acme split invoice C"
+  },
+  {
+    "id": "INV-3999",
+    "amount": 8300,
+    "date": "2026-03-06",
+    "description": "Late transfer pending approval"
+  }
+]

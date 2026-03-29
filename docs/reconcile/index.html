@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Reconciliation Engine</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body { background-color: #f4f6f8; }
+    .hero.is-info { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+    .box { border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    table { width: 100%; margin-top: 1rem; }
+    th { background-color: #f5f5f5; }
+    .match-group { border-left: 4px solid #3273dc; margin-bottom: 1.5rem; padding-left: 1rem; }
+    .diff-warn { color: #e06c75; font-weight: bold; }
+    pre { font-family: 'Noto Sans Mono', monospace; background: transparent; padding: 0; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+
+<body>
+  <section class="hero is-info is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">dpss Reconciliation Engine</h1>
+        <p class="subtitle">Many-to-Many Transaction Matching via Subset Sum Algorithm</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mt-5 mb-6">
+    <div class="columns">
+      <div class="column is-4">
+        <div class="box">
+          <h2 class="title is-4">1. Data Input</h2>
+          
+          <div class="field">
+            <label class="label">Keys (e.g. Ledger / Internal DB)</label>
+            <div class="control">
+              <input class="input" type="file" id="keys_file" accept=".csv" />
+            </div>
+            <p class="help">CSV format: id, amount, [date], [description]</p>
+          </div>
+
+          <div class="field mt-4">
+            <label class="label">Targets (e.g. Bank Statement)</label>
+            <div class="control">
+              <input class="input" type="file" id="targets_file" accept=".csv" />
+            </div>
+            <p class="help">CSV format: id, amount, [date], [description]</p>
+          </div>
+
+          <hr>
+          <h2 class="title is-4">2. Settings</h2>
+          
+          <div class="field">
+            <label class="label">Tolerance (Amount Diff)</label>
+            <div class="control">
+              <input class="input" type="number" id="tolerance" value="0">
+            </div>
+            <p class="help">Max difference allowed to match groups (in smallest currency unit, e.g. cents).</p>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Max Keys/Grp</label>
+                <div class="control">
+                  <input class="input" type="number" id="max_k" value="5">
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Max Tgts/Grp</label>
+                <div class="control">
+                  <input class="input" type="number" id="max_t" value="5">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button id="run_btn" class="button is-primary is-fullwidth mt-4">Run Reconciliation</button>
+        </div>
+      </div>
+
+      <div class="column is-8">
+        <div class="box" style="min-height: 500px;">
+          <h2 class="title is-4">Results</h2>
+          <div id="loading" style="display: none;" class="has-text-centered my-6">
+            <span class="loader" style="width: 3rem; height: 3rem; border-width: 0.25rem;"></span>
+            <p class="mt-3">Computing optimal matches...</p>
+          </div>
+          <div id="error_msg" class="notification is-danger" style="display: none;"></div>
+          <div id="result_area" style="display: none;">
+            
+            <nav class="level is-mobile has-background-light p-3" style="border-radius: 6px;">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Matched Keys</p>
+                  <p class="title is-5 has-text-success" id="sum_mk">-</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Matched Targets</p>
+                  <p class="title is-5 has-text-success" id="sum_mt">-</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Unmatched Keys</p>
+                  <p class="title is-5 has-text-danger" id="sum_uk">-</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Unmatched Tgts</p>
+                  <p class="title is-5 has-text-danger" id="sum_ut">-</p>
+                </div>
+              </div>
+            </nav>
+
+            <div class="tabs is-toggle is-fullwidth">
+              <ul>
+                <li class="is-active" id="tab_matched"><a>Matched Groups</a></li>
+                <li id="tab_unmatched"><a>Unmatched</a></li>
+              </ul>
+            </div>
+
+            <div id="content_matched"></div>
+            <div id="content_unmatched" style="display: none;">
+              <h3 class="title is-5">Unmatched Keys</h3>
+              <table class="table is-fullwidth is-striped" id="tbl_uk"></table>
+              <h3 class="title is-5 mt-5">Unmatched Targets</h3>
+              <table class="table is-fullwidth is-striped" id="tbl_ut"></table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import init, { wasm_reconcile } from "../pkg/dpss.js";
+
+    let wasmReady = false;
+    init().then(() => {
+      wasmReady = true;
+      document.getElementById('run_btn').disabled = false;
+    });
+
+    function parseCSV(file) {
+      return new Promise((resolve, reject) => {
+        Papa.parse(file, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            // map CSV objects to expected Rust struct format
+            const data = results.data.map(r => ({
+              id: String(r.id || r.ID),
+              amount: Number(r.amount || r.Amount),
+              date: r.date || r.Date ? String(r.date || r.Date) : null,
+              description: r.description || r.Description ? String(r.description || r.Description) : null,
+            }));
+            resolve(data);
+          },
+          error: reject
+        });
+      });
+    }
+
+    document.getElementById('tab_matched').addEventListener('click', (e) => {
+      document.getElementById('tab_matched').classList.add('is-active');
+      document.getElementById('tab_unmatched').classList.remove('is-active');
+      document.getElementById('content_matched').style.display = 'block';
+      document.getElementById('content_unmatched').style.display = 'none';
+    });
+    
+    document.getElementById('tab_unmatched').addEventListener('click', (e) => {
+      document.getElementById('tab_unmatched').classList.add('is-active');
+      document.getElementById('tab_matched').classList.remove('is-active');
+      document.getElementById('content_unmatched').style.display = 'block';
+      document.getElementById('content_matched').style.display = 'none';
+    });
+
+    document.getElementById('run_btn').addEventListener('click', async () => {
+      if (!wasmReady) return;
+      
+      const keysFile = document.getElementById('keys_file').files[0];
+      const targetsFile = document.getElementById('targets_file').files[0];
+      
+      if (!keysFile || !targetsFile) {
+        alert("Please upload both Keys and Targets CSV files.");
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('result_area').style.display = 'none';
+      document.getElementById('error_msg').style.display = 'none';
+
+      try {
+        const keys = await parseCSV(keysFile);
+        const targets = await parseCSV(targetsFile);
+        
+        const tol = BigInt(document.getElementById('tolerance').value);
+        const mk = parseInt(document.getElementById('max_k').value);
+        const mt = parseInt(document.getElementById('max_t').value);
+
+        // WebAssembly call
+        const resultJson = wasm_reconcile(
+          JSON.stringify(keys), 
+          JSON.stringify(targets), 
+          mk, mt, tol, 10
+        );
+        
+        const res = JSON.parse(resultJson);
+        renderResults(res);
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById('error_msg').innerText = "Error: " + err;
+        document.getElementById('error_msg').style.display = 'block';
+      } finally {
+        document.getElementById('loading').style.display = 'none';
+      }
+    });
+
+    function renderResults(res) {
+      document.getElementById('result_area').style.display = 'block';
+      
+      // Summary
+      document.getElementById('sum_mk').innerText = `${res.summary.matched_key_count} / ${res.summary.total_keys}`;
+      document.getElementById('sum_mt').innerText = `${res.summary.matched_target_count} / ${res.summary.total_targets}`;
+      document.getElementById('sum_uk').innerText = `${res.unmatched_keys.length}`;
+      document.getElementById('sum_ut').innerText = `${res.unmatched_targets.length}`;
+
+      // Matched Groups
+      const matchedDiv = document.getElementById('content_matched');
+      matchedDiv.innerHTML = '';
+      if(res.matched.length === 0) {
+         matchedDiv.innerHTML = '<p class="has-text-grey">No matches found.</p>';
+      }
+      res.matched.forEach((group, idx) => {
+        let diffHtml = group.difference !== 0 ? `<span class="diff-warn">(Diff: ${group.difference})</span>` : '';
+        
+        let html = `
+          <div class="match-group box">
+            <h4 class="title is-6 mb-2">Group ${idx + 1} ${diffHtml}</h4>
+            <div class="columns is-mobile">
+              <div class="column is-half">
+                <p class="heading">Keys (Sum: ${group.key_sum})</p>
+                <ul>${group.keys.map(k => `<li><code>${k.id}</code>: ${k.amount}</li>`).join('')}</ul>
+              </div>
+              <div class="column is-half">
+                <p class="heading">Targets (Sum: ${group.target_sum})</p>
+                <ul>${group.targets.map(t => `<li><code>${t.id}</code>: ${t.amount}</li>`).join('')}</ul>
+              </div>
+            </div>
+          </div>
+        `;
+        matchedDiv.innerHTML += html;
+      });
+
+      // Unmatched Tables
+      const renderTable = (items, targetId) => {
+        let h = `<thead><tr><th>ID</th><th>Amount</th><th>Date</th></tr></thead><tbody>`;
+        items.forEach(i => {
+          h += `<tr><td>${i.id}</td><td>${i.amount}</td><td>${i.date || '-'}</td></tr>`;
+        });
+        h += `</tbody>`;
+        document.getElementById(targetId).innerHTML = h;
+      };
+
+      renderTable(res.unmatched_keys, 'tbl_uk');
+      renderTable(res.unmatched_targets, 'tbl_ut');
+    }
+  </script>
+</body>
+</html>

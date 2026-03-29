@@ -1,0 +1,56 @@
+[
+  {
+    "ledger_id": "INV-3001",
+    "gross_amount": 12000,
+    "posted_on": "2026-03-01",
+    "memo": "Retail order 1001"
+  },
+  {
+    "ledger_id": "INV-3002",
+    "gross_amount": 15000,
+    "posted_on": "2026-03-02",
+    "memo": "Marketplace seller payout A"
+  },
+  {
+    "ledger_id": "INV-3003",
+    "gross_amount": 30000,
+    "posted_on": "2026-03-02",
+    "memo": "Marketplace seller payout B"
+  },
+  {
+    "ledger_id": "INV-3004",
+    "gross_amount": 20000,
+    "posted_on": "2026-03-03",
+    "memo": "Enterprise invoice expected fee"
+  },
+  {
+    "ledger_id": "INV-3005",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-04",
+    "memo": "Standard Subscription March"
+  },
+  {
+    "ledger_id": "INV-3006",
+    "gross_amount": 6000,
+    "posted_on": "2026-03-05",
+    "memo": "Acme split invoice A"
+  },
+  {
+    "ledger_id": "INV-3007",
+    "gross_amount": 4000,
+    "posted_on": "2026-03-05",
+    "memo": "Acme split invoice B"
+  },
+  {
+    "ledger_id": "INV-3008",
+    "gross_amount": 6000,
+    "posted_on": "2026-03-05",
+    "memo": "Acme split invoice C"
+  },
+  {
+    "ledger_id": "INV-3999",
+    "gross_amount": 8300,
+    "posted_on": "2026-03-06",
+    "memo": "Late transfer pending approval"
+  }
+]

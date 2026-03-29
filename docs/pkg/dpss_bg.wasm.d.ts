@@ -1,8 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
-export function wasm_find_subset(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number): void;
-export function __wbindgen_add_to_stack_pointer(a: number): number;
-export function __wbindgen_malloc(a: number): number;
-export function __wbindgen_realloc(a: number, b: number, c: number): number;
-export function __wbindgen_free(a: number, b: number): void;
+export const wasm_find_subset: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => [number, number];
+export const wasm_reconcile: (a: number, b: number, c: number, d: number, e: number, f: number, g: bigint, h: number) => [number, number, number];
+export const __wbindgen_externrefs: WebAssembly.Table;
+export const __wbindgen_malloc: (a: number, b: number) => number;
+export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
+export const __wbindgen_free: (a: number, b: number, c: number) => void;
+export const __externref_table_dealloc: (a: number) => void;
+export const __wbindgen_start: () => void;

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "dpss": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "python_mcp/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "."
+      }
+    }
+  }
+}

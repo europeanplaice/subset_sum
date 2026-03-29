@@ -1,0 +1,4 @@
+id,amount,date,description
+k1,100,2023-10-01,Payment A
+k2,200,2023-10-02,Payment B
+k3,500,2023-10-03,Payment C

@@ -1,0 +1,44 @@
+[
+  {
+    "bank_ref": "BNK-4001",
+    "credit": 12000,
+    "value_date": "2026-03-01",
+    "narrative": "Retail settlement 1001"
+  },
+  {
+    "bank_ref": "BNK-4002",
+    "credit": 45000,
+    "value_date": "2026-03-03",
+    "narrative": "Marketplace batch payout"
+  },
+  {
+    "bank_ref": "BNK-4003",
+    "credit": 19780,
+    "value_date": "2026-03-04",
+    "narrative": "Enterprise payment less fee"
+  },
+  {
+    "bank_ref": "BNK-4004",
+    "credit": 9000,
+    "value_date": "2026-03-05",
+    "narrative": "Acme split settlement part 1"
+  },
+  {
+    "bank_ref": "BNK-4005",
+    "credit": 7000,
+    "value_date": "2026-03-05",
+    "narrative": "Acme split settlement part 2"
+  },
+  {
+    "bank_ref": "BNK-4006",
+    "credit": 10000,
+    "value_date": "2026-03-04",
+    "narrative": "Standard Subscription March"
+  },
+  {
+    "bank_ref": "BNK-4999",
+    "credit": 5000,
+    "value_date": "2026-03-06",
+    "narrative": "Unidentified deposit"
+  }
+]

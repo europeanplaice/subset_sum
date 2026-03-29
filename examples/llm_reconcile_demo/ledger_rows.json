@@ -1,0 +1,4346 @@
+[
+  {
+    "ledger_id": "INV-20268",
+    "gross_amount": 2069,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 339"
+  },
+  {
+    "ledger_id": "INV-20290",
+    "gross_amount": 15283,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 978"
+  },
+  {
+    "ledger_id": "INV-20331",
+    "gross_amount": 8825,
+    "posted_on": "2026-03-13",
+    "memo": "Batch Item 584"
+  },
+  {
+    "ledger_id": "INV-20179",
+    "gross_amount": 2647,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 434"
+  },
+  {
+    "ledger_id": "INV-20709",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-26",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20269",
+    "gross_amount": 8585,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 370"
+  },
+  {
+    "ledger_id": "INV-20019",
+    "gross_amount": 5679,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 646"
+  },
+  {
+    "ledger_id": "INV-20014",
+    "gross_amount": 47174,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 333"
+  },
+  {
+    "ledger_id": "INV-20416",
+    "gross_amount": 11928,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 932"
+  },
+  {
+    "ledger_id": "INV-20399",
+    "gross_amount": 5580,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 340"
+  },
+  {
+    "ledger_id": "INV-20066",
+    "gross_amount": 31318,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 927"
+  },
+  {
+    "ledger_id": "INV-20134",
+    "gross_amount": 15005,
+    "posted_on": "2026-03-17",
+    "memo": "Invoice 915"
+  },
+  {
+    "ledger_id": "INV-20122",
+    "gross_amount": 17693,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 101"
+  },
+  {
+    "ledger_id": "INV-20063",
+    "gross_amount": 7449,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 447"
+  },
+  {
+    "ledger_id": "INV-20319",
+    "gross_amount": 8986,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 864"
+  },
+  {
+    "ledger_id": "INV-20603",
+    "gross_amount": 13837,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20051",
+    "gross_amount": 27148,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 548"
+  },
+  {
+    "ledger_id": "INV-20010",
+    "gross_amount": 24526,
+    "posted_on": "2026-03-28",
+    "memo": "Invoice 370"
+  },
+  {
+    "ledger_id": "INV-20571",
+    "gross_amount": 5637,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 201"
+  },
+  {
+    "ledger_id": "INV-20661",
+    "gross_amount": 19468,
+    "posted_on": "2026-03-02",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20686",
+    "gross_amount": 9123,
+    "posted_on": "2026-03-05",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20111",
+    "gross_amount": 18485,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 491"
+  },
+  {
+    "ledger_id": "INV-20428",
+    "gross_amount": 18238,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 470"
+  },
+  {
+    "ledger_id": "INV-20114",
+    "gross_amount": 15915,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 297"
+  },
+  {
+    "ledger_id": "INV-20663",
+    "gross_amount": 2489,
+    "posted_on": "2026-03-31",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20596",
+    "gross_amount": 10914,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 907"
+  },
+  {
+    "ledger_id": "INV-20642",
+    "gross_amount": 25944,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20384",
+    "gross_amount": 18675,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 944"
+  },
+  {
+    "ledger_id": "INV-20264",
+    "gross_amount": 3660,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 102"
+  },
+  {
+    "ledger_id": "INV-20330",
+    "gross_amount": 7181,
+    "posted_on": "2026-03-13",
+    "memo": "Batch Item 862"
+  },
+  {
+    "ledger_id": "INV-20453",
+    "gross_amount": 3199,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 856"
+  },
+  {
+    "ledger_id": "INV-20321",
+    "gross_amount": 19063,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 984"
+  },
+  {
+    "ledger_id": "INV-20136",
+    "gross_amount": 34780,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 443"
+  },
+  {
+    "ledger_id": "INV-20000",
+    "gross_amount": 42905,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice 381"
+  },
+  {
+    "ledger_id": "INV-20250",
+    "gross_amount": 19810,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 982"
+  },
+  {
+    "ledger_id": "INV-20697",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-17",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20313",
+    "gross_amount": 8362,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 398"
+  },
+  {
+    "ledger_id": "INV-20023",
+    "gross_amount": 4665,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 423"
+  },
+  {
+    "ledger_id": "INV-20404",
+    "gross_amount": 14594,
+    "posted_on": "2026-03-20",
+    "memo": "Batch Item 133"
+  },
+  {
+    "ledger_id": "INV-20522",
+    "gross_amount": 10307,
+    "posted_on": "2026-03-13",
+    "memo": "Split Item 163"
+  },
+  {
+    "ledger_id": "INV-20260",
+    "gross_amount": 10743,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 201"
+  },
+  {
+    "ledger_id": "INV-20610",
+    "gross_amount": 29118,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20581",
+    "gross_amount": 13915,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 529"
+  },
+  {
+    "ledger_id": "INV-20145",
+    "gross_amount": 4291,
+    "posted_on": "2026-03-18",
+    "memo": "Invoice 224"
+  },
+  {
+    "ledger_id": "INV-20693",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-19",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20024",
+    "gross_amount": 27290,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 680"
+  },
+  {
+    "ledger_id": "INV-20383",
+    "gross_amount": 5330,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 363"
+  },
+  {
+    "ledger_id": "INV-20540",
+    "gross_amount": 13229,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 258"
+  },
+  {
+    "ledger_id": "INV-20654",
+    "gross_amount": 5101,
+    "posted_on": "2026-03-21",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20676",
+    "gross_amount": 7685,
+    "posted_on": "2026-03-11",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20272",
+    "gross_amount": 14930,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 161"
+  },
+  {
+    "ledger_id": "INV-20318",
+    "gross_amount": 16473,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 620"
+  },
+  {
+    "ledger_id": "INV-20276",
+    "gross_amount": 5882,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 709"
+  },
+  {
+    "ledger_id": "INV-20025",
+    "gross_amount": 48049,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice 611"
+  },
+  {
+    "ledger_id": "INV-20131",
+    "gross_amount": 36909,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 393"
+  },
+  {
+    "ledger_id": "INV-20615",
+    "gross_amount": 32820,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20721",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-12",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20062",
+    "gross_amount": 48780,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 761"
+  },
+  {
+    "ledger_id": "INV-20325",
+    "gross_amount": 17044,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 665"
+  },
+  {
+    "ledger_id": "INV-20020",
+    "gross_amount": 48784,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 488"
+  },
+  {
+    "ledger_id": "INV-20437",
+    "gross_amount": 5135,
+    "posted_on": "2026-03-20",
+    "memo": "Batch Item 829"
+  },
+  {
+    "ledger_id": "INV-20543",
+    "gross_amount": 12584,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 964"
+  },
+  {
+    "ledger_id": "INV-20341",
+    "gross_amount": 16384,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 182"
+  },
+  {
+    "ledger_id": "INV-20064",
+    "gross_amount": 8161,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 649"
+  },
+  {
+    "ledger_id": "INV-20405",
+    "gross_amount": 4244,
+    "posted_on": "2026-03-20",
+    "memo": "Batch Item 806"
+  },
+  {
+    "ledger_id": "INV-20414",
+    "gross_amount": 1699,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 700"
+  },
+  {
+    "ledger_id": "INV-20551",
+    "gross_amount": 12845,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 343"
+  },
+  {
+    "ledger_id": "INV-20296",
+    "gross_amount": 14122,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 431"
+  },
+  {
+    "ledger_id": "INV-20311",
+    "gross_amount": 1945,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 665"
+  },
+  {
+    "ledger_id": "INV-20529",
+    "gross_amount": 8697,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 441"
+  },
+  {
+    "ledger_id": "INV-20065",
+    "gross_amount": 30400,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 385"
+  },
+  {
+    "ledger_id": "INV-20239",
+    "gross_amount": 10273,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 825"
+  },
+  {
+    "ledger_id": "INV-20626",
+    "gross_amount": 14357,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20655",
+    "gross_amount": 10922,
+    "posted_on": "2026-03-20",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20041",
+    "gross_amount": 14035,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 265"
+  },
+  {
+    "ledger_id": "INV-20087",
+    "gross_amount": 14969,
+    "posted_on": "2026-03-17",
+    "memo": "Invoice 457"
+  },
+  {
+    "ledger_id": "INV-20079",
+    "gross_amount": 16414,
+    "posted_on": "2026-03-13",
+    "memo": "Invoice 352"
+  },
+  {
+    "ledger_id": "INV-20291",
+    "gross_amount": 17112,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 264"
+  },
+  {
+    "ledger_id": "INV-20394",
+    "gross_amount": 4550,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 763"
+  },
+  {
+    "ledger_id": "INV-20068",
+    "gross_amount": 1967,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 516"
+  },
+  {
+    "ledger_id": "INV-20606",
+    "gross_amount": 25321,
+    "posted_on": "2026-03-13",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20280",
+    "gross_amount": 16358,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 182"
+  },
+  {
+    "ledger_id": "INV-20450",
+    "gross_amount": 13265,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 542"
+  },
+  {
+    "ledger_id": "INV-20526",
+    "gross_amount": 3381,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 472"
+  },
+  {
+    "ledger_id": "INV-20300",
+    "gross_amount": 1037,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 740"
+  },
+  {
+    "ledger_id": "INV-20573",
+    "gross_amount": 7727,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 831"
+  },
+  {
+    "ledger_id": "INV-20411",
+    "gross_amount": 14046,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 778"
+  },
+  {
+    "ledger_id": "INV-20492",
+    "gross_amount": 11154,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 687"
+  },
+  {
+    "ledger_id": "INV-20112",
+    "gross_amount": 3537,
+    "posted_on": "2026-03-28",
+    "memo": "Invoice 304"
+  },
+  {
+    "ledger_id": "INV-20574",
+    "gross_amount": 2436,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 765"
+  },
+  {
+    "ledger_id": "INV-20527",
+    "gross_amount": 10266,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 481"
+  },
+  {
+    "ledger_id": "INV-20425",
+    "gross_amount": 2717,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 587"
+  },
+  {
+    "ledger_id": "INV-20241",
+    "gross_amount": 7360,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 229"
+  },
+  {
+    "ledger_id": "INV-20088",
+    "gross_amount": 5508,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 391"
+  },
+  {
+    "ledger_id": "INV-20075",
+    "gross_amount": 36533,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 158"
+  },
+  {
+    "ledger_id": "INV-20242",
+    "gross_amount": 10707,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 380"
+  },
+  {
+    "ledger_id": "INV-20641",
+    "gross_amount": 34170,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20185",
+    "gross_amount": 3248,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 120"
+  },
+  {
+    "ledger_id": "INV-20586",
+    "gross_amount": 3816,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 346"
+  },
+  {
+    "ledger_id": "INV-20508",
+    "gross_amount": 10363,
+    "posted_on": "2026-03-04",
+    "memo": "Split Item 277"
+  },
+  {
+    "ledger_id": "INV-20441",
+    "gross_amount": 15867,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 766"
+  },
+  {
+    "ledger_id": "INV-20372",
+    "gross_amount": 1265,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 921"
+  },
+  {
+    "ledger_id": "INV-20528",
+    "gross_amount": 12586,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 389"
+  },
+  {
+    "ledger_id": "INV-20133",
+    "gross_amount": 22118,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 791"
+  },
+  {
+    "ledger_id": "INV-20004",
+    "gross_amount": 16247,
+    "posted_on": "2026-03-17",
+    "memo": "Invoice 674"
+  },
+  {
+    "ledger_id": "INV-20505",
+    "gross_amount": 14765,
+    "posted_on": "2026-03-04",
+    "memo": "Split Item 249"
+  },
+  {
+    "ledger_id": "INV-20031",
+    "gross_amount": 8185,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 911"
+  },
+  {
+    "ledger_id": "INV-20119",
+    "gross_amount": 18397,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 544"
+  },
+  {
+    "ledger_id": "INV-20403",
+    "gross_amount": 13157,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 860"
+  },
+  {
+    "ledger_id": "INV-20148",
+    "gross_amount": 41150,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 536"
+  },
+  {
+    "ledger_id": "INV-20684",
+    "gross_amount": 16285,
+    "posted_on": "2026-03-04",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20335",
+    "gross_amount": 17230,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 995"
+  },
+  {
+    "ledger_id": "INV-20328",
+    "gross_amount": 15920,
+    "posted_on": "2026-03-13",
+    "memo": "Batch Item 144"
+  },
+  {
+    "ledger_id": "INV-20510",
+    "gross_amount": 14455,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 254"
+  },
+  {
+    "ledger_id": "INV-20121",
+    "gross_amount": 34516,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice 294"
+  },
+  {
+    "ledger_id": "INV-20357",
+    "gross_amount": 19544,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 491"
+  },
+  {
+    "ledger_id": "INV-20347",
+    "gross_amount": 8454,
+    "posted_on": "2026-03-25",
+    "memo": "Batch Item 554"
+  },
+  {
+    "ledger_id": "INV-20716",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-06",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20475",
+    "gross_amount": 15865,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 432"
+  },
+  {
+    "ledger_id": "INV-20096",
+    "gross_amount": 34122,
+    "posted_on": "2026-03-16",
+    "memo": "Invoice 152"
+  },
+  {
+    "ledger_id": "INV-20334",
+    "gross_amount": 5984,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 202"
+  },
+  {
+    "ledger_id": "INV-20504",
+    "gross_amount": 13298,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 326"
+  },
+  {
+    "ledger_id": "INV-20312",
+    "gross_amount": 4054,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 833"
+  },
+  {
+    "ledger_id": "INV-20275",
+    "gross_amount": 8366,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 414"
+  },
+  {
+    "ledger_id": "INV-20374",
+    "gross_amount": 2607,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 324"
+  },
+  {
+    "ledger_id": "INV-20503",
+    "gross_amount": 9538,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 447"
+  },
+  {
+    "ledger_id": "INV-20190",
+    "gross_amount": 4748,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 885"
+  },
+  {
+    "ledger_id": "INV-20545",
+    "gross_amount": 8937,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 203"
+  },
+  {
+    "ledger_id": "INV-20028",
+    "gross_amount": 36322,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 538"
+  },
+  {
+    "ledger_id": "INV-20146",
+    "gross_amount": 30914,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 643"
+  },
+  {
+    "ledger_id": "INV-20506",
+    "gross_amount": 4754,
+    "posted_on": "2026-03-04",
+    "memo": "Split Item 362"
+  },
+  {
+    "ledger_id": "INV-20282",
+    "gross_amount": 14189,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 140"
+  },
+  {
+    "ledger_id": "INV-20650",
+    "gross_amount": 13504,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20582",
+    "gross_amount": 11975,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 754"
+  },
+  {
+    "ledger_id": "INV-20070",
+    "gross_amount": 4842,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 499"
+  },
+  {
+    "ledger_id": "INV-20008",
+    "gross_amount": 23298,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 881"
+  },
+  {
+    "ledger_id": "INV-20473",
+    "gross_amount": 13327,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 419"
+  },
+  {
+    "ledger_id": "INV-20056",
+    "gross_amount": 3058,
+    "posted_on": "2026-03-28",
+    "memo": "Invoice 626"
+  },
+  {
+    "ledger_id": "INV-20240",
+    "gross_amount": 4294,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 646"
+  },
+  {
+    "ledger_id": "INV-20189",
+    "gross_amount": 16517,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 362"
+  },
+  {
+    "ledger_id": "INV-20495",
+    "gross_amount": 3180,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 755"
+  },
+  {
+    "ledger_id": "INV-20144",
+    "gross_amount": 15341,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 575"
+  },
+  {
+    "ledger_id": "INV-20295",
+    "gross_amount": 14380,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 607"
+  },
+  {
+    "ledger_id": "INV-20106",
+    "gross_amount": 37692,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 867"
+  },
+  {
+    "ledger_id": "INV-20323",
+    "gross_amount": 14596,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 102"
+  },
+  {
+    "ledger_id": "INV-20104",
+    "gross_amount": 24897,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 315"
+  },
+  {
+    "ledger_id": "INV-20497",
+    "gross_amount": 14157,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 396"
+  },
+  {
+    "ledger_id": "INV-20376",
+    "gross_amount": 9212,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 416"
+  },
+  {
+    "ledger_id": "INV-20254",
+    "gross_amount": 17113,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 676"
+  },
+  {
+    "ledger_id": "INV-20210",
+    "gross_amount": 15272,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 349"
+  },
+  {
+    "ledger_id": "INV-20270",
+    "gross_amount": 10440,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 906"
+  },
+  {
+    "ledger_id": "INV-20187",
+    "gross_amount": 2016,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 256"
+  },
+  {
+    "ledger_id": "INV-20271",
+    "gross_amount": 7482,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 173"
+  },
+  {
+    "ledger_id": "INV-20455",
+    "gross_amount": 19231,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 462"
+  },
+  {
+    "ledger_id": "INV-20091",
+    "gross_amount": 44769,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 779"
+  },
+  {
+    "ledger_id": "INV-20616",
+    "gross_amount": 16826,
+    "posted_on": "2026-03-10",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20535",
+    "gross_amount": 12748,
+    "posted_on": "2026-03-20",
+    "memo": "Split Item 932"
+  },
+  {
+    "ledger_id": "INV-20353",
+    "gross_amount": 5770,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 279"
+  },
+  {
+    "ledger_id": "INV-20479",
+    "gross_amount": 6158,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 524"
+  },
+  {
+    "ledger_id": "INV-20609",
+    "gross_amount": 47974,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20073",
+    "gross_amount": 44376,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 294"
+  },
+  {
+    "ledger_id": "INV-20516",
+    "gross_amount": 6500,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 393"
+  },
+  {
+    "ledger_id": "INV-20469",
+    "gross_amount": 1948,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 990"
+  },
+  {
+    "ledger_id": "INV-20142",
+    "gross_amount": 27191,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 804"
+  },
+  {
+    "ledger_id": "INV-20682",
+    "gross_amount": 19404,
+    "posted_on": "2026-03-04",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20165",
+    "gross_amount": 13464,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 973"
+  },
+  {
+    "ledger_id": "INV-20218",
+    "gross_amount": 11650,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 710"
+  },
+  {
+    "ledger_id": "INV-20459",
+    "gross_amount": 10425,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 772"
+  },
+  {
+    "ledger_id": "INV-20562",
+    "gross_amount": 9684,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 304"
+  },
+  {
+    "ledger_id": "INV-20217",
+    "gross_amount": 17197,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 386"
+  },
+  {
+    "ledger_id": "INV-20108",
+    "gross_amount": 12603,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 283"
+  },
+  {
+    "ledger_id": "INV-20568",
+    "gross_amount": 8081,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 250"
+  },
+  {
+    "ledger_id": "INV-20483",
+    "gross_amount": 12310,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 325"
+  },
+  {
+    "ledger_id": "INV-20668",
+    "gross_amount": 18877,
+    "posted_on": "2026-03-10",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20336",
+    "gross_amount": 2213,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 965"
+  },
+  {
+    "ledger_id": "INV-20343",
+    "gross_amount": 18485,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 732"
+  },
+  {
+    "ledger_id": "INV-20219",
+    "gross_amount": 6958,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 818"
+  },
+  {
+    "ledger_id": "INV-20130",
+    "gross_amount": 12405,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 515"
+  },
+  {
+    "ledger_id": "INV-20036",
+    "gross_amount": 43006,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice 545"
+  },
+  {
+    "ledger_id": "INV-20177",
+    "gross_amount": 16128,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 316"
+  },
+  {
+    "ledger_id": "INV-20446",
+    "gross_amount": 15796,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 197"
+  },
+  {
+    "ledger_id": "INV-20456",
+    "gross_amount": 2965,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 994"
+  },
+  {
+    "ledger_id": "INV-20419",
+    "gross_amount": 19500,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 436"
+  },
+  {
+    "ledger_id": "INV-20332",
+    "gross_amount": 19736,
+    "posted_on": "2026-03-13",
+    "memo": "Batch Item 822"
+  },
+  {
+    "ledger_id": "INV-20587",
+    "gross_amount": 10189,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 684"
+  },
+  {
+    "ledger_id": "INV-20030",
+    "gross_amount": 34392,
+    "posted_on": "2026-03-16",
+    "memo": "Invoice 148"
+  },
+  {
+    "ledger_id": "INV-20206",
+    "gross_amount": 15270,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 730"
+  },
+  {
+    "ledger_id": "INV-20557",
+    "gross_amount": 5833,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 614"
+  },
+  {
+    "ledger_id": "INV-20381",
+    "gross_amount": 6755,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 950"
+  },
+  {
+    "ledger_id": "INV-20021",
+    "gross_amount": 18691,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 670"
+  },
+  {
+    "ledger_id": "INV-20451",
+    "gross_amount": 6001,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 198"
+  },
+  {
+    "ledger_id": "INV-20238",
+    "gross_amount": 7276,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 878"
+  },
+  {
+    "ledger_id": "INV-20530",
+    "gross_amount": 14688,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 183"
+  },
+  {
+    "ledger_id": "INV-20639",
+    "gross_amount": 37191,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20611",
+    "gross_amount": 33818,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20447",
+    "gross_amount": 8487,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 420"
+  },
+  {
+    "ledger_id": "INV-20158",
+    "gross_amount": 6007,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 525"
+  },
+  {
+    "ledger_id": "INV-20669",
+    "gross_amount": 10899,
+    "posted_on": "2026-03-16",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20366",
+    "gross_amount": 10899,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 688"
+  },
+  {
+    "ledger_id": "INV-20257",
+    "gross_amount": 4881,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 635"
+  },
+  {
+    "ledger_id": "INV-20435",
+    "gross_amount": 17065,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 722"
+  },
+  {
+    "ledger_id": "INV-20150",
+    "gross_amount": 15747,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 381"
+  },
+  {
+    "ledger_id": "INV-20717",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-20",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20625",
+    "gross_amount": 49525,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20232",
+    "gross_amount": 19035,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 223"
+  },
+  {
+    "ledger_id": "INV-20630",
+    "gross_amount": 7122,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20513",
+    "gross_amount": 3234,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 580"
+  },
+  {
+    "ledger_id": "INV-20244",
+    "gross_amount": 12825,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 155"
+  },
+  {
+    "ledger_id": "INV-20135",
+    "gross_amount": 49231,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 390"
+  },
+  {
+    "ledger_id": "INV-20125",
+    "gross_amount": 29265,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 738"
+  },
+  {
+    "ledger_id": "INV-20461",
+    "gross_amount": 12522,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 329"
+  },
+  {
+    "ledger_id": "INV-20448",
+    "gross_amount": 14559,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 537"
+  },
+  {
+    "ledger_id": "INV-20029",
+    "gross_amount": 39242,
+    "posted_on": "2026-03-13",
+    "memo": "Invoice 241"
+  },
+  {
+    "ledger_id": "INV-20117",
+    "gross_amount": 45532,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 128"
+  },
+  {
+    "ledger_id": "INV-20344",
+    "gross_amount": 13452,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 170"
+  },
+  {
+    "ledger_id": "INV-20083",
+    "gross_amount": 47936,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice 505"
+  },
+  {
+    "ledger_id": "INV-20093",
+    "gross_amount": 8014,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice 378"
+  },
+  {
+    "ledger_id": "INV-20409",
+    "gross_amount": 8736,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 657"
+  },
+  {
+    "ledger_id": "INV-20410",
+    "gross_amount": 2984,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 193"
+  },
+  {
+    "ledger_id": "INV-20554",
+    "gross_amount": 12125,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 391"
+  },
+  {
+    "ledger_id": "INV-20026",
+    "gross_amount": 26928,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 246"
+  },
+  {
+    "ledger_id": "INV-20523",
+    "gross_amount": 3695,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 635"
+  },
+  {
+    "ledger_id": "INV-20646",
+    "gross_amount": 38341,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20612",
+    "gross_amount": 27219,
+    "posted_on": "2026-03-16",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20207",
+    "gross_amount": 6771,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 927"
+  },
+  {
+    "ledger_id": "INV-20688",
+    "gross_amount": 10509,
+    "posted_on": "2026-03-31",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20356",
+    "gross_amount": 14502,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 991"
+  },
+  {
+    "ledger_id": "INV-20623",
+    "gross_amount": 9917,
+    "posted_on": "2026-03-21",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20439",
+    "gross_amount": 18385,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 973"
+  },
+  {
+    "ledger_id": "INV-20433",
+    "gross_amount": 2420,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 536"
+  },
+  {
+    "ledger_id": "INV-20180",
+    "gross_amount": 13423,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 119"
+  },
+  {
+    "ledger_id": "INV-20001",
+    "gross_amount": 17049,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 204"
+  },
+  {
+    "ledger_id": "INV-20099",
+    "gross_amount": 42753,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 552"
+  },
+  {
+    "ledger_id": "INV-20613",
+    "gross_amount": 37605,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20442",
+    "gross_amount": 17565,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 998"
+  },
+  {
+    "ledger_id": "INV-20115",
+    "gross_amount": 27113,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice 171"
+  },
+  {
+    "ledger_id": "INV-20349",
+    "gross_amount": 15220,
+    "posted_on": "2026-03-25",
+    "memo": "Batch Item 810"
+  },
+  {
+    "ledger_id": "INV-20634",
+    "gross_amount": 25603,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20454",
+    "gross_amount": 5263,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 520"
+  },
+  {
+    "ledger_id": "INV-20605",
+    "gross_amount": 18072,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20007",
+    "gross_amount": 1425,
+    "posted_on": "2026-03-25",
+    "memo": "Invoice 532"
+  },
+  {
+    "ledger_id": "INV-20101",
+    "gross_amount": 8331,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 658"
+  },
+  {
+    "ledger_id": "INV-20110",
+    "gross_amount": 44903,
+    "posted_on": "2026-03-28",
+    "memo": "Invoice 354"
+  },
+  {
+    "ledger_id": "INV-20380",
+    "gross_amount": 12955,
+    "posted_on": "2026-03-24",
+    "memo": "Batch Item 434"
+  },
+  {
+    "ledger_id": "INV-20631",
+    "gross_amount": 34486,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20518",
+    "gross_amount": 2920,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 760"
+  },
+  {
+    "ledger_id": "INV-20434",
+    "gross_amount": 18086,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 802"
+  },
+  {
+    "ledger_id": "INV-20161",
+    "gross_amount": 14594,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 952"
+  },
+  {
+    "ledger_id": "INV-20103",
+    "gross_amount": 10705,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice 415"
+  },
+  {
+    "ledger_id": "INV-20597",
+    "gross_amount": 10312,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 169"
+  },
+  {
+    "ledger_id": "INV-20346",
+    "gross_amount": 16989,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 746"
+  },
+  {
+    "ledger_id": "INV-20722",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-14",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20715",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-11",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20723",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-20",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20561",
+    "gross_amount": 14851,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 936"
+  },
+  {
+    "ledger_id": "INV-20552",
+    "gross_amount": 7517,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 554"
+  },
+  {
+    "ledger_id": "INV-20081",
+    "gross_amount": 28474,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 635"
+  },
+  {
+    "ledger_id": "INV-20089",
+    "gross_amount": 11338,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 409"
+  },
+  {
+    "ledger_id": "INV-20358",
+    "gross_amount": 8891,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 923"
+  },
+  {
+    "ledger_id": "INV-20541",
+    "gross_amount": 10624,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 179"
+  },
+  {
+    "ledger_id": "INV-20501",
+    "gross_amount": 4815,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 417"
+  },
+  {
+    "ledger_id": "INV-20532",
+    "gross_amount": 13123,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 779"
+  },
+  {
+    "ledger_id": "INV-20011",
+    "gross_amount": 3847,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice 227"
+  },
+  {
+    "ledger_id": "INV-20720",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-23",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20667",
+    "gross_amount": 1992,
+    "posted_on": "2026-03-16",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20373",
+    "gross_amount": 19544,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 460"
+  },
+  {
+    "ledger_id": "INV-20673",
+    "gross_amount": 2963,
+    "posted_on": "2026-03-06",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20465",
+    "gross_amount": 19381,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 447"
+  },
+  {
+    "ledger_id": "INV-20553",
+    "gross_amount": 14555,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 725"
+  },
+  {
+    "ledger_id": "INV-20342",
+    "gross_amount": 9684,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 972"
+  },
+  {
+    "ledger_id": "INV-20599",
+    "gross_amount": 14008,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 812"
+  },
+  {
+    "ledger_id": "INV-20243",
+    "gross_amount": 8454,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 146"
+  },
+  {
+    "ledger_id": "INV-20485",
+    "gross_amount": 4633,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 713"
+  },
+  {
+    "ledger_id": "INV-20580",
+    "gross_amount": 10991,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 344"
+  },
+  {
+    "ledger_id": "INV-20712",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-05",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20105",
+    "gross_amount": 45699,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 462"
+  },
+  {
+    "ledger_id": "INV-20233",
+    "gross_amount": 11839,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 838"
+  },
+  {
+    "ledger_id": "INV-20577",
+    "gross_amount": 2627,
+    "posted_on": "2026-03-23",
+    "memo": "Split Item 119"
+  },
+  {
+    "ledger_id": "INV-20159",
+    "gross_amount": 8010,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 163"
+  },
+  {
+    "ledger_id": "INV-20178",
+    "gross_amount": 6954,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 565"
+  },
+  {
+    "ledger_id": "INV-20072",
+    "gross_amount": 46651,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice 669"
+  },
+  {
+    "ledger_id": "INV-20700",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-20",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20391",
+    "gross_amount": 1456,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 477"
+  },
+  {
+    "ledger_id": "INV-20524",
+    "gross_amount": 7626,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 724"
+  },
+  {
+    "ledger_id": "INV-20701",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-29",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20053",
+    "gross_amount": 5196,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice 667"
+  },
+  {
+    "ledger_id": "INV-20431",
+    "gross_amount": 17509,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 967"
+  },
+  {
+    "ledger_id": "INV-20579",
+    "gross_amount": 9740,
+    "posted_on": "2026-03-23",
+    "memo": "Split Item 320"
+  },
+  {
+    "ledger_id": "INV-20176",
+    "gross_amount": 18502,
+    "posted_on": "2026-03-01",
+    "memo": "Batch Item 538"
+  },
+  {
+    "ledger_id": "INV-20077",
+    "gross_amount": 35807,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 182"
+  },
+  {
+    "ledger_id": "INV-20256",
+    "gross_amount": 9132,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 894"
+  },
+  {
+    "ledger_id": "INV-20237",
+    "gross_amount": 7066,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 703"
+  },
+  {
+    "ledger_id": "INV-20624",
+    "gross_amount": 28809,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20191",
+    "gross_amount": 6498,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 419"
+  },
+  {
+    "ledger_id": "INV-20228",
+    "gross_amount": 10641,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 584"
+  },
+  {
+    "ledger_id": "INV-20301",
+    "gross_amount": 18779,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 552"
+  },
+  {
+    "ledger_id": "INV-20359",
+    "gross_amount": 17307,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 576"
+  },
+  {
+    "ledger_id": "INV-20297",
+    "gross_amount": 19025,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 218"
+  },
+  {
+    "ledger_id": "INV-20443",
+    "gross_amount": 15096,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 887"
+  },
+  {
+    "ledger_id": "INV-20265",
+    "gross_amount": 6146,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 518"
+  },
+  {
+    "ledger_id": "INV-20691",
+    "gross_amount": 6233,
+    "posted_on": "2026-03-27",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20113",
+    "gross_amount": 31166,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice 914"
+  },
+  {
+    "ledger_id": "INV-20132",
+    "gross_amount": 14774,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice 770"
+  },
+  {
+    "ledger_id": "INV-20645",
+    "gross_amount": 46792,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20005",
+    "gross_amount": 14031,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 658"
+  },
+  {
+    "ledger_id": "INV-20547",
+    "gross_amount": 7928,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 889"
+  },
+  {
+    "ledger_id": "INV-20377",
+    "gross_amount": 5481,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 907"
+  },
+  {
+    "ledger_id": "INV-20169",
+    "gross_amount": 8226,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 784"
+  },
+  {
+    "ledger_id": "INV-20204",
+    "gross_amount": 12181,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 948"
+  },
+  {
+    "ledger_id": "INV-20351",
+    "gross_amount": 2507,
+    "posted_on": "2026-03-26",
+    "memo": "Batch Item 467"
+  },
+  {
+    "ledger_id": "INV-20022",
+    "gross_amount": 15392,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 886"
+  },
+  {
+    "ledger_id": "INV-20607",
+    "gross_amount": 36024,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20436",
+    "gross_amount": 15534,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 251"
+  },
+  {
+    "ledger_id": "INV-20127",
+    "gross_amount": 34234,
+    "posted_on": "2026-03-10",
+    "memo": "Invoice 434"
+  },
+  {
+    "ledger_id": "INV-20055",
+    "gross_amount": 47389,
+    "posted_on": "2026-03-21",
+    "memo": "Invoice 169"
+  },
+  {
+    "ledger_id": "INV-20637",
+    "gross_amount": 12717,
+    "posted_on": "2026-03-25",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20375",
+    "gross_amount": 17276,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 751"
+  },
+  {
+    "ledger_id": "INV-20680",
+    "gross_amount": 5284,
+    "posted_on": "2026-03-25",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20424",
+    "gross_amount": 1486,
+    "posted_on": "2026-03-12",
+    "memo": "Batch Item 278"
+  },
+  {
+    "ledger_id": "INV-20018",
+    "gross_amount": 44920,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 763"
+  },
+  {
+    "ledger_id": "INV-20278",
+    "gross_amount": 15390,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 605"
+  },
+  {
+    "ledger_id": "INV-20214",
+    "gross_amount": 13418,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 916"
+  },
+  {
+    "ledger_id": "INV-20259",
+    "gross_amount": 15507,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 857"
+  },
+  {
+    "ledger_id": "INV-20560",
+    "gross_amount": 7070,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 265"
+  },
+  {
+    "ledger_id": "INV-20205",
+    "gross_amount": 1414,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 570"
+  },
+  {
+    "ledger_id": "INV-20298",
+    "gross_amount": 2202,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 891"
+  },
+  {
+    "ledger_id": "INV-20647",
+    "gross_amount": 14101,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20432",
+    "gross_amount": 8259,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 511"
+  },
+  {
+    "ledger_id": "INV-20677",
+    "gross_amount": 5707,
+    "posted_on": "2026-03-11",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20604",
+    "gross_amount": 7423,
+    "posted_on": "2026-03-07",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20193",
+    "gross_amount": 6366,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 793"
+  },
+  {
+    "ledger_id": "INV-20534",
+    "gross_amount": 2857,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 458"
+  },
+  {
+    "ledger_id": "INV-20462",
+    "gross_amount": 4394,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 967"
+  },
+  {
+    "ledger_id": "INV-20129",
+    "gross_amount": 13572,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice 793"
+  },
+  {
+    "ledger_id": "INV-20123",
+    "gross_amount": 35073,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 836"
+  },
+  {
+    "ledger_id": "INV-20651",
+    "gross_amount": 9308,
+    "posted_on": "2026-03-13",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20361",
+    "gross_amount": 8608,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 793"
+  },
+  {
+    "ledger_id": "INV-20413",
+    "gross_amount": 7219,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 757"
+  },
+  {
+    "ledger_id": "INV-20255",
+    "gross_amount": 3427,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 411"
+  },
+  {
+    "ledger_id": "INV-20659",
+    "gross_amount": 6052,
+    "posted_on": "2026-03-06",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20035",
+    "gross_amount": 8507,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 373"
+  },
+  {
+    "ledger_id": "INV-20363",
+    "gross_amount": 9322,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 261"
+  },
+  {
+    "ledger_id": "INV-20224",
+    "gross_amount": 17083,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 413"
+  },
+  {
+    "ledger_id": "INV-20107",
+    "gross_amount": 11128,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 266"
+  },
+  {
+    "ledger_id": "INV-20595",
+    "gross_amount": 10618,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 465"
+  },
+  {
+    "ledger_id": "INV-20438",
+    "gross_amount": 10011,
+    "posted_on": "2026-03-20",
+    "memo": "Batch Item 432"
+  },
+  {
+    "ledger_id": "INV-20635",
+    "gross_amount": 12434,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20092",
+    "gross_amount": 7788,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice 218"
+  },
+  {
+    "ledger_id": "INV-20279",
+    "gross_amount": 5074,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 548"
+  },
+  {
+    "ledger_id": "INV-20303",
+    "gross_amount": 14541,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 152"
+  },
+  {
+    "ledger_id": "INV-20476",
+    "gross_amount": 3783,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 597"
+  },
+  {
+    "ledger_id": "INV-20288",
+    "gross_amount": 6740,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 384"
+  },
+  {
+    "ledger_id": "INV-20058",
+    "gross_amount": 36339,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 690"
+  },
+  {
+    "ledger_id": "INV-20186",
+    "gross_amount": 2319,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 736"
+  },
+  {
+    "ledger_id": "INV-20201",
+    "gross_amount": 13142,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 543"
+  },
+  {
+    "ledger_id": "INV-20672",
+    "gross_amount": 15861,
+    "posted_on": "2026-03-03",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20706",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-17",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20430",
+    "gross_amount": 15811,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 590"
+  },
+  {
+    "ledger_id": "INV-20420",
+    "gross_amount": 1092,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 917"
+  },
+  {
+    "ledger_id": "INV-20294",
+    "gross_amount": 12401,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 810"
+  },
+  {
+    "ledger_id": "INV-20489",
+    "gross_amount": 5460,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 645"
+  },
+  {
+    "ledger_id": "INV-20463",
+    "gross_amount": 12472,
+    "posted_on": "2026-03-12",
+    "memo": "Batch Item 687"
+  },
+  {
+    "ledger_id": "INV-20370",
+    "gross_amount": 4494,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 122"
+  },
+  {
+    "ledger_id": "INV-20627",
+    "gross_amount": 33716,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20163",
+    "gross_amount": 1640,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 871"
+  },
+  {
+    "ledger_id": "INV-20498",
+    "gross_amount": 2693,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 217"
+  },
+  {
+    "ledger_id": "INV-20090",
+    "gross_amount": 41086,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice 108"
+  },
+  {
+    "ledger_id": "INV-20160",
+    "gross_amount": 3104,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 311"
+  },
+  {
+    "ledger_id": "INV-20657",
+    "gross_amount": 17468,
+    "posted_on": "2026-03-21",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20102",
+    "gross_amount": 3361,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 665"
+  },
+  {
+    "ledger_id": "INV-20355",
+    "gross_amount": 18405,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 724"
+  },
+  {
+    "ledger_id": "INV-20308",
+    "gross_amount": 15356,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 418"
+  },
+  {
+    "ledger_id": "INV-20164",
+    "gross_amount": 19864,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 499"
+  },
+  {
+    "ledger_id": "INV-20402",
+    "gross_amount": 15864,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 701"
+  },
+  {
+    "ledger_id": "INV-20387",
+    "gross_amount": 4773,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 923"
+  },
+  {
+    "ledger_id": "INV-20392",
+    "gross_amount": 13485,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 724"
+  },
+  {
+    "ledger_id": "INV-20333",
+    "gross_amount": 13651,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 990"
+  },
+  {
+    "ledger_id": "INV-20445",
+    "gross_amount": 15092,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 847"
+  },
+  {
+    "ledger_id": "INV-20171",
+    "gross_amount": 8190,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 917"
+  },
+  {
+    "ledger_id": "INV-20225",
+    "gross_amount": 15685,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 779"
+  },
+  {
+    "ledger_id": "INV-20168",
+    "gross_amount": 18895,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 444"
+  },
+  {
+    "ledger_id": "INV-20699",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-10",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20317",
+    "gross_amount": 16810,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 713"
+  },
+  {
+    "ledger_id": "INV-20170",
+    "gross_amount": 16998,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 795"
+  },
+  {
+    "ledger_id": "INV-20202",
+    "gross_amount": 3259,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 470"
+  },
+  {
+    "ledger_id": "INV-20003",
+    "gross_amount": 28651,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice 323"
+  },
+  {
+    "ledger_id": "INV-20155",
+    "gross_amount": 9903,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 241"
+  },
+  {
+    "ledger_id": "INV-20594",
+    "gross_amount": 3108,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 116"
+  },
+  {
+    "ledger_id": "INV-20457",
+    "gross_amount": 19402,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 781"
+  },
+  {
+    "ledger_id": "INV-20234",
+    "gross_amount": 12528,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 297"
+  },
+  {
+    "ledger_id": "INV-20643",
+    "gross_amount": 9255,
+    "posted_on": "2026-03-18",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20649",
+    "gross_amount": 29176,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20585",
+    "gross_amount": 3029,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 461"
+  },
+  {
+    "ledger_id": "INV-20253",
+    "gross_amount": 14130,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 930"
+  },
+  {
+    "ledger_id": "INV-20638",
+    "gross_amount": 34246,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20369",
+    "gross_amount": 16833,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 402"
+  },
+  {
+    "ledger_id": "INV-20472",
+    "gross_amount": 3280,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 643"
+  },
+  {
+    "ledger_id": "INV-20128",
+    "gross_amount": 27371,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 230"
+  },
+  {
+    "ledger_id": "INV-20452",
+    "gross_amount": 16540,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 862"
+  },
+  {
+    "ledger_id": "INV-20039",
+    "gross_amount": 34271,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 740"
+  },
+  {
+    "ledger_id": "INV-20400",
+    "gross_amount": 2485,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 650"
+  },
+  {
+    "ledger_id": "INV-20247",
+    "gross_amount": 17085,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 288"
+  },
+  {
+    "ledger_id": "INV-20153",
+    "gross_amount": 10086,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 830"
+  },
+  {
+    "ledger_id": "INV-20215",
+    "gross_amount": 12023,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 364"
+  },
+  {
+    "ledger_id": "INV-20141",
+    "gross_amount": 13742,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 606"
+  },
+  {
+    "ledger_id": "INV-20671",
+    "gross_amount": 14306,
+    "posted_on": "2026-03-10",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20085",
+    "gross_amount": 21720,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 569"
+  },
+  {
+    "ledger_id": "INV-20707",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-25",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20675",
+    "gross_amount": 16867,
+    "posted_on": "2026-03-15",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20252",
+    "gross_amount": 3141,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 252"
+  },
+  {
+    "ledger_id": "INV-20412",
+    "gross_amount": 10040,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 317"
+  },
+  {
+    "ledger_id": "INV-20628",
+    "gross_amount": 20466,
+    "posted_on": "2026-03-21",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20468",
+    "gross_amount": 9763,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 285"
+  },
+  {
+    "ledger_id": "INV-20071",
+    "gross_amount": 18380,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 533"
+  },
+  {
+    "ledger_id": "INV-20417",
+    "gross_amount": 8981,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 990"
+  },
+  {
+    "ledger_id": "INV-20589",
+    "gross_amount": 10782,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 291"
+  },
+  {
+    "ledger_id": "INV-20350",
+    "gross_amount": 4225,
+    "posted_on": "2026-03-25",
+    "memo": "Batch Item 406"
+  },
+  {
+    "ledger_id": "INV-20086",
+    "gross_amount": 41708,
+    "posted_on": "2026-03-19",
+    "memo": "Invoice 650"
+  },
+  {
+    "ledger_id": "INV-20266",
+    "gross_amount": 16398,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 172"
+  },
+  {
+    "ledger_id": "INV-20292",
+    "gross_amount": 3989,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 437"
+  },
+  {
+    "ledger_id": "INV-20124",
+    "gross_amount": 49624,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice 472"
+  },
+  {
+    "ledger_id": "INV-20286",
+    "gross_amount": 3992,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 375"
+  },
+  {
+    "ledger_id": "INV-20371",
+    "gross_amount": 9994,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 721"
+  },
+  {
+    "ledger_id": "INV-20644",
+    "gross_amount": 24657,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20590",
+    "gross_amount": 2269,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 780"
+  },
+  {
+    "ledger_id": "INV-20198",
+    "gross_amount": 4339,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 142"
+  },
+  {
+    "ledger_id": "INV-20211",
+    "gross_amount": 9794,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 868"
+  },
+  {
+    "ledger_id": "INV-20633",
+    "gross_amount": 14023,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20620",
+    "gross_amount": 28038,
+    "posted_on": "2026-03-02",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20197",
+    "gross_amount": 8957,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 901"
+  },
+  {
+    "ledger_id": "INV-20519",
+    "gross_amount": 7766,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 984"
+  },
+  {
+    "ledger_id": "INV-20464",
+    "gross_amount": 19227,
+    "posted_on": "2026-03-12",
+    "memo": "Batch Item 331"
+  },
+  {
+    "ledger_id": "INV-20520",
+    "gross_amount": 12076,
+    "posted_on": "2026-03-13",
+    "memo": "Split Item 613"
+  },
+  {
+    "ledger_id": "INV-20305",
+    "gross_amount": 7146,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 373"
+  },
+  {
+    "ledger_id": "INV-20531",
+    "gross_amount": 7543,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 696"
+  },
+  {
+    "ledger_id": "INV-20533",
+    "gross_amount": 11795,
+    "posted_on": "2026-03-26",
+    "memo": "Split Item 244"
+  },
+  {
+    "ledger_id": "INV-20181",
+    "gross_amount": 10117,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 867"
+  },
+  {
+    "ledger_id": "INV-20045",
+    "gross_amount": 38182,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice 849"
+  },
+  {
+    "ledger_id": "INV-20013",
+    "gross_amount": 42198,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 296"
+  },
+  {
+    "ledger_id": "INV-20449",
+    "gross_amount": 12106,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 420"
+  },
+  {
+    "ledger_id": "INV-20640",
+    "gross_amount": 9853,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20262",
+    "gross_amount": 11006,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 312"
+  },
+  {
+    "ledger_id": "INV-20284",
+    "gross_amount": 9204,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 788"
+  },
+  {
+    "ledger_id": "INV-20285",
+    "gross_amount": 1847,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 941"
+  },
+  {
+    "ledger_id": "INV-20229",
+    "gross_amount": 18397,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 413"
+  },
+  {
+    "ledger_id": "INV-20220",
+    "gross_amount": 19212,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 600"
+  },
+  {
+    "ledger_id": "INV-20482",
+    "gross_amount": 4729,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 146"
+  },
+  {
+    "ledger_id": "INV-20044",
+    "gross_amount": 21153,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 999"
+  },
+  {
+    "ledger_id": "INV-20067",
+    "gross_amount": 37066,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice 653"
+  },
+  {
+    "ledger_id": "INV-20681",
+    "gross_amount": 13141,
+    "posted_on": "2026-03-17",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20138",
+    "gross_amount": 15722,
+    "posted_on": "2026-03-26",
+    "memo": "Invoice 125"
+  },
+  {
+    "ledger_id": "INV-20653",
+    "gross_amount": 19049,
+    "posted_on": "2026-03-09",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20458",
+    "gross_amount": 2685,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 258"
+  },
+  {
+    "ledger_id": "INV-20227",
+    "gross_amount": 4049,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 477"
+  },
+  {
+    "ledger_id": "INV-20157",
+    "gross_amount": 11476,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 336"
+  },
+  {
+    "ledger_id": "INV-20002",
+    "gross_amount": 45348,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice 704"
+  },
+  {
+    "ledger_id": "INV-20636",
+    "gross_amount": 37705,
+    "posted_on": "2026-03-13",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20054",
+    "gross_amount": 16080,
+    "posted_on": "2026-03-19",
+    "memo": "Invoice 172"
+  },
+  {
+    "ledger_id": "INV-20184",
+    "gross_amount": 8347,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 959"
+  },
+  {
+    "ledger_id": "INV-20162",
+    "gross_amount": 14356,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 530"
+  },
+  {
+    "ledger_id": "INV-20199",
+    "gross_amount": 10882,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 455"
+  },
+  {
+    "ledger_id": "INV-20378",
+    "gross_amount": 4183,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 551"
+  },
+  {
+    "ledger_id": "INV-20467",
+    "gross_amount": 1860,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 106"
+  },
+  {
+    "ledger_id": "INV-20493",
+    "gross_amount": 12945,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 514"
+  },
+  {
+    "ledger_id": "INV-20491",
+    "gross_amount": 4248,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 335"
+  },
+  {
+    "ledger_id": "INV-20364",
+    "gross_amount": 15474,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 806"
+  },
+  {
+    "ledger_id": "INV-20478",
+    "gross_amount": 6098,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 552"
+  },
+  {
+    "ledger_id": "INV-20521",
+    "gross_amount": 11733,
+    "posted_on": "2026-03-13",
+    "memo": "Split Item 254"
+  },
+  {
+    "ledger_id": "INV-20694",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-16",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20042",
+    "gross_amount": 36348,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice 713"
+  },
+  {
+    "ledger_id": "INV-20037",
+    "gross_amount": 11365,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 996"
+  },
+  {
+    "ledger_id": "INV-20365",
+    "gross_amount": 12323,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 356"
+  },
+  {
+    "ledger_id": "INV-20126",
+    "gross_amount": 21572,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 407"
+  },
+  {
+    "ledger_id": "INV-20408",
+    "gross_amount": 15571,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 476"
+  },
+  {
+    "ledger_id": "INV-20151",
+    "gross_amount": 9493,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 550"
+  },
+  {
+    "ledger_id": "INV-20316",
+    "gross_amount": 4849,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 379"
+  },
+  {
+    "ledger_id": "INV-20395",
+    "gross_amount": 8661,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 164"
+  },
+  {
+    "ledger_id": "INV-20567",
+    "gross_amount": 9873,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 625"
+  },
+  {
+    "ledger_id": "INV-20664",
+    "gross_amount": 19899,
+    "posted_on": "2026-03-09",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20689",
+    "gross_amount": 13587,
+    "posted_on": "2026-03-28",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20299",
+    "gross_amount": 15903,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 513"
+  },
+  {
+    "ledger_id": "INV-20348",
+    "gross_amount": 3961,
+    "posted_on": "2026-03-25",
+    "memo": "Batch Item 270"
+  },
+  {
+    "ledger_id": "INV-20549",
+    "gross_amount": 10626,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 792"
+  },
+  {
+    "ledger_id": "INV-20221",
+    "gross_amount": 1332,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 668"
+  },
+  {
+    "ledger_id": "INV-20674",
+    "gross_amount": 15404,
+    "posted_on": "2026-03-14",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20481",
+    "gross_amount": 3673,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 320"
+  },
+  {
+    "ledger_id": "INV-20283",
+    "gross_amount": 11561,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 883"
+  },
+  {
+    "ledger_id": "INV-20182",
+    "gross_amount": 14813,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 652"
+  },
+  {
+    "ledger_id": "INV-20116",
+    "gross_amount": 19292,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice 509"
+  },
+  {
+    "ledger_id": "INV-20678",
+    "gross_amount": 11463,
+    "posted_on": "2026-03-24",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20704",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-12",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20401",
+    "gross_amount": 13735,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 529"
+  },
+  {
+    "ledger_id": "INV-20139",
+    "gross_amount": 4028,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 970"
+  },
+  {
+    "ledger_id": "INV-20324",
+    "gross_amount": 10783,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 440"
+  },
+  {
+    "ledger_id": "INV-20666",
+    "gross_amount": 19747,
+    "posted_on": "2026-03-14",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20167",
+    "gross_amount": 1193,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 529"
+  },
+  {
+    "ledger_id": "INV-20396",
+    "gross_amount": 10902,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 604"
+  },
+  {
+    "ledger_id": "INV-20496",
+    "gross_amount": 8505,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 527"
+  },
+  {
+    "ledger_id": "INV-20203",
+    "gross_amount": 17579,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 750"
+  },
+  {
+    "ledger_id": "INV-20304",
+    "gross_amount": 2776,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 308"
+  },
+  {
+    "ledger_id": "INV-20488",
+    "gross_amount": 6938,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 489"
+  },
+  {
+    "ledger_id": "INV-20314",
+    "gross_amount": 4717,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 621"
+  },
+  {
+    "ledger_id": "INV-20515",
+    "gross_amount": 6961,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 951"
+  },
+  {
+    "ledger_id": "INV-20309",
+    "gross_amount": 16883,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 664"
+  },
+  {
+    "ledger_id": "INV-20174",
+    "gross_amount": 16315,
+    "posted_on": "2026-03-01",
+    "memo": "Batch Item 185"
+  },
+  {
+    "ledger_id": "INV-20038",
+    "gross_amount": 48164,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 282"
+  },
+  {
+    "ledger_id": "INV-20429",
+    "gross_amount": 4573,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 162"
+  },
+  {
+    "ledger_id": "INV-20118",
+    "gross_amount": 8559,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 694"
+  },
+  {
+    "ledger_id": "INV-20591",
+    "gross_amount": 3402,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 482"
+  },
+  {
+    "ledger_id": "INV-20050",
+    "gross_amount": 48836,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 419"
+  },
+  {
+    "ledger_id": "INV-20027",
+    "gross_amount": 18359,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 674"
+  },
+  {
+    "ledger_id": "INV-20354",
+    "gross_amount": 9001,
+    "posted_on": "2026-03-22",
+    "memo": "Batch Item 180"
+  },
+  {
+    "ledger_id": "INV-20512",
+    "gross_amount": 12739,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 169"
+  },
+  {
+    "ledger_id": "INV-20558",
+    "gross_amount": 10749,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 640"
+  },
+  {
+    "ledger_id": "INV-20608",
+    "gross_amount": 17524,
+    "posted_on": "2026-03-12",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20393",
+    "gross_amount": 13172,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 326"
+  },
+  {
+    "ledger_id": "INV-20538",
+    "gross_amount": 8421,
+    "posted_on": "2026-03-20",
+    "memo": "Split Item 819"
+  },
+  {
+    "ledger_id": "INV-20398",
+    "gross_amount": 4823,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 199"
+  },
+  {
+    "ledger_id": "INV-20656",
+    "gross_amount": 18481,
+    "posted_on": "2026-03-03",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20166",
+    "gross_amount": 16629,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 955"
+  },
+  {
+    "ledger_id": "INV-20306",
+    "gross_amount": 5293,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 826"
+  },
+  {
+    "ledger_id": "INV-20078",
+    "gross_amount": 13178,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 791"
+  },
+  {
+    "ledger_id": "INV-20407",
+    "gross_amount": 15528,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 802"
+  },
+  {
+    "ledger_id": "INV-20702",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-24",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20212",
+    "gross_amount": 11561,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 575"
+  },
+  {
+    "ledger_id": "INV-20584",
+    "gross_amount": 9489,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 729"
+  },
+  {
+    "ledger_id": "INV-20322",
+    "gross_amount": 10052,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 940"
+  },
+  {
+    "ledger_id": "INV-20696",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-03",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20033",
+    "gross_amount": 26009,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 357"
+  },
+  {
+    "ledger_id": "INV-20287",
+    "gross_amount": 8501,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 690"
+  },
+  {
+    "ledger_id": "INV-20600",
+    "gross_amount": 12765,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 590"
+  },
+  {
+    "ledger_id": "INV-20047",
+    "gross_amount": 9241,
+    "posted_on": "2026-03-05",
+    "memo": "Invoice 662"
+  },
+  {
+    "ledger_id": "INV-20277",
+    "gross_amount": 10457,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 652"
+  },
+  {
+    "ledger_id": "INV-20486",
+    "gross_amount": 10281,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 156"
+  },
+  {
+    "ledger_id": "INV-20665",
+    "gross_amount": 7907,
+    "posted_on": "2026-03-25",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20622",
+    "gross_amount": 46908,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20043",
+    "gross_amount": 22243,
+    "posted_on": "2026-03-16",
+    "memo": "Invoice 471"
+  },
+  {
+    "ledger_id": "INV-20097",
+    "gross_amount": 7048,
+    "posted_on": "2026-03-21",
+    "memo": "Invoice 383"
+  },
+  {
+    "ledger_id": "INV-20339",
+    "gross_amount": 15972,
+    "posted_on": "2026-03-01",
+    "memo": "Batch Item 991"
+  },
+  {
+    "ledger_id": "INV-20444",
+    "gross_amount": 8045,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 525"
+  },
+  {
+    "ledger_id": "INV-20660",
+    "gross_amount": 12063,
+    "posted_on": "2026-03-27",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20084",
+    "gross_amount": 9577,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 568"
+  },
+  {
+    "ledger_id": "INV-20175",
+    "gross_amount": 5182,
+    "posted_on": "2026-03-01",
+    "memo": "Batch Item 758"
+  },
+  {
+    "ledger_id": "INV-20592",
+    "gross_amount": 10576,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 359"
+  },
+  {
+    "ledger_id": "INV-20057",
+    "gross_amount": 16597,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 319"
+  },
+  {
+    "ledger_id": "INV-20487",
+    "gross_amount": 16945,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 107"
+  },
+  {
+    "ledger_id": "INV-20679",
+    "gross_amount": 12317,
+    "posted_on": "2026-03-13",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20621",
+    "gross_amount": 28105,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20556",
+    "gross_amount": 9355,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 491"
+  },
+  {
+    "ledger_id": "INV-20095",
+    "gross_amount": 14342,
+    "posted_on": "2026-03-22",
+    "memo": "Invoice 370"
+  },
+  {
+    "ledger_id": "INV-20032",
+    "gross_amount": 45596,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice 494"
+  },
+  {
+    "ledger_id": "INV-20082",
+    "gross_amount": 21733,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 785"
+  },
+  {
+    "ledger_id": "INV-20703",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-25",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20231",
+    "gross_amount": 14942,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 336"
+  },
+  {
+    "ledger_id": "INV-20249",
+    "gross_amount": 1401,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 358"
+  },
+  {
+    "ledger_id": "INV-20470",
+    "gross_amount": 19557,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 193"
+  },
+  {
+    "ledger_id": "INV-20415",
+    "gross_amount": 2657,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 321"
+  },
+  {
+    "ledger_id": "INV-20588",
+    "gross_amount": 11776,
+    "posted_on": "2026-03-21",
+    "memo": "Split Item 526"
+  },
+  {
+    "ledger_id": "INV-20718",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-19",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20719",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-17",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20273",
+    "gross_amount": 4760,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 269"
+  },
+  {
+    "ledger_id": "INV-20362",
+    "gross_amount": 16110,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 659"
+  },
+  {
+    "ledger_id": "INV-20258",
+    "gross_amount": 15762,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 724"
+  },
+  {
+    "ledger_id": "INV-20539",
+    "gross_amount": 4112,
+    "posted_on": "2026-03-20",
+    "memo": "Split Item 948"
+  },
+  {
+    "ledger_id": "INV-20196",
+    "gross_amount": 3490,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 679"
+  },
+  {
+    "ledger_id": "INV-20705",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-03",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20711",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-07",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20602",
+    "gross_amount": 3698,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 286"
+  },
+  {
+    "ledger_id": "INV-20098",
+    "gross_amount": 3889,
+    "posted_on": "2026-03-01",
+    "memo": "Invoice 233"
+  },
+  {
+    "ledger_id": "INV-20109",
+    "gross_amount": 49271,
+    "posted_on": "2026-03-30",
+    "memo": "Invoice 521"
+  },
+  {
+    "ledger_id": "INV-20183",
+    "gross_amount": 9266,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 153"
+  },
+  {
+    "ledger_id": "INV-20440",
+    "gross_amount": 10663,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 770"
+  },
+  {
+    "ledger_id": "INV-20514",
+    "gross_amount": 12344,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 477"
+  },
+  {
+    "ledger_id": "INV-20578",
+    "gross_amount": 6700,
+    "posted_on": "2026-03-23",
+    "memo": "Split Item 362"
+  },
+  {
+    "ledger_id": "INV-20293",
+    "gross_amount": 16401,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 521"
+  },
+  {
+    "ledger_id": "INV-20683",
+    "gross_amount": 11456,
+    "posted_on": "2026-03-08",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20281",
+    "gross_amount": 10964,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 712"
+  },
+  {
+    "ledger_id": "INV-20695",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-16",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20017",
+    "gross_amount": 24909,
+    "posted_on": "2026-03-06",
+    "memo": "Invoice 314"
+  },
+  {
+    "ledger_id": "INV-20012",
+    "gross_amount": 25807,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 949"
+  },
+  {
+    "ledger_id": "INV-20421",
+    "gross_amount": 10085,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 278"
+  },
+  {
+    "ledger_id": "INV-20564",
+    "gross_amount": 6096,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 264"
+  },
+  {
+    "ledger_id": "INV-20544",
+    "gross_amount": 12984,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 907"
+  },
+  {
+    "ledger_id": "INV-20629",
+    "gross_amount": 28733,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20632",
+    "gross_amount": 34094,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20499",
+    "gross_amount": 2341,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 505"
+  },
+  {
+    "ledger_id": "INV-20494",
+    "gross_amount": 7802,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 826"
+  },
+  {
+    "ledger_id": "INV-20061",
+    "gross_amount": 24219,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice 984"
+  },
+  {
+    "ledger_id": "INV-20382",
+    "gross_amount": 7579,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 268"
+  },
+  {
+    "ledger_id": "INV-20466",
+    "gross_amount": 19243,
+    "posted_on": "2026-03-06",
+    "memo": "Batch Item 459"
+  },
+  {
+    "ledger_id": "INV-20517",
+    "gross_amount": 11689,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 178"
+  },
+  {
+    "ledger_id": "INV-20223",
+    "gross_amount": 7260,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 346"
+  },
+  {
+    "ledger_id": "INV-20009",
+    "gross_amount": 23059,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice 199"
+  },
+  {
+    "ledger_id": "INV-20154",
+    "gross_amount": 18081,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 392"
+  },
+  {
+    "ledger_id": "INV-20069",
+    "gross_amount": 32826,
+    "posted_on": "2026-03-16",
+    "memo": "Invoice 510"
+  },
+  {
+    "ledger_id": "INV-20236",
+    "gross_amount": 18559,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 841"
+  },
+  {
+    "ledger_id": "INV-20140",
+    "gross_amount": 5772,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 689"
+  },
+  {
+    "ledger_id": "INV-20698",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-07",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20006",
+    "gross_amount": 28493,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 384"
+  },
+  {
+    "ledger_id": "INV-20049",
+    "gross_amount": 28730,
+    "posted_on": "2026-03-31",
+    "memo": "Invoice 873"
+  },
+  {
+    "ledger_id": "INV-20076",
+    "gross_amount": 4286,
+    "posted_on": "2026-03-19",
+    "memo": "Invoice 973"
+  },
+  {
+    "ledger_id": "INV-20034",
+    "gross_amount": 37256,
+    "posted_on": "2026-03-28",
+    "memo": "Invoice 838"
+  },
+  {
+    "ledger_id": "INV-20536",
+    "gross_amount": 13443,
+    "posted_on": "2026-03-20",
+    "memo": "Split Item 230"
+  },
+  {
+    "ledger_id": "INV-20060",
+    "gross_amount": 13478,
+    "posted_on": "2026-03-04",
+    "memo": "Invoice 541"
+  },
+  {
+    "ledger_id": "INV-20555",
+    "gross_amount": 14841,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 896"
+  },
+  {
+    "ledger_id": "INV-20708",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-13",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20614",
+    "gross_amount": 22479,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20559",
+    "gross_amount": 5918,
+    "posted_on": "2026-03-29",
+    "memo": "Split Item 528"
+  },
+  {
+    "ledger_id": "INV-20143",
+    "gross_amount": 1363,
+    "posted_on": "2026-03-29",
+    "memo": "Invoice 535"
+  },
+  {
+    "ledger_id": "INV-20173",
+    "gross_amount": 15281,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 841"
+  },
+  {
+    "ledger_id": "INV-20360",
+    "gross_amount": 5689,
+    "posted_on": "2026-03-15",
+    "memo": "Batch Item 394"
+  },
+  {
+    "ledger_id": "INV-20172",
+    "gross_amount": 9943,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 514"
+  },
+  {
+    "ledger_id": "INV-20471",
+    "gross_amount": 14132,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 864"
+  },
+  {
+    "ledger_id": "INV-20502",
+    "gross_amount": 12127,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 863"
+  },
+  {
+    "ledger_id": "INV-20500",
+    "gross_amount": 7321,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 991"
+  },
+  {
+    "ledger_id": "INV-20263",
+    "gross_amount": 9671,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 260"
+  },
+  {
+    "ledger_id": "INV-20345",
+    "gross_amount": 11376,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 340"
+  },
+  {
+    "ledger_id": "INV-20563",
+    "gross_amount": 4267,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 881"
+  },
+  {
+    "ledger_id": "INV-20511",
+    "gross_amount": 14437,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 550"
+  },
+  {
+    "ledger_id": "INV-20251",
+    "gross_amount": 4738,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 255"
+  },
+  {
+    "ledger_id": "INV-20583",
+    "gross_amount": 10647,
+    "posted_on": "2026-03-14",
+    "memo": "Split Item 912"
+  },
+  {
+    "ledger_id": "INV-20388",
+    "gross_amount": 16346,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 670"
+  },
+  {
+    "ledger_id": "INV-20235",
+    "gross_amount": 4917,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 383"
+  },
+  {
+    "ledger_id": "INV-20337",
+    "gross_amount": 5136,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 550"
+  },
+  {
+    "ledger_id": "INV-20200",
+    "gross_amount": 15037,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 208"
+  },
+  {
+    "ledger_id": "INV-20156",
+    "gross_amount": 12005,
+    "posted_on": "2026-03-29",
+    "memo": "Batch Item 254"
+  },
+  {
+    "ledger_id": "INV-20302",
+    "gross_amount": 16138,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 878"
+  },
+  {
+    "ledger_id": "INV-20427",
+    "gross_amount": 14794,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 896"
+  },
+  {
+    "ledger_id": "INV-20593",
+    "gross_amount": 7908,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 865"
+  },
+  {
+    "ledger_id": "INV-20598",
+    "gross_amount": 14884,
+    "posted_on": "2026-03-17",
+    "memo": "Split Item 453"
+  },
+  {
+    "ledger_id": "INV-20566",
+    "gross_amount": 12505,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 560"
+  },
+  {
+    "ledger_id": "INV-20648",
+    "gross_amount": 6722,
+    "posted_on": "2026-03-18",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20016",
+    "gross_amount": 25911,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 954"
+  },
+  {
+    "ledger_id": "INV-20149",
+    "gross_amount": 36905,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 982"
+  },
+  {
+    "ledger_id": "INV-20226",
+    "gross_amount": 1565,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 695"
+  },
+  {
+    "ledger_id": "INV-20576",
+    "gross_amount": 4254,
+    "posted_on": "2026-03-23",
+    "memo": "Split Item 181"
+  },
+  {
+    "ledger_id": "INV-20046",
+    "gross_amount": 32849,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 645"
+  },
+  {
+    "ledger_id": "INV-20423",
+    "gross_amount": 5318,
+    "posted_on": "2026-03-12",
+    "memo": "Batch Item 116"
+  },
+  {
+    "ledger_id": "INV-20320",
+    "gross_amount": 15967,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 239"
+  },
+  {
+    "ledger_id": "INV-20685",
+    "gross_amount": 9764,
+    "posted_on": "2026-03-15",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20690",
+    "gross_amount": 14701,
+    "posted_on": "2026-03-08",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20327",
+    "gross_amount": 15632,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 656"
+  },
+  {
+    "ledger_id": "INV-20480",
+    "gross_amount": 2630,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 379"
+  },
+  {
+    "ledger_id": "INV-20100",
+    "gross_amount": 37154,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice 109"
+  },
+  {
+    "ledger_id": "INV-20652",
+    "gross_amount": 36369,
+    "posted_on": "2026-03-14",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20509",
+    "gross_amount": 12374,
+    "posted_on": "2026-03-04",
+    "memo": "Split Item 716"
+  },
+  {
+    "ledger_id": "INV-20525",
+    "gross_amount": 13703,
+    "posted_on": "2026-03-06",
+    "memo": "Split Item 262"
+  },
+  {
+    "ledger_id": "INV-20368",
+    "gross_amount": 13605,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 816"
+  },
+  {
+    "ledger_id": "INV-20267",
+    "gross_amount": 10543,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 803"
+  },
+  {
+    "ledger_id": "INV-20315",
+    "gross_amount": 16120,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 822"
+  },
+  {
+    "ledger_id": "INV-20367",
+    "gross_amount": 7527,
+    "posted_on": "2026-03-08",
+    "memo": "Batch Item 402"
+  },
+  {
+    "ledger_id": "INV-20546",
+    "gross_amount": 10331,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 619"
+  },
+  {
+    "ledger_id": "INV-20477",
+    "gross_amount": 2723,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 721"
+  },
+  {
+    "ledger_id": "INV-20389",
+    "gross_amount": 3467,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 474"
+  },
+  {
+    "ledger_id": "INV-20289",
+    "gross_amount": 16417,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 285"
+  },
+  {
+    "ledger_id": "INV-20329",
+    "gross_amount": 11544,
+    "posted_on": "2026-03-13",
+    "memo": "Batch Item 425"
+  },
+  {
+    "ledger_id": "INV-20565",
+    "gross_amount": 2854,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 379"
+  },
+  {
+    "ledger_id": "INV-20245",
+    "gross_amount": 10572,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 551"
+  },
+  {
+    "ledger_id": "INV-20406",
+    "gross_amount": 17034,
+    "posted_on": "2026-03-20",
+    "memo": "Batch Item 479"
+  },
+  {
+    "ledger_id": "INV-20209",
+    "gross_amount": 16232,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 561"
+  },
+  {
+    "ledger_id": "INV-20618",
+    "gross_amount": 24375,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20692",
+    "gross_amount": 11729,
+    "posted_on": "2026-03-30",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20670",
+    "gross_amount": 9024,
+    "posted_on": "2026-03-26",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20120",
+    "gross_amount": 23654,
+    "posted_on": "2026-03-24",
+    "memo": "Invoice 720"
+  },
+  {
+    "ledger_id": "INV-20194",
+    "gross_amount": 11192,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 484"
+  },
+  {
+    "ledger_id": "INV-20216",
+    "gross_amount": 1940,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 448"
+  },
+  {
+    "ledger_id": "INV-20015",
+    "gross_amount": 19965,
+    "posted_on": "2026-03-03",
+    "memo": "Invoice 203"
+  },
+  {
+    "ledger_id": "INV-20310",
+    "gross_amount": 4978,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 114"
+  },
+  {
+    "ledger_id": "INV-20340",
+    "gross_amount": 3451,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 765"
+  },
+  {
+    "ledger_id": "INV-20213",
+    "gross_amount": 9044,
+    "posted_on": "2026-03-27",
+    "memo": "Batch Item 683"
+  },
+  {
+    "ledger_id": "INV-20490",
+    "gross_amount": 14572,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 820"
+  },
+  {
+    "ledger_id": "INV-20222",
+    "gross_amount": 17928,
+    "posted_on": "2026-03-03",
+    "memo": "Batch Item 876"
+  },
+  {
+    "ledger_id": "INV-20572",
+    "gross_amount": 9391,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 959"
+  },
+  {
+    "ledger_id": "INV-20601",
+    "gross_amount": 12293,
+    "posted_on": "2026-03-25",
+    "memo": "Split Item 746"
+  },
+  {
+    "ledger_id": "INV-20192",
+    "gross_amount": 4753,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 689"
+  },
+  {
+    "ledger_id": "INV-20074",
+    "gross_amount": 20445,
+    "posted_on": "2026-03-07",
+    "memo": "Invoice 853"
+  },
+  {
+    "ledger_id": "INV-20040",
+    "gross_amount": 20558,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 723"
+  },
+  {
+    "ledger_id": "INV-20617",
+    "gross_amount": 11723,
+    "posted_on": "2026-03-11",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20619",
+    "gross_amount": 32925,
+    "posted_on": "2026-03-23",
+    "memo": "Invoice with expected fee"
+  },
+  {
+    "ledger_id": "INV-20386",
+    "gross_amount": 12099,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 966"
+  },
+  {
+    "ledger_id": "INV-20274",
+    "gross_amount": 18844,
+    "posted_on": "2026-03-30",
+    "memo": "Batch Item 911"
+  },
+  {
+    "ledger_id": "INV-20052",
+    "gross_amount": 34919,
+    "posted_on": "2026-03-15",
+    "memo": "Invoice 330"
+  },
+  {
+    "ledger_id": "INV-20195",
+    "gross_amount": 7498,
+    "posted_on": "2026-03-28",
+    "memo": "Batch Item 915"
+  },
+  {
+    "ledger_id": "INV-20548",
+    "gross_amount": 14101,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 473"
+  },
+  {
+    "ledger_id": "INV-20094",
+    "gross_amount": 19465,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 451"
+  },
+  {
+    "ledger_id": "INV-20379",
+    "gross_amount": 19991,
+    "posted_on": "2026-03-24",
+    "memo": "Batch Item 402"
+  },
+  {
+    "ledger_id": "INV-20460",
+    "gross_amount": 11238,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 593"
+  },
+  {
+    "ledger_id": "INV-20080",
+    "gross_amount": 38940,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 183"
+  },
+  {
+    "ledger_id": "INV-20662",
+    "gross_amount": 1929,
+    "posted_on": "2026-03-03",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20338",
+    "gross_amount": 18234,
+    "posted_on": "2026-03-01",
+    "memo": "Batch Item 519"
+  },
+  {
+    "ledger_id": "INV-20208",
+    "gross_amount": 18096,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 651"
+  },
+  {
+    "ledger_id": "INV-20261",
+    "gross_amount": 15051,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 881"
+  },
+  {
+    "ledger_id": "INV-20248",
+    "gross_amount": 4361,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 152"
+  },
+  {
+    "ledger_id": "INV-20397",
+    "gross_amount": 14379,
+    "posted_on": "2026-03-31",
+    "memo": "Batch Item 218"
+  },
+  {
+    "ledger_id": "INV-20137",
+    "gross_amount": 7120,
+    "posted_on": "2026-03-27",
+    "memo": "Invoice 417"
+  },
+  {
+    "ledger_id": "INV-20542",
+    "gross_amount": 3531,
+    "posted_on": "2026-03-01",
+    "memo": "Split Item 402"
+  },
+  {
+    "ledger_id": "INV-20570",
+    "gross_amount": 3502,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 426"
+  },
+  {
+    "ledger_id": "INV-20714",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-17",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20422",
+    "gross_amount": 5741,
+    "posted_on": "2026-03-05",
+    "memo": "Batch Item 212"
+  },
+  {
+    "ledger_id": "INV-20575",
+    "gross_amount": 8797,
+    "posted_on": "2026-03-02",
+    "memo": "Split Item 443"
+  },
+  {
+    "ledger_id": "INV-20059",
+    "gross_amount": 31976,
+    "posted_on": "2026-03-08",
+    "memo": "Invoice 516"
+  },
+  {
+    "ledger_id": "INV-20474",
+    "gross_amount": 14757,
+    "posted_on": "2026-03-11",
+    "memo": "Batch Item 838"
+  },
+  {
+    "ledger_id": "INV-20147",
+    "gross_amount": 37629,
+    "posted_on": "2026-03-20",
+    "memo": "Invoice 553"
+  },
+  {
+    "ledger_id": "INV-20710",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-18",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20230",
+    "gross_amount": 12264,
+    "posted_on": "2026-03-23",
+    "memo": "Batch Item 357"
+  },
+  {
+    "ledger_id": "INV-20246",
+    "gross_amount": 5137,
+    "posted_on": "2026-03-10",
+    "memo": "Batch Item 448"
+  },
+  {
+    "ledger_id": "INV-20484",
+    "gross_amount": 15087,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 504"
+  },
+  {
+    "ledger_id": "INV-20550",
+    "gross_amount": 2618,
+    "posted_on": "2026-03-05",
+    "memo": "Split Item 836"
+  },
+  {
+    "ledger_id": "INV-20188",
+    "gross_amount": 5136,
+    "posted_on": "2026-03-19",
+    "memo": "Batch Item 816"
+  },
+  {
+    "ledger_id": "INV-20385",
+    "gross_amount": 12988,
+    "posted_on": "2026-03-17",
+    "memo": "Batch Item 593"
+  },
+  {
+    "ledger_id": "INV-20307",
+    "gross_amount": 10438,
+    "posted_on": "2026-03-21",
+    "memo": "Batch Item 262"
+  },
+  {
+    "ledger_id": "INV-20152",
+    "gross_amount": 9101,
+    "posted_on": "2026-03-16",
+    "memo": "Batch Item 179"
+  },
+  {
+    "ledger_id": "INV-20418",
+    "gross_amount": 5126,
+    "posted_on": "2026-03-07",
+    "memo": "Batch Item 338"
+  },
+  {
+    "ledger_id": "INV-20426",
+    "gross_amount": 5153,
+    "posted_on": "2026-03-04",
+    "memo": "Batch Item 559"
+  },
+  {
+    "ledger_id": "INV-20713",
+    "gross_amount": 10000,
+    "posted_on": "2026-03-26",
+    "memo": "Standard Subscription"
+  },
+  {
+    "ledger_id": "INV-20326",
+    "gross_amount": 5869,
+    "posted_on": "2026-03-18",
+    "memo": "Batch Item 881"
+  },
+  {
+    "ledger_id": "INV-20537",
+    "gross_amount": 12848,
+    "posted_on": "2026-03-20",
+    "memo": "Split Item 786"
+  },
+  {
+    "ledger_id": "INV-20390",
+    "gross_amount": 13929,
+    "posted_on": "2026-03-09",
+    "memo": "Batch Item 565"
+  },
+  {
+    "ledger_id": "INV-20687",
+    "gross_amount": 4172,
+    "posted_on": "2026-03-02",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20658",
+    "gross_amount": 6525,
+    "posted_on": "2026-03-19",
+    "memo": "Unpaid Invoice"
+  },
+  {
+    "ledger_id": "INV-20352",
+    "gross_amount": 11629,
+    "posted_on": "2026-03-26",
+    "memo": "Batch Item 483"
+  },
+  {
+    "ledger_id": "INV-20048",
+    "gross_amount": 11821,
+    "posted_on": "2026-03-09",
+    "memo": "Invoice 721"
+  },
+  {
+    "ledger_id": "INV-20507",
+    "gross_amount": 3251,
+    "posted_on": "2026-03-04",
+    "memo": "Split Item 302"
+  },
+  {
+    "ledger_id": "INV-20569",
+    "gross_amount": 11085,
+    "posted_on": "2026-03-30",
+    "memo": "Split Item 950"
+  }
+]

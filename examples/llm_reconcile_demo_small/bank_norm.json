@@ -1,0 +1,44 @@
+[
+  {
+    "id": "BNK-4001",
+    "amount": 12000,
+    "date": "2026-03-01",
+    "description": "Retail settlement 1001"
+  },
+  {
+    "id": "BNK-4002",
+    "amount": 45000,
+    "date": "2026-03-03",
+    "description": "Marketplace batch payout"
+  },
+  {
+    "id": "BNK-4003",
+    "amount": 19780,
+    "date": "2026-03-04",
+    "description": "Enterprise payment less fee"
+  },
+  {
+    "id": "BNK-4004",
+    "amount": 9000,
+    "date": "2026-03-05",
+    "description": "Acme split settlement part 1"
+  },
+  {
+    "id": "BNK-4005",
+    "amount": 7000,
+    "date": "2026-03-05",
+    "description": "Acme split settlement part 2"
+  },
+  {
+    "id": "BNK-4006",
+    "amount": 10000,
+    "date": "2026-03-04",
+    "description": "Standard Subscription March"
+  },
+  {
+    "id": "BNK-4999",
+    "amount": 5000,
+    "date": "2026-03-06",
+    "description": "Unidentified deposit"
+  }
+]

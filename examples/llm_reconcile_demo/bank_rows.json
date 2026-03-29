@@ -1,0 +1,2210 @@
+[
+  {
+    "bank_ref": "BNK-10219",
+    "credit": 77576,
+    "value_date": "2026-03-06",
+    "narrative": "Batch Settlement 2874"
+  },
+  {
+    "bank_ref": "BNK-10033",
+    "credit": 26009,
+    "value_date": "2026-03-21",
+    "narrative": "Direct Transfer 641"
+  },
+  {
+    "bank_ref": "BNK-10037",
+    "credit": 11365,
+    "value_date": "2026-03-15",
+    "narrative": "Direct Transfer 839"
+  },
+  {
+    "bank_ref": "BNK-10155",
+    "credit": 39999,
+    "value_date": "2026-03-02",
+    "narrative": "Batch Settlement 1444"
+  },
+  {
+    "bank_ref": "BNK-10143",
+    "credit": 1363,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 897"
+  },
+  {
+    "bank_ref": "BNK-10336",
+    "credit": 6962,
+    "value_date": "2026-03-25",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10144",
+    "credit": 15341,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 630"
+  },
+  {
+    "bank_ref": "BNK-10206",
+    "credit": 39868,
+    "value_date": "2026-03-16",
+    "narrative": "Batch Settlement 6374"
+  },
+  {
+    "bank_ref": "BNK-10141",
+    "credit": 13742,
+    "value_date": "2026-03-25",
+    "narrative": "Direct Transfer 493"
+  },
+  {
+    "bank_ref": "BNK-10327",
+    "credit": 9140,
+    "value_date": "2026-03-15",
+    "narrative": "Payment Less Fee 168"
+  },
+  {
+    "bank_ref": "BNK-10353",
+    "credit": 10000,
+    "value_date": "2026-03-10",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10232",
+    "credit": 15754,
+    "value_date": "2026-03-25",
+    "narrative": "Split Settlement 3116"
+  },
+  {
+    "bank_ref": "BNK-10300",
+    "credit": 28537,
+    "value_date": "2026-03-28",
+    "narrative": "Payment Less Fee 272"
+  },
+  {
+    "bank_ref": "BNK-10090",
+    "credit": 41086,
+    "value_date": "2026-03-28",
+    "narrative": "Direct Transfer 641"
+  },
+  {
+    "bank_ref": "BNK-10255",
+    "credit": 18418,
+    "value_date": "2026-03-01",
+    "narrative": "Split Settlement 6598"
+  },
+  {
+    "bank_ref": "BNK-10184",
+    "credit": 54893,
+    "value_date": "2026-03-23",
+    "narrative": "Batch Settlement 4920"
+  },
+  {
+    "bank_ref": "BNK-10277",
+    "credit": 7490,
+    "value_date": "2026-03-26",
+    "narrative": "Split Settlement 3868"
+  },
+  {
+    "bank_ref": "BNK-10197",
+    "credit": 65927,
+    "value_date": "2026-03-16",
+    "narrative": "Batch Settlement 1153"
+  },
+  {
+    "bank_ref": "BNK-10018",
+    "credit": 44920,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 799"
+  },
+  {
+    "bank_ref": "BNK-10264",
+    "credit": 29416,
+    "value_date": "2026-03-31",
+    "narrative": "Split Settlement 2374"
+  },
+  {
+    "bank_ref": "BNK-10170",
+    "credit": 53913,
+    "value_date": "2026-03-07",
+    "narrative": "Batch Settlement 1231"
+  },
+  {
+    "bank_ref": "BNK-10251",
+    "credit": 15184,
+    "value_date": "2026-03-27",
+    "narrative": "Split Settlement 5128"
+  },
+  {
+    "bank_ref": "BNK-10179",
+    "credit": 35105,
+    "value_date": "2026-04-02",
+    "narrative": "Batch Settlement 1339"
+  },
+  {
+    "bank_ref": "BNK-10361",
+    "credit": 10000,
+    "value_date": "2026-03-25",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10321",
+    "credit": 46693,
+    "value_date": "2026-03-27",
+    "narrative": "Payment Less Fee 99"
+  },
+  {
+    "bank_ref": "BNK-10262",
+    "credit": 46673,
+    "value_date": "2026-03-30",
+    "narrative": "Split Settlement 5616"
+  },
+  {
+    "bank_ref": "BNK-10341",
+    "credit": 6014,
+    "value_date": "2026-03-10",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10130",
+    "credit": 12405,
+    "value_date": "2026-03-22",
+    "narrative": "Direct Transfer 408"
+  },
+  {
+    "bank_ref": "BNK-10242",
+    "credit": 19931,
+    "value_date": "2026-03-08",
+    "narrative": "Split Settlement 6179"
+  },
+  {
+    "bank_ref": "BNK-10159",
+    "credit": 26401,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 8619"
+  },
+  {
+    "bank_ref": "BNK-10334",
+    "credit": 5205,
+    "value_date": "2026-03-29",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10200",
+    "credit": 50686,
+    "value_date": "2026-03-28",
+    "narrative": "Batch Settlement 4770"
+  },
+  {
+    "bank_ref": "BNK-10236",
+    "credit": 15395,
+    "value_date": "2026-03-31",
+    "narrative": "Split Settlement 7560"
+  },
+  {
+    "bank_ref": "BNK-10064",
+    "credit": 8161,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 294"
+  },
+  {
+    "bank_ref": "BNK-10107",
+    "credit": 11128,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 985"
+  },
+  {
+    "bank_ref": "BNK-10006",
+    "credit": 28493,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 703"
+  },
+  {
+    "bank_ref": "BNK-10127",
+    "credit": 34234,
+    "value_date": "2026-03-12",
+    "narrative": "Direct Transfer 518"
+  },
+  {
+    "bank_ref": "BNK-10013",
+    "credit": 42198,
+    "value_date": "2026-03-21",
+    "narrative": "Direct Transfer 691"
+  },
+  {
+    "bank_ref": "BNK-10125",
+    "credit": 29265,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 438"
+  },
+  {
+    "bank_ref": "BNK-10061",
+    "credit": 24219,
+    "value_date": "2026-03-15",
+    "narrative": "Direct Transfer 578"
+  },
+  {
+    "bank_ref": "BNK-10237",
+    "credit": 24362,
+    "value_date": "2026-04-01",
+    "narrative": "Split Settlement 2288"
+  },
+  {
+    "bank_ref": "BNK-10121",
+    "credit": 34516,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 690"
+  },
+  {
+    "bank_ref": "BNK-10157",
+    "credit": 47619,
+    "value_date": "2026-03-27",
+    "narrative": "Batch Settlement 8705"
+  },
+  {
+    "bank_ref": "BNK-10099",
+    "credit": 42753,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 859"
+  },
+  {
+    "bank_ref": "BNK-10252",
+    "credit": 32657,
+    "value_date": "2026-03-28",
+    "narrative": "Split Settlement 3463"
+  },
+  {
+    "bank_ref": "BNK-10012",
+    "credit": 25807,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 400"
+  },
+  {
+    "bank_ref": "BNK-10267",
+    "credit": 17819,
+    "value_date": "2026-03-02",
+    "narrative": "Split Settlement 1461"
+  },
+  {
+    "bank_ref": "BNK-10100",
+    "credit": 37154,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 674"
+  },
+  {
+    "bank_ref": "BNK-10067",
+    "credit": 37066,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 767"
+  },
+  {
+    "bank_ref": "BNK-10113",
+    "credit": 31166,
+    "value_date": "2026-03-13",
+    "narrative": "Direct Transfer 940"
+  },
+  {
+    "bank_ref": "BNK-10196",
+    "credit": 67222,
+    "value_date": "2026-03-22",
+    "narrative": "Batch Settlement 3785"
+  },
+  {
+    "bank_ref": "BNK-10123",
+    "credit": 35073,
+    "value_date": "2026-04-01",
+    "narrative": "Direct Transfer 803"
+  },
+  {
+    "bank_ref": "BNK-10081",
+    "credit": 28474,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 678"
+  },
+  {
+    "bank_ref": "BNK-10203",
+    "credit": 51327,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 5465"
+  },
+  {
+    "bank_ref": "BNK-10299",
+    "credit": 9564,
+    "value_date": "2026-03-22",
+    "narrative": "Payment Less Fee 353"
+  },
+  {
+    "bank_ref": "BNK-10153",
+    "credit": 52790,
+    "value_date": "2026-04-01",
+    "narrative": "Batch Settlement 5892"
+  },
+  {
+    "bank_ref": "BNK-10150",
+    "credit": 62508,
+    "value_date": "2026-03-18",
+    "narrative": "Batch Settlement 4919"
+  },
+  {
+    "bank_ref": "BNK-10046",
+    "credit": 32849,
+    "value_date": "2026-03-27",
+    "narrative": "Direct Transfer 878"
+  },
+  {
+    "bank_ref": "BNK-10043",
+    "credit": 22243,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 214"
+  },
+  {
+    "bank_ref": "BNK-10029",
+    "credit": 39242,
+    "value_date": "2026-03-14",
+    "narrative": "Direct Transfer 324"
+  },
+  {
+    "bank_ref": "BNK-10283",
+    "credit": 35885,
+    "value_date": "2026-03-04",
+    "narrative": "Payment Less Fee 139"
+  },
+  {
+    "bank_ref": "BNK-10290",
+    "credit": 22059,
+    "value_date": "2026-03-05",
+    "narrative": "Payment Less Fee 420"
+  },
+  {
+    "bank_ref": "BNK-10073",
+    "credit": 44376,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 258"
+  },
+  {
+    "bank_ref": "BNK-10096",
+    "credit": 34122,
+    "value_date": "2026-03-17",
+    "narrative": "Direct Transfer 966"
+  },
+  {
+    "bank_ref": "BNK-10133",
+    "credit": 22118,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 552"
+  },
+  {
+    "bank_ref": "BNK-10110",
+    "credit": 44903,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 930"
+  },
+  {
+    "bank_ref": "BNK-10323",
+    "credit": 13970,
+    "value_date": "2026-03-27",
+    "narrative": "Payment Less Fee 131"
+  },
+  {
+    "bank_ref": "BNK-10186",
+    "credit": 77299,
+    "value_date": "2026-03-06",
+    "narrative": "Batch Settlement 4122"
+  },
+  {
+    "bank_ref": "BNK-10132",
+    "credit": 14774,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 721"
+  },
+  {
+    "bank_ref": "BNK-10089",
+    "credit": 11338,
+    "value_date": "2026-03-17",
+    "narrative": "Direct Transfer 820"
+  },
+  {
+    "bank_ref": "BNK-10328",
+    "credit": 36090,
+    "value_date": "2026-03-15",
+    "narrative": "Payment Less Fee 279"
+  },
+  {
+    "bank_ref": "BNK-10270",
+    "credit": 16602,
+    "value_date": "2026-03-14",
+    "narrative": "Split Settlement 5934"
+  },
+  {
+    "bank_ref": "BNK-10010",
+    "credit": 24526,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 718"
+  },
+  {
+    "bank_ref": "BNK-10093",
+    "credit": 8014,
+    "value_date": "2026-03-26",
+    "narrative": "Direct Transfer 259"
+  },
+  {
+    "bank_ref": "BNK-10227",
+    "credit": 43949,
+    "value_date": "2026-03-11",
+    "narrative": "Batch Settlement 7062"
+  },
+  {
+    "bank_ref": "BNK-10315",
+    "credit": 37079,
+    "value_date": "2026-03-04",
+    "narrative": "Payment Less Fee 112"
+  },
+  {
+    "bank_ref": "BNK-10048",
+    "credit": 11821,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 993"
+  },
+  {
+    "bank_ref": "BNK-10182",
+    "credit": 51252,
+    "value_date": "2026-03-04",
+    "narrative": "Batch Settlement 5135"
+  },
+  {
+    "bank_ref": "BNK-10108",
+    "credit": 12603,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 125"
+  },
+  {
+    "bank_ref": "BNK-10017",
+    "credit": 24909,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 463"
+  },
+  {
+    "bank_ref": "BNK-10023",
+    "credit": 4665,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 924"
+  },
+  {
+    "bank_ref": "BNK-10052",
+    "credit": 34919,
+    "value_date": "2026-03-15",
+    "narrative": "Direct Transfer 353"
+  },
+  {
+    "bank_ref": "BNK-10036",
+    "credit": 43006,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 400"
+  },
+  {
+    "bank_ref": "BNK-10004",
+    "credit": 16247,
+    "value_date": "2026-03-19",
+    "narrative": "Direct Transfer 127"
+  },
+  {
+    "bank_ref": "BNK-10220",
+    "credit": 74085,
+    "value_date": "2026-03-28",
+    "narrative": "Batch Settlement 7532"
+  },
+  {
+    "bank_ref": "BNK-10326",
+    "credit": 13181,
+    "value_date": "2026-03-29",
+    "narrative": "Payment Less Fee 323"
+  },
+  {
+    "bank_ref": "BNK-10105",
+    "credit": 45699,
+    "value_date": "2026-03-10",
+    "narrative": "Direct Transfer 205"
+  },
+  {
+    "bank_ref": "BNK-10213",
+    "credit": 16918,
+    "value_date": "2026-03-07",
+    "narrative": "Batch Settlement 5106"
+  },
+  {
+    "bank_ref": "BNK-10008",
+    "credit": 23298,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 320"
+  },
+  {
+    "bank_ref": "BNK-10195",
+    "credit": 14136,
+    "value_date": "2026-03-26",
+    "narrative": "Batch Settlement 5806"
+  },
+  {
+    "bank_ref": "BNK-10054",
+    "credit": 16080,
+    "value_date": "2026-03-19",
+    "narrative": "Direct Transfer 107"
+  },
+  {
+    "bank_ref": "BNK-10005",
+    "credit": 14031,
+    "value_date": "2026-03-25",
+    "narrative": "Direct Transfer 818"
+  },
+  {
+    "bank_ref": "BNK-10229",
+    "credit": 63985,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 6053"
+  },
+  {
+    "bank_ref": "BNK-10161",
+    "credit": 35166,
+    "value_date": "2026-03-30",
+    "narrative": "Batch Settlement 2983"
+  },
+  {
+    "bank_ref": "BNK-10230",
+    "credit": 7574,
+    "value_date": "2026-03-25",
+    "narrative": "Split Settlement 1126"
+  },
+  {
+    "bank_ref": "BNK-10168",
+    "credit": 89005,
+    "value_date": "2026-03-24",
+    "narrative": "Batch Settlement 5438"
+  },
+  {
+    "bank_ref": "BNK-10000",
+    "credit": 42905,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 859"
+  },
+  {
+    "bank_ref": "BNK-10032",
+    "credit": 45596,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 165"
+  },
+  {
+    "bank_ref": "BNK-10050",
+    "credit": 48836,
+    "value_date": "2026-03-23",
+    "narrative": "Direct Transfer 830"
+  },
+  {
+    "bank_ref": "BNK-10167",
+    "credit": 49023,
+    "value_date": "2026-03-09",
+    "narrative": "Batch Settlement 4986"
+  },
+  {
+    "bank_ref": "BNK-10254",
+    "credit": 33607,
+    "value_date": "2026-03-22",
+    "narrative": "Split Settlement 6381"
+  },
+  {
+    "bank_ref": "BNK-10294",
+    "credit": 24209,
+    "value_date": "2026-03-17",
+    "narrative": "Payment Less Fee 166"
+  },
+  {
+    "bank_ref": "BNK-10199",
+    "credit": 53358,
+    "value_date": "2026-03-09",
+    "narrative": "Batch Settlement 6881"
+  },
+  {
+    "bank_ref": "BNK-10059",
+    "credit": 31976,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 926"
+  },
+  {
+    "bank_ref": "BNK-10071",
+    "credit": 18380,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 392"
+  },
+  {
+    "bank_ref": "BNK-10112",
+    "credit": 3537,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 327"
+  },
+  {
+    "bank_ref": "BNK-10222",
+    "credit": 46861,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 3002"
+  },
+  {
+    "bank_ref": "BNK-10111",
+    "credit": 18485,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 210"
+  },
+  {
+    "bank_ref": "BNK-10053",
+    "credit": 5196,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 702"
+  },
+  {
+    "bank_ref": "BNK-10260",
+    "credit": 44408,
+    "value_date": "2026-03-05",
+    "narrative": "Split Settlement 7731"
+  },
+  {
+    "bank_ref": "BNK-10351",
+    "credit": 10000,
+    "value_date": "2026-03-31",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10058",
+    "credit": 36339,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 684"
+  },
+  {
+    "bank_ref": "BNK-10007",
+    "credit": 1425,
+    "value_date": "2026-03-25",
+    "narrative": "Direct Transfer 814"
+  },
+  {
+    "bank_ref": "BNK-10158",
+    "credit": 15930,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 4266"
+  },
+  {
+    "bank_ref": "BNK-10057",
+    "credit": 16597,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 597"
+  },
+  {
+    "bank_ref": "BNK-10204",
+    "credit": 36685,
+    "value_date": "2026-03-05",
+    "narrative": "Batch Settlement 7511"
+  },
+  {
+    "bank_ref": "BNK-10284",
+    "credit": 17368,
+    "value_date": "2026-03-12",
+    "narrative": "Payment Less Fee 156"
+  },
+  {
+    "bank_ref": "BNK-10011",
+    "credit": 3847,
+    "value_date": "2026-03-25",
+    "narrative": "Direct Transfer 649"
+  },
+  {
+    "bank_ref": "BNK-10301",
+    "credit": 49434,
+    "value_date": "2026-03-31",
+    "narrative": "Payment Less Fee 91"
+  },
+  {
+    "bank_ref": "BNK-10231",
+    "credit": 7890,
+    "value_date": "2026-03-26",
+    "narrative": "Split Settlement 8055"
+  },
+  {
+    "bank_ref": "BNK-10091",
+    "credit": 44769,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 406"
+  },
+  {
+    "bank_ref": "BNK-10273",
+    "credit": 26741,
+    "value_date": "2026-03-22",
+    "narrative": "Split Settlement 1025"
+  },
+  {
+    "bank_ref": "BNK-10359",
+    "credit": 10000,
+    "value_date": "2026-03-27",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10014",
+    "credit": 47174,
+    "value_date": "2026-03-03",
+    "narrative": "Direct Transfer 777"
+  },
+  {
+    "bank_ref": "BNK-10151",
+    "credit": 33384,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 2320"
+  },
+  {
+    "bank_ref": "BNK-10331",
+    "credit": 3430,
+    "value_date": "2026-03-15",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10253",
+    "credit": 17965,
+    "value_date": "2026-03-22",
+    "narrative": "Split Settlement 7171"
+  },
+  {
+    "bank_ref": "BNK-10276",
+    "credit": 8219,
+    "value_date": "2026-03-26",
+    "narrative": "Split Settlement 9945"
+  },
+  {
+    "bank_ref": "BNK-10042",
+    "credit": 36348,
+    "value_date": "2026-04-02",
+    "narrative": "Direct Transfer 100"
+  },
+  {
+    "bank_ref": "BNK-10038",
+    "credit": 48164,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 880"
+  },
+  {
+    "bank_ref": "BNK-10358",
+    "credit": 10000,
+    "value_date": "2026-03-19",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10215",
+    "credit": 40902,
+    "value_date": "2026-03-06",
+    "narrative": "Batch Settlement 2041"
+  },
+  {
+    "bank_ref": "BNK-10248",
+    "credit": 16873,
+    "value_date": "2026-03-08",
+    "narrative": "Split Settlement 8172"
+  },
+  {
+    "bank_ref": "BNK-10340",
+    "credit": 5068,
+    "value_date": "2026-03-17",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10019",
+    "credit": 5679,
+    "value_date": "2026-03-22",
+    "narrative": "Direct Transfer 275"
+  },
+  {
+    "bank_ref": "BNK-10205",
+    "credit": 15385,
+    "value_date": "2026-03-11",
+    "narrative": "Batch Settlement 3024"
+  },
+  {
+    "bank_ref": "BNK-10320",
+    "credit": 24212,
+    "value_date": "2026-03-08",
+    "narrative": "Payment Less Fee 445"
+  },
+  {
+    "bank_ref": "BNK-10173",
+    "credit": 14013,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 4697"
+  },
+  {
+    "bank_ref": "BNK-10218",
+    "credit": 15146,
+    "value_date": "2026-03-22",
+    "narrative": "Batch Settlement 9984"
+  },
+  {
+    "bank_ref": "BNK-10020",
+    "credit": 48784,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 573"
+  },
+  {
+    "bank_ref": "BNK-10305",
+    "credit": 28527,
+    "value_date": "2026-04-02",
+    "narrative": "Payment Less Fee 206"
+  },
+  {
+    "bank_ref": "BNK-10280",
+    "credit": 7263,
+    "value_date": "2026-03-07",
+    "narrative": "Payment Less Fee 160"
+  },
+  {
+    "bank_ref": "BNK-10137",
+    "credit": 7120,
+    "value_date": "2026-03-27",
+    "narrative": "Direct Transfer 788"
+  },
+  {
+    "bank_ref": "BNK-10120",
+    "credit": 23654,
+    "value_date": "2026-03-25",
+    "narrative": "Direct Transfer 546"
+  },
+  {
+    "bank_ref": "BNK-10303",
+    "credit": 33689,
+    "value_date": "2026-03-05",
+    "narrative": "Payment Less Fee 27"
+  },
+  {
+    "bank_ref": "BNK-10332",
+    "credit": 16264,
+    "value_date": "2026-03-22",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10095",
+    "credit": 14342,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 973"
+  },
+  {
+    "bank_ref": "BNK-10221",
+    "credit": 39005,
+    "value_date": "2026-03-03",
+    "narrative": "Batch Settlement 2527"
+  },
+  {
+    "bank_ref": "BNK-10039",
+    "credit": 34271,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 991"
+  },
+  {
+    "bank_ref": "BNK-10180",
+    "credit": 23157,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 8245"
+  },
+  {
+    "bank_ref": "BNK-10216",
+    "credit": 66658,
+    "value_date": "2026-03-11",
+    "narrative": "Batch Settlement 1510"
+  },
+  {
+    "bank_ref": "BNK-10311",
+    "credit": 12411,
+    "value_date": "2026-03-24",
+    "narrative": "Payment Less Fee 23"
+  },
+  {
+    "bank_ref": "BNK-10349",
+    "credit": 10000,
+    "value_date": "2026-03-07",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10094",
+    "credit": 19465,
+    "value_date": "2026-03-20",
+    "narrative": "Direct Transfer 834"
+  },
+  {
+    "bank_ref": "BNK-10198",
+    "credit": 27797,
+    "value_date": "2026-03-20",
+    "narrative": "Batch Settlement 7951"
+  },
+  {
+    "bank_ref": "BNK-10307",
+    "credit": 33991,
+    "value_date": "2026-03-13",
+    "narrative": "Payment Less Fee 495"
+  },
+  {
+    "bank_ref": "BNK-10079",
+    "credit": 16414,
+    "value_date": "2026-03-13",
+    "narrative": "Direct Transfer 683"
+  },
+  {
+    "bank_ref": "BNK-10128",
+    "credit": 27371,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 667"
+  },
+  {
+    "bank_ref": "BNK-10190",
+    "credit": 44214,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 6439"
+  },
+  {
+    "bank_ref": "BNK-10291",
+    "credit": 32770,
+    "value_date": "2026-03-16",
+    "narrative": "Payment Less Fee 50"
+  },
+  {
+    "bank_ref": "BNK-10078",
+    "credit": 13178,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 169"
+  },
+  {
+    "bank_ref": "BNK-10238",
+    "credit": 17100,
+    "value_date": "2026-03-05",
+    "narrative": "Split Settlement 3419"
+  },
+  {
+    "bank_ref": "BNK-10257",
+    "credit": 45419,
+    "value_date": "2026-03-01",
+    "narrative": "Split Settlement 3253"
+  },
+  {
+    "bank_ref": "BNK-10015",
+    "credit": 19965,
+    "value_date": "2026-03-03",
+    "narrative": "Direct Transfer 987"
+  },
+  {
+    "bank_ref": "BNK-10174",
+    "credit": 68069,
+    "value_date": "2026-03-21",
+    "narrative": "Batch Settlement 1986"
+  },
+  {
+    "bank_ref": "BNK-10092",
+    "credit": 7788,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 370"
+  },
+  {
+    "bank_ref": "BNK-10365",
+    "credit": 10000,
+    "value_date": "2026-03-16",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10228",
+    "credit": 25065,
+    "value_date": "2026-03-10",
+    "narrative": "Batch Settlement 7947"
+  },
+  {
+    "bank_ref": "BNK-10258",
+    "credit": 14924,
+    "value_date": "2026-03-05",
+    "narrative": "Split Settlement 3712"
+  },
+  {
+    "bank_ref": "BNK-10149",
+    "credit": 36905,
+    "value_date": "2026-03-15",
+    "narrative": "Direct Transfer 861"
+  },
+  {
+    "bank_ref": "BNK-10343",
+    "credit": 11572,
+    "value_date": "2026-03-30",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10209",
+    "credit": 35872,
+    "value_date": "2026-03-21",
+    "narrative": "Batch Settlement 5583"
+  },
+  {
+    "bank_ref": "BNK-10068",
+    "credit": 1967,
+    "value_date": "2026-03-03",
+    "narrative": "Direct Transfer 270"
+  },
+  {
+    "bank_ref": "BNK-10114",
+    "credit": 15915,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 775"
+  },
+  {
+    "bank_ref": "BNK-10060",
+    "credit": 13478,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 774"
+  },
+  {
+    "bank_ref": "BNK-10356",
+    "credit": 10000,
+    "value_date": "2026-03-12",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10066",
+    "credit": 31318,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 553"
+  },
+  {
+    "bank_ref": "BNK-10001",
+    "credit": 17049,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 854"
+  },
+  {
+    "bank_ref": "BNK-10063",
+    "credit": 7449,
+    "value_date": "2026-03-03",
+    "narrative": "Direct Transfer 845"
+  },
+  {
+    "bank_ref": "BNK-10082",
+    "credit": 21733,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 309"
+  },
+  {
+    "bank_ref": "BNK-10357",
+    "credit": 10000,
+    "value_date": "2026-03-13",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10035",
+    "credit": 8507,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 868"
+  },
+  {
+    "bank_ref": "BNK-10297",
+    "credit": 27781,
+    "value_date": "2026-03-15",
+    "narrative": "Payment Less Fee 324"
+  },
+  {
+    "bank_ref": "BNK-10024",
+    "credit": 27290,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 316"
+  },
+  {
+    "bank_ref": "BNK-10171",
+    "credit": 58366,
+    "value_date": "2026-03-11",
+    "narrative": "Batch Settlement 8843"
+  },
+  {
+    "bank_ref": "BNK-10261",
+    "credit": 31628,
+    "value_date": "2026-03-31",
+    "narrative": "Split Settlement 8218"
+  },
+  {
+    "bank_ref": "BNK-10022",
+    "credit": 15392,
+    "value_date": "2026-03-23",
+    "narrative": "Direct Transfer 963"
+  },
+  {
+    "bank_ref": "BNK-10083",
+    "credit": 47936,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 371"
+  },
+  {
+    "bank_ref": "BNK-10288",
+    "credit": 27114,
+    "value_date": "2026-03-18",
+    "narrative": "Payment Less Fee 105"
+  },
+  {
+    "bank_ref": "BNK-10304",
+    "credit": 20058,
+    "value_date": "2026-03-22",
+    "narrative": "Payment Less Fee 408"
+  },
+  {
+    "bank_ref": "BNK-10314",
+    "credit": 34127,
+    "value_date": "2026-03-21",
+    "narrative": "Payment Less Fee 119"
+  },
+  {
+    "bank_ref": "BNK-10163",
+    "credit": 40137,
+    "value_date": "2026-04-02",
+    "narrative": "Batch Settlement 5425"
+  },
+  {
+    "bank_ref": "BNK-10156",
+    "credit": 25729,
+    "value_date": "2026-03-10",
+    "narrative": "Batch Settlement 6363"
+  },
+  {
+    "bank_ref": "BNK-10246",
+    "credit": 10226,
+    "value_date": "2026-03-14",
+    "narrative": "Split Settlement 4084"
+  },
+  {
+    "bank_ref": "BNK-10212",
+    "credit": 49891,
+    "value_date": "2026-03-07",
+    "narrative": "Batch Settlement 4394"
+  },
+  {
+    "bank_ref": "BNK-10193",
+    "credit": 60302,
+    "value_date": "2026-03-30",
+    "narrative": "Batch Settlement 1588"
+  },
+  {
+    "bank_ref": "BNK-10172",
+    "credit": 42549,
+    "value_date": "2026-03-21",
+    "narrative": "Batch Settlement 1878"
+  },
+  {
+    "bank_ref": "BNK-10289",
+    "credit": 37407,
+    "value_date": "2026-04-01",
+    "narrative": "Payment Less Fee 198"
+  },
+  {
+    "bank_ref": "BNK-10354",
+    "credit": 10000,
+    "value_date": "2026-03-28",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10086",
+    "credit": 41708,
+    "value_date": "2026-03-19",
+    "narrative": "Direct Transfer 175"
+  },
+  {
+    "bank_ref": "BNK-10188",
+    "credit": 49328,
+    "value_date": "2026-03-19",
+    "narrative": "Batch Settlement 6654"
+  },
+  {
+    "bank_ref": "BNK-10003",
+    "credit": 28651,
+    "value_date": "2026-03-02",
+    "narrative": "Direct Transfer 195"
+  },
+  {
+    "bank_ref": "BNK-10234",
+    "credit": 37795,
+    "value_date": "2026-03-16",
+    "narrative": "Split Settlement 8033"
+  },
+  {
+    "bank_ref": "BNK-10183",
+    "credit": 60417,
+    "value_date": "2026-03-18",
+    "narrative": "Batch Settlement 9167"
+  },
+  {
+    "bank_ref": "BNK-10065",
+    "credit": 30400,
+    "value_date": "2026-03-06",
+    "narrative": "Direct Transfer 287"
+  },
+  {
+    "bank_ref": "BNK-10165",
+    "credit": 63186,
+    "value_date": "2026-03-16",
+    "narrative": "Batch Settlement 6813"
+  },
+  {
+    "bank_ref": "BNK-10117",
+    "credit": 45532,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 439"
+  },
+  {
+    "bank_ref": "BNK-10187",
+    "credit": 24648,
+    "value_date": "2026-03-13",
+    "narrative": "Batch Settlement 5377"
+  },
+  {
+    "bank_ref": "BNK-10041",
+    "credit": 14035,
+    "value_date": "2026-03-06",
+    "narrative": "Direct Transfer 880"
+  },
+  {
+    "bank_ref": "BNK-10084",
+    "credit": 9577,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 407"
+  },
+  {
+    "bank_ref": "BNK-10028",
+    "credit": 36322,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 698"
+  },
+  {
+    "bank_ref": "BNK-10207",
+    "credit": 38169,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 5986"
+  },
+  {
+    "bank_ref": "BNK-10049",
+    "credit": 28730,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 652"
+  },
+  {
+    "bank_ref": "BNK-10069",
+    "credit": 32826,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 985"
+  },
+  {
+    "bank_ref": "BNK-10274",
+    "credit": 30724,
+    "value_date": "2026-03-18",
+    "narrative": "Split Settlement 1713"
+  },
+  {
+    "bank_ref": "BNK-10129",
+    "credit": 13572,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 488"
+  },
+  {
+    "bank_ref": "BNK-10034",
+    "credit": 37256,
+    "value_date": "2026-03-28",
+    "narrative": "Direct Transfer 796"
+  },
+  {
+    "bank_ref": "BNK-10240",
+    "credit": 11277,
+    "value_date": "2026-03-08",
+    "narrative": "Split Settlement 8354"
+  },
+  {
+    "bank_ref": "BNK-10134",
+    "credit": 15005,
+    "value_date": "2026-03-18",
+    "narrative": "Direct Transfer 912"
+  },
+  {
+    "bank_ref": "BNK-10282",
+    "credit": 25048,
+    "value_date": "2026-03-15",
+    "narrative": "Payment Less Fee 273"
+  },
+  {
+    "bank_ref": "BNK-10259",
+    "credit": 15055,
+    "value_date": "2026-03-07",
+    "narrative": "Split Settlement 8170"
+  },
+  {
+    "bank_ref": "BNK-10363",
+    "credit": 10000,
+    "value_date": "2026-03-02",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10072",
+    "credit": 46651,
+    "value_date": "2026-04-02",
+    "narrative": "Direct Transfer 902"
+  },
+  {
+    "bank_ref": "BNK-10085",
+    "credit": 21720,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 109"
+  },
+  {
+    "bank_ref": "BNK-10027",
+    "credit": 18359,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 862"
+  },
+  {
+    "bank_ref": "BNK-10154",
+    "credit": 77533,
+    "value_date": "2026-03-16",
+    "narrative": "Batch Settlement 7371"
+  },
+  {
+    "bank_ref": "BNK-10145",
+    "credit": 4291,
+    "value_date": "2026-03-18",
+    "narrative": "Direct Transfer 968"
+  },
+  {
+    "bank_ref": "BNK-10076",
+    "credit": 4286,
+    "value_date": "2026-03-20",
+    "narrative": "Direct Transfer 614"
+  },
+  {
+    "bank_ref": "BNK-10266",
+    "credit": 9311,
+    "value_date": "2026-03-02",
+    "narrative": "Split Settlement 7142"
+  },
+  {
+    "bank_ref": "BNK-10329",
+    "credit": 19838,
+    "value_date": "2026-03-03",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10224",
+    "credit": 31699,
+    "value_date": "2026-03-12",
+    "narrative": "Batch Settlement 5564"
+  },
+  {
+    "bank_ref": "BNK-10364",
+    "credit": 10000,
+    "value_date": "2026-03-05",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10223",
+    "credit": 41264,
+    "value_date": "2026-03-21",
+    "narrative": "Batch Settlement 4485"
+  },
+  {
+    "bank_ref": "BNK-10191",
+    "credit": 34206,
+    "value_date": "2026-03-03",
+    "narrative": "Batch Settlement 3361"
+  },
+  {
+    "bank_ref": "BNK-10047",
+    "credit": 9241,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 586"
+  },
+  {
+    "bank_ref": "BNK-10316",
+    "credit": 9612,
+    "value_date": "2026-03-08",
+    "narrative": "Payment Less Fee 241"
+  },
+  {
+    "bank_ref": "BNK-10201",
+    "credit": 18876,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 1645"
+  },
+  {
+    "bank_ref": "BNK-10101",
+    "credit": 8331,
+    "value_date": "2026-03-05",
+    "narrative": "Direct Transfer 252"
+  },
+  {
+    "bank_ref": "BNK-10263",
+    "credit": 25345,
+    "value_date": "2026-04-01",
+    "narrative": "Split Settlement 3042"
+  },
+  {
+    "bank_ref": "BNK-10249",
+    "credit": 34384,
+    "value_date": "2026-03-07",
+    "narrative": "Split Settlement 9586"
+  },
+  {
+    "bank_ref": "BNK-10318",
+    "credit": 25593,
+    "value_date": "2026-03-14",
+    "narrative": "Payment Less Fee 351"
+  },
+  {
+    "bank_ref": "BNK-10308",
+    "credit": 33694,
+    "value_date": "2026-03-05",
+    "narrative": "Payment Less Fee 400"
+  },
+  {
+    "bank_ref": "BNK-10339",
+    "credit": 2815,
+    "value_date": "2026-03-27",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10344",
+    "credit": 8388,
+    "value_date": "2026-03-12",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10346",
+    "credit": 10307,
+    "value_date": "2026-03-28",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10309",
+    "credit": 13742,
+    "value_date": "2026-03-13",
+    "narrative": "Payment Less Fee 281"
+  },
+  {
+    "bank_ref": "BNK-10044",
+    "credit": 21153,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 346"
+  },
+  {
+    "bank_ref": "BNK-10325",
+    "credit": 28927,
+    "value_date": "2026-03-28",
+    "narrative": "Payment Less Fee 249"
+  },
+  {
+    "bank_ref": "BNK-10233",
+    "credit": 22641,
+    "value_date": "2026-03-14",
+    "narrative": "Split Settlement 6129"
+  },
+  {
+    "bank_ref": "BNK-10347",
+    "credit": 3584,
+    "value_date": "2026-03-09",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10239",
+    "credit": 28407,
+    "value_date": "2026-03-04",
+    "narrative": "Split Settlement 2684"
+  },
+  {
+    "bank_ref": "BNK-10217",
+    "credit": 32599,
+    "value_date": "2026-03-03",
+    "narrative": "Batch Settlement 6277"
+  },
+  {
+    "bank_ref": "BNK-10185",
+    "credit": 38102,
+    "value_date": "2026-03-21",
+    "narrative": "Batch Settlement 9165"
+  },
+  {
+    "bank_ref": "BNK-10189",
+    "credit": 63206,
+    "value_date": "2026-03-13",
+    "narrative": "Batch Settlement 7730"
+  },
+  {
+    "bank_ref": "BNK-10136",
+    "credit": 34780,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 734"
+  },
+  {
+    "bank_ref": "BNK-10118",
+    "credit": 8559,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 282"
+  },
+  {
+    "bank_ref": "BNK-10045",
+    "credit": 38182,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 187"
+  },
+  {
+    "bank_ref": "BNK-10030",
+    "credit": 34392,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 873"
+  },
+  {
+    "bank_ref": "BNK-10146",
+    "credit": 30914,
+    "value_date": "2026-03-06",
+    "narrative": "Direct Transfer 783"
+  },
+  {
+    "bank_ref": "BNK-10164",
+    "credit": 61903,
+    "value_date": "2026-03-27",
+    "narrative": "Batch Settlement 5569"
+  },
+  {
+    "bank_ref": "BNK-10292",
+    "credit": 16537,
+    "value_date": "2026-03-11",
+    "narrative": "Payment Less Fee 289"
+  },
+  {
+    "bank_ref": "BNK-10102",
+    "credit": 3361,
+    "value_date": "2026-03-28",
+    "narrative": "Direct Transfer 696"
+  },
+  {
+    "bank_ref": "BNK-10330",
+    "credit": 5106,
+    "value_date": "2026-03-11",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10243",
+    "credit": 17130,
+    "value_date": "2026-03-18",
+    "narrative": "Split Settlement 8404"
+  },
+  {
+    "bank_ref": "BNK-10208",
+    "credit": 42756,
+    "value_date": "2026-03-24",
+    "narrative": "Batch Settlement 9850"
+  },
+  {
+    "bank_ref": "BNK-10080",
+    "credit": 38940,
+    "value_date": "2026-03-20",
+    "narrative": "Direct Transfer 734"
+  },
+  {
+    "bank_ref": "BNK-10002",
+    "credit": 45348,
+    "value_date": "2026-03-26",
+    "narrative": "Direct Transfer 189"
+  },
+  {
+    "bank_ref": "BNK-10281",
+    "credit": 17609,
+    "value_date": "2026-03-03",
+    "narrative": "Payment Less Fee 463"
+  },
+  {
+    "bank_ref": "BNK-10324",
+    "credit": 6528,
+    "value_date": "2026-03-20",
+    "narrative": "Payment Less Fee 194"
+  },
+  {
+    "bank_ref": "BNK-10337",
+    "credit": 5228,
+    "value_date": "2026-03-14",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10169",
+    "credit": 37818,
+    "value_date": "2026-03-09",
+    "narrative": "Batch Settlement 8933"
+  },
+  {
+    "bank_ref": "BNK-10342",
+    "credit": 6395,
+    "value_date": "2026-03-06",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10051",
+    "credit": 27148,
+    "value_date": "2026-03-24",
+    "narrative": "Direct Transfer 482"
+  },
+  {
+    "bank_ref": "BNK-10362",
+    "credit": 10000,
+    "value_date": "2026-03-17",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10119",
+    "credit": 18397,
+    "value_date": "2026-03-02",
+    "narrative": "Direct Transfer 710"
+  },
+  {
+    "bank_ref": "BNK-10319",
+    "credit": 8964,
+    "value_date": "2026-03-19",
+    "narrative": "Payment Less Fee 291"
+  },
+  {
+    "bank_ref": "BNK-10271",
+    "credit": 30926,
+    "value_date": "2026-03-14",
+    "narrative": "Split Settlement 1782"
+  },
+  {
+    "bank_ref": "BNK-10025",
+    "credit": 48049,
+    "value_date": "2026-03-11",
+    "narrative": "Direct Transfer 771"
+  },
+  {
+    "bank_ref": "BNK-10352",
+    "credit": 10000,
+    "value_date": "2026-03-02",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10122",
+    "credit": 17693,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 546"
+  },
+  {
+    "bank_ref": "BNK-10055",
+    "credit": 47389,
+    "value_date": "2026-03-21",
+    "narrative": "Direct Transfer 334"
+  },
+  {
+    "bank_ref": "BNK-10366",
+    "credit": 10000,
+    "value_date": "2026-03-22",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10139",
+    "credit": 4028,
+    "value_date": "2026-03-09",
+    "narrative": "Direct Transfer 725"
+  },
+  {
+    "bank_ref": "BNK-10138",
+    "credit": 15722,
+    "value_date": "2026-03-26",
+    "narrative": "Direct Transfer 250"
+  },
+  {
+    "bank_ref": "BNK-10275",
+    "credit": 40998,
+    "value_date": "2026-03-19",
+    "narrative": "Split Settlement 7338"
+  },
+  {
+    "bank_ref": "BNK-10103",
+    "credit": 10705,
+    "value_date": "2026-03-14",
+    "narrative": "Direct Transfer 142"
+  },
+  {
+    "bank_ref": "BNK-10109",
+    "credit": 49271,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 901"
+  },
+  {
+    "bank_ref": "BNK-10306",
+    "credit": 6803,
+    "value_date": "2026-03-07",
+    "narrative": "Payment Less Fee 319"
+  },
+  {
+    "bank_ref": "BNK-10131",
+    "credit": 36909,
+    "value_date": "2026-03-27",
+    "narrative": "Direct Transfer 411"
+  },
+  {
+    "bank_ref": "BNK-10226",
+    "credit": 36969,
+    "value_date": "2026-03-07",
+    "narrative": "Batch Settlement 1502"
+  },
+  {
+    "bank_ref": "BNK-10177",
+    "credit": 60264,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 3330"
+  },
+  {
+    "bank_ref": "BNK-10040",
+    "credit": 20558,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 619"
+  },
+  {
+    "bank_ref": "BNK-10302",
+    "credit": 13913,
+    "value_date": "2026-03-22",
+    "narrative": "Payment Less Fee 444"
+  },
+  {
+    "bank_ref": "BNK-10021",
+    "credit": 18691,
+    "value_date": "2026-04-01",
+    "narrative": "Direct Transfer 804"
+  },
+  {
+    "bank_ref": "BNK-10148",
+    "credit": 41150,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 616"
+  },
+  {
+    "bank_ref": "BNK-10074",
+    "credit": 20445,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 693"
+  },
+  {
+    "bank_ref": "BNK-10176",
+    "credit": 48035,
+    "value_date": "2026-03-24",
+    "narrative": "Batch Settlement 8438"
+  },
+  {
+    "bank_ref": "BNK-10202",
+    "credit": 32946,
+    "value_date": "2026-03-24",
+    "narrative": "Batch Settlement 2476"
+  },
+  {
+    "bank_ref": "BNK-10355",
+    "credit": 10000,
+    "value_date": "2026-03-14",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10278",
+    "credit": 27055,
+    "value_date": "2026-03-27",
+    "narrative": "Split Settlement 8612"
+  },
+  {
+    "bank_ref": "BNK-10350",
+    "credit": 10000,
+    "value_date": "2026-03-16",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10062",
+    "credit": 48780,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 769"
+  },
+  {
+    "bank_ref": "BNK-10310",
+    "credit": 25261,
+    "value_date": "2026-03-09",
+    "narrative": "Payment Less Fee 342"
+  },
+  {
+    "bank_ref": "BNK-10140",
+    "credit": 5772,
+    "value_date": "2026-03-16",
+    "narrative": "Direct Transfer 744"
+  },
+  {
+    "bank_ref": "BNK-10286",
+    "credit": 28885,
+    "value_date": "2026-03-30",
+    "narrative": "Payment Less Fee 233"
+  },
+  {
+    "bank_ref": "BNK-10178",
+    "credit": 72432,
+    "value_date": "2026-04-01",
+    "narrative": "Batch Settlement 9199"
+  },
+  {
+    "bank_ref": "BNK-10360",
+    "credit": 10000,
+    "value_date": "2026-03-05",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10162",
+    "credit": 62612,
+    "value_date": "2026-03-29",
+    "narrative": "Batch Settlement 9031"
+  },
+  {
+    "bank_ref": "BNK-10250",
+    "credit": 10862,
+    "value_date": "2026-03-26",
+    "narrative": "Split Settlement 7333"
+  },
+  {
+    "bank_ref": "BNK-10333",
+    "credit": 17952,
+    "value_date": "2026-03-12",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10147",
+    "credit": 37629,
+    "value_date": "2026-03-21",
+    "narrative": "Direct Transfer 873"
+  },
+  {
+    "bank_ref": "BNK-10338",
+    "credit": 17477,
+    "value_date": "2026-03-30",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10115",
+    "credit": 27113,
+    "value_date": "2026-03-12",
+    "narrative": "Direct Transfer 985"
+  },
+  {
+    "bank_ref": "BNK-10152",
+    "credit": 46071,
+    "value_date": "2026-03-13",
+    "narrative": "Batch Settlement 8633"
+  },
+  {
+    "bank_ref": "BNK-10285",
+    "credit": 47795,
+    "value_date": "2026-03-09",
+    "narrative": "Payment Less Fee 179"
+  },
+  {
+    "bank_ref": "BNK-10142",
+    "credit": 27191,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 771"
+  },
+  {
+    "bank_ref": "BNK-10126",
+    "credit": 21572,
+    "value_date": "2026-03-22",
+    "narrative": "Direct Transfer 837"
+  },
+  {
+    "bank_ref": "BNK-10098",
+    "credit": 3889,
+    "value_date": "2026-03-02",
+    "narrative": "Direct Transfer 889"
+  },
+  {
+    "bank_ref": "BNK-10247",
+    "credit": 13450,
+    "value_date": "2026-03-14",
+    "narrative": "Split Settlement 8792"
+  },
+  {
+    "bank_ref": "BNK-10312",
+    "credit": 37430,
+    "value_date": "2026-03-15",
+    "narrative": "Payment Less Fee 275"
+  },
+  {
+    "bank_ref": "BNK-10367",
+    "credit": 10000,
+    "value_date": "2026-03-26",
+    "narrative": "Standard Subscription"
+  },
+  {
+    "bank_ref": "BNK-10181",
+    "credit": 79566,
+    "value_date": "2026-03-12",
+    "narrative": "Batch Settlement 2713"
+  },
+  {
+    "bank_ref": "BNK-10279",
+    "credit": 13795,
+    "value_date": "2026-03-24",
+    "narrative": "Payment Less Fee 42"
+  },
+  {
+    "bank_ref": "BNK-10175",
+    "credit": 19477,
+    "value_date": "2026-03-08",
+    "narrative": "Batch Settlement 2229"
+  },
+  {
+    "bank_ref": "BNK-10272",
+    "credit": 24609,
+    "value_date": "2026-03-21",
+    "narrative": "Split Settlement 5772"
+  },
+  {
+    "bank_ref": "BNK-10235",
+    "credit": 9683,
+    "value_date": "2026-03-30",
+    "narrative": "Split Settlement 4986"
+  },
+  {
+    "bank_ref": "BNK-10088",
+    "credit": 5508,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 478"
+  },
+  {
+    "bank_ref": "BNK-10345",
+    "credit": 18003,
+    "value_date": "2026-03-29",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10192",
+    "credit": 29519,
+    "value_date": "2026-03-13",
+    "narrative": "Batch Settlement 7512"
+  },
+  {
+    "bank_ref": "BNK-10269",
+    "credit": 11712,
+    "value_date": "2026-03-25",
+    "narrative": "Split Settlement 1086"
+  },
+  {
+    "bank_ref": "BNK-10244",
+    "credit": 31050,
+    "value_date": "2026-03-17",
+    "narrative": "Split Settlement 1932"
+  },
+  {
+    "bank_ref": "BNK-10166",
+    "credit": 45732,
+    "value_date": "2026-03-03",
+    "narrative": "Batch Settlement 7658"
+  },
+  {
+    "bank_ref": "BNK-10287",
+    "credit": 33350,
+    "value_date": "2026-04-01",
+    "narrative": "Payment Less Fee 468"
+  },
+  {
+    "bank_ref": "BNK-10106",
+    "credit": 37692,
+    "value_date": "2026-03-30",
+    "narrative": "Direct Transfer 735"
+  },
+  {
+    "bank_ref": "BNK-10265",
+    "credit": 10360,
+    "value_date": "2026-03-02",
+    "narrative": "Split Settlement 7326"
+  },
+  {
+    "bank_ref": "BNK-10070",
+    "credit": 4842,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 102"
+  },
+  {
+    "bank_ref": "BNK-10031",
+    "credit": 8185,
+    "value_date": "2026-03-07",
+    "narrative": "Direct Transfer 263"
+  },
+  {
+    "bank_ref": "BNK-10241",
+    "credit": 13657,
+    "value_date": "2026-03-08",
+    "narrative": "Split Settlement 6295"
+  },
+  {
+    "bank_ref": "BNK-10313",
+    "credit": 12573,
+    "value_date": "2026-03-26",
+    "narrative": "Payment Less Fee 144"
+  },
+  {
+    "bank_ref": "BNK-10256",
+    "credit": 16311,
+    "value_date": "2026-03-02",
+    "narrative": "Split Settlement 4145"
+  },
+  {
+    "bank_ref": "BNK-10210",
+    "credit": 39835,
+    "value_date": "2026-03-29",
+    "narrative": "Batch Settlement 2627"
+  },
+  {
+    "bank_ref": "BNK-10104",
+    "credit": 24897,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 466"
+  },
+  {
+    "bank_ref": "BNK-10211",
+    "credit": 34289,
+    "value_date": "2026-03-31",
+    "narrative": "Batch Settlement 8450"
+  },
+  {
+    "bank_ref": "BNK-10077",
+    "credit": 35807,
+    "value_date": "2026-03-06",
+    "narrative": "Direct Transfer 620"
+  },
+  {
+    "bank_ref": "BNK-10214",
+    "credit": 6804,
+    "value_date": "2026-03-12",
+    "narrative": "Batch Settlement 6304"
+  },
+  {
+    "bank_ref": "BNK-10160",
+    "credit": 28809,
+    "value_date": "2026-03-06",
+    "narrative": "Batch Settlement 1420"
+  },
+  {
+    "bank_ref": "BNK-10225",
+    "credit": 52195,
+    "value_date": "2026-03-07",
+    "narrative": "Batch Settlement 6062"
+  },
+  {
+    "bank_ref": "BNK-10009",
+    "credit": 23059,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 489"
+  },
+  {
+    "bank_ref": "BNK-10097",
+    "credit": 7048,
+    "value_date": "2026-03-22",
+    "narrative": "Direct Transfer 949"
+  },
+  {
+    "bank_ref": "BNK-10056",
+    "credit": 3058,
+    "value_date": "2026-03-29",
+    "narrative": "Direct Transfer 172"
+  },
+  {
+    "bank_ref": "BNK-10293",
+    "credit": 11673,
+    "value_date": "2026-03-13",
+    "narrative": "Payment Less Fee 50"
+  },
+  {
+    "bank_ref": "BNK-10016",
+    "credit": 25911,
+    "value_date": "2026-03-10",
+    "narrative": "Direct Transfer 750"
+  },
+  {
+    "bank_ref": "BNK-10124",
+    "credit": 49624,
+    "value_date": "2026-03-26",
+    "narrative": "Direct Transfer 301"
+  },
+  {
+    "bank_ref": "BNK-10348",
+    "credit": 7432,
+    "value_date": "2026-03-21",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10075",
+    "credit": 36533,
+    "value_date": "2026-03-04",
+    "narrative": "Direct Transfer 421"
+  },
+  {
+    "bank_ref": "BNK-10194",
+    "credit": 31860,
+    "value_date": "2026-03-27",
+    "narrative": "Batch Settlement 2646"
+  },
+  {
+    "bank_ref": "BNK-10317",
+    "credit": 34116,
+    "value_date": "2026-03-28",
+    "narrative": "Payment Less Fee 54"
+  },
+  {
+    "bank_ref": "BNK-10322",
+    "credit": 38217,
+    "value_date": "2026-03-04",
+    "narrative": "Payment Less Fee 124"
+  },
+  {
+    "bank_ref": "BNK-10268",
+    "credit": 11609,
+    "value_date": "2026-03-24",
+    "narrative": "Split Settlement 8349"
+  },
+  {
+    "bank_ref": "BNK-10087",
+    "credit": 14969,
+    "value_date": "2026-03-18",
+    "narrative": "Direct Transfer 235"
+  },
+  {
+    "bank_ref": "BNK-10245",
+    "credit": 10440,
+    "value_date": "2026-03-15",
+    "narrative": "Split Settlement 1672"
+  },
+  {
+    "bank_ref": "BNK-10298",
+    "credit": 46493,
+    "value_date": "2026-03-31",
+    "narrative": "Payment Less Fee 415"
+  },
+  {
+    "bank_ref": "BNK-10026",
+    "credit": 26928,
+    "value_date": "2026-03-31",
+    "narrative": "Direct Transfer 569"
+  },
+  {
+    "bank_ref": "BNK-10116",
+    "credit": 19292,
+    "value_date": "2026-03-14",
+    "narrative": "Direct Transfer 621"
+  },
+  {
+    "bank_ref": "BNK-10295",
+    "credit": 32830,
+    "value_date": "2026-03-24",
+    "narrative": "Payment Less Fee 95"
+  },
+  {
+    "bank_ref": "BNK-10296",
+    "credit": 27800,
+    "value_date": "2026-03-04",
+    "narrative": "Payment Less Fee 238"
+  },
+  {
+    "bank_ref": "BNK-10335",
+    "credit": 19065,
+    "value_date": "2026-03-21",
+    "narrative": "Unknown Deposit"
+  },
+  {
+    "bank_ref": "BNK-10135",
+    "credit": 49231,
+    "value_date": "2026-03-08",
+    "narrative": "Direct Transfer 186"
+  }
+]

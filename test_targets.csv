@@ -1,0 +1,4 @@
+id,amount,date,description
+t1,300,2023-10-01,Invoice 1
+t2,200,2023-10-02,Invoice 2
+t3,300,2023-10-03,Invoice 3
