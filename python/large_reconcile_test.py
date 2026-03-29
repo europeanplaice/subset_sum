@@ -5,7 +5,7 @@ import time
 def generate_transactions(n, prefix, min_val=10, max_val=1000):
     return [dpss.Transaction(f"{prefix}_{i}", random.randint(min_val, max_val)) for i in range(n)]
 
-def test_large_reconciliation(num_keys, num_targets, max_k_size, max_t_size):
+def run_large_reconciliation(num_keys, num_targets, max_k_size, max_t_size):
     print(f"\n--- Testing Reconcile ---")
     print(f"Keys: {num_keys}, Targets: {num_targets}, Max Key Group: {max_k_size}, Max Target Group: {max_t_size}")
     
@@ -50,13 +50,13 @@ def test_large_reconciliation(num_keys, num_targets, max_k_size, max_t_size):
 if __name__ == "__main__":
     random.seed(42)
     # 1. 100 keys, 100 targets, max_group 2
-    test_large_reconciliation(100, 100, 2, 2)
+    run_large_reconciliation(100, 100, 2, 2)
     
     # 2. 500 keys, 500 targets, max_group 3
-    test_large_reconciliation(500, 500, 3, 3)
+    run_large_reconciliation(500, 500, 3, 3)
 
     # 3. 1000 keys, 1000 targets, max_group 3
-    test_large_reconciliation(1000, 1000, 3, 3)
+    run_large_reconciliation(1000, 1000, 3, 3)
     
     # 4. 2000 keys, 2000 targets, max_group 4
-    test_large_reconciliation(2000, 2000, 4, 4)
+    run_large_reconciliation(2000, 2000, 4, 4)

@@ -1,6 +1,6 @@
 use crate::dp::sequence_matcher;
+use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
-use serde::{Serialize, Deserialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Transaction {
@@ -54,7 +54,7 @@ pub fn reconcile(
     let mut matched_groups = Vec::new();
     let total_keys_count = keys.len();
     let total_targets_count = targets.len();
-    
+
     let round = |amt: i64| -> i64 {
         if config.tolerance <= 0 {
             amt
@@ -71,11 +71,14 @@ pub fn reconcile(
     // Pass 1: 1-to-1 exact match
     let mut remaining_keys = Vec::new();
     let mut target_map: HashMap<i64, Vec<Transaction>> = HashMap::new();
-    
+
     for target in targets.clone() {
-        target_map.entry(round(target.amount)).or_default().push(target);
+        target_map
+            .entry(round(target.amount))
+            .or_default()
+            .push(target);
     }
-    
+
     let mut matched_target_ids = HashSet::new();
     let mut matched_key_ids = HashSet::new();
 
@@ -169,7 +172,7 @@ pub fn reconcile(
                 // Sort indices descending to remove them safely
                 let mut sorted_indices = indices.clone();
                 sorted_indices.sort_by(|a, b| b.cmp(a));
-                
+
                 for idx in sorted_indices {
                     let t = remaining_targets.remove(idx);
                     target_sum += t.amount;
@@ -206,7 +209,7 @@ pub fn reconcile(
                 // Sort indices descending to remove them safely
                 let mut sorted_indices = indices.clone();
                 sorted_indices.sort_by(|a, b| b.cmp(a));
-                
+
                 for idx in sorted_indices {
                     let k = remaining_keys.remove(idx);
                     key_sum += k.amount;
@@ -228,14 +231,17 @@ pub fn reconcile(
         remaining_targets = new_remaining_targets;
     }
 
-
     // Pass 2: Combinatorial match (many-to-many)
     let mut key_amounts: Vec<i64> = remaining_keys.iter().map(|k| round(k.amount)).collect();
     let mut target_amounts: Vec<i64> = remaining_targets.iter().map(|t| round(t.amount)).collect();
 
     // Only run sequence_matcher if there are very few items left, or if max depth is small,
     // to avoid combinatorial explosion.
-    if !key_amounts.is_empty() && !target_amounts.is_empty() && key_amounts.len() < 50 && target_amounts.len() < 50 {
+    if !key_amounts.is_empty()
+        && !target_amounts.is_empty()
+        && key_amounts.len() < 50
+        && target_amounts.len() < 50
+    {
         if let Ok(mut answers) = sequence_matcher(
             &mut key_amounts,
             &mut target_amounts,
@@ -249,7 +255,7 @@ pub fn reconcile(
                 // Find the answer with fewest remainders (i.e., most items matched)
                 answers.sort_by_key(|a| a.keys_remainder.len() + a.targets_remainder.len());
                 let best_answer = answers.remove(0);
-                
+
                 let mut key_pool: HashMap<i64, Vec<Transaction>> = HashMap::new();
                 for k in remaining_keys.clone() {
                     key_pool.entry(round(k.amount)).or_default().push(k);
@@ -262,7 +268,7 @@ pub fn reconcile(
                 for (k_group, t_group) in best_answer.answer_arr {
                     let mut mg_keys = Vec::new();
                     let mut mg_targets = Vec::new();
-                    
+
                     for k_val in &k_group {
                         if let Some(pool) = key_pool.get_mut(k_val) {
                             if let Some(k_txn) = pool.pop() {
@@ -279,10 +285,10 @@ pub fn reconcile(
                             }
                         }
                     }
-                    
+
                     let key_sum = mg_keys.iter().map(|k| k.amount).sum();
                     let target_sum = mg_targets.iter().map(|t| t.amount).sum();
-                    
+
                     if !mg_keys.is_empty() || !mg_targets.is_empty() {
                         matched_groups.push(MatchedGroup {
                             keys: mg_keys,
@@ -343,17 +349,9 @@ mod tests {
 
     #[test]
     fn test_reconcile_exact_matches() {
-        let keys = vec![
-            tx("k1", 100),
-            tx("k2", 200),
-            tx("k3", 300),
-        ];
-        let targets = vec![
-            tx("t1", 200),
-            tx("t2", 100),
-            tx("t3", 400),
-        ];
-        
+        let keys = vec![tx("k1", 100), tx("k2", 200), tx("k3", 300)];
+        let targets = vec![tx("t1", 200), tx("t2", 100), tx("t3", 400)];
+
         let config = ReconciliationConfig {
             max_key_group_size: 5,
             max_target_group_size: 5,
@@ -362,7 +360,7 @@ mod tests {
         };
 
         let result = reconcile(keys, targets, config).unwrap();
-        
+
         assert_eq!(result.matched.len(), 2);
         assert_eq!(result.unmatched_keys.len(), 1);
         assert_eq!(result.unmatched_keys[0].id, "k3");
@@ -372,17 +370,13 @@ mod tests {
 
     #[test]
     fn test_reconcile_many_to_many() {
-        let keys = vec![
-            tx("k1", 100),
-            tx("k2", 200),
-            tx("k3", 500),
-        ];
+        let keys = vec![tx("k1", 100), tx("k2", 200), tx("k3", 500)];
         let targets = vec![
             tx("t1", 300), // matches k1 + k2
             tx("t2", 200), // matches partial k3? No, 500 = 200 + 300
             tx("t3", 300),
         ];
-        
+
         let config = ReconciliationConfig {
             max_key_group_size: 5,
             max_target_group_size: 5,
@@ -391,7 +385,7 @@ mod tests {
         };
 
         let result = reconcile(keys, targets, config).unwrap();
-        
+
         assert_eq!(result.unmatched_keys.len(), 0);
         assert_eq!(result.unmatched_targets.len(), 0);
         assert_eq!(result.summary.matched_amount, 800);
@@ -399,15 +393,9 @@ mod tests {
 
     #[test]
     fn test_reconcile_with_tolerance() {
-        let keys = vec![
-            tx("k1", 103),
-            tx("k2", 198),
-        ];
-        let targets = vec![
-            tx("t1", 100),
-            tx("t2", 200),
-        ];
-        
+        let keys = vec![tx("k1", 103), tx("k2", 198)];
+        let targets = vec![tx("t1", 100), tx("t2", 200)];
+
         let config = ReconciliationConfig {
             max_key_group_size: 5,
             max_target_group_size: 5,
@@ -419,9 +407,9 @@ mod tests {
         assert_eq!(result.unmatched_keys.len(), 0);
         assert_eq!(result.unmatched_targets.len(), 0);
         assert_eq!(result.matched.len(), 2);
-        
+
         let mut diffs: Vec<i64> = result.matched.iter().map(|m| m.difference).collect();
         diffs.sort();
-        assert_eq!(diffs, vec![-2, 3]); 
+        assert_eq!(diffs, vec![-2, 3]);
     }
 }

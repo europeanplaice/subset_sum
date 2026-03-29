@@ -85,12 +85,10 @@ fn read_lines(filename: &str) -> io::Result<Vec<i64>> {
     let file = File::open(filename)?;
     let lines = io::BufReader::new(file).lines();
     let mut vec = Vec::new();
-    for line in lines {
-        if let Ok(l) = line {
-            if !l.is_empty() {
-                if let Ok(num) = l.trim().parse::<i64>() {
-                    vec.push(num);
-                }
+    for l in lines.flatten() {
+        if !l.is_empty() {
+            if let Ok(num) = l.trim().parse::<i64>() {
+                vec.push(num);
             }
         }
     }
@@ -122,7 +120,11 @@ fn main() {
             max_length,
         } => {
             if let Ok(arr) = read_lines(file) {
-                let actual_max = if *max_length == usize::MAX { arr.len() } else { *max_length };
+                let actual_max = if *max_length == usize::MAX {
+                    arr.len()
+                } else {
+                    *max_length
+                };
                 let result = dp::find_subset(arr, *target, actual_max);
                 println!("{:?}", result);
             } else {
@@ -138,9 +140,19 @@ fn main() {
             use_all_keys,
             use_all_targets,
         } => {
-            if let (Ok(mut keys), Ok(mut targets)) = (read_lines(keys_file), read_lines(targets_file)) {
-                let k_len = if *max_key_length == usize::MAX { keys.len() } else { *max_key_length };
-                let t_len = if *max_target_length == usize::MAX { targets.len() } else { *max_target_length };
+            if let (Ok(mut keys), Ok(mut targets)) =
+                (read_lines(keys_file), read_lines(targets_file))
+            {
+                let k_len = if *max_key_length == usize::MAX {
+                    keys.len()
+                } else {
+                    *max_key_length
+                };
+                let t_len = if *max_target_length == usize::MAX {
+                    targets.len()
+                } else {
+                    *max_target_length
+                };
                 match dp::sequence_matcher(
                     &mut keys,
                     &mut targets,
@@ -165,7 +177,10 @@ fn main() {
             tolerance,
             n_candidates,
         } => {
-            match (read_transactions_csv(keys_file), read_transactions_csv(targets_file)) {
+            match (
+                read_transactions_csv(keys_file),
+                read_transactions_csv(targets_file),
+            ) {
                 (Ok(keys), Ok(targets)) => {
                     let config = ReconciliationConfig {
                         max_key_group_size: *max_key_group_size,
@@ -179,16 +194,43 @@ fn main() {
                             println!("-----------------------");
                             println!("Total Keys: {}", result.summary.total_keys);
                             println!("Total Targets: {}", result.summary.total_targets);
-                            println!("Matched Keys: {}/{} (Amount: {})", result.summary.matched_key_count, result.summary.total_keys, result.summary.matched_amount);
-                            println!("Matched Targets: {}/{}", result.summary.matched_target_count, result.summary.total_targets);
-                            println!("Unmatched Keys Amount: {}", result.summary.unmatched_key_amount);
-                            println!("Unmatched Targets Amount: {}", result.summary.unmatched_target_amount);
+                            println!(
+                                "Matched Keys: {}/{} (Amount: {})",
+                                result.summary.matched_key_count,
+                                result.summary.total_keys,
+                                result.summary.matched_amount
+                            );
+                            println!(
+                                "Matched Targets: {}/{}",
+                                result.summary.matched_target_count, result.summary.total_targets
+                            );
+                            println!(
+                                "Unmatched Keys Amount: {}",
+                                result.summary.unmatched_key_amount
+                            );
+                            println!(
+                                "Unmatched Targets Amount: {}",
+                                result.summary.unmatched_target_amount
+                            );
                             println!("\nMatched Groups:");
                             for (i, group) in result.matched.iter().enumerate() {
                                 println!("  Group {}:", i + 1);
-                                println!("    Keys: {:?}", group.keys.iter().map(|k| k.id.clone()).collect::<Vec<_>>());
-                                println!("    Targets: {:?}", group.targets.iter().map(|t| t.id.clone()).collect::<Vec<_>>());
-                                println!("    Key Sum: {}, Target Sum: {}, Diff: {}", group.key_sum, group.target_sum, group.difference);
+                                println!(
+                                    "    Keys: {:?}",
+                                    group.keys.iter().map(|k| k.id.clone()).collect::<Vec<_>>()
+                                );
+                                println!(
+                                    "    Targets: {:?}",
+                                    group
+                                        .targets
+                                        .iter()
+                                        .map(|t| t.id.clone())
+                                        .collect::<Vec<_>>()
+                                );
+                                println!(
+                                    "    Key Sum: {}, Target Sum: {}, Diff: {}",
+                                    group.key_sum, group.target_sum, group.difference
+                                );
                             }
                             println!("\nUnmatched Keys: {}", result.unmatched_keys.len());
                             for k in result.unmatched_keys {

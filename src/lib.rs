@@ -8,9 +8,9 @@ pub use self::dp_module::*;
 pub mod reconciliation;
 
 #[cfg(feature = "wasm")]
-use wasm_bindgen::prelude::*;
-#[cfg(feature = "wasm")]
 use serde_wasm_bindgen;
+#[cfg(feature = "wasm")]
+use wasm_bindgen::prelude::*;
 
 #[cfg(feature = "wasm")]
 #[wasm_bindgen]
@@ -99,4 +99,3 @@ pub fn wasm_reconcile(
         Err(e) => Err(JsValue::from_str(&e)),
     }
 }
-

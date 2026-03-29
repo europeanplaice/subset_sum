@@ -1,5 +1,5 @@
-use pyo3::prelude::*;
 use crate::reconciliation;
+use pyo3::prelude::*;
 
 /// Finds subsets sum of a target value. It can accept negative values.
 /// # Arguments
@@ -98,7 +98,12 @@ impl Transaction {
     #[new]
     #[pyo3(signature = (id, amount, date=None, description=None))]
     fn new(id: String, amount: i64, date: Option<String>, description: Option<String>) -> Self {
-        Transaction { id, amount, date, description }
+        Transaction {
+            id,
+            amount,
+            date,
+            description,
+        }
     }
     fn __repr__(&self) -> String {
         format!("Transaction(id='{}', amount={})", self.id, self.amount)
@@ -140,7 +145,12 @@ pub struct MatchedGroup {
 #[pymethods]
 impl MatchedGroup {
     fn __repr__(&self) -> String {
-        format!("MatchedGroup(keys=[{}], targets=[{}], diff={})", self.keys.len(), self.targets.len(), self.difference)
+        format!(
+            "MatchedGroup(keys=[{}], targets=[{}], diff={})",
+            self.keys.len(),
+            self.targets.len(),
+            self.difference
+        )
     }
 }
 
@@ -171,7 +181,10 @@ pub struct ReconciliationSummary {
 #[pymethods]
 impl ReconciliationSummary {
     fn __repr__(&self) -> String {
-        format!("ReconciliationSummary(keys_matched={}/{}, targets_matched={}/{})", self.matched_key_count, self.total_keys, self.matched_target_count, self.total_targets)
+        format!(
+            "ReconciliationSummary(keys_matched={}/{}, targets_matched={}/{})",
+            self.matched_key_count, self.total_keys, self.matched_target_count, self.total_targets
+        )
     }
 }
 
@@ -201,7 +214,12 @@ pub struct ReconciliationResult {
 #[pymethods]
 impl ReconciliationResult {
     fn __repr__(&self) -> String {
-        format!("ReconciliationResult(matched_groups={}, unmatched_keys={}, unmatched_targets={})", self.matched.len(), self.unmatched_keys.len(), self.unmatched_targets.len())
+        format!(
+            "ReconciliationResult(matched_groups={}, unmatched_keys={}, unmatched_targets={})",
+            self.matched.len(),
+            self.unmatched_keys.len(),
+            self.unmatched_targets.len()
+        )
     }
 }
 
@@ -209,8 +227,16 @@ impl From<reconciliation::ReconciliationResult> for ReconciliationResult {
     fn from(r: reconciliation::ReconciliationResult) -> Self {
         ReconciliationResult {
             matched: r.matched.into_iter().map(MatchedGroup::from).collect(),
-            unmatched_keys: r.unmatched_keys.into_iter().map(Transaction::from).collect(),
-            unmatched_targets: r.unmatched_targets.into_iter().map(Transaction::from).collect(),
+            unmatched_keys: r
+                .unmatched_keys
+                .into_iter()
+                .map(Transaction::from)
+                .collect(),
+            unmatched_targets: r
+                .unmatched_targets
+                .into_iter()
+                .map(Transaction::from)
+                .collect(),
             summary: ReconciliationSummary::from(r.summary),
         }
     }
@@ -226,8 +252,14 @@ fn reconcile(
     tolerance: i64,
     n_candidates: usize,
 ) -> PyResult<ReconciliationResult> {
-    let rs_keys = keys.into_iter().map(reconciliation::Transaction::from).collect();
-    let rs_targets = targets.into_iter().map(reconciliation::Transaction::from).collect();
+    let rs_keys = keys
+        .into_iter()
+        .map(reconciliation::Transaction::from)
+        .collect();
+    let rs_targets = targets
+        .into_iter()
+        .map(reconciliation::Transaction::from)
+        .collect();
     let config = reconciliation::ReconciliationConfig {
         max_key_group_size,
         max_target_group_size,
