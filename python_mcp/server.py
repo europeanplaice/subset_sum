@@ -174,7 +174,16 @@ def _tx_to_dict(tx: Any) -> dict[str, Any]:
 
 @mcp.tool()
 def healthcheck() -> dict[str, Any]:
-    """Return basic server readiness information."""
+    """Check whether the dpss MCP server is ready and return version info.
+
+    Call this before any other tool to confirm that the Rust-backed Python
+    binding is installed and loadable.
+
+    Returns:
+        server: Always "dpss".
+        python_binding_version: Installed package version string.
+        tools: List of available tool names on this server.
+    """
     module = _load_dpss()
     return {
         "server": "dpss",
@@ -191,7 +200,25 @@ def healthcheck() -> dict[str, Any]:
 
 @mcp.tool()
 def find_subset(arr: list[int], target: int, max_length: int) -> dict[str, Any]:
-    """Find exact subsets that sum to a target."""
+    """Find all subsets of `arr` whose elements sum exactly to `target`.
+
+    Use this when you have a single array of integers and need to know which
+    combinations add up to a specific value. Negative values are supported.
+
+    Args:
+        arr: List of integers to search (may include negatives).
+        target: The exact sum each returned subset must equal.
+        max_length: Maximum number of elements allowed in each subset.
+            Smaller values run faster; start with 3-5.
+
+    Returns:
+        solutions: List of subsets (each a list[int]) that sum to target.
+        target: Echo of the requested target.
+        max_length: Echo of the requested max_length.
+
+    Example:
+        find_subset([1, -2, 3, 4, 5], 2, 3) -> solutions: [[4, -2], [3, -2, 1]]
+    """
     module = _load_dpss()
     return {
         "solutions": module.find_subset(arr, target, max_length),
@@ -210,7 +237,27 @@ def sequence_matcher(
     use_all_keys: bool = False,
     use_all_targets: bool = False,
 ) -> dict[str, Any]:
-    """Find many-to-many numeric matches between two sequences."""
+    """Find many-to-many numeric matches between two integer arrays.
+
+    Pairs subsets from `keys` with subsets from `targets` so that each pair
+    sums to the same value. Use this for raw numeric matching when the data
+    is not yet structured as transactions (no ids/metadata).
+
+    Args:
+        keys: First array of integers.
+        targets: Second array of integers.
+        max_key_length: Max elements from keys in a single matched group.
+        max_target_length: Max elements from targets in a single matched group.
+        n_candidates: Number of candidate solutions to return (default 10).
+        use_all_keys: If true, every element of keys must appear in the solution.
+        use_all_targets: If true, every element of targets must appear in the solution.
+
+    Returns:
+        candidates: List of candidate solutions. Each candidate contains:
+            matched_groups: List of {keys, targets, difference} pairs.
+            keys_remainder: Unmatched integers from keys.
+            targets_remainder: Unmatched integers from targets.
+    """
     module = _load_dpss()
     raw = module.sequence_matcher(
         keys,
@@ -241,7 +288,40 @@ def reconcile_transactions(
     targets: list[dict[str, Any]],
     config: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Run deterministic transaction reconciliation using typed transactions."""
+    """Match two sets of transactions, finding many-to-many correspondences.
+
+    This is the primary reconciliation tool. It finds groups of key transactions
+    whose summed amounts match groups of target transactions (within an optional
+    tolerance), then reports matched groups and unmatched residuals.
+
+    Run normalize_transactions first if your source rows have non-standard
+    column names or decimal amounts. Call suggest_reconciliation_config first
+    if you are unsure about safe group-size limits.
+
+    Args:
+        keys: List of transaction dicts. Required fields: id (str), amount (int,
+            minor units). Optional: date (str), description (str).
+        targets: Same schema as keys.
+        config: Optional dict with:
+            max_key_group_size (int, default 5): Max keys in one matched group.
+            max_target_group_size (int, default 5): Max targets in one matched group.
+            tolerance (int, default 0): Allowed difference between group sums.
+                Use 0 for strict matching; use a small value (e.g. 500 = $5.00)
+                for fee/rounding tolerance. Always try 0 first.
+            n_candidates (int, default 10): Solver candidate count.
+            allow_risky_execution (bool, default false): Bypass the safety guard
+                that blocks large-input + large-group-size combinations.
+
+    Returns:
+        status: "completed" or "blocked" (if safety guard triggered).
+        matched: List of matched groups, each with keys, targets, key_sum,
+            target_sum, difference, and match_type ("exact" | "tolerance_match").
+        unmatched_keys: Transactions from keys that were not matched.
+        unmatched_targets: Transactions from targets that were not matched.
+        summary: Aggregate counts and amounts.
+        warnings: List of advisory messages (e.g. tolerance enabled, residuals remain).
+        config: Echo of the reconciliation config used.
+    """
     module = _load_dpss()
     normalized_keys = _coerce_transactions(keys)
     normalized_targets = _coerce_transactions(targets)
@@ -288,7 +368,29 @@ def normalize_transactions(
     description_field: str = "description",
     amounts_are_minor_units: bool = True,
 ) -> dict[str, Any]:
-    """Normalize CSV-like rows into the transaction schema expected by reconcile_transactions."""
+    """Convert CSV-like rows into the {id, amount, date, description} schema
+    expected by reconcile_transactions.
+
+    Use this when your source data has non-standard column names (e.g.
+    "Transaction ID", "Debit") or when amounts are in decimal major units
+    (e.g. 103.50) that need conversion to integer minor units (10350).
+
+    Args:
+        rows: List of dicts representing raw rows.
+        id_field: Key in each row to use as the transaction id (default "id").
+            If missing or empty, an auto-generated "row-N" id is assigned.
+        amount_field: Key for the amount value (default "amount").
+        date_field: Key for the date value (default "date").
+        description_field: Key for the description value (default "description").
+        amounts_are_minor_units: If true (default), amounts are already integers
+            in minor units and are passed through as-is. If false, amounts are
+            treated as decimal major units and multiplied by 100.
+
+    Returns:
+        transactions: List of normalized {id, amount, date, description} dicts.
+        count: Number of transactions produced.
+        amounts_are_minor_units: Echo of the flag used.
+    """
     normalized = normalize_transaction_rows(
         rows,
         id_field=id_field,
@@ -311,7 +413,24 @@ def suggest_reconciliation_config(
     tolerance: int = 0,
     same_currency: bool = True,
 ) -> dict[str, Any]:
-    """Suggest conservative reconciliation settings before running the solver."""
+    """Suggest safe reconciliation config based on dataset size.
+
+    Call this before reconcile_transactions when you are unsure what
+    max_key_group_size / max_target_group_size to use. It returns conservative
+    defaults that avoid combinatorial explosion on large inputs.
+
+    Args:
+        n_keys: Number of key-side transactions.
+        n_targets: Number of target-side transactions.
+        tolerance: Intended tolerance in minor units (default 0).
+        same_currency: Whether all transactions share the same currency
+            (default true). Set to false to receive a currency-partitioning warning.
+
+    Returns:
+        config: Recommended {max_key_group_size, max_target_group_size,
+            tolerance, n_candidates} dict, ready to pass to reconcile_transactions.
+        warnings: Advisory messages (e.g. partition advice for large sets).
+    """
     max_group = 3 if max(n_keys, n_targets) > 200 else 5
     n_candidates = 20 if max(n_keys, n_targets) <= 50 else 10
     warnings: list[str] = []
