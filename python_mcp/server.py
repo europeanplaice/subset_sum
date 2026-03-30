@@ -18,6 +18,11 @@ mcp = FastMCP(
 )
 
 
+def _error_response(message: str) -> dict[str, Any]:
+    """Build a structured error payload instead of raising an exception."""
+    return {"error": True, "message": message}
+
+
 def _load_dpss() -> Any:
     try:
         return importlib.import_module("dpss")
@@ -184,7 +189,10 @@ def healthcheck() -> dict[str, Any]:
         python_binding_version: Installed package version string.
         tools: List of available tool names on this server.
     """
-    module = _load_dpss()
+    try:
+        module = _load_dpss()
+    except RuntimeError as exc:
+        return _error_response(str(exc))
     return {
         "server": "dpss",
         "python_binding_version": getattr(module, "__version__", "unknown"),
@@ -219,12 +227,21 @@ def find_subset(arr: list[int], target: int, max_length: int) -> dict[str, Any]:
     Example:
         find_subset([1, -2, 3, 4, 5], 2, 3) -> solutions: [[4, -2], [3, -2, 1]]
     """
-    module = _load_dpss()
-    return {
-        "solutions": module.find_subset(arr, target, max_length),
-        "target": target,
-        "max_length": max_length,
-    }
+    if not arr:
+        return _error_response("arr must be a non-empty list of integers.")
+    if max_length <= 0:
+        return _error_response("max_length must be a positive integer.")
+    try:
+        module = _load_dpss()
+        return {
+            "solutions": module.find_subset(arr, target, max_length),
+            "target": target,
+            "max_length": max_length,
+        }
+    except RuntimeError as exc:
+        return _error_response(str(exc))
+    except (TypeError, ValueError, OverflowError) as exc:
+        return _error_response(f"Invalid input: {exc}")
 
 
 @mcp.tool()
@@ -258,28 +275,37 @@ def sequence_matcher(
             keys_remainder: Unmatched integers from keys.
             targets_remainder: Unmatched integers from targets.
     """
-    module = _load_dpss()
-    raw = module.sequence_matcher(
-        keys,
-        targets,
-        max_key_length,
-        max_target_length,
-        n_candidates,
-        use_all_keys,
-        use_all_targets,
-    )
-    candidates = [
-        {
-            "matched_groups": [
-                {"keys": pair[0], "targets": pair[1], "difference": sum(pair[0]) - sum(pair[1])}
-                for pair in answer[0]
-            ],
-            "keys_remainder": answer[1],
-            "targets_remainder": answer[2],
-        }
-        for answer in raw
-    ]
-    return {"candidates": candidates}
+    if not keys or not targets:
+        return _error_response("Both keys and targets must be non-empty lists.")
+    if max_key_length <= 0 or max_target_length <= 0:
+        return _error_response("max_key_length and max_target_length must be positive integers.")
+    try:
+        module = _load_dpss()
+        raw = module.sequence_matcher(
+            keys,
+            targets,
+            max_key_length,
+            max_target_length,
+            n_candidates,
+            use_all_keys,
+            use_all_targets,
+        )
+        candidates = [
+            {
+                "matched_groups": [
+                    {"keys": pair[0], "targets": pair[1], "difference": sum(pair[0]) - sum(pair[1])}
+                    for pair in answer[0]
+                ],
+                "keys_remainder": answer[1],
+                "targets_remainder": answer[2],
+            }
+            for answer in raw
+        ]
+        return {"candidates": candidates}
+    except RuntimeError as exc:
+        return _error_response(str(exc))
+    except (TypeError, ValueError, OverflowError) as exc:
+        return _error_response(f"Invalid input: {exc}")
 
 
 @mcp.tool()
@@ -322,10 +348,29 @@ def reconcile_transactions(
         warnings: List of advisory messages (e.g. tolerance enabled, residuals remain).
         config: Echo of the reconciliation config used.
     """
-    module = _load_dpss()
-    normalized_keys = _coerce_transactions(keys)
-    normalized_targets = _coerce_transactions(targets)
-    cfg = ReconciliationConfigInput.from_dict(config)
+    if not keys and not targets:
+        return _error_response("Both keys and targets are empty. Provide at least one side.")
+    if not keys or not targets:
+        cfg = ReconciliationConfigInput.from_dict(config)
+        return _build_unmatched_only_result(
+            _coerce_transactions(keys) if keys else [],
+            _coerce_transactions(targets) if targets else [],
+            cfg,
+            status="completed",
+            warnings=["One side is empty; nothing to match."],
+            reason="One side is empty.",
+            next_steps=["Provide transactions on both sides to run reconciliation."],
+        )
+    try:
+        module = _load_dpss()
+        normalized_keys = _coerce_transactions(keys)
+        normalized_targets = _coerce_transactions(targets)
+        cfg = ReconciliationConfigInput.from_dict(config)
+    except RuntimeError as exc:
+        return _error_response(str(exc))
+    except (KeyError, TypeError, ValueError) as exc:
+        return _error_response(f"Invalid transaction data: {exc}")
+
     risk = _assess_reconciliation_risk(normalized_keys, normalized_targets, cfg)
 
     if risk["blocked"] and not cfg.allow_risky_execution:
@@ -339,14 +384,18 @@ def reconcile_transactions(
             next_steps=risk["next_steps"],
         )
 
-    result = module.reconcile(
-        _make_dpss_transactions(module, normalized_keys),
-        _make_dpss_transactions(module, normalized_targets),
-        cfg.max_key_group_size,
-        cfg.max_target_group_size,
-        cfg.tolerance,
-        cfg.n_candidates,
-    )
+    try:
+        result = module.reconcile(
+            _make_dpss_transactions(module, normalized_keys),
+            _make_dpss_transactions(module, normalized_targets),
+            cfg.max_key_group_size,
+            cfg.max_target_group_size,
+            cfg.tolerance,
+            cfg.n_candidates,
+        )
+    except (ValueError, RuntimeError) as exc:
+        return _error_response(f"Solver failed: {exc}")
+
     payload = _result_to_dict(result)
     warnings = list(risk["warnings"])
     if cfg.tolerance > 0:
@@ -391,14 +440,19 @@ def normalize_transactions(
         count: Number of transactions produced.
         amounts_are_minor_units: Echo of the flag used.
     """
-    normalized = normalize_transaction_rows(
-        rows,
-        id_field=id_field,
-        amount_field=amount_field,
-        date_field=date_field,
-        description_field=description_field,
-        amounts_are_minor_units=amounts_are_minor_units,
-    )
+    if not rows:
+        return _error_response("rows must be a non-empty list of dicts.")
+    try:
+        normalized = normalize_transaction_rows(
+            rows,
+            id_field=id_field,
+            amount_field=amount_field,
+            date_field=date_field,
+            description_field=description_field,
+            amounts_are_minor_units=amounts_are_minor_units,
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        return _error_response(f"Normalization failed: {exc}")
     return {
         "transactions": normalized,
         "count": len(normalized),
@@ -431,6 +485,8 @@ def suggest_reconciliation_config(
             tolerance, n_candidates} dict, ready to pass to reconcile_transactions.
         warnings: Advisory messages (e.g. partition advice for large sets).
     """
+    if n_keys <= 0 or n_targets <= 0:
+        return _error_response("n_keys and n_targets must be positive integers.")
     max_group = 3 if max(n_keys, n_targets) > 200 else 5
     n_candidates = 20 if max(n_keys, n_targets) <= 50 else 10
     warnings: list[str] = []
