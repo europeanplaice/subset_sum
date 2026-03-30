@@ -16,7 +16,7 @@ uv run maturin develop --features python
 uv add "mcp[cli]"
 ```
 
-3. Let Claude Code load the project-scoped server from the repository root [`.mcp.json`](C:\Users\kumam\Desktop\programming\subset_sum\.worktrees\mcp-skills-evaluation\.mcp.json).
+3. Let Claude Code load the project-scoped server from the repository root [`.mcp.json`](../.mcp.json).
 
 ## Exposed tools
 
