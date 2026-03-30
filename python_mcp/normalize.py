@@ -39,7 +39,18 @@ def normalize_transaction_rows(
         if raw_amount is None:
             raise ValueError(f"Missing amount at row {index + 1}")
 
-        amount = int(raw_amount) if amounts_are_minor_units else parse_minor_units(raw_amount)
+        if amounts_are_minor_units:
+            if isinstance(raw_amount, float) or (
+                isinstance(raw_amount, str) and "." in raw_amount
+            ):
+                raise ValueError(
+                    f"Row {index + 1}: amount {raw_amount!r} contains a decimal point, "
+                    f"but amounts_are_minor_units=True expects integer minor units. "
+                    f"Set amounts_are_minor_units=False to auto-convert."
+                )
+            amount = int(raw_amount)
+        else:
+            amount = parse_minor_units(raw_amount)
         tx = TransactionInput(
             id=tx_id,
             amount=amount,

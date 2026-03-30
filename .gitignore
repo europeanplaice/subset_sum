@@ -1,6 +1,4 @@
 /target
-.venvlinux
-.venvwin
 build.bat
 publish.bat
 __pycache__/
@@ -10,3 +8,5 @@ wasm.bat
 dist/
 .agents/settings.local.json
 .claude/
+.venv*/
+.worktrees/

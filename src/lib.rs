@@ -25,12 +25,12 @@ pub fn wasm_find_subset(
 ) -> String {
     let mut keys: Vec<i64> = keys
         .split("\n")
-        .map(|x| x.trim().parse::<i64>().unwrap())
+        .filter_map(|x| x.trim().parse::<i64>().ok())
         .collect();
     if targets.contains("\n") {
         let mut targets: Vec<i64> = targets
             .split("\n")
-            .map(|x| x.trim().parse::<i64>().unwrap())
+            .filter_map(|x| x.trim().parse::<i64>().ok())
             .collect();
         let result: Vec<dp::AnswerElement> = match dp::sequence_matcher(
             &mut keys,

@@ -139,6 +139,9 @@ pub mod dp {
         arr_pos: Option<&Vec<u64>>,
         offset: Option<i64>,
     ) -> Vec<Vec<i64>> {
+        if arr.is_empty() {
+            return vec![];
+        }
         use std::cmp::max;
         use std::cmp::min;
         // https://stackoverflow.com/questions/43078142/subset-sum-with-negative-values-in-c-or-c
@@ -174,7 +177,10 @@ pub mod dp {
             // And check if the transformed sum of the result of the new array is equal to the target value.
             // If we find the sum is the same as the target, we will return the result.
             let max_value = value + min(length, max_length) as i64 * offset;
-            
+            if max_value < 0 {
+                return vec![];
+            }
+
             let temp;
             let _arr_pos: &Vec<u64> = match arr_pos {
                 None => {
@@ -439,8 +445,9 @@ pub mod dp {
     }
 
     fn vec_remove(arr: &mut Vec<i64>, v: i64) {
-        let index = arr.binary_search(&v).unwrap();
-        arr.remove(index);
+        if let Ok(index) = arr.binary_search(&v) {
+            arr.remove(index);
+        }
     }
 
     /// Finds the integers from two vectors that sum to the same value.
@@ -512,6 +519,9 @@ pub mod dp {
         use_all_keys: bool,
         use_all_targets: bool,
     ) -> Result<Vec<AnswerElement>, String> {
+        if keys.is_empty() || targets.is_empty() {
+            return Ok(vec![]);
+        }
         let mut group: Vec<(Vec<i64>, Vec<i64>)> = vec![];
         let mut answer: Arc<RwLock<Vec<AnswerElement>>> = Arc::new(RwLock::new(vec![]));
         if use_all_keys && use_all_targets {
@@ -684,6 +694,9 @@ pub mod dp {
             if targets.iter().min().unwrap() >= &0 && keys.iter().min().unwrap() >= &0 {
                 arr_pos = targets.iter().map(|e| *e as u64).collect::<Vec<u64>>();
                 let max_value = keys[..min(max_key_length, keys.len())].iter().sum::<i64>();
+                if max_value < 0 {
+                    return;
+                }
                 dp = _make_dp_table(&arr_pos, max_value as usize);
                 Some(&dp)
             } else {
@@ -700,6 +713,9 @@ pub mod dp {
                     .map(|x| max(0, *x))
                     .sum::<i64>();
                 let max_value = _max_value + min(targets.len(), max_target_length) as i64 * offset;
+                if max_value < 0 {
+                    return;
+                }
                 dp = _make_dp_table(&arr_pos, max_value as usize);
                 Some(&dp)
             };
